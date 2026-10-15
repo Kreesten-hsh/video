@@ -64,14 +64,18 @@ def remove_flat_bg_advanced(img: Image.Image, bg_rgb=(229, 229, 229), tolerance=
     arr[final_mask, 3] = 0
     return Image.fromarray(arr)
 
-def fit_in_canvas(img: Image.Image, target_size=(700, 700), padding=30) -> Image.Image:
-    """Recadre et centre dans un canevas 700x700 avec padding pour ne jamais couper les bords."""
+def fit_in_canvas(img: Image.Image, target_size=(900, 1050), padding_x=40, padding_top=40, stick_to_bottom=True) -> Image.Image:
+    """
+    Autocrop sur le canal alpha pour éliminer toute marge transparente inutile,
+    puis redimensionne et place le personnage dans target_size.
+    Si stick_to_bottom=True, collé exactement au bord inférieur (y = th - new_h).
+    """
     bbox = img.getbbox()
     if bbox:
         img = img.crop(bbox)
     tw, th = target_size
-    avail_w = tw - 2 * padding
-    avail_h = th - 2 * padding
+    avail_w = tw - 2 * padding_x
+    avail_h = (th - padding_top) if stick_to_bottom else (th - 2 * padding_top)
     scale = min(avail_w / img.width, avail_h / img.height)
     new_w = max(1, int(img.width * scale))
     new_h = max(1, int(img.height * scale))
@@ -79,13 +83,13 @@ def fit_in_canvas(img: Image.Image, target_size=(700, 700), padding=30) -> Image
     
     canvas = Image.new("RGBA", target_size, (0, 0, 0, 0))
     pos_x = (tw - new_w) // 2
-    pos_y = th - new_h - padding
+    pos_y = (th - new_h) if stick_to_bottom else (th - new_h) // 2
     canvas.paste(resized, (pos_x, pos_y), resized)
     return canvas
 
-def apply_sticker_effect(nobg_700: Image.Image) -> Image.Image:
+def apply_sticker_effect(nobg_canvas: Image.Image) -> Image.Image:
     """Génère la double bordure blanche + noire en pur MaxFilter (zéro scipy, zéro IA)."""
-    alpha = nobg_700.split()[3]
+    alpha = nobg_canvas.split()[3]
     
     # 1. Bordure blanche interne via MaxFilter(25)
     alpha_white = alpha.filter(ImageFilter.MaxFilter(25))
@@ -93,14 +97,14 @@ def apply_sticker_effect(nobg_700: Image.Image) -> Image.Image:
     # 2. Bordure noire externe via MaxFilter(11) sur l'alpha blanc
     alpha_black = alpha_white.filter(ImageFilter.MaxFilter(11))
     
-    w, h = nobg_700.size
+    w, h = nobg_canvas.size
     result = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     black_layer = Image.new("RGBA", (w, h), (0, 0, 0, 255))
     white_layer = Image.new("RGBA", (w, h), (255, 255, 255, 255))
     
     result.paste(black_layer, (0, 0), alpha_black)
     result.paste(white_layer, (0, 0), alpha_white)
-    result.paste(nobg_700, (0, 0), nobg_700)
+    result.paste(nobg_canvas, (0, 0), nobg_canvas)
     
     return result
 
@@ -110,25 +114,25 @@ def main():
     out_dir.mkdir(parents=True, exist_ok=True)
 
     raw_files = sorted(list(raw_dir.glob("*.jpg")) + list(raw_dir.glob("*.png")))
-    print(f"[Build Stickers] Traitement des poches fermées sur {len(raw_files)} avatars vers {out_dir}/...")
+    print(f"[Build Stickers] Traitement et recadrage 900x1050 bas sur {len(raw_files)} avatars vers {out_dir}/...")
 
     for file_path in raw_files:
         name = file_path.stem
         out_path = out_dir / f"{name}.png"
         with Image.open(file_path) as raw:
             nobg = remove_flat_bg_advanced(raw)
-            fitted = fit_in_canvas(nobg, target_size=(700, 700), padding=30)
+            fitted = fit_in_canvas(nobg, target_size=(900, 1050), padding_x=40, padding_top=40, stick_to_bottom=True)
             sticker = apply_sticker_effect(fitted)
             sticker.save(out_path, "PNG")
 
-    # mini.png pour dialogue RPG (crop tête en 700x700)
+    # mini.png pour dialogue RPG (crop tête en 700x700 centré)
     pointing_path = raw_dir / "pointing.jpg"
     if pointing_path.exists():
         with Image.open(pointing_path) as raw:
             nobg = remove_flat_bg_advanced(raw)
             w, h = nobg.size
             head = nobg.crop((int(w * 0.15), 0, int(w * 0.85), int(h * 0.52)))
-            fitted = fit_in_canvas(head, target_size=(700, 700), padding=40)
+            fitted = fit_in_canvas(head, target_size=(700, 700), padding_x=40, padding_top=40, stick_to_bottom=False)
             mini_sticker = apply_sticker_effect(fitted)
             mini_sticker.save(out_dir / "mini.png", "PNG")
 

@@ -2,3 +2,5 @@ bin/
 __pycache__/
 *.pyc
 .venv/
+temp_*.wav
+test_*.wav
