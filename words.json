@@ -1,0 +1,87 @@
+[
+  {
+    "word": "Bienvenue",
+    "start": 0.2,
+    "end": 0.8
+  },
+  {
+    "word": "dans",
+    "start": 0.8,
+    "end": 1.1
+  },
+  {
+    "word": "ce",
+    "start": 1.1,
+    "end": 1.4
+  },
+  {
+    "word": "moteur",
+    "start": 1.4,
+    "end": 1.9
+  },
+  {
+    "word": "vidéo",
+    "start": 1.9,
+    "end": 2.5
+  },
+  {
+    "word": "100%",
+    "start": 2.5,
+    "end": 3.1
+  },
+  {
+    "word": "code,",
+    "start": 3.1,
+    "end": 3.6
+  },
+  {
+    "word": "sans",
+    "start": 3.6,
+    "end": 4.1
+  },
+  {
+    "word": "aucun",
+    "start": 4.1,
+    "end": 4.6
+  },
+  {
+    "word": "framework",
+    "start": 4.6,
+    "end": 5.2
+  },
+  {
+    "word": "lourd,",
+    "start": 5.2,
+    "end": 5.8
+  },
+  {
+    "word": "avec",
+    "start": 5.8,
+    "end": 6.3
+  },
+  {
+    "word": "performance",
+    "start": 6.3,
+    "end": 7.2
+  },
+  {
+    "word": "maximale",
+    "start": 7.2,
+    "end": 8.0
+  },
+  {
+    "word": "et",
+    "start": 8.0,
+    "end": 8.4
+  },
+  {
+    "word": "style",
+    "start": 8.4,
+    "end": 9.0
+  },
+  {
+    "word": "néo-brutaliste.",
+    "start": 9.0,
+    "end": 9.8
+  }
+]
