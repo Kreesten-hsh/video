@@ -43,24 +43,29 @@
     const targetBg = bgType || "grid";
     if (targetBg !== currentBg) {
       currentBg = targetBg;
-      canvas.classList.remove("bg-grid", "bg-red", "bg-diamonds", "bg-circles");
+      canvas.classList.remove("bg-grid", "bg-alert", "bg-mint", "bg-diamonds", "bg-circles", "bg-red");
       canvas.classList.add(`bg-${targetBg}`);
     }
 
     if (targetBg === "grid") {
-      const pos = (t * 20) % 60;
+      const pos = (t * 15) % 36;
       canvas.style.backgroundPosition = `${pos}px ${pos}px`;
-      canvas.style.backgroundSize = "60px 60px";
-    } else if (targetBg === "red") {
-      canvas.style.backgroundPosition = "0px 0px";
-      canvas.style.backgroundSize = "60px 60px";
+      canvas.style.backgroundSize = "36px 36px";
+    } else if (targetBg === "alert") {
+      const pos = (t * 25) % 40;
+      canvas.style.backgroundPosition = `0px ${pos}px`;
+      canvas.style.backgroundSize = "40px 40px";
+    } else if (targetBg === "mint") {
+      const pos = (t * 25) % 40;
+      canvas.style.backgroundPosition = `${pos}px 0px`;
+      canvas.style.backgroundSize = "40px 40px";
     } else if (targetBg === "circles") {
-      const posY = (t * 600) % 120;
+      const posY = (t * 500) % 120;
       canvas.style.backgroundPosition = `0px ${posY}px`;
       canvas.style.backgroundSize = "100px 120px";
     } else if (targetBg === "diamonds") {
       const scale = 1.0 + 0.12 * Math.sin(progress * Math.PI);
-      const size = Math.round(90 * scale);
+      const size = Math.round(80 * scale);
       const pos = (t * 25) % size;
       canvas.style.backgroundPosition = `${pos}px ${pos}px`;
       canvas.style.backgroundSize = `${size}px ${size}px`;
@@ -73,6 +78,20 @@
   window.setTime = function (t) {
     if (subtitleChunks.length === 0 && window.WORDS && window.WORDS.length > 0) {
       initData();
+    }
+
+    // 0. HUD AGENT404
+    const totalDuration = (window.SCENES && window.SCENES.length > 0) ? window.SCENES[window.SCENES.length - 1].end : 71.51;
+    const hudFill = document.getElementById("hud-progress-fill");
+    const hudTimer = document.getElementById("hud-timer");
+    if (hudFill && totalDuration > 0) {
+      const pct = Math.min(100, Math.max(0, (t / totalDuration) * 100));
+      hudFill.style.width = `${pct}%`;
+    }
+    if (hudTimer) {
+      const mins = Math.floor(t / 60).toString().padStart(2, "0");
+      const secs = Math.floor(t % 60).toString().padStart(2, "0");
+      hudTimer.textContent = `${mins}:${secs} // 30FPS`;
     }
 
     // 1. Sous-titres dynamiques (Top)
@@ -102,7 +121,7 @@
     if (chunkIdx !== currentChunkIndex) {
       currentChunkIndex = chunkIdx;
       subtitlesBox.innerHTML = chunk.words
-        .map((w, idx) => `<span class="sub-word" id="sw-${idx}">${w.word}</span>`)
+        .map((w, idx) => `<span class="sub-word word" id="sw-${idx}">${w.word}</span>`)
         .join(" ");
     }
 
@@ -151,27 +170,30 @@
       case "face":
         const isHeadOnly = data.avatar && data.avatar.includes("mini");
         const badgeText = data.badge || data.label || "";
+        const isAlertFace = data.bg === "alert";
         return `
-          <div class="comp-face ${isHeadOnly ? 'face-headonly' : ''}" id="comp-face">
+          <div class="comp-face ${isHeadOnly ? 'face-headonly' : ''} ${isAlertFace ? 'is-alert' : ''}" id="comp-face">
             <img src="${data.avatar}" alt="Avatar" class="avatar-sticker" id="avatar-img" />
-            ${badgeText ? `<div class="face-badge" id="face-badge">${badgeText}</div>` : ""}
+            ${badgeText ? `<div class="face-badge ${isAlertFace ? 'badge-alert' : ''}" id="face-badge">${badgeText}</div>` : ""}
           </div>
         `;
       case "big":
         const isLong = (data.text || "").length > 13;
         const fontSize = isLong ? "56px" : "68px";
+        const isAlertBig = data.bg === "alert";
         return `
-          <div class="comp-big" id="comp-big">
-            <div class="big-box" style="font-size: ${fontSize};">${data.text}</div>
+          <div class="comp-big ${isAlertBig ? 'is-alert' : ''}" id="comp-big">
+            <div class="big-box ${isAlertBig ? 'box-alert' : ''}" style="font-size: ${fontSize};">${data.text}</div>
             ${data.sub ? `<div class="big-sub">${data.sub}</div>` : ""}
           </div>
         `;
       case "list":
+        const isAlertList = data.bg === "alert";
         return `
-          <div class="comp-list" id="comp-list">
-            ${data.header ? `<div class="list-header">${data.header}</div>` : ""}
+          <div class="comp-list ${isAlertList ? 'is-alert' : ''}" id="comp-list">
+            ${data.header ? `<div class="list-header ${isAlertList ? 'header-alert' : ''}">${data.header}</div>` : ""}
             ${(data.items || []).map((item, i) => `
-              <div class="list-item" id="list-item-${i}">
+              <div class="list-item ${isAlertList ? 'item-alert' : ''}" id="list-item-${i}">
                 <div class="item-num">${String(i + 1).padStart(2, '0')}</div>
                 <div class="item-text">${item}</div>
               </div>
@@ -187,7 +209,7 @@
                 <div class="dot yellow"></div>
                 <div class="dot green"></div>
               </div>
-              <div class="window-title">${data.title || "terminal"}</div>
+              <div class="window-title">${data.title || "agent404_terminal.sh"}</div>
               <div style="width: 70px;"></div>
             </div>
             <div class="window-body"><span id="typewriter-content"></span><span class="cursor">▋</span></div>

@@ -263,20 +263,20 @@ def step3_build_timeline(words, total_audio_dur, timeline_path="timeline.js"):
         "privé."             # 35
     ]
 
-    # Données exactes des 35 scènes demandées (avec 5 nouveaux composants et 1 seul terminal)
+    # Données exactes des 35 scènes demandées (Charte AGENT404 // CYBER-MINT)
     scenes_configs = [
-        # Scène 1
-        {"type": "face", "data": {"avatar": "assets/avatars/stop.png", "label": "STOP AUX MONTEURS 🛑", "bg": "red"}},
-        # Scène 2
-        {"type": "big", "data": {"text": "💸 HORS DE PRIX", "sub": "FACTURES IA EXPLOSÉES", "bg": "red"}},
+        # Scène 1 (Douleur)
+        {"type": "face", "data": {"avatar": "assets/avatars/stop.png", "label": "STOP AUX MONTEURS 🛑", "bg": "alert"}},
+        # Scène 2 (Douleur)
+        {"type": "big", "data": {"text": "💸 HORS DE PRIX", "sub": "FACTURES IA EXPLOSÉES", "bg": "alert"}},
         # Scène 3
         {"type": "face", "data": {"avatar": "assets/avatars/pointing.png", "label": "CETTE VIDÉO 👇", "bg": "grid"}},
         # Scène 4
         {"type": "cards", "data": {"cards": [{"icon": "🎬", "title": "PREMIERE PRO", "sub": "ZÉRO MONTAGE MANUEL ❌"}], "bg": "grid"}},
         # Scène 5
         {"type": "cards", "data": {"cards": [{"icon": "🤖", "title": "VEO / KLING", "sub": "AUCUNE IA VIDÉO ❌"}, {"icon": "🚫", "title": "ZÉRO PROMPT", "sub": "AUCUN ARTEFACT VISUEL"}], "bg": "grid"}},
-        # Scène 6
-        {"type": "big", "data": {"text": "100% CODE", "sub": "GÉNÉRÉ PAR ALGORITHME ⚡", "bg": "red"}},
+        # Scène 6 (Puissance)
+        {"type": "big", "data": {"text": "100% CODE", "sub": "GÉNÉRÉ PAR ALGORITHME ⚡", "bg": "mint"}},
         # Scène 7
         {"type": "face", "data": {"avatar": "assets/avatars/laptop.png", "label": "MOTEUR SUR-MESURE 💻", "bg": "grid"}},
         # Scène 8 : NOUVEAU COMPOSANT ENGINE ARCH
@@ -293,28 +293,28 @@ def step3_build_timeline(words, total_audio_dur, timeline_path="timeline.js"):
         {"type": "big", "data": {"text": "MISE EN SCÈNE", "sub": "100% PILOTÉE PAR LE CODE 🎬", "bg": "grid"}},
         # Scène 14 : NOUVEAU COMPOSANT EMOTION MORPH
         {"type": "emotion_morph", "data": {"bg": "grid"}},
-        # Scène 15 : UNIQUE TERMINAL CONSERVÉ
-        {"type": "window", "data": {"title": "terminal_ui.sh", "lines": ["$ ./open_window --neo-brutalist", "✓ Bordure 5px #000000", "✓ Ombre dure 10px générée"], "bg": "grid"}},
+        # Scène 15 : TERMINAL AGENT404
+        {"type": "window", "data": {"title": "agent404_terminal.sh", "lines": ["$ ./agent404 --deploy-matrix", "✓ Protocole Cyber-Mint #00F5A0", "✓ Système 100% Anonyme : ACTIF"], "bg": "grid"}},
         # Scène 16
         {"type": "list", "data": {"header": "COMPOSANTS DYNAMIQUES", "items": ["1. Terminaux & Code", "2. Listes à rebond", "3. Cartes & Comparatifs"], "bg": "grid"}},
-        # Scène 17
+        # Scène 17 (Losanges Cyber-Mint)
         {"type": "big", "data": {"text": "◆ LOSANGES ◆", "sub": "CHANGEMENT DE DÉCOR EN DIRECT", "bg": "diamonds"}},
-        # Scène 18
+        # Scène 18 (Cercles Cyber-Mint)
         {"type": "big", "data": {"text": "● CERCLES ●", "sub": "ANIMATION HAUTE VITESSE", "bg": "circles"}},
         # Scène 19 : NOUVEAU COMPOSANT FFMPEG RENDER
         {"type": "ffmpeg_render", "data": {"bg": "grid"}},
-        # Scène 20
-        {"type": "big", "data": {"text": "30 FPS", "sub": "1080x1920 FULL HD FLUIDE 🔥", "bg": "red"}},
+        # Scène 20 (Puissance)
+        {"type": "big", "data": {"text": "30 FPS", "sub": "1080x1920 FULL HD FLUIDE 🔥", "bg": "mint"}},
         # Scène 21
         {"type": "face", "data": {"avatar": "assets/avatars/shock.png", "label": "UNE RÉVOLUTION 🚀", "bg": "grid"}},
         # Scène 22
         {"type": "cards", "data": {"cards": [{"icon": "💻", "title": "FONDATEURS SAAS", "sub": "DÉMOS PRODUIT & ONBOARDING"}, {"icon": "📈", "title": "ENTREPRENEURS", "sub": "CONTENU B2B QUOTIDIEN"}], "bg": "grid"}},
-        # Scène 23
-        {"type": "face", "data": {"avatar": "assets/avatars/skeptic.png", "label": "IA VIDÉO = RUINEUX 💸", "bg": "red"}},
-        # Scène 24
-        {"type": "list", "data": {"header": "PROBLÈMES DES IA VIDÉO ❌", "items": ["❌ Visages & mains déformés", "❌ Texte illisible à l'écran", "❌ Impossible à modifier"], "bg": "red"}},
-        # Scène 25
-        {"type": "face", "data": {"avatar": "assets/avatars/stop.png", "label": "DES HEURES PERDUES ⏳", "bg": "red"}},
+        # Scène 23 (Douleur)
+        {"type": "face", "data": {"avatar": "assets/avatars/skeptic.png", "label": "IA VIDÉO = RUINEUX 💸", "bg": "alert"}},
+        # Scène 24 (Douleur)
+        {"type": "list", "data": {"header": "PROBLÈMES DES IA VIDÉO ❌", "items": ["❌ Visages & mains déformés", "❌ Texte illisible à l'écran", "❌ Impossible à modifier"], "bg": "alert"}},
+        # Scène 25 (Douleur)
+        {"type": "face", "data": {"avatar": "assets/avatars/stop.png", "label": "DES HEURES PERDUES ⏳", "bg": "alert"}},
         # Scène 26
         {"type": "split", "data": {"leftTitle": "IA / MONTEUR ❌", "leftItems": ["3h de montage", "50€ à 150€ / vidéo", "Aléatoire"], "rightTitle": "CODE PYTHON ✅", "rightItems": ["Prêt en 2 min", "Coût : 0,00 €", "Sur-mesure"], "bg": "grid"}},
         # Scène 27 : NOUVEAU COMPOSANT SPEED COUNTER
@@ -327,14 +327,14 @@ def step3_build_timeline(words, total_audio_dur, timeline_path="timeline.js"):
         {"type": "cards", "data": {"cards": [{"icon": "⚡", "title": "1. TON LOGICIEL", "sub": "DÉMOS PRODUIT ULTRA CLAIRES"}, {"icon": "🎯", "title": "2. TON OFFRE B2B", "sub": "VIDÉOS DE VENTE QUI CONVERTISSENT"}], "bg": "grid"}},
         # Scène 31
         {"type": "face", "data": {"avatar": "assets/avatars/scissors.png", "label": "SANS CAMÉRA • 100% RÉGULIER 🎥", "bg": "grid"}},
-        # Scène 32
-        {"type": "big", "data": {"text": "100% AUTOMATISÉ", "sub": "PIPELINE VIDÉO CLÉ EN MAIN ⚙️", "bg": "red"}},
+        # Scène 32 (Puissance)
+        {"type": "big", "data": {"text": "100% AUTOMATISÉ", "sub": "PIPELINE VIDÉO CLÉ EN MAIN ⚙️", "bg": "mint"}},
         # Scène 33
         {"type": "face", "data": {"avatar": "assets/avatars/prof.png", "label": "TON AVATAR SUR-MESURE 👔", "bg": "grid"}},
         # Scène 34
         {"type": "face", "data": {"avatar": "assets/avatars/pointing.png", "label": "TA CHARTE GRAPHIQUE 🎨", "bg": "diamonds"}},
-        # Scène 35
-        {"type": "big", "data": {"text": "ENVOIE « CODE »", "sub": "EN MESSAGE PRIVÉ 📩", "bg": "circles"}}
+        # Scène 35 (CTA Agent404)
+        {"type": "big", "data": {"text": "ENVOIE « CODE »", "sub": "EN DM À @AGENT404 📩", "bg": "circles"}}
     ]
 
     scenes = []

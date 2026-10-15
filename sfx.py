@@ -91,8 +91,8 @@ def mix_sfx(voix_path="voix.wav", out_path="audio_final.wav", timeline_path="tim
         text = sc_data.get("text", "")
         avatar = sc_data.get("avatar", "")
 
-        # 1. Scène d'intro forte (STOP) -> Impact brutal
-        if i == 0 or "stop" in avatar:
+        # 1. Scène d'intro forte (STOP) ou alerte douleur -> Impact brutal
+        if i == 0 or "stop" in avatar or bg == "alert":
             add_sample(sfx_impact, t_start)
 
         # 2. Scènes d'argent et prix -> Bruitage de pièces / caisse
@@ -104,7 +104,7 @@ def mix_sfx(voix_path="voix.wav", out_path="audio_final.wav", timeline_path="tim
             add_sample(sfx_ding, t_start)
 
         # 4. Changements de fond majeurs ou gros titres -> Whoosh studio
-        elif sc_type == "big" or bg in ["red", "diamonds", "circles"]:
+        elif sc_type == "big" or bg in ["mint", "alert", "diamonds", "circles", "red"]:
             add_sample(sfx_whoosh, t_start)
 
         # 5. Machine à écrire / Terminal -> Série de micro-clics
