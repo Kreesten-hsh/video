@@ -17,19 +17,21 @@ from faster_whisper import WhisperModel
 
 def process_audio(input_path: str, output_wav: str = "voix.wav", words_json: str = "words.json"):
     """
-    1. Supprime les silences > 0.3s sous -35dB et normalise l'audio via FFmpeg.
-    2. Transcrit avec faster-whisper pour extraire l'horodatage mot par mot.
+    1. Normalisation sonore EBU R128 (loudnorm) PUIS découpage des silences (> 0.35s sous -35dB).
+    2. Transcription Whisper mot-à-mot précise.
     """
     input_file = Path(input_path)
     if not input_file.exists():
         raise FileNotFoundError(f"Fichier introuvable: {input_path}")
 
-    print(f"[1/2] Traitement audio FFmpeg (silence cut + loudnorm) -> {output_wav}...")
+    print(f"[1/2] Traitement audio FFmpeg (loudnorm -> silence cut) sur {input_file}...")
     
+    # loudnorm EN PREMIER pour ramener la voix à un niveau standard (-16 LUFS)
+    # puis silenceremove pour couper proprement les silences sans tronquer les syllabes douces
     af_filter = (
+        "loudnorm=I=-16:TP=-1.5:LRA=11,"
         "silenceremove=start_periods=1:start_duration=0.05:start_threshold=-35dB:"
-        "stop_periods=-1:stop_duration=0.3:stop_threshold=-35dB,"
-        "loudnorm=I=-16:TP=-1.5:LRA=11"
+        "stop_periods=-1:stop_duration=0.35:stop_threshold=-35dB"
     )
 
     ffmpeg_cmd = [
@@ -45,7 +47,7 @@ def process_audio(input_path: str, output_wav: str = "voix.wav", words_json: str
 
     print(f"[2/2] Alignement Whisper mot-à-mot -> {words_json}...")
     model = WhisperModel("base", device="cpu", compute_type="int8")
-    segments, _ = model.transcribe(output_wav, word_timestamps=True)
+    segments, _ = model.transcribe(output_wav, word_timestamps=True, language="fr")
 
     words = []
     for segment in segments:

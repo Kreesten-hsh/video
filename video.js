@@ -129,10 +129,11 @@
   function renderComponent(type, data) {
     switch (type) {
       case "face":
+        const isHeadOnly = data.avatar && (data.avatar.includes("skeptic") || data.avatar.includes("mini"));
         return `
-          <div class="comp-face" id="comp-face">
+          <div class="comp-face ${isHeadOnly ? 'face-headonly' : ''}" id="comp-face">
             <img src="${data.avatar}" alt="Avatar" class="avatar-sticker" id="avatar-img" />
-            <div class="face-badge">${data.label || ""}</div>
+            ${data.label ? `<div class="face-badge">${data.label}</div>` : ""}
           </div>
         `;
       case "big":
@@ -205,9 +206,16 @@
     if (type === "face") {
       const avatar = document.getElementById("avatar-img");
       if (avatar) {
+        const isHeadOnly = data.avatar && (data.avatar.includes("skeptic") || data.avatar.includes("mini"));
         const spring = Math.sin(Math.min(1, progress * 4) * (Math.PI / 2));
         const scale = 0.75 + 0.25 * spring;
-        avatar.style.transform = `scale(${scale})`;
+        if (isHeadOnly) {
+          avatar.style.transform = `scale(${scale})`;
+          avatar.style.transformOrigin = "center center";
+        } else {
+          avatar.style.transform = `translateX(-50%) scale(${scale})`;
+          avatar.style.transformOrigin = "bottom center";
+        }
       }
     } else if (type === "window") {
       const contentEl = document.getElementById("typewriter-content");
