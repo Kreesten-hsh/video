@@ -51,7 +51,7 @@ def pass2_transcribe(temp_wav: str):
         "Premiere Pro, Veo, Kling, code, Python, JavaScript, milliseconde, "
         "avatar, terminaux, losanges, cercles, FFmpeg, SaaS, entrepreneurs."
     )
-    model = WhisperModel("small", device="cpu", compute_type="int8")
+    model = WhisperModel("small", device="cpu", compute_type="int8", cpu_threads=2)
     segments_iter, _ = model.transcribe(
         temp_wav,
         word_timestamps=True,

@@ -53,7 +53,8 @@ def render_video(
         "-i", audio_path,
         "-c:v", "libx264",
         "-pix_fmt", "yuv420p",
-        "-preset", "fast",
+        "-preset", "veryfast",
+        "-threads", "2",
         "-crf", "18",
         "-c:a", "aac",
         "-b:a", "192k",
@@ -64,17 +65,43 @@ def render_video(
     proc = subprocess.Popen(ffmpeg_cmd, stdin=subprocess.PIPE)
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page(viewport={"width": 1080, "height": 1920}, device_scale_factor=1)
+        # Lancement sécurisé : pas de saturation de GPU partagé ni de /dev/shm
+        browser = p.chromium.launch(
+            headless=True,
+            args=[
+                "--disable-gpu",
+                "--disable-dev-shm-usage",
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--js-flags=--max-old-space-size=1024",
+                "--disable-extensions",
+                "--disable-background-networking",
+                "--disable-default-apps",
+                "--disable-sync",
+            ]
+        )
+        context = browser.new_context(viewport={"width": 1080, "height": 1920}, device_scale_factor=1)
+        page = context.new_page()
         page.goto(html_abs)
         page.wait_for_load_state("networkidle")
 
-        print("[Render] Capture et encodage direct en mémoire RAM...")
+        print("[Render] Capture et encodage direct avec protection mémoire active...")
         for i in range(total_frames):
             t = i / float(fps)
             page.evaluate(f"window.setTime({t:.4f})")
-            frame_bytes = page.screenshot(type="jpeg", quality=95)
+            frame_bytes = page.screenshot(type="jpeg", quality=90)
             proc.stdin.write(frame_bytes)
+
+            # Recyclage périodique pour libérer les buffers V8/Skia et éviter l'OOM
+            if (i + 1) % 150 == 0 and (i + 1) < total_frames:
+                page.close()
+                context.close()
+                import gc
+                gc.collect()
+                context = browser.new_context(viewport={"width": 1080, "height": 1920}, device_scale_factor=1)
+                page = context.new_page()
+                page.goto(html_abs)
+                page.wait_for_load_state("networkidle")
 
             if i % 15 == 0 or i == total_frames - 1:
                 percent = int((i + 1) / total_frames * 100)

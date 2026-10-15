@@ -56,15 +56,15 @@ body {
 /* Fond 3 : Motif géométrique losanges (diamonds) rouges bordés de noir avec ombre dure */
 #video-canvas.bg-diamonds {
   background-color: var(--bg-beige);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cpolygon points='49,13 81,45 49,77 17,45' fill='%23000000'/%3E%3Cpolygon points='45,9 77,41 45,73 13,41' fill='%23E63926' stroke='%23000000' stroke-width='4'/%3E%3C/svg%3E");
-  background-size: 90px 90px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cpolygon points='56,16 92,52 56,88 20,52' fill='%23000000'/%3E%3Cpolygon points='50,10 86,46 50,82 14,46' fill='%23E63926' stroke='%23000000' stroke-width='5'/%3E%3C/svg%3E");
+  background-size: 100px 100px;
 }
 
-/* Fond 4 : Trame de cercles blancs bordés de noir (4px) sur fond rouge (circles) */
+/* Fond 4 : Trame de cercles blancs bordés de noir 5px sur fond rouge (circles) */
 #video-canvas.bg-circles {
   background-color: var(--accent-red);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='120'%3E%3Ccircle cx='50' cy='60' r='32' fill='%23FFFFFF' stroke='%23000000' stroke-width='4'/%3E%3C/svg%3E");
-  background-size: 100px 120px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='140'%3E%3Ccircle cx='60' cy='70' r='38' fill='%23FFFFFF' stroke='%23000000' stroke-width='5'/%3E%3C/svg%3E");
+  background-size: 120px 140px;
 }
 
 /* ==========================================================================
@@ -150,12 +150,12 @@ body {
   position: relative;
 }
 
-/* 1. COMPOSANT : FACE (RECADRAGE AVATAR GRAND & IMPOSANT CENTRE-BAS) */
+/* 1. COMPOSANT : FACE (AVATAR REHAUSSÉ AU CENTRE-BAS) */
 .comp-face {
   position: absolute;
-  width: 960px;
-  height: 1180px;
-  bottom: 0;
+  width: 980px;
+  height: 1220px;
+  bottom: 110px;
   left: 50%;
   transform: translateX(-50%);
   pointer-events: none;
@@ -170,21 +170,21 @@ body {
   height: 100%;
   object-fit: contain;
   object-position: bottom center;
-  filter: drop-shadow(10px 10px 0px #000000);
+  filter: drop-shadow(12px 12px 0px #000000);
   transform-origin: bottom center;
 }
 
 .comp-face .face-badge {
   position: absolute;
-  top: 80px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%) rotate(-2deg);
   z-index: 10;
   background: var(--yellow);
   color: var(--black);
   border: var(--border);
-  box-shadow: var(--shadow-hard);
-  padding: 16px 36px;
+  box-shadow: var(--shadow-huge);
+  padding: 18px 40px;
   font-family: 'Montserrat', sans-serif;
   font-size: 52px;
   font-weight: 900;
@@ -194,9 +194,9 @@ body {
 
 /* Cas particulier : tête seule centrée (skeptic, mini) */
 .comp-face.face-headonly {
-  width: 550px;
-  height: 550px;
-  bottom: 240px;
+  width: 580px;
+  height: 580px;
+  bottom: 300px;
   display: flex;
   flex-direction: column-reverse;
   justify-content: center;
@@ -369,6 +369,11 @@ body {
   width: 940px;
 }
 
+.comp-cards.single-card {
+  grid-template-columns: 1fr;
+  max-width: 680px;
+}
+
 .card-item {
   background: var(--white);
   border: var(--border);
@@ -398,6 +403,30 @@ body {
   font-weight: 900;
   text-transform: uppercase;
   color: var(--black);
+}
+
+.card-sub {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--black);
+  text-transform: uppercase;
+  background: var(--yellow);
+  padding: 8px 16px;
+  border: 3px solid var(--black);
+  box-shadow: 3px 3px 0px var(--black);
+}
+
+.list-header {
+  background: var(--yellow);
+  color: var(--black);
+  border: var(--border);
+  box-shadow: var(--shadow-hard);
+  padding: 16px 28px;
+  font-size: 38px;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 /* 6. COMPOSANT : RPG */

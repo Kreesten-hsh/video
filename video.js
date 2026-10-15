@@ -149,11 +149,12 @@
   function renderComponent(type, data) {
     switch (type) {
       case "face":
-        const isHeadOnly = data.avatar && (data.avatar.includes("skeptic") || data.avatar.includes("mini"));
+        const isHeadOnly = data.avatar && data.avatar.includes("mini");
+        const badgeText = data.badge || data.label || "";
         return `
           <div class="comp-face ${isHeadOnly ? 'face-headonly' : ''}" id="comp-face">
             <img src="${data.avatar}" alt="Avatar" class="avatar-sticker" id="avatar-img" />
-            ${data.label ? `<div class="face-badge" id="face-badge">${data.label}</div>` : ""}
+            ${badgeText ? `<div class="face-badge" id="face-badge">${badgeText}</div>` : ""}
           </div>
         `;
       case "big":
@@ -166,7 +167,8 @@
       case "list":
         return `
           <div class="comp-list" id="comp-list">
-            ${data.items.map((item, i) => `
+            ${data.header ? `<div class="list-header">${data.header}</div>` : ""}
+            ${(data.items || []).map((item, i) => `
               <div class="list-item" id="list-item-${i}">
                 <div class="item-num">${String(i + 1).padStart(2, '0')}</div>
                 <div class="item-text">${item}</div>
@@ -190,34 +192,41 @@
           </div>
         `;
       case "cards":
+        const cardsList = data.cards || [];
+        const isSingle = cardsList.length === 1;
         return `
-          <div class="comp-cards" id="comp-cards">
-            ${data.cards.map((c, i) => `
+          <div class="comp-cards ${isSingle ? 'single-card' : ''}" id="comp-cards">
+            ${cardsList.map((c, i) => `
               <div class="card-item" id="card-item-${i}">
                 <div class="card-icon">${c.icon}</div>
                 <div class="card-title">${c.title}</div>
+                ${c.sub ? `<div class="card-sub">${c.sub}</div>` : ""}
               </div>
             `).join("")}
           </div>
         `;
       case "split":
+        const lTitle = data.leftTitle || data.left_title || "AVANT ❌";
+        const rTitle = data.rightTitle || data.right_title || "APRÈS ✅";
+        const lItems = data.leftItems || data.left_items || [];
+        const rItems = data.rightItems || data.right_items || [];
         return `
           <div class="comp-split" id="comp-split">
             <div class="split-col" id="split-col-left">
-              <div class="split-badge badge-red">${data.left_badge || "AVANT ❌"}</div>
+              <div class="split-badge badge-red">${data.left_badge || "IA / MONTEUR ❌"}</div>
               <div class="split-card">
-                <div class="split-title">${data.left_title || "MONTAGE MANUEL"}</div>
+                <div class="split-title">${lTitle}</div>
                 <ul class="split-items">
-                  ${(data.left_items || []).map(it => `<li>❌ ${it}</li>`).join("")}
+                  ${lItems.map(it => `<li>${it.startsWith('❌') || it.startsWith('⚡') ? it : '❌ ' + it}</li>`).join("")}
                 </ul>
               </div>
             </div>
             <div class="split-col" id="split-col-right">
               <div class="split-badge badge-green">${data.right_badge || "CODE ✅"}</div>
               <div class="split-card highlight">
-                <div class="split-title">${data.right_title || "100% PROGRAMMÉ"}</div>
+                <div class="split-title">${rTitle}</div>
                 <ul class="split-items">
-                  ${(data.right_items || []).map(it => `<li>⚡ ${it}</li>`).join("")}
+                  ${rItems.map(it => `<li>${it.startsWith('❌') || it.startsWith('⚡') ? it : '⚡ ' + it}</li>`).join("")}
                 </ul>
               </div>
             </div>
@@ -231,8 +240,8 @@
         return `
           <div class="comp-audio-wave" id="comp-audio-wave">
             <div class="wave-header">
-              <div class="wave-tag">PIPELINE AUDIO v2.0</div>
-              <div class="wave-status" id="wave-status">ANALYSE DU SPECTRE</div>
+              <div class="wave-tag">${data.title || "vocal1.m4a — NETTOYAGE STUDIO"}</div>
+              <div class="wave-status" id="wave-status">${data.sub || "ANALYSE DU SPECTRE"}</div>
             </div>
             <div class="wave-bars-container" id="wave-bars-container">
               ${barsHtml}
@@ -286,19 +295,25 @@
     if (type === "face") {
       const avatar = document.getElementById("avatar-img");
       const badge = document.getElementById("face-badge");
-      const isHeadOnly = data.avatar && (data.avatar.includes("skeptic") || data.avatar.includes("mini"));
+      const isHeadOnly = data.avatar && data.avatar.includes("mini");
+
+      // Dynamisme continu : flottement, inclinaison et zoom caméra progressif
+      const floatY = Math.sin(t * 5) * 10;
+      const tiltDeg = Math.sin(t * 2.5) * 1.5;
+      const camZoom = 1.0 + progress * 0.05;
+
       if (avatar) {
         if (isHeadOnly) {
-          avatar.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+          avatar.style.transform = `translateY(${spring.ty + floatY}px) rotate(${tiltDeg}deg) scale(${spring.scale * camZoom})`;
           avatar.style.transformOrigin = "center center";
         } else {
-          avatar.style.transform = `translateX(-50%) translateY(${spring.ty}px) scale(${spring.scale})`;
+          avatar.style.transform = `translateX(-50%) translateY(${spring.ty + floatY}px) rotate(${tiltDeg}deg) scale(${spring.scale * camZoom})`;
           avatar.style.transformOrigin = "bottom center";
         }
       }
-      if (badge && elapsed < 0.35) {
+      if (badge) {
         const badgeP = Math.min(1, elapsed / 0.35);
-        const bScale = 0.7 + 0.3 * badgeP + 0.1 * Math.sin(badgeP * Math.PI);
+        const bScale = badgeP < 1 ? (0.7 + 0.3 * badgeP + 0.1 * Math.sin(badgeP * Math.PI)) : 1.0;
         badge.style.transform = `translateX(-50%) rotate(-2deg) scale(${bScale})`;
       }
     } else if (type === "big") {
@@ -432,9 +447,10 @@
         el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
       }
       const contentEl = document.getElementById("typewriter-content");
-      if (contentEl && data.text) {
-        const charCount = Math.floor(progress * data.text.length);
-        contentEl.textContent = data.text.substring(0, charCount);
+      if (contentEl) {
+        const fullText = (data.lines && Array.isArray(data.lines)) ? data.lines.join("\n") : (data.text || "");
+        const charCount = Math.floor(progress * fullText.length);
+        contentEl.textContent = fullText.substring(0, charCount);
       }
     } else if (type === "rpg") {
       const el = document.getElementById("comp-rpg");
