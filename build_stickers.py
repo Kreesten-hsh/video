@@ -9,14 +9,10 @@ if _user_site not in sys.path:
     site.addsitedir(_user_site)
 
 import numpy as np
-from PIL import Image
-from scipy import ndimage
+from PIL import Image, ImageFilter
 
 def remove_flat_bg(img: Image.Image, bg_rgb=(229, 229, 229), tolerance=28) -> Image.Image:
-    """
-    Suppression d'arrière-plan ultra-rapide par flood-fill depuis les coins.
-    Protège parfaitement les yeux et vêtements blancs à l'intérieur du contour noir.
-    """
+    """Détoure le fond uni #E5E5E5 par flood-fill NumPy ultra-rapide."""
     img_rgba = img.convert("RGBA")
     arr = np.array(img_rgba)
     h, w, _ = arr.shape
@@ -48,102 +44,76 @@ def remove_flat_bg(img: Image.Image, bg_rgb=(229, 229, 229), tolerance=28) -> Im
     arr[mask, 3] = 0
     return Image.fromarray(arr)
 
-def create_sticker(
-    nobg_img: Image.Image,
-    white_border_px: int = 18,
-    black_border_px: int = 8,
-    target_size: tuple = (900, 900)
-) -> Image.Image:
-    """
-    Applique par dilatation morphologique (distance transform + lissage gaussien) :
-    - 18px bordure blanche (#FFFFFF)
-    - 8px bordure noire (#000000)
-    - Centrage propre en 900x900px
-    """
-    rgba = np.array(nobg_img)
-    alpha = rgba[:, :, 3]
-    char_mask = alpha > 40
-
-    # Distance euclidienne à l'extérieur du personnage
-    dist = ndimage.distance_transform_edt(~char_mask)
-
-    total_border = white_border_px + black_border_px
-    white_mask = dist <= white_border_px
-    black_mask = dist <= total_border
-
-    # Lissage gaussien pour adoucir les courbes du sticker
-    black_float = ndimage.gaussian_filter(black_mask.astype(float), sigma=1.2)
-    white_float = ndimage.gaussian_filter(white_mask.astype(float), sigma=1.2)
-
-    black_smooth = black_float > 0.45
-    white_smooth = white_float > 0.45
-
-    h, w = alpha.shape
-    out_arr = np.zeros((h, w, 4), dtype=np.uint8)
-
-    # Couche noire externe
-    out_arr[black_smooth] = [0, 0, 0, 255]
-    # Couche blanche interne
-    out_arr[white_smooth] = [255, 255, 255, 255]
-    # Couche personnage (au-dessus)
-    out_arr[char_mask] = rgba[char_mask]
-
-    sticker_img = Image.fromarray(out_arr)
-
-    # Centrage et redimensionnement en 900x900
-    bbox = sticker_img.getbbox()
+def fit_in_canvas(img: Image.Image, target_size=(700, 700), padding=40) -> Image.Image:
+    """Recadre et centre dans un canevas 700x700 avec padding pour ne jamais couper les bords."""
+    bbox = img.getbbox()
     if bbox:
-        cropped = sticker_img.crop(bbox)
-    else:
-        cropped = sticker_img
-
-    cw, ch = cropped.size
+        img = img.crop(bbox)
     tw, th = target_size
-    margin = 30
-    avail_w = tw - 2 * margin
-    avail_h = th - 2 * margin
-
-    scale = min(avail_w / cw, avail_h / ch)
-    new_w = max(1, int(cw * scale))
-    new_h = max(1, int(ch * scale))
-    resized = cropped.resize((new_w, new_h), Image.Resampling.LANCZOS)
-
+    avail_w = tw - 2 * padding
+    avail_h = th - 2 * padding
+    scale = min(avail_w / img.width, avail_h / img.height)
+    new_w = max(1, int(img.width * scale))
+    new_h = max(1, int(img.height * scale))
+    resized = img.resize((new_w, new_h), Image.Resampling.LANCZOS)
+    
     canvas = Image.new("RGBA", target_size, (0, 0, 0, 0))
     pos_x = (tw - new_w) // 2
-    pos_y = th - new_h - margin
+    pos_y = th - new_h - padding
     canvas.paste(resized, (pos_x, pos_y), resized)
-
     return canvas
 
-def process_all():
+def apply_sticker_effect(nobg_700: Image.Image) -> Image.Image:
+    """Génère la double bordure blanche + noire en pur MaxFilter (zéro scipy, zéro IA)."""
+    alpha = nobg_700.split()[3]
+    
+    # 1. Bordure blanche interne via MaxFilter(25)
+    alpha_white = alpha.filter(ImageFilter.MaxFilter(25))
+    
+    # 2. Bordure noire externe via MaxFilter(11) sur l'alpha blanc
+    alpha_black = alpha_white.filter(ImageFilter.MaxFilter(11))
+    
+    w, h = nobg_700.size
+    result = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    black_layer = Image.new("RGBA", (w, h), (0, 0, 0, 255))
+    white_layer = Image.new("RGBA", (w, h), (255, 255, 255, 255))
+    
+    # Superposition : calque noir -> calque blanc -> personnage
+    result.paste(black_layer, (0, 0), alpha_black)
+    result.paste(white_layer, (0, 0), alpha_white)
+    result.paste(nobg_700, (0, 0), nobg_700)
+    
+    return result
+
+def main():
     raw_dir = Path("raw_avatars")
     out_dir = Path("assets/avatars")
     out_dir.mkdir(parents=True, exist_ok=True)
 
     raw_files = sorted(list(raw_dir.glob("*.jpg")) + list(raw_dir.glob("*.png")))
-    print(f"[Build Stickers] Traitement de {len(raw_files)} avatars vers {out_dir}/...")
+    print(f"[Build Stickers] Traitement ultra-léger de {len(raw_files)} avatars vers {out_dir}/...")
 
     for file_path in raw_files:
         name = file_path.stem
         out_path = out_dir / f"{name}.png"
-        print(f"  -> Traitement {file_path.name} -> {out_path.name}")
         with Image.open(file_path) as raw:
             nobg = remove_flat_bg(raw)
-            sticker = create_sticker(nobg, white_border_px=18, black_border_px=8, target_size=(900, 900))
+            fitted = fit_in_canvas(nobg, target_size=(700, 700), padding=40)
+            sticker = apply_sticker_effect(fitted)
             sticker.save(out_path, "PNG")
 
-    # mini.png pour dialogue RPG (crop tête en 900x900)
+    # mini.png pour dialogue RPG (crop tête en 700x700)
     pointing_path = raw_dir / "pointing.jpg"
     if pointing_path.exists():
-        print("  -> Génération mini.png (crop tête)...")
         with Image.open(pointing_path) as raw:
             nobg = remove_flat_bg(raw)
             w, h = nobg.size
-            head = nobg.crop((int(w * 0.15), int(h * 0.0), int(w * 0.85), int(h * 0.52)))
-            mini_sticker = create_sticker(head, white_border_px=14, black_border_px=6, target_size=(900, 900))
+            head = nobg.crop((int(w * 0.15), 0, int(w * 0.85), int(h * 0.52)))
+            fitted = fit_in_canvas(head, target_size=(700, 700), padding=50)
+            mini_sticker = apply_sticker_effect(fitted)
             mini_sticker.save(out_dir / "mini.png", "PNG")
 
-    print("✓ Tous les stickers 900x900 avec double bordure (18px blanc / 8px noir) sont générés !")
+    print(f"✓ Tous les 12 stickers sont prêts en pur Pillow/NumPy dans {out_dir}/")
 
 if __name__ == "__main__":
-    process_all()
+    main()
