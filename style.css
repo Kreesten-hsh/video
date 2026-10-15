@@ -1,0 +1,430 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-beige: #F7F4EB;
+  --accent-red: #E63926;
+  --black: #000000;
+  --white: #FFFFFF;
+  --yellow: #FFE600;
+  --border: 4px solid #000000;
+  --shadow-hard: 8px 8px 0px #000000;
+  --shadow-huge: 12px 12px 0px #000000;
+}
+
+body {
+  margin: 0;
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: 'Syne', 'Montserrat', sans-serif;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   CANVAS FIXE 1080x1920 & VARIANTES DE FOND
+   ========================================================================== */
+#video-canvas {
+  width: 1080px;
+  height: 1920px;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.2s ease;
+}
+
+/* Fond 1 : Grille fine néo-brutaliste (défaut) */
+#video-canvas.bg-grid {
+  background-color: var(--bg-beige);
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.08) 2px, transparent 2px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 2px, transparent 2px);
+  background-size: 60px 60px;
+}
+
+/* Fond 2 : Rouge néo-brutaliste percutant */
+#video-canvas.bg-red {
+  background-color: var(--accent-red);
+  background-image: none;
+}
+
+/* Fond 3 : Motif losanges (diamonds) */
+#video-canvas.bg-diamonds {
+  background-color: var(--bg-beige);
+  background-image: 
+    linear-gradient(135deg, rgba(0,0,0,0.08) 25%, transparent 25%),
+    linear-gradient(225deg, rgba(0,0,0,0.08) 25%, transparent 25%),
+    linear-gradient(45deg, rgba(0,0,0,0.08) 25%, transparent 25%),
+    linear-gradient(315deg, rgba(0,0,0,0.08) 25%, var(--bg-beige) 25%);
+  background-position: 20px 0, 20px 0, 0 0, 0 0;
+  background-size: 40px 40px;
+}
+
+/* Fond 4 : Trame de cercles / points (circles) */
+#video-canvas.bg-circles {
+  background-color: var(--bg-beige);
+  background-image: radial-gradient(rgba(0,0,0,0.12) 3px, transparent 3px);
+  background-size: 36px 36px;
+}
+
+/* ==========================================================================
+   ZONE SOUS-TITRES (TOP 20%) - MINIMALISTE ÉPURÉ SANS CADRE
+   ========================================================================== */
+#subtitles-zone {
+  position: absolute;
+  top: 100px;
+  left: 0;
+  width: 1080px;
+  height: 280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 50px;
+  z-index: 100;
+}
+
+#subtitles-box {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  max-width: 980px;
+  text-align: center;
+}
+
+.sub-word {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 58px;
+  font-weight: 800;
+  text-transform: none; /* bas de casse */
+  color: var(--black);
+  letter-spacing: -1px;
+  transition: color 0.05s ease, transform 0.05s ease;
+}
+
+.sub-word.active {
+  color: var(--accent-red);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  transform: scale(1.05);
+}
+
+/* Si le fond du canvas est rouge, adapter la couleur du texte des sous-titres */
+#video-canvas.bg-red .sub-word {
+  color: var(--white);
+}
+#video-canvas.bg-red .sub-word.active {
+  color: var(--yellow);
+}
+
+/* ==========================================================================
+   ZONE SCÈNE (CENTRE / BAS)
+   ========================================================================== */
+#scene-zone {
+  position: absolute;
+  top: 400px;
+  left: 0;
+  width: 1080px;
+  height: 1470px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+#scene-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 1. COMPOSANT : FACE */
+.comp-face {
+  display: flex;
+  flex-direction: column-reverse; /* Badge positionné au-dessus de l'avatar */
+  align-items: center;
+  gap: 30px;
+}
+
+.avatar-sticker {
+  max-width: 850px;
+  max-height: 1050px;
+  object-fit: contain;
+  filter: drop-shadow(10px 10px 0px #000000);
+  transform-origin: bottom center;
+}
+
+.face-badge {
+  background: var(--yellow);
+  color: var(--black);
+  border: var(--border);
+  box-shadow: var(--shadow-hard);
+  padding: 18px 40px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 56px;
+  font-weight: 900;
+  text-transform: uppercase;
+  transform: rotate(-2deg);
+}
+
+/* 2. COMPOSANT : BIG */
+.comp-big {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.big-box {
+  background: var(--accent-red);
+  color: var(--white);
+  border: 6px solid var(--black);
+  box-shadow: var(--shadow-huge);
+  padding: 40px 60px;
+  font-size: 110px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -3px;
+  line-height: 1.05;
+  transform: rotate(-1.5deg);
+}
+
+.big-sub {
+  background: var(--white);
+  color: var(--black);
+  border: var(--border);
+  box-shadow: var(--shadow-hard);
+  padding: 16px 36px;
+  font-size: 48px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+/* 3. COMPOSANT : LIST */
+.comp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 920px;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: var(--white);
+  border: var(--border);
+  box-shadow: var(--shadow-hard);
+  padding: 24px 30px;
+  font-size: 42px;
+  font-weight: 900;
+  color: var(--black);
+  transition: transform 0.1s ease;
+}
+
+.list-item .item-num {
+  background: var(--black);
+  color: var(--white);
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  border: 3px solid var(--black);
+  flex-shrink: 0;
+}
+
+.list-item.active {
+  background: var(--accent-red);
+  color: var(--white);
+  box-shadow: var(--shadow-huge);
+  transform: translateX(20px) scale(1.02);
+}
+
+.list-item.active .item-num {
+  background: var(--yellow);
+  color: var(--black);
+}
+
+/* 4. COMPOSANT : WINDOW */
+.comp-window {
+  width: 960px;
+  background: var(--white);
+  border: var(--border);
+  box-shadow: var(--shadow-huge);
+}
+
+.window-header {
+  background: var(--yellow);
+  border-bottom: var(--border);
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.window-dots {
+  display: flex;
+  gap: 12px;
+}
+
+.dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 3px solid var(--black);
+  background: var(--white);
+}
+
+.dot.red { background: var(--accent-red); }
+.dot.yellow { background: var(--yellow); }
+.dot.green { background: #2BD980; }
+
+.window-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--black);
+}
+
+.window-body {
+  padding: 40px;
+  background: #111;
+  color: #2BD980;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 40px;
+  min-height: 480px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.cursor {
+  display: inline-block;
+  background: #2BD980;
+  color: #111;
+  margin-left: 6px;
+}
+
+/* 5. COMPOSANT : CARDS */
+.comp-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  width: 940px;
+}
+
+.card-item {
+  background: var(--white);
+  border: var(--border);
+  box-shadow: var(--shadow-hard);
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.card-icon {
+  font-size: 70px;
+  width: 110px;
+  height: 110px;
+  background: var(--bg-beige);
+  border: var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 4px 4px 0px var(--black);
+}
+
+.card-title {
+  font-size: 38px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--black);
+}
+
+/* 6. COMPOSANT : RPG */
+.comp-rpg {
+  width: 940px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.rpg-top-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.rpg-tag {
+  background: var(--yellow);
+  border: var(--border);
+  box-shadow: var(--shadow-hard);
+  padding: 12px 24px;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--black);
+}
+
+.rpg-scene {
+  background: var(--white);
+  border: var(--border);
+  box-shadow: var(--shadow-hard);
+  height: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 140px;
+}
+
+.rpg-dialog-box {
+  background: var(--white);
+  border: var(--border);
+  box-shadow: var(--shadow-huge);
+  padding: 30px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.rpg-avatar {
+  width: 130px;
+  height: 130px;
+  border: var(--border);
+  background: var(--accent-red);
+  object-fit: cover;
+  box-shadow: 4px 4px 0px var(--black);
+}
+
+.rpg-text-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.rpg-speaker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--accent-red);
+}
+
+.rpg-text {
+  font-family: 'Syne', sans-serif;
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--black);
+}

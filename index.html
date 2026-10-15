@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1920, initial-scale=1.0">
+  <title>Programmatic Neo-Brutalist Video</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Syne:wght@800;900&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="video-canvas" class="bg-grid">
+    <!-- Top 20% : Sous-titres dynamiques par paquet de 3-5 mots -->
+    <header id="subtitles-zone">
+      <div id="subtitles-box"></div>
+    </header>
+
+    <!-- Zone centrale & inférieure : Rendu des 6 composants -->
+    <main id="scene-zone">
+      <div id="scene-container"></div>
+    </main>
+  </div>
+
+  <script src="timeline.js"></script>
+  <script src="video.js"></script>
+</body>
+</html>
