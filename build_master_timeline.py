@@ -17,7 +17,9 @@ import numpy as np
 
 def step1_fuse_and_correct(words_path="words.json"):
     print("[1/3] A) Correction orthographique exacte et fusion des apostrophes...")
-    with open(words_path, "r", encoding="utf-8") as f:
+    candidates = ["data/words_base.json", "words_base.json", words_path]
+    actual_path = next((p for p in candidates if os.path.exists(p)), words_path)
+    with open(actual_path, "r", encoding="utf-8") as f:
         raw_words = json.load(f)
 
     # 1. Fusions d'apostrophes et de mots composés
@@ -118,10 +120,10 @@ def step1_fuse_and_correct(words_path="words.json"):
         if item["word"] == "entrepreneurs ?":
             item["end"] = 47.15
         elif item["word"] == "Parce" and idx > 0 and fused[idx-1]["word"] == "entrepreneurs ?":
-            item["start"] = 49.48
-            item["end"] = 49.82
+            item["start"] = 49.32
+            item["end"] = 49.75
             if idx + 1 < len(fused) and fused[idx+1]["word"] == "que":
-                fused[idx+1]["start"] = 49.82
+                fused[idx+1]["start"] = 49.75
                 fused[idx+1]["end"] = 50.14
             if idx + 2 < len(fused) and fused[idx+2]["word"] == "les":
                 fused[idx+2]["start"] = 50.14
@@ -135,7 +137,9 @@ def step1_fuse_and_correct(words_path="words.json"):
 
 def step2_rms_silence_cut(words, voix_path="voix.wav"):
     print("[2/3] B) Découpe chirurgicale des 7 plages ciblées & suppression du bafouillage...")
-    with wave.open(voix_path, "rb") as wf:
+    candidates = ["data/voix_base.wav", "voix_base.wav", voix_path]
+    src_wav = next((p for p in candidates if os.path.exists(p)), voix_path)
+    with wave.open(src_wav, "rb") as wf:
         sr = wf.getframerate()
         nc = wf.getnchannels()
         sampwidth = wf.getsampwidth()
@@ -149,10 +153,10 @@ def step2_rms_silence_cut(words, voix_path="voix.wav"):
     # Les 7 plages exactes à couper (silences inter-phrases + bafouillage)
     silences = [
         (25.85, 26.45), # silence après "Ensuite,"
-        (34.18, 34.70), # silence après "structurées,"
-        (37.38, 38.12), # silence après "cercles,"
-        (43.05, 43.62), # silence après "seconde."
-        (47.15, 49.45), # bafouillage "Parce que les z-i... les..."
+        (34.15, 34.48), # silence après "structurées," (garder "et change" intact)
+        (37.42, 37.90), # silence après "cercles," (garder "et il compile" intact)
+        (43.05, 43.42), # silence après "seconde." (garder "Pourquoi" intact)
+        (47.15, 49.30), # bafouillage "Parce que les z-i... les..." (garder "Parce" 100% entier)
         (68.82, 69.36), # bruit de bouche après "caméra,"
         (73.46, 74.02), # silence après "avatar"
     ]

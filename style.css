@@ -84,7 +84,7 @@ body {
   z-index: 100;
 }
 
-#subtitles-box {
+#subtitles-box, .sub-line {
   background: #FFFFFF;
   border: 4px solid #000000;
   box-shadow: 6px 6px 0px #000000;
@@ -99,17 +99,18 @@ body {
   text-align: center;
 }
 
-.sub-word {
+.sub-word, .word {
   font-family: 'Montserrat', sans-serif;
   font-size: 52px;
   font-weight: 800;
   text-transform: none; /* bas de casse */
   color: #000000;
   letter-spacing: -1px;
+  margin: 0 6px;
   transition: color 0.05s ease, transform 0.05s ease;
 }
 
-.sub-word.active {
+.sub-word.active, .word.active {
   color: var(--accent-red);
   transform: scale(1.08);
   font-weight: 900;
