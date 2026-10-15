@@ -197,7 +197,8 @@ def pass3_dedup_and_cut(words: list, temp_wav: str, output_wav: str = "voix.wav"
     print(f"✓ Passe 3 terminée : {len(final_words)} mots recalculés, durée dynamique : {current_time_offset:.2f}s (vs {total_duration:.2f}s brute).")
 
 def main():
-    src = sys.argv[1] if len(sys.argv) > 1 else "vocal1.m4a"
+    default_src = "data/vocal1.m4a" if os.path.exists("data/vocal1.m4a") else "vocal1.m4a"
+    src = sys.argv[1] if len(sys.argv) > 1 else default_src
     if not os.path.exists(src):
         print(f"Erreur : {src} introuvable.")
         sys.exit(1)
