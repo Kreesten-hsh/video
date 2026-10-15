@@ -158,9 +158,11 @@
           </div>
         `;
       case "big":
+        const isLong = (data.text || "").length > 13;
+        const fontSize = isLong ? "56px" : "68px";
         return `
           <div class="comp-big" id="comp-big">
-            <div class="big-box">${data.text}</div>
+            <div class="big-box" style="font-size: ${fontSize};">${data.text}</div>
             ${data.sub ? `<div class="big-sub">${data.sub}</div>` : ""}
           </div>
         `;
@@ -199,10 +201,99 @@
             ${cardsList.map((c, i) => `
               <div class="card-item" id="card-item-${i}">
                 <div class="card-icon">${c.icon}</div>
-                <div class="card-title">${c.title}</div>
-                ${c.sub ? `<div class="card-sub">${c.sub}</div>` : ""}
+                <div class="card-content">
+                  <div class="card-title">${c.title}</div>
+                  ${c.sub ? `<div class="card-sub">${c.sub}</div>` : ""}
+                </div>
               </div>
             `).join("")}
+          </div>
+        `;
+      case "engine_arch":
+        return `
+          <div class="comp-engine-arch" id="comp-engine-arch">
+            <div class="arch-block python">
+              <div class="arch-icon">🐍</div>
+              <div class="arch-info">
+                <div class="arch-title">PYTHON 3.12</div>
+                <div class="arch-desc">Audio • Faster-Whisper • FFmpeg</div>
+              </div>
+            </div>
+            <div class="arch-middle">
+              <div class="arch-gear" id="arch-gear">⚙️</div>
+              <div class="arch-flow-tag">⚡ FLUX RAM STREAM ⚡</div>
+            </div>
+            <div class="arch-block js">
+              <div class="arch-icon">⚡</div>
+              <div class="arch-info">
+                <div class="arch-title">JAVASCRIPT DOM</div>
+                <div class="arch-desc">CSS Motion • 30 FPS Déterministe</div>
+              </div>
+            </div>
+          </div>
+        `;
+      case "sync_timer":
+        return `
+          <div class="comp-sync-timer" id="comp-sync-timer">
+            <div class="sync-header">⏱️ ALIGNEMENT TEMPOREL ABSOLU</div>
+            <div class="sync-display">
+              <div class="sync-digits" id="sync-digits">00:21.000 ms</div>
+            </div>
+            <div class="sync-pills">
+              <div class="sync-pill" id="sync-pill-0">[CHAQUE]</div>
+              <div class="sync-pill" id="sync-pill-1">[MOT]</div>
+              <div class="sync-pill" id="sync-pill-2">[PRÉCIS]</div>
+            </div>
+          </div>
+        `;
+      case "emotion_morph":
+        return `
+          <div class="comp-emotion-morph" id="comp-emotion-morph">
+            <img src="assets/avatars/happy.png" alt="Avatar" class="morph-avatar" id="morph-avatar" />
+            <div class="morph-badge" id="morph-badge">😄 ÉMOTION : ENTHOUSIASTE</div>
+          </div>
+        `;
+      case "ffmpeg_render":
+        return `
+          <div class="comp-ffmpeg-render" id="comp-ffmpeg-render">
+            <div class="ffmpeg-header">
+              <div class="ffmpeg-title-box">🎬 COMPILATION FFmpeg</div>
+              <div class="ffmpeg-frame-counter" id="ffmpeg-counter">FRAME 0 / 2200</div>
+            </div>
+            <div class="ffmpeg-progress-track">
+              <div class="ffmpeg-progress-fill" id="ffmpeg-fill"></div>
+              <div class="ffmpeg-progress-pct" id="ffmpeg-pct">0%</div>
+            </div>
+            <div class="ffmpeg-footer-badge">✓ ENCODAGE H.264 ULTRA RAPIDE (30 FPS)</div>
+          </div>
+        `;
+      case "speed_counter":
+        return `
+          <div class="comp-speed-counter" id="comp-speed-counter">
+            <div class="speed-main-box">
+              <div class="speed-time">⏱️ 02:00 MIN</div>
+              <div class="speed-sub">DU MÉMO VOCAL AU MP4 FINAL</div>
+            </div>
+            <div class="speed-compare-zone">
+              <div class="speed-row">
+                <div class="speed-label">
+                  <span>⚡ CODE PYTHON (MOTEUR)</span>
+                  <span style="color: #2BD980;">100% PRÊT</span>
+                </div>
+                <div class="speed-bar-track">
+                  <div class="speed-bar-fill code"></div>
+                </div>
+              </div>
+              <div class="speed-row">
+                <div class="speed-label">
+                  <span>⏳ MONTEUR HUMAIN</span>
+                  <span style="color: var(--accent-red);">5% EN ATTENTE</span>
+                </div>
+                <div class="speed-bar-track">
+                  <div class="speed-bar-fill human"></div>
+                </div>
+              </div>
+            </div>
           </div>
         `;
       case "split":
@@ -457,6 +548,82 @@
       if (el) {
         el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
       }
+    } else if (type === "engine_arch") {
+      const el = document.getElementById("comp-engine-arch");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+      const gear = document.getElementById("arch-gear");
+      if (gear) gear.style.transform = `rotate(${t * 120}deg)`;
+    } else if (type === "sync_timer") {
+      const el = document.getElementById("comp-sync-timer");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+      const digits = document.getElementById("sync-digits");
+      if (digits) {
+        const ms = Math.floor((t * 1000) % 1000).toString().padStart(3, '0');
+        digits.textContent = `00:21.${ms} ms`;
+      }
+      const p0 = document.getElementById("sync-pill-0");
+      const p1 = document.getElementById("sync-pill-1");
+      const p2 = document.getElementById("sync-pill-2");
+      if (p0) {
+        if (progress >= 0.20) p0.classList.add("locked");
+        else p0.classList.remove("locked");
+      }
+      if (p1) {
+        if (progress >= 0.50) p1.classList.add("locked");
+        else p1.classList.remove("locked");
+      }
+      if (p2) {
+        if (progress >= 0.75) p2.classList.add("locked");
+        else p2.classList.remove("locked");
+      }
+    } else if (type === "emotion_morph") {
+      const avatar = document.getElementById("morph-avatar");
+      const badge = document.getElementById("morph-badge");
+      let src = "assets/avatars/happy.png";
+      let text = "😄 ÉMOTION : ENTHOUSIASTE";
+      let badgeBg = "var(--yellow)";
+      let badgeColor = "var(--black)";
+
+      if (progress >= 0.66) {
+        src = "assets/avatars/skeptic.png";
+        text = "🤨 ÉMOTION : SCEPTIQUE";
+        badgeBg = "var(--white)";
+        badgeColor = "var(--black)";
+      } else if (progress >= 0.33) {
+        src = "assets/avatars/shock.png";
+        text = "😱 ÉMOTION : CHOQUÉ";
+        badgeBg = "var(--accent-red)";
+        badgeColor = "var(--white)";
+      }
+
+      if (avatar && !avatar.src.endsWith(src)) {
+        avatar.src = src;
+      }
+      if (badge && badge.textContent !== text) {
+        badge.textContent = text;
+        badge.style.background = badgeBg;
+        badge.style.color = badgeColor;
+      }
+      const floatY = Math.sin(t * 5) * 10;
+      const camZoom = 1.0 + progress * 0.05;
+      if (avatar) {
+        avatar.style.transform = `translateX(-50%) translateY(${spring.ty + floatY}px) scale(${spring.scale * camZoom})`;
+      }
+    } else if (type === "ffmpeg_render") {
+      const el = document.getElementById("comp-ffmpeg-render");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+      const counter = document.getElementById("ffmpeg-counter");
+      const fill = document.getElementById("ffmpeg-fill");
+      const pct = document.getElementById("ffmpeg-pct");
+      const totalFrames = 2200;
+      const curFrame = Math.min(totalFrames, Math.floor(progress * totalFrames));
+      const pctVal = Math.min(100, Math.floor(progress * 100));
+      if (counter) counter.textContent = `FRAME ${curFrame} / ${totalFrames}`;
+      if (fill) fill.style.width = `${pctVal}%`;
+      if (pct) pct.textContent = `${pctVal}%`;
+    } else if (type === "speed_counter") {
+      const el = document.getElementById("comp-speed-counter");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
     }
   }
 
