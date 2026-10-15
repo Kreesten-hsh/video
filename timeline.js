@@ -4,1098 +4,1098 @@
 window.WORDS = [
   {
     "word": "Arrête",
-    "start": 0.0,
-    "end": 0.3
+    "start": 0.06,
+    "end": 0.58
   },
   {
     "word": "de",
-    "start": 0.3,
-    "end": 0.52
+    "start": 0.58,
+    "end": 0.8
   },
   {
     "word": "payer",
-    "start": 0.52,
-    "end": 0.76
+    "start": 0.8,
+    "end": 1.04
   },
   {
     "word": "des",
-    "start": 0.76,
-    "end": 0.94
+    "start": 1.04,
+    "end": 1.22
   },
   {
     "word": "monteurs",
-    "start": 0.94,
-    "end": 1.26
+    "start": 1.22,
+    "end": 1.54
   },
   {
     "word": "vidéo",
-    "start": 1.26,
-    "end": 1.64
+    "start": 1.54,
+    "end": 1.92
   },
   {
     "word": "et",
-    "start": 1.64,
-    "end": 2.0
+    "start": 1.92,
+    "end": 2.28
   },
   {
     "word": "des",
-    "start": 2.0,
-    "end": 2.2
+    "start": 2.28,
+    "end": 2.48
   },
   {
     "word": "IA",
-    "start": 2.2,
-    "end": 2.66
-  },
-  {
-    "word": "hors",
-    "start": 2.66,
-    "end": 2.92
-  },
-  {
-    "word": "de",
-    "start": 2.92,
-    "end": 3.0
-  },
-  {
-    "word": "prix.",
-    "start": 3.0,
+    "start": 2.48,
     "end": 3.24
   },
   {
+    "word": "hors",
+    "start": 3.24,
+    "end": 3.5
+  },
+  {
+    "word": "de",
+    "start": 3.5,
+    "end": 3.58
+  },
+  {
+    "word": "prix.",
+    "start": 3.58,
+    "end": 3.82
+  },
+  {
     "word": "Cette",
-    "start": 3.38,
-    "end": 3.6
+    "start": 3.96,
+    "end": 4.18
   },
   {
     "word": "vidéo",
-    "start": 3.6,
-    "end": 3.94
+    "start": 4.18,
+    "end": 4.52
   },
   {
     "word": "que",
-    "start": 3.94,
-    "end": 4.14
+    "start": 4.52,
+    "end": 4.72
   },
   {
     "word": "tu",
-    "start": 4.14,
-    "end": 4.28
+    "start": 4.72,
+    "end": 4.86
   },
   {
     "word": "regardes",
-    "start": 4.28,
-    "end": 4.64
+    "start": 4.86,
+    "end": 5.22
   },
   {
     "word": "en",
-    "start": 4.64,
-    "end": 4.74
+    "start": 5.22,
+    "end": 5.32
   },
   {
     "word": "ce",
-    "start": 4.74,
-    "end": 4.88
+    "start": 5.32,
+    "end": 5.46
   },
   {
     "word": "moment,",
-    "start": 4.88,
-    "end": 5.16
+    "start": 5.46,
+    "end": 5.74
   },
   {
     "word": "je",
-    "start": 5.3,
-    "end": 5.4
+    "start": 5.88,
+    "end": 5.98
   },
   {
     "word": "n'ai",
-    "start": 5.4,
-    "end": 5.6
+    "start": 5.98,
+    "end": 6.18
   },
   {
     "word": "pas",
-    "start": 5.6,
-    "end": 5.76
+    "start": 6.18,
+    "end": 6.34
   },
   {
     "word": "montée",
-    "start": 5.76,
-    "end": 6.14
+    "start": 6.34,
+    "end": 6.72
   },
   {
     "word": "sur",
-    "start": 6.14,
-    "end": 6.3
+    "start": 6.72,
+    "end": 6.88
   },
   {
     "word": "Premiere",
-    "start": 6.3,
-    "end": 6.68
+    "start": 6.88,
+    "end": 7.26
   },
   {
     "word": "Pro",
-    "start": 6.68,
-    "end": 7.02
+    "start": 7.26,
+    "end": 7.6
   },
   {
     "word": "et",
-    "start": 7.02,
-    "end": 7.08
-  },
-  {
-    "word": "je",
-    "start": 7.08,
-    "end": 7.2
-  },
-  {
-    "word": "n'ai",
-    "start": 7.2,
-    "end": 7.32
-  },
-  {
-    "word": "pas",
-    "start": 7.32,
-    "end": 7.5
-  },
-  {
-    "word": "utilisé",
-    "start": 7.5,
-    "end": 7.9
-  },
-  {
-    "word": "une",
-    "start": 7.9,
+    "start": 7.6,
     "end": 8.16
   },
   {
-    "word": "IA",
+    "word": "je",
     "start": 8.16,
-    "end": 8.38
+    "end": 8.28
+  },
+  {
+    "word": "n'ai",
+    "start": 8.28,
+    "end": 8.4
+  },
+  {
+    "word": "pas",
+    "start": 8.4,
+    "end": 8.58
+  },
+  {
+    "word": "utilisé",
+    "start": 8.58,
+    "end": 8.98
+  },
+  {
+    "word": "une",
+    "start": 8.98,
+    "end": 9.24
+  },
+  {
+    "word": "IA",
+    "start": 9.24,
+    "end": 9.46
   },
   {
     "word": "vidéo",
-    "start": 8.38,
-    "end": 8.76
+    "start": 9.46,
+    "end": 9.84
   },
   {
     "word": "comme",
-    "start": 8.76,
-    "end": 9.04
+    "start": 9.84,
+    "end": 10.12
   },
   {
     "word": "Veo",
-    "start": 9.17,
-    "end": 9.62
+    "start": 10.12,
+    "end": 10.7
   },
   {
     "word": "ou",
-    "start": 9.62,
-    "end": 9.94
+    "start": 10.7,
+    "end": 11.28
   },
   {
     "word": "Kling,",
-    "start": 9.94,
-    "end": 10.22
+    "start": 11.28,
+    "end": 11.56
   },
   {
     "word": "elle",
-    "start": 10.36,
-    "end": 10.48
+    "start": 11.7,
+    "end": 11.82
   },
   {
     "word": "est",
-    "start": 10.48,
-    "end": 10.6
+    "start": 11.82,
+    "end": 11.94
   },
   {
     "word": "générée",
-    "start": 10.6,
-    "end": 11.04
+    "start": 11.94,
+    "end": 12.38
   },
   {
     "word": "à",
-    "start": 11.04,
-    "end": 11.2
+    "start": 12.38,
+    "end": 12.54
   },
   {
     "word": "100%",
-    "start": 11.2,
-    "end": 11.72
+    "start": 12.54,
+    "end": 13.06
   },
   {
     "word": "par",
-    "start": 11.72,
-    "end": 12.0
+    "start": 13.06,
+    "end": 13.34
   },
   {
     "word": "du",
-    "start": 12.0,
-    "end": 12.14
+    "start": 13.34,
+    "end": 13.48
   },
   {
     "word": "code.",
-    "start": 12.14,
-    "end": 12.36
+    "start": 13.48,
+    "end": 13.7
   },
   {
     "word": "En",
-    "start": 12.5,
-    "end": 12.6
+    "start": 13.84,
+    "end": 13.94
   },
   {
     "word": "fait,",
-    "start": 12.6,
-    "end": 12.82
+    "start": 13.94,
+    "end": 14.16
   },
   {
     "word": "j'ai",
-    "start": 12.96,
-    "end": 13.08
+    "start": 14.3,
+    "end": 14.42
   },
   {
     "word": "codé",
-    "start": 13.08,
-    "end": 13.46
+    "start": 14.42,
+    "end": 14.8
   },
   {
     "word": "mon",
-    "start": 13.46,
-    "end": 13.58
+    "start": 14.8,
+    "end": 14.92
   },
   {
     "word": "propre",
-    "start": 13.58,
-    "end": 13.74
+    "start": 14.92,
+    "end": 15.08
   },
   {
     "word": "moteur",
-    "start": 13.74,
-    "end": 14.12
+    "start": 15.08,
+    "end": 15.46
   },
   {
     "word": "en",
-    "start": 14.12,
-    "end": 14.36
+    "start": 15.46,
+    "end": 15.7
   },
   {
     "word": "Python",
-    "start": 14.36,
-    "end": 14.62
+    "start": 15.7,
+    "end": 15.96
   },
   {
     "word": "et",
-    "start": 14.62,
-    "end": 14.98
-  },
-  {
-    "word": "JavaScript.",
-    "start": 14.98,
-    "end": 15.26
-  },
-  {
-    "word": "Le",
-    "start": 15.4,
-    "end": 15.56
-  },
-  {
-    "word": "principe",
-    "start": 15.56,
-    "end": 15.94
-  },
-  {
-    "word": "est",
-    "start": 15.94,
+    "start": 15.96,
     "end": 16.32
   },
   {
-    "word": "ultra",
+    "word": "JavaScript.",
     "start": 16.32,
-    "end": 16.68
+    "end": 16.6
   },
   {
-    "word": "simple,",
-    "start": 16.68,
-    "end": 17.0
+    "word": "Le",
+    "start": 16.74,
+    "end": 16.9
   },
   {
-    "word": "j'enregistre",
-    "start": 17.14,
-    "end": 17.62
-  },
-  {
-    "word": "ma",
-    "start": 17.62,
-    "end": 17.84
-  },
-  {
-    "word": "voix",
-    "start": 17.84,
-    "end": 18.02
-  },
-  {
-    "word": "sur",
-    "start": 18.02,
-    "end": 18.24
-  },
-  {
-    "word": "mon",
-    "start": 18.24,
-    "end": 18.4
-  },
-  {
-    "word": "téléphone,",
-    "start": 18.4,
-    "end": 18.82
-  },
-  {
-    "word": "mon",
-    "start": 18.96,
-    "end": 19.08
-  },
-  {
-    "word": "script",
-    "start": 19.08,
-    "end": 19.28
-  },
-  {
-    "word": "coupe",
-    "start": 19.28,
-    "end": 19.68
-  },
-  {
-    "word": "automatiquement",
-    "start": 19.97,
-    "end": 20.42
-  },
-  {
-    "word": "tous",
-    "start": 20.42,
-    "end": 20.68
-  },
-  {
-    "word": "les",
-    "start": 20.68,
-    "end": 20.84
-  },
-  {
-    "word": "silences",
-    "start": 20.84,
-    "end": 21.18
-  },
-  {
-    "word": "et",
-    "start": 21.18,
-    "end": 21.48
-  },
-  {
-    "word": "transcrit",
-    "start": 21.48,
-    "end": 21.96
-  },
-  {
-    "word": "chaque",
-    "start": 21.96,
-    "end": 22.24
-  },
-  {
-    "word": "mot",
-    "start": 22.24,
-    "end": 22.5
-  },
-  {
-    "word": "à",
-    "start": 22.5,
-    "end": 22.64
-  },
-  {
-    "word": "la",
-    "start": 22.64,
-    "end": 22.76
-  },
-  {
-    "word": "milliseconde.",
-    "start": 22.93,
-    "end": 23.38
-  },
-  {
-    "word": "Ensuite,",
-    "start": 23.38,
-    "end": 23.7
-  },
-  {
-    "word": "le",
-    "start": 23.9,
-    "end": 23.92
-  },
-  {
-    "word": "code",
-    "start": 23.92,
-    "end": 24.12
-  },
-  {
-    "word": "génère",
-    "start": 24.12,
-    "end": 24.66
-  },
-  {
-    "word": "toute",
-    "start": 24.66,
-    "end": 24.78
-  },
-  {
-    "word": "la",
-    "start": 24.78,
-    "end": 25.02
-  },
-  {
-    "word": "mise",
-    "start": 25.02,
-    "end": 25.22
-  },
-  {
-    "word": "en",
-    "start": 25.22,
-    "end": 25.44
-  },
-  {
-    "word": "scène,",
-    "start": 25.44,
-    "end": 25.68
-  },
-  {
-    "word": "il",
-    "start": 25.82,
-    "end": 25.9
-  },
-  {
-    "word": "anime",
-    "start": 25.9,
-    "end": 26.26
-  },
-  {
-    "word": "mon",
-    "start": 26.26,
-    "end": 26.52
-  },
-  {
-    "word": "avatar",
-    "start": 26.52,
-    "end": 26.84
-  },
-  {
-    "word": "en",
-    "start": 26.84,
-    "end": 27.18
-  },
-  {
-    "word": "costume",
-    "start": 27.18,
-    "end": 27.44
-  },
-  {
-    "word": "selon",
-    "start": 27.44,
-    "end": 27.9
-  },
-  {
-    "word": "l'émotion,",
-    "start": 27.9,
-    "end": 28.38
-  },
-  {
-    "word": "il",
-    "start": 28.52,
-    "end": 28.6
-  },
-  {
-    "word": "ouvre",
-    "start": 28.6,
-    "end": 28.84
-  },
-  {
-    "word": "les",
-    "start": 28.84,
-    "end": 29.06
-  },
-  {
-    "word": "terminaux,",
-    "start": 29.06,
-    "end": 29.52
-  },
-  {
-    "word": "il",
-    "start": 29.66,
-    "end": 29.7
-  },
-  {
-    "word": "affiche",
-    "start": 29.7,
-    "end": 30.12
-  },
-  {
-    "word": "des",
-    "start": 30.12,
-    "end": 30.38
-  },
-  {
-    "word": "listes",
-    "start": 30.38,
-    "end": 30.68
-  },
-  {
-    "word": "structurées,",
-    "start": 31.09,
-    "end": 31.54
-  },
-  {
-    "word": "et",
-    "start": 31.54,
-    "end": 31.72
-  },
-  {
-    "word": "change",
-    "start": 31.72,
-    "end": 32.02
-  },
-  {
-    "word": "le",
-    "start": 32.02,
-    "end": 32.3
-  },
-  {
-    "word": "décor",
-    "start": 32.3,
-    "end": 32.56
-  },
-  {
-    "word": "en",
-    "start": 32.56,
-    "end": 32.78
-  },
-  {
-    "word": "losanges",
-    "start": 32.78,
-    "end": 33.26
-  },
-  {
-    "word": "ou",
-    "start": 33.26,
-    "end": 33.58
-  },
-  {
-    "word": "en",
-    "start": 33.58,
-    "end": 33.84
-  },
-  {
-    "word": "cercles,",
-    "start": 33.84,
-    "end": 34.06
-  },
-  {
-    "word": "et",
-    "start": 34.06,
-    "end": 34.12
-  },
-  {
-    "word": "il",
-    "start": 34.12,
-    "end": 34.36
-  },
-  {
-    "word": "compile",
-    "start": 34.36,
-    "end": 34.82
-  },
-  {
-    "word": "tout",
-    "start": 34.82,
-    "end": 35.02
-  },
-  {
-    "word": "avec",
-    "start": 35.02,
-    "end": 35.48
-  },
-  {
-    "word": "FFmpeg",
-    "start": 36.29,
-    "end": 36.74
-  },
-  {
-    "word": "à",
-    "start": 36.74,
-    "end": 36.82
-  },
-  {
-    "word": "30",
-    "start": 36.82,
-    "end": 37.28
-  },
-  {
-    "word": "images",
-    "start": 37.28,
-    "end": 37.54
-  },
-  {
-    "word": "par",
-    "start": 37.54,
-    "end": 37.8
-  },
-  {
-    "word": "seconde.",
-    "start": 37.8,
-    "end": 38.24
-  },
-  {
-    "word": "Pourquoi",
-    "start": 38.24,
-    "end": 38.5
-  },
-  {
-    "word": "c'est",
-    "start": 38.5,
-    "end": 38.76
-  },
-  {
-    "word": "une",
-    "start": 38.76,
-    "end": 38.88
-  },
-  {
-    "word": "révolution",
-    "start": 38.88,
-    "end": 39.36
-  },
-  {
-    "word": "pour",
-    "start": 39.36,
-    "end": 39.68
-  },
-  {
-    "word": "les",
-    "start": 39.68,
-    "end": 39.78
-  },
-  {
-    "word": "fondateurs",
-    "start": 39.78,
-    "end": 40.3
-  },
-  {
-    "word": "SaaS",
-    "start": 40.3,
-    "end": 40.64
-  },
-  {
-    "word": "et",
-    "start": 40.64,
-    "end": 40.92
-  },
-  {
-    "word": "les",
-    "start": 40.92,
-    "end": 41.04
-  },
-  {
-    "word": "entrepreneurs ?",
-    "start": 41.29,
-    "end": 41.74
-  },
-  {
-    "word": "Parce",
-    "start": 41.74,
-    "end": 41.86
-  },
-  {
-    "word": "que",
-    "start": 42.99,
-    "end": 43.44
-  },
-  {
-    "word": "les",
-    "start": 43.44,
-    "end": 43.66
-  },
-  {
-    "word": "IA",
-    "start": 43.66,
-    "end": 44.08
-  },
-  {
-    "word": "vidéo",
-    "start": 44.08,
-    "end": 44.36
-  },
-  {
-    "word": "classiques",
-    "start": 44.36,
-    "end": 44.9
-  },
-  {
-    "word": "coûtent",
-    "start": 44.9,
-    "end": 45.22
-  },
-  {
-    "word": "une",
-    "start": 45.22,
-    "end": 45.38
-  },
-  {
-    "word": "fortune,",
-    "start": 45.38,
-    "end": 45.68
-  },
-  {
-    "word": "font",
-    "start": 45.76,
-    "end": 45.96
-  },
-  {
-    "word": "des",
-    "start": 45.96,
-    "end": 46.24
-  },
-  {
-    "word": "erreurs",
-    "start": 46.24,
-    "end": 46.62
-  },
-  {
-    "word": "visuelles",
-    "start": 46.85,
-    "end": 47.3
-  },
-  {
-    "word": "et",
-    "start": 47.3,
-    "end": 47.48
-  },
-  {
-    "word": "prennent",
-    "start": 47.48,
-    "end": 47.86
-  },
-  {
-    "word": "des",
-    "start": 47.86,
-    "end": 48.0
-  },
-  {
-    "word": "heures",
-    "start": 48.0,
-    "end": 48.3
-  },
-  {
-    "word": "à",
-    "start": 48.3,
-    "end": 48.48
-  },
-  {
-    "word": "corriger.",
-    "start": 48.48,
-    "end": 48.96
-  },
-  {
-    "word": "Avec",
-    "start": 49.02,
-    "end": 49.2
-  },
-  {
-    "word": "du",
-    "start": 49.2,
-    "end": 49.42
-  },
-  {
-    "word": "code",
-    "start": 49.42,
-    "end": 49.66
-  },
-  {
-    "word": "une",
-    "start": 49.66,
-    "end": 50.02
-  },
-  {
-    "word": "vidéo",
-    "start": 50.02,
-    "end": 50.38
-  },
-  {
-    "word": "complète",
-    "start": 50.77,
-    "end": 51.22
-  },
-  {
-    "word": "me",
-    "start": 51.22,
-    "end": 51.54
-  },
-  {
-    "word": "prend",
-    "start": 51.54,
-    "end": 51.78
-  },
-  {
-    "word": "deux",
-    "start": 51.78,
-    "end": 52.1
-  },
-  {
-    "word": "minutes",
-    "start": 52.1,
-    "end": 52.4
-  },
-  {
-    "word": "à",
-    "start": 52.4,
-    "end": 52.68
-  },
-  {
-    "word": "générer",
-    "start": 52.68,
-    "end": 53.1
-  },
-  {
-    "word": "et",
-    "start": 53.1,
-    "end": 53.36
-  },
-  {
-    "word": "coûte",
-    "start": 53.36,
-    "end": 53.54
-  },
-  {
-    "word": "0",
-    "start": 53.54,
-    "end": 53.86
-  },
-  {
-    "word": "euro.",
-    "start": 53.86,
-    "end": 54.24
-  },
-  {
-    "word": "Que",
-    "start": 54.43,
-    "end": 54.88
-  },
-  {
-    "word": "ce",
-    "start": 54.88,
-    "end": 55.02
-  },
-  {
-    "word": "soit",
-    "start": 55.02,
-    "end": 55.24
-  },
-  {
-    "word": "pour",
-    "start": 55.24,
-    "end": 55.4
-  },
-  {
-    "word": "expliquer",
-    "start": 55.4,
-    "end": 55.88
-  },
-  {
-    "word": "ton",
-    "start": 55.88,
-    "end": 56.06
-  },
-  {
-    "word": "logiciel,",
-    "start": 56.25,
-    "end": 56.7
-  },
-  {
-    "word": "présenter",
-    "start": 56.72,
-    "end": 57.06
-  },
-  {
-    "word": "ton",
-    "start": 57.06,
-    "end": 57.3
-  },
-  {
-    "word": "offre",
-    "start": 57.3,
-    "end": 57.64
-  },
-  {
-    "word": "ou",
-    "start": 57.64,
-    "end": 57.72
-  },
-  {
-    "word": "publier",
-    "start": 57.72,
-    "end": 58.18
-  },
-  {
-    "word": "tous",
-    "start": 58.18,
-    "end": 58.42
-  },
-  {
-    "word": "les",
-    "start": 58.42,
-    "end": 58.62
-  },
-  {
-    "word": "jours",
-    "start": 58.62,
-    "end": 58.78
-  },
-  {
-    "word": "sans",
-    "start": 58.78,
-    "end": 59.02
-  },
-  {
-    "word": "jamais",
-    "start": 59.02,
-    "end": 59.36
-  },
-  {
-    "word": "allumer",
-    "start": 59.36,
-    "end": 59.66
-  },
-  {
-    "word": "ta",
-    "start": 59.66,
-    "end": 59.88
-  },
-  {
-    "word": "caméra,",
-    "start": 59.88,
-    "end": 60.42
-  },
-  {
-    "word": "tout",
-    "start": 60.42,
-    "end": 60.54
+    "word": "principe",
+    "start": 16.9,
+    "end": 17.28
   },
   {
     "word": "est",
-    "start": 60.54,
-    "end": 60.72
+    "start": 17.28,
+    "end": 17.66
   },
   {
-    "word": "automatisé.",
-    "start": 61.09,
-    "end": 61.54
+    "word": "ultra",
+    "start": 17.66,
+    "end": 18.02
   },
   {
-    "word": "Si",
-    "start": 61.68,
-    "end": 61.9
+    "word": "simple,",
+    "start": 18.02,
+    "end": 18.34
   },
   {
-    "word": "tu",
-    "start": 61.9,
-    "end": 62.06
+    "word": "j'enregistre",
+    "start": 18.48,
+    "end": 18.96
   },
   {
-    "word": "veux",
-    "start": 62.06,
-    "end": 62.22
+    "word": "ma",
+    "start": 18.96,
+    "end": 19.18
   },
   {
-    "word": "que",
-    "start": 62.22,
-    "end": 62.38
+    "word": "voix",
+    "start": 19.18,
+    "end": 19.36
   },
   {
-    "word": "je",
-    "start": 62.38,
-    "end": 62.5
+    "word": "sur",
+    "start": 19.36,
+    "end": 19.58
   },
   {
-    "word": "déploie",
-    "start": 62.5,
-    "end": 62.84
+    "word": "mon",
+    "start": 19.58,
+    "end": 19.74
   },
   {
-    "word": "ce",
-    "start": 62.84,
-    "end": 63.04
+    "word": "téléphone,",
+    "start": 19.74,
+    "end": 20.16
   },
   {
-    "word": "système",
-    "start": 63.04,
-    "end": 63.36
+    "word": "mon",
+    "start": 20.3,
+    "end": 20.42
   },
   {
-    "word": "avec",
-    "start": 63.36,
-    "end": 63.56
+    "word": "script",
+    "start": 20.42,
+    "end": 20.62
   },
   {
-    "word": "ton",
-    "start": 63.56,
-    "end": 63.82
+    "word": "coupe",
+    "start": 20.62,
+    "end": 21.02
   },
   {
-    "word": "propre",
-    "start": 63.82,
-    "end": 64.02
+    "word": "automatiquement",
+    "start": 21.02,
+    "end": 21.76
   },
   {
-    "word": "avatar",
-    "start": 64.02,
-    "end": 64.44
+    "word": "tous",
+    "start": 21.76,
+    "end": 22.02
+  },
+  {
+    "word": "les",
+    "start": 22.02,
+    "end": 22.18
+  },
+  {
+    "word": "silences",
+    "start": 22.18,
+    "end": 22.52
   },
   {
     "word": "et",
-    "start": 64.44,
-    "end": 64.82
+    "start": 22.52,
+    "end": 22.82
   },
   {
-    "word": "ta",
-    "start": 64.82,
-    "end": 65.0
+    "word": "transcrit",
+    "start": 22.82,
+    "end": 23.3
   },
   {
-    "word": "charte",
-    "start": 65.0,
-    "end": 65.22
+    "word": "chaque",
+    "start": 23.3,
+    "end": 23.58
   },
   {
-    "word": "graphique,",
-    "start": 65.43,
-    "end": 65.88
+    "word": "mot",
+    "start": 23.58,
+    "end": 23.84
   },
   {
-    "word": "envoie-moi",
-    "start": 65.94,
-    "end": 66.34
+    "word": "à",
+    "start": 23.84,
+    "end": 23.98
   },
   {
-    "word": "« CODE »",
-    "start": 66.34,
-    "end": 66.66
+    "word": "la",
+    "start": 23.98,
+    "end": 24.1
+  },
+  {
+    "word": "milliseconde.",
+    "start": 24.1,
+    "end": 24.72
+  },
+  {
+    "word": "Ensuite,",
+    "start": 24.72,
+    "end": 25.7
+  },
+  {
+    "word": "le",
+    "start": 25.85,
+    "end": 25.85
+  },
+  {
+    "word": "code",
+    "start": 25.85,
+    "end": 25.85
+  },
+  {
+    "word": "génère",
+    "start": 25.85,
+    "end": 26.06
+  },
+  {
+    "word": "toute",
+    "start": 26.06,
+    "end": 26.18
+  },
+  {
+    "word": "la",
+    "start": 26.18,
+    "end": 26.42
+  },
+  {
+    "word": "mise",
+    "start": 26.42,
+    "end": 26.62
   },
   {
     "word": "en",
-    "start": 66.66,
-    "end": 66.92
+    "start": 26.62,
+    "end": 26.84
+  },
+  {
+    "word": "scène,",
+    "start": 26.84,
+    "end": 27.08
+  },
+  {
+    "word": "il",
+    "start": 27.22,
+    "end": 27.3
+  },
+  {
+    "word": "anime",
+    "start": 27.3,
+    "end": 27.66
+  },
+  {
+    "word": "mon",
+    "start": 27.66,
+    "end": 27.92
+  },
+  {
+    "word": "avatar",
+    "start": 27.92,
+    "end": 28.24
+  },
+  {
+    "word": "en",
+    "start": 28.24,
+    "end": 28.58
+  },
+  {
+    "word": "costume",
+    "start": 28.58,
+    "end": 28.84
+  },
+  {
+    "word": "selon",
+    "start": 28.84,
+    "end": 29.3
+  },
+  {
+    "word": "l'émotion,",
+    "start": 29.3,
+    "end": 29.78
+  },
+  {
+    "word": "il",
+    "start": 29.92,
+    "end": 30.0
+  },
+  {
+    "word": "ouvre",
+    "start": 30.0,
+    "end": 30.24
+  },
+  {
+    "word": "les",
+    "start": 30.24,
+    "end": 30.46
+  },
+  {
+    "word": "terminaux,",
+    "start": 30.46,
+    "end": 30.92
+  },
+  {
+    "word": "il",
+    "start": 31.06,
+    "end": 31.1
+  },
+  {
+    "word": "affiche",
+    "start": 31.1,
+    "end": 31.52
+  },
+  {
+    "word": "des",
+    "start": 31.52,
+    "end": 31.78
+  },
+  {
+    "word": "listes",
+    "start": 31.78,
+    "end": 32.08
+  },
+  {
+    "word": "structurées,",
+    "start": 32.08,
+    "end": 32.94
+  },
+  {
+    "word": "et",
+    "start": 32.94,
+    "end": 33.58
+  },
+  {
+    "word": "change",
+    "start": 33.58,
+    "end": 33.58
+  },
+  {
+    "word": "le",
+    "start": 33.58,
+    "end": 33.8
+  },
+  {
+    "word": "décor",
+    "start": 33.8,
+    "end": 34.06
+  },
+  {
+    "word": "en",
+    "start": 34.06,
+    "end": 34.28
+  },
+  {
+    "word": "losanges",
+    "start": 34.28,
+    "end": 34.76
+  },
+  {
+    "word": "ou",
+    "start": 34.76,
+    "end": 35.08
+  },
+  {
+    "word": "en",
+    "start": 35.08,
+    "end": 35.34
+  },
+  {
+    "word": "cercles,",
+    "start": 35.34,
+    "end": 35.6
+  },
+  {
+    "word": "et",
+    "start": 35.6,
+    "end": 36.26
+  },
+  {
+    "word": "il",
+    "start": 36.26,
+    "end": 36.26
+  },
+  {
+    "word": "compile",
+    "start": 36.26,
+    "end": 36.6
+  },
+  {
+    "word": "tout",
+    "start": 36.6,
+    "end": 36.8
+  },
+  {
+    "word": "avec",
+    "start": 36.8,
+    "end": 37.26
+  },
+  {
+    "word": "FFmpeg",
+    "start": 37.26,
+    "end": 38.56
+  },
+  {
+    "word": "à",
+    "start": 38.56,
+    "end": 38.98
+  },
+  {
+    "word": "30",
+    "start": 38.98,
+    "end": 39.44
+  },
+  {
+    "word": "images",
+    "start": 39.44,
+    "end": 39.7
+  },
+  {
+    "word": "par",
+    "start": 39.7,
+    "end": 39.96
+  },
+  {
+    "word": "seconde.",
+    "start": 39.96,
+    "end": 40.52
+  },
+  {
+    "word": "Pourquoi",
+    "start": 40.52,
+    "end": 41.19
+  },
+  {
+    "word": "c'est",
+    "start": 41.19,
+    "end": 41.33
+  },
+  {
+    "word": "une",
+    "start": 41.33,
+    "end": 41.45
+  },
+  {
+    "word": "révolution",
+    "start": 41.45,
+    "end": 41.93
+  },
+  {
+    "word": "pour",
+    "start": 41.93,
+    "end": 42.25
+  },
+  {
+    "word": "les",
+    "start": 42.25,
+    "end": 42.35
+  },
+  {
+    "word": "fondateurs",
+    "start": 42.35,
+    "end": 42.87
+  },
+  {
+    "word": "SaaS",
+    "start": 42.87,
+    "end": 43.21
+  },
+  {
+    "word": "et",
+    "start": 43.21,
+    "end": 43.49
+  },
+  {
+    "word": "les",
+    "start": 43.49,
+    "end": 43.61
+  },
+  {
+    "word": "entrepreneurs ?",
+    "start": 43.61,
+    "end": 44.72
+  },
+  {
+    "word": "Parce",
+    "start": 44.75,
+    "end": 45.09
+  },
+  {
+    "word": "que",
+    "start": 45.09,
+    "end": 45.41
+  },
+  {
+    "word": "les",
+    "start": 45.41,
+    "end": 45.55
+  },
+  {
+    "word": "IA",
+    "start": 45.55,
+    "end": 45.82
+  },
+  {
+    "word": "vidéo",
+    "start": 45.41,
+    "end": 45.69
+  },
+  {
+    "word": "classiques",
+    "start": 45.69,
+    "end": 46.23
+  },
+  {
+    "word": "coûtent",
+    "start": 46.23,
+    "end": 46.55
+  },
+  {
+    "word": "une",
+    "start": 46.55,
+    "end": 46.71
+  },
+  {
+    "word": "fortune,",
+    "start": 46.71,
+    "end": 47.01
+  },
+  {
+    "word": "font",
+    "start": 47.15,
+    "end": 47.51
+  },
+  {
+    "word": "des",
+    "start": 47.51,
+    "end": 47.79
+  },
+  {
+    "word": "erreurs",
+    "start": 47.79,
+    "end": 48.17
+  },
+  {
+    "word": "visuelles",
+    "start": 48.17,
+    "end": 48.85
+  },
+  {
+    "word": "et",
+    "start": 48.85,
+    "end": 49.03
+  },
+  {
+    "word": "prennent",
+    "start": 49.03,
+    "end": 49.55
+  },
+  {
+    "word": "des",
+    "start": 49.55,
+    "end": 49.83
+  },
+  {
+    "word": "heures",
+    "start": 49.83,
+    "end": 50.13
+  },
+  {
+    "word": "à",
+    "start": 50.13,
+    "end": 50.31
+  },
+  {
+    "word": "corriger.",
+    "start": 50.31,
+    "end": 50.79
+  },
+  {
+    "word": "Avec",
+    "start": 50.93,
+    "end": 51.33
+  },
+  {
+    "word": "du",
+    "start": 51.33,
+    "end": 51.55
+  },
+  {
+    "word": "code",
+    "start": 51.55,
+    "end": 51.79
+  },
+  {
+    "word": "une",
+    "start": 51.79,
+    "end": 52.15
+  },
+  {
+    "word": "vidéo",
+    "start": 52.15,
+    "end": 52.51
+  },
+  {
+    "word": "complète",
+    "start": 52.51,
+    "end": 53.35
+  },
+  {
+    "word": "me",
+    "start": 53.35,
+    "end": 54.01
+  },
+  {
+    "word": "prend",
+    "start": 54.01,
+    "end": 54.25
+  },
+  {
+    "word": "deux",
+    "start": 54.25,
+    "end": 54.89
+  },
+  {
+    "word": "minutes",
+    "start": 54.89,
+    "end": 55.19
+  },
+  {
+    "word": "à",
+    "start": 55.19,
+    "end": 55.47
+  },
+  {
+    "word": "générer",
+    "start": 55.47,
+    "end": 55.89
+  },
+  {
+    "word": "et",
+    "start": 55.89,
+    "end": 56.15
+  },
+  {
+    "word": "coûte",
+    "start": 56.15,
+    "end": 56.33
+  },
+  {
+    "word": "0",
+    "start": 56.33,
+    "end": 56.65
+  },
+  {
+    "word": "euro.",
+    "start": 56.65,
+    "end": 57.03
+  },
+  {
+    "word": "Que",
+    "start": 57.03,
+    "end": 57.67
+  },
+  {
+    "word": "ce",
+    "start": 57.67,
+    "end": 57.81
+  },
+  {
+    "word": "soit",
+    "start": 57.81,
+    "end": 58.03
+  },
+  {
+    "word": "pour",
+    "start": 58.03,
+    "end": 58.19
+  },
+  {
+    "word": "expliquer",
+    "start": 58.19,
+    "end": 58.67
+  },
+  {
+    "word": "ton",
+    "start": 58.67,
+    "end": 58.85
+  },
+  {
+    "word": "logiciel,",
+    "start": 58.85,
+    "end": 59.49
+  },
+  {
+    "word": "présenter",
+    "start": 59.67,
+    "end": 60.19
+  },
+  {
+    "word": "ton",
+    "start": 60.19,
+    "end": 60.43
+  },
+  {
+    "word": "offre",
+    "start": 60.43,
+    "end": 60.77
+  },
+  {
+    "word": "ou",
+    "start": 60.77,
+    "end": 60.85
+  },
+  {
+    "word": "publier",
+    "start": 60.85,
+    "end": 61.31
+  },
+  {
+    "word": "tous",
+    "start": 61.31,
+    "end": 61.55
+  },
+  {
+    "word": "les",
+    "start": 61.55,
+    "end": 61.75
+  },
+  {
+    "word": "jours",
+    "start": 61.75,
+    "end": 61.91
+  },
+  {
+    "word": "sans",
+    "start": 61.91,
+    "end": 62.15
+  },
+  {
+    "word": "jamais",
+    "start": 62.15,
+    "end": 62.49
+  },
+  {
+    "word": "allumer",
+    "start": 62.49,
+    "end": 62.79
+  },
+  {
+    "word": "ta",
+    "start": 62.79,
+    "end": 63.01
+  },
+  {
+    "word": "caméra,",
+    "start": 63.01,
+    "end": 63.93
+  },
+  {
+    "word": "tout",
+    "start": 64.03,
+    "end": 64.09
+  },
+  {
+    "word": "est",
+    "start": 64.09,
+    "end": 64.09
+  },
+  {
+    "word": "automatisé.",
+    "start": 64.09,
+    "end": 64.63
+  },
+  {
+    "word": "Si",
+    "start": 64.77,
+    "end": 64.99
+  },
+  {
+    "word": "tu",
+    "start": 64.99,
+    "end": 65.15
+  },
+  {
+    "word": "veux",
+    "start": 65.15,
+    "end": 65.31
+  },
+  {
+    "word": "que",
+    "start": 65.31,
+    "end": 65.47
+  },
+  {
+    "word": "je",
+    "start": 65.47,
+    "end": 65.59
+  },
+  {
+    "word": "déploie",
+    "start": 65.59,
+    "end": 65.93
+  },
+  {
+    "word": "ce",
+    "start": 65.93,
+    "end": 66.13
+  },
+  {
+    "word": "système",
+    "start": 66.13,
+    "end": 66.45
+  },
+  {
+    "word": "avec",
+    "start": 66.45,
+    "end": 66.65
+  },
+  {
+    "word": "ton",
+    "start": 66.65,
+    "end": 66.91
+  },
+  {
+    "word": "propre",
+    "start": 66.91,
+    "end": 67.11
+  },
+  {
+    "word": "avatar",
+    "start": 67.11,
+    "end": 67.53
+  },
+  {
+    "word": "et",
+    "start": 67.53,
+    "end": 68.19
+  },
+  {
+    "word": "ta",
+    "start": 68.19,
+    "end": 68.19
+  },
+  {
+    "word": "charte",
+    "start": 68.19,
+    "end": 68.23
+  },
+  {
+    "word": "graphique,",
+    "start": 68.23,
+    "end": 68.89
+  },
+  {
+    "word": "envoie-moi",
+    "start": 68.95,
+    "end": 69.35
+  },
+  {
+    "word": "« CODE »",
+    "start": 69.35,
+    "end": 69.67
+  },
+  {
+    "word": "en",
+    "start": 69.67,
+    "end": 69.93
   },
   {
     "word": "message",
-    "start": 66.92,
-    "end": 67.18
+    "start": 69.93,
+    "end": 70.19
   },
   {
     "word": "privé.",
-    "start": 67.18,
-    "end": 67.62
+    "start": 70.19,
+    "end": 70.63
   }
 ];
 
@@ -1104,7 +1104,7 @@ window.SCENES = [
     "id": "scene_01",
     "type": "face",
     "start": 0.0,
-    "end": 1.64,
+    "end": 1.92,
     "data": {
       "avatar": "assets/avatars/stop.png",
       "label": "STOP AUX MONTEURS 🛑",
@@ -1114,8 +1114,8 @@ window.SCENES = [
   {
     "id": "scene_02",
     "type": "big",
-    "start": 1.64,
-    "end": 3.24,
+    "start": 1.92,
+    "end": 3.82,
     "data": {
       "text": "💸 HORS DE PRIX",
       "sub": "FACTURES IA EXPLOSÉES",
@@ -1125,8 +1125,8 @@ window.SCENES = [
   {
     "id": "scene_03",
     "type": "face",
-    "start": 3.24,
-    "end": 5.16,
+    "start": 3.82,
+    "end": 5.74,
     "data": {
       "avatar": "assets/avatars/pointing.png",
       "label": "CETTE VIDÉO 👇",
@@ -1136,8 +1136,8 @@ window.SCENES = [
   {
     "id": "scene_04",
     "type": "cards",
-    "start": 5.16,
-    "end": 7.02,
+    "start": 5.74,
+    "end": 7.6,
     "data": {
       "cards": [
         {
@@ -1152,8 +1152,8 @@ window.SCENES = [
   {
     "id": "scene_05",
     "type": "cards",
-    "start": 7.02,
-    "end": 10.22,
+    "start": 7.6,
+    "end": 11.56,
     "data": {
       "cards": [
         {
@@ -1173,8 +1173,8 @@ window.SCENES = [
   {
     "id": "scene_06",
     "type": "big",
-    "start": 10.22,
-    "end": 12.36,
+    "start": 11.56,
+    "end": 13.7,
     "data": {
       "text": "100% CODE",
       "sub": "GÉNÉRÉ PAR ALGORITHME ⚡",
@@ -1184,8 +1184,8 @@ window.SCENES = [
   {
     "id": "scene_07",
     "type": "face",
-    "start": 12.36,
-    "end": 14.12,
+    "start": 13.7,
+    "end": 15.46,
     "data": {
       "avatar": "assets/avatars/laptop.png",
       "label": "MOTEUR SUR-MESURE 💻",
@@ -1194,24 +1194,18 @@ window.SCENES = [
   },
   {
     "id": "scene_08",
-    "type": "window",
-    "start": 14.12,
-    "end": 15.26,
+    "type": "engine_arch",
+    "start": 15.46,
+    "end": 16.6,
     "data": {
-      "title": "engine_core.py",
-      "lines": [
-        "$ python3 engine.py --init",
-        "✓ Python 3.12 + Node.js actifs",
-        "✓ Moteur Motion Design : PRÊT"
-      ],
       "bg": "grid"
     }
   },
   {
     "id": "scene_09",
     "type": "face",
-    "start": 15.26,
-    "end": 17.0,
+    "start": 16.6,
+    "end": 18.34,
     "data": {
       "avatar": "assets/avatars/idea.png",
       "label": "ULTRA SIMPLE 💡",
@@ -1221,8 +1215,8 @@ window.SCENES = [
   {
     "id": "scene_10",
     "type": "face",
-    "start": 17.0,
-    "end": 18.82,
+    "start": 18.34,
+    "end": 20.16,
     "data": {
       "avatar": "assets/avatars/mic.png",
       "label": "1. MÉMO VOCAL 📱",
@@ -1232,8 +1226,8 @@ window.SCENES = [
   {
     "id": "scene_11",
     "type": "audio_wave",
-    "start": 18.82,
-    "end": 21.18,
+    "start": 20.16,
+    "end": 22.52,
     "data": {
       "title": "vocal1.m4a — NETTOYAGE STUDIO",
       "sub": "✂️ SILENCES SUPPRIMÉS AUTOMATIQUEMENT",
@@ -1242,24 +1236,18 @@ window.SCENES = [
   },
   {
     "id": "scene_12",
-    "type": "window",
-    "start": 21.18,
-    "end": 23.38,
+    "type": "sync_timer",
+    "start": 22.52,
+    "end": 24.72,
     "data": {
-      "title": "whisper_timestamps.json",
-      "lines": [
-        "[00:21.40s] \"chaque\" -> sync OK",
-        "[00:21.68s] \"mot\" -> ±1 ms",
-        "✓ Alignement temporel parfait"
-      ],
       "bg": "grid"
     }
   },
   {
     "id": "scene_13",
     "type": "big",
-    "start": 23.38,
-    "end": 25.68,
+    "start": 24.72,
+    "end": 27.08,
     "data": {
       "text": "MISE EN SCÈNE",
       "sub": "100% PILOTÉE PAR LE CODE 🎬",
@@ -1268,20 +1256,18 @@ window.SCENES = [
   },
   {
     "id": "scene_14",
-    "type": "face",
-    "start": 25.68,
-    "end": 28.38,
+    "type": "emotion_morph",
+    "start": 27.08,
+    "end": 29.78,
     "data": {
-      "avatar": "assets/avatars/happy.png",
-      "label": "AVATAR INTELLIGENT 🎭",
       "bg": "grid"
     }
   },
   {
     "id": "scene_15",
     "type": "window",
-    "start": 28.38,
-    "end": 29.52,
+    "start": 29.78,
+    "end": 30.92,
     "data": {
       "title": "terminal_ui.sh",
       "lines": [
@@ -1295,8 +1281,8 @@ window.SCENES = [
   {
     "id": "scene_16",
     "type": "list",
-    "start": 29.52,
-    "end": 31.54,
+    "start": 30.92,
+    "end": 32.94,
     "data": {
       "header": "COMPOSANTS DYNAMIQUES",
       "items": [
@@ -1310,8 +1296,8 @@ window.SCENES = [
   {
     "id": "scene_17",
     "type": "big",
-    "start": 31.54,
-    "end": 33.26,
+    "start": 32.94,
+    "end": 34.76,
     "data": {
       "text": "◆ LOSANGES ◆",
       "sub": "CHANGEMENT DE DÉCOR EN DIRECT",
@@ -1321,8 +1307,8 @@ window.SCENES = [
   {
     "id": "scene_18",
     "type": "big",
-    "start": 33.26,
-    "end": 34.06,
+    "start": 34.76,
+    "end": 35.6,
     "data": {
       "text": "● CERCLES ●",
       "sub": "ANIMATION HAUTE VITESSE",
@@ -1331,24 +1317,18 @@ window.SCENES = [
   },
   {
     "id": "scene_19",
-    "type": "window",
-    "start": 34.06,
-    "end": 36.74,
+    "type": "ffmpeg_render",
+    "start": 35.6,
+    "end": 38.56,
     "data": {
-      "title": "ffmpeg_master.sh",
-      "lines": [
-        "$ ffmpeg -framerate 30 -i frames",
-        "  -c:v libx264 -crf 18 output.mp4",
-        "✓ Rendu terminé en 1.2s"
-      ],
       "bg": "grid"
     }
   },
   {
     "id": "scene_20",
     "type": "big",
-    "start": 36.74,
-    "end": 38.24,
+    "start": 38.56,
+    "end": 40.52,
     "data": {
       "text": "30 FPS",
       "sub": "1080x1920 FULL HD FLUIDE 🔥",
@@ -1358,8 +1338,8 @@ window.SCENES = [
   {
     "id": "scene_21",
     "type": "face",
-    "start": 38.24,
-    "end": 39.36,
+    "start": 40.52,
+    "end": 41.93,
     "data": {
       "avatar": "assets/avatars/shock.png",
       "label": "UNE RÉVOLUTION 🚀",
@@ -1369,8 +1349,8 @@ window.SCENES = [
   {
     "id": "scene_22",
     "type": "cards",
-    "start": 39.36,
-    "end": 41.74,
+    "start": 41.93,
+    "end": 44.72,
     "data": {
       "cards": [
         {
@@ -1390,8 +1370,8 @@ window.SCENES = [
   {
     "id": "scene_23",
     "type": "face",
-    "start": 41.74,
-    "end": 45.68,
+    "start": 44.72,
+    "end": 47.01,
     "data": {
       "avatar": "assets/avatars/skeptic.png",
       "label": "IA VIDÉO = RUINEUX 💸",
@@ -1401,8 +1381,8 @@ window.SCENES = [
   {
     "id": "scene_24",
     "type": "list",
-    "start": 45.68,
-    "end": 47.3,
+    "start": 47.01,
+    "end": 48.85,
     "data": {
       "header": "PROBLÈMES DES IA VIDÉO ❌",
       "items": [
@@ -1416,8 +1396,8 @@ window.SCENES = [
   {
     "id": "scene_25",
     "type": "face",
-    "start": 47.3,
-    "end": 48.96,
+    "start": 48.85,
+    "end": 50.79,
     "data": {
       "avatar": "assets/avatars/stop.png",
       "label": "DES HEURES PERDUES ⏳",
@@ -1427,8 +1407,8 @@ window.SCENES = [
   {
     "id": "scene_26",
     "type": "split",
-    "start": 48.96,
-    "end": 51.22,
+    "start": 50.79,
+    "end": 53.35,
     "data": {
       "leftTitle": "IA / MONTEUR ❌",
       "leftItems": [
@@ -1447,20 +1427,18 @@ window.SCENES = [
   },
   {
     "id": "scene_27",
-    "type": "big",
-    "start": 51.22,
-    "end": 53.1,
+    "type": "speed_counter",
+    "start": 53.35,
+    "end": 55.89,
     "data": {
-      "text": "⏱️ 2 MINUTES",
-      "sub": "DU MÉMO VOCAL AU MP4 FINAL",
       "bg": "grid"
     }
   },
   {
     "id": "scene_28",
     "type": "face",
-    "start": 53.1,
-    "end": 54.24,
+    "start": 55.89,
+    "end": 57.03,
     "data": {
       "avatar": "assets/avatars/money.png",
       "label": "COÛT MARGINAL : 0,00 € 🔥",
@@ -1470,8 +1448,8 @@ window.SCENES = [
   {
     "id": "scene_29",
     "type": "cards",
-    "start": 54.24,
-    "end": 56.7,
+    "start": 57.03,
+    "end": 59.49,
     "data": {
       "cards": [
         {
@@ -1486,8 +1464,8 @@ window.SCENES = [
   {
     "id": "scene_30",
     "type": "cards",
-    "start": 56.7,
-    "end": 57.64,
+    "start": 59.49,
+    "end": 60.77,
     "data": {
       "cards": [
         {
@@ -1507,8 +1485,8 @@ window.SCENES = [
   {
     "id": "scene_31",
     "type": "face",
-    "start": 57.64,
-    "end": 60.42,
+    "start": 60.77,
+    "end": 63.93,
     "data": {
       "avatar": "assets/avatars/scissors.png",
       "label": "SANS CAMÉRA • 100% RÉGULIER 🎥",
@@ -1518,8 +1496,8 @@ window.SCENES = [
   {
     "id": "scene_32",
     "type": "big",
-    "start": 60.42,
-    "end": 61.54,
+    "start": 63.93,
+    "end": 64.63,
     "data": {
       "text": "100% AUTOMATISÉ",
       "sub": "PIPELINE VIDÉO CLÉ EN MAIN ⚙️",
@@ -1529,8 +1507,8 @@ window.SCENES = [
   {
     "id": "scene_33",
     "type": "face",
-    "start": 61.54,
-    "end": 64.44,
+    "start": 64.63,
+    "end": 67.53,
     "data": {
       "avatar": "assets/avatars/prof.png",
       "label": "TON AVATAR SUR-MESURE 👔",
@@ -1540,8 +1518,8 @@ window.SCENES = [
   {
     "id": "scene_34",
     "type": "face",
-    "start": 64.44,
-    "end": 65.88,
+    "start": 67.53,
+    "end": 68.89,
     "data": {
       "avatar": "assets/avatars/pointing.png",
       "label": "TA CHARTE GRAPHIQUE 🎨",
@@ -1551,8 +1529,8 @@ window.SCENES = [
   {
     "id": "scene_35",
     "type": "big",
-    "start": 65.88,
-    "end": 67.7,
+    "start": 68.89,
+    "end": 70.71,
     "data": {
       "text": "ENVOIE « CODE »",
       "sub": "EN MESSAGE PRIVÉ 📩",

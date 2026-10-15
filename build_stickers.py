@@ -62,6 +62,50 @@ def remove_flat_bg_advanced(img: Image.Image, bg_rgb=(229, 229, 229), tolerance=
 
     final_mask = mask_ext | is_neutral_grey
     arr[final_mask, 3] = 0
+    nobg = Image.fromarray(arr)
+    return keep_largest_component(nobg)
+
+def keep_largest_component(img: Image.Image) -> Image.Image:
+    """Conserve UNIQUEMENT la plus grande composante connexe (alpha > 128) et élimine les îlots/taches grises isolées."""
+    arr = np.array(img)
+    alpha = arr[:, :, 3]
+    fg_mask = alpha > 128
+    
+    try:
+        from scipy.ndimage import label
+        labeled_array, num_features = label(fg_mask)
+        if num_features > 1:
+            sizes = np.bincount(labeled_array.ravel())
+            sizes[0] = 0  # ignore background
+            largest_label = sizes.argmax()
+            clean_mask = (labeled_array == largest_label)
+            arr[~clean_mask, 3] = 0
+    except Exception:
+        # Fallback BFS pur Python/NumPy
+        h, w = fg_mask.shape
+        visited = np.zeros((h, w), dtype=bool)
+        best_comp = []
+        for y in range(h):
+            for x in range(w):
+                if fg_mask[y, x] and not visited[y, x]:
+                    comp = []
+                    q = deque([(y, x)])
+                    visited[y, x] = True
+                    while q:
+                        cy, cx = q.popleft()
+                        comp.append((cy, cx))
+                        for dy, dx in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                            ny, nx = cy + dy, cx + dx
+                            if 0 <= ny < h and 0 <= nx < w and fg_mask[ny, nx] and not visited[ny, nx]:
+                                visited[ny, nx] = True
+                                q.append((ny, nx))
+                    if len(comp) > len(best_comp):
+                        best_comp = comp
+        clean_mask = np.zeros((h, w), dtype=bool)
+        for cy, cx in best_comp:
+            clean_mask[cy, cx] = True
+        arr[~clean_mask, 3] = 0
+
     return Image.fromarray(arr)
 
 def fit_in_canvas(img: Image.Image, target_size=(900, 1050), padding_x=40, padding_top=40, stick_to_bottom=True) -> Image.Image:

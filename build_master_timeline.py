@@ -113,11 +113,28 @@ def step1_fuse_and_correct(words_path="words.json"):
         elif w == "code" and idx > 0 and fused[idx-1]["word"] == "envoie-moi":
             item["word"] = "« CODE »"
 
+    # Ajustement chirurgical des timestamps de reprise après le bafouillage
+    for idx, item in enumerate(fused):
+        if item["word"] == "entrepreneurs ?":
+            item["end"] = 47.15
+        elif item["word"] == "Parce" and idx > 0 and fused[idx-1]["word"] == "entrepreneurs ?":
+            item["start"] = 49.48
+            item["end"] = 49.82
+            if idx + 1 < len(fused) and fused[idx+1]["word"] == "que":
+                fused[idx+1]["start"] = 49.82
+                fused[idx+1]["end"] = 50.14
+            if idx + 2 < len(fused) and fused[idx+2]["word"] == "les":
+                fused[idx+2]["start"] = 50.14
+                fused[idx+2]["end"] = 50.28
+            if idx + 3 < len(fused) and fused[idx+3]["word"] == "IA":
+                fused[idx+3]["start"] = 50.28
+                fused[idx+3]["end"] = 50.55
+
     print(f"✓ Fusions et corrections terminées : {len(fused)} mots consolidés.")
     return fused
 
 def step2_rms_silence_cut(words, voix_path="voix.wav"):
-    print("[2/3] B) Suppression acoustique RMS des silences cachés (> 0.18s)...")
+    print("[2/3] B) Découpe chirurgicale des 7 plages ciblées & suppression du bafouillage...")
     with wave.open(voix_path, "rb") as wf:
         sr = wf.getframerate()
         nc = wf.getnchannels()
@@ -126,36 +143,19 @@ def step2_rms_silence_cut(words, voix_path="voix.wav"):
         raw_bytes = wf.readframes(nframes)
 
     audio = np.frombuffer(raw_bytes, dtype=np.int16).reshape(-1, nc).astype(np.float32)
-    mono = np.mean(audio, axis=1)
     total_samples = len(audio)
     total_dur = total_samples / sr
 
-    # Analyse RMS par fenêtres de 20ms
-    win_samples = int(sr * 0.02)
-    num_wins = total_samples // win_samples
-    rms_arr = np.array([
-        np.sqrt(np.mean(mono[i * win_samples:(i + 1) * win_samples] ** 2))
-        for i in range(num_wins)
-    ])
-
-    # Détection des silences consécutifs (RMS < 65 pendant >= 0.18s)
-    silence_mask = rms_arr < 65.0
-    min_wins = int(0.18 / 0.02)
-    silences = []
-    start_w = None
-    for i, is_sil in enumerate(silence_mask):
-        if is_sil and start_w is None:
-            start_w = i
-        elif not is_sil and start_w is not None:
-            if (i - start_w) >= min_wins:
-                s_time = start_w * 0.02
-                e_time = i * 0.02
-                silences.append((s_time, e_time))
-            start_w = None
-    if start_w is not None and (len(silence_mask) - start_w) >= min_wins:
-        silences.append((start_w * 0.02, len(silence_mask) * 0.02))
-
-    print(f"  -> {len(silences)} poches de silence détectées")
+    # Les 7 plages exactes à couper (silences inter-phrases + bafouillage)
+    silences = [
+        (25.85, 26.45), # silence après "Ensuite,"
+        (34.18, 34.70), # silence après "structurées,"
+        (37.38, 38.12), # silence après "cercles,"
+        (43.05, 43.62), # silence après "seconde."
+        (47.15, 49.45), # bafouillage "Parce que les z-i... les..."
+        (68.82, 69.36), # bruit de bouche après "caméra,"
+        (73.46, 74.02), # silence après "avatar"
+    ]
 
     # Découpage des zones actives avec fondu 15ms aux jonctions
     fade_len = int(sr * 0.015)
@@ -202,9 +202,6 @@ def step2_rms_silence_cut(words, voix_path="voix.wav"):
     for w in words:
         w["start"] = round(map_old_to_new(w["start"]), 3)
         w["end"] = round(map_old_to_new(w["end"]), 3)
-        # Si un mot dure > 0.55s, borner start à end - 0.45s
-        if w["end"] - w["start"] > 0.55:
-            w["start"] = round(w["end"] - 0.45, 3)
 
     # Sauvegarde de l'audio dynamique coupé
     out_audio = np.clip(final_audio, -32767.0, 32767.0).astype(np.int16)
@@ -217,7 +214,7 @@ def step2_rms_silence_cut(words, voix_path="voix.wav"):
     with open("words.json", "w", encoding="utf-8") as f:
         json.dump(words, f, indent=2, ensure_ascii=False)
 
-    print(f"✓ Audio compacté : {final_dur:.2f}s (gain de {total_dur - final_dur:.2f}s de silences purgés).")
+    print(f"✓ Audio compacté chirurgicalement : {final_dur:.2f}s (gain de {total_dur - final_dur:.2f}s).")
     return words, final_dur
 
 def step3_build_timeline(words, total_audio_dur, timeline_path="timeline.js"):
@@ -262,7 +259,7 @@ def step3_build_timeline(words, total_audio_dur, timeline_path="timeline.js"):
         "privé."             # 35
     ]
 
-    # Données exactes des 35 scènes demandées
+    # Données exactes des 35 scènes demandées (avec 5 nouveaux composants et 1 seul terminal)
     scenes_configs = [
         # Scène 1
         {"type": "face", "data": {"avatar": "assets/avatars/stop.png", "label": "STOP AUX MONTEURS 🛑", "bg": "red"}},
@@ -278,21 +275,21 @@ def step3_build_timeline(words, total_audio_dur, timeline_path="timeline.js"):
         {"type": "big", "data": {"text": "100% CODE", "sub": "GÉNÉRÉ PAR ALGORITHME ⚡", "bg": "red"}},
         # Scène 7
         {"type": "face", "data": {"avatar": "assets/avatars/laptop.png", "label": "MOTEUR SUR-MESURE 💻", "bg": "grid"}},
-        # Scène 8
-        {"type": "window", "data": {"title": "engine_core.py", "lines": ["$ python3 engine.py --init", "✓ Python 3.12 + Node.js actifs", "✓ Moteur Motion Design : PRÊT"], "bg": "grid"}},
+        # Scène 8 : NOUVEAU COMPOSANT ENGINE ARCH
+        {"type": "engine_arch", "data": {"bg": "grid"}},
         # Scène 9
         {"type": "face", "data": {"avatar": "assets/avatars/idea.png", "label": "ULTRA SIMPLE 💡", "bg": "grid"}},
         # Scène 10
         {"type": "face", "data": {"avatar": "assets/avatars/mic.png", "label": "1. MÉMO VOCAL 📱", "bg": "grid"}},
         # Scène 11
         {"type": "audio_wave", "data": {"title": "vocal1.m4a — NETTOYAGE STUDIO", "sub": "✂️ SILENCES SUPPRIMÉS AUTOMATIQUEMENT", "bg": "grid"}},
-        # Scène 12
-        {"type": "window", "data": {"title": "whisper_timestamps.json", "lines": ["[00:21.40s] \"chaque\" -> sync OK", "[00:21.68s] \"mot\" -> ±1 ms", "✓ Alignement temporel parfait"], "bg": "grid"}},
+        # Scène 12 : NOUVEAU COMPOSANT SYNC TIMER
+        {"type": "sync_timer", "data": {"bg": "grid"}},
         # Scène 13
         {"type": "big", "data": {"text": "MISE EN SCÈNE", "sub": "100% PILOTÉE PAR LE CODE 🎬", "bg": "grid"}},
-        # Scène 14
-        {"type": "face", "data": {"avatar": "assets/avatars/happy.png", "label": "AVATAR INTELLIGENT 🎭", "bg": "grid"}},
-        # Scène 15
+        # Scène 14 : NOUVEAU COMPOSANT EMOTION MORPH
+        {"type": "emotion_morph", "data": {"bg": "grid"}},
+        # Scène 15 : UNIQUE TERMINAL CONSERVÉ
         {"type": "window", "data": {"title": "terminal_ui.sh", "lines": ["$ ./open_window --neo-brutalist", "✓ Bordure 5px #000000", "✓ Ombre dure 10px générée"], "bg": "grid"}},
         # Scène 16
         {"type": "list", "data": {"header": "COMPOSANTS DYNAMIQUES", "items": ["1. Terminaux & Code", "2. Listes à rebond", "3. Cartes & Comparatifs"], "bg": "grid"}},
@@ -300,8 +297,8 @@ def step3_build_timeline(words, total_audio_dur, timeline_path="timeline.js"):
         {"type": "big", "data": {"text": "◆ LOSANGES ◆", "sub": "CHANGEMENT DE DÉCOR EN DIRECT", "bg": "diamonds"}},
         # Scène 18
         {"type": "big", "data": {"text": "● CERCLES ●", "sub": "ANIMATION HAUTE VITESSE", "bg": "circles"}},
-        # Scène 19
-        {"type": "window", "data": {"title": "ffmpeg_master.sh", "lines": ["$ ffmpeg -framerate 30 -i frames", "  -c:v libx264 -crf 18 output.mp4", "✓ Rendu terminé en 1.2s"], "bg": "grid"}},
+        # Scène 19 : NOUVEAU COMPOSANT FFMPEG RENDER
+        {"type": "ffmpeg_render", "data": {"bg": "grid"}},
         # Scène 20
         {"type": "big", "data": {"text": "30 FPS", "sub": "1080x1920 FULL HD FLUIDE 🔥", "bg": "red"}},
         # Scène 21
@@ -316,8 +313,8 @@ def step3_build_timeline(words, total_audio_dur, timeline_path="timeline.js"):
         {"type": "face", "data": {"avatar": "assets/avatars/stop.png", "label": "DES HEURES PERDUES ⏳", "bg": "red"}},
         # Scène 26
         {"type": "split", "data": {"leftTitle": "IA / MONTEUR ❌", "leftItems": ["3h de montage", "50€ à 150€ / vidéo", "Aléatoire"], "rightTitle": "CODE PYTHON ✅", "rightItems": ["Prêt en 2 min", "Coût : 0,00 €", "Sur-mesure"], "bg": "grid"}},
-        # Scène 27
-        {"type": "big", "data": {"text": "⏱️ 2 MINUTES", "sub": "DU MÉMO VOCAL AU MP4 FINAL", "bg": "grid"}},
+        # Scène 27 : NOUVEAU COMPOSANT SPEED COUNTER
+        {"type": "speed_counter", "data": {"bg": "grid"}},
         # Scène 28
         {"type": "face", "data": {"avatar": "assets/avatars/money.png", "label": "COÛT MARGINAL : 0,00 € 🔥", "bg": "diamonds"}},
         # Scène 29
