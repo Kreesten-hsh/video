@@ -11,8 +11,11 @@ if _user_site not in sys.path:
 import numpy as np
 from PIL import Image, ImageFilter
 
-def remove_flat_bg(img: Image.Image, bg_rgb=(229, 229, 229), tolerance=28) -> Image.Image:
-    """Détoure le fond uni #E5E5E5 par flood-fill NumPy ultra-rapide."""
+def remove_flat_bg_advanced(img: Image.Image, bg_rgb=(229, 229, 229), tolerance=28) -> Image.Image:
+    """
+    Détoure le fond uni #E5E5E5 extérieur ET les zones grises fermées entre les bras/corps.
+    Protège les zones blanches de la chemise (haute luminosité) et la peau (haute saturation).
+    """
     img_rgba = img.convert("RGBA")
     arr = np.array(img_rgba)
     h, w, _ = arr.shape
@@ -21,8 +24,9 @@ def remove_flat_bg(img: Image.Image, bg_rgb=(229, 229, 229), tolerance=28) -> Im
     rgb = arr[:, :, :3].astype(np.float32)
     diff = np.sqrt(np.sum((rgb - bg_ref) ** 2, axis=-1))
 
+    # 1. Masque par flood-fill depuis l'extérieur
     visited = np.zeros((h, w), dtype=bool)
-    mask = np.zeros((h, w), dtype=bool)
+    mask_ext = np.zeros((h, w), dtype=bool)
     
     corners = [(0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1), (w // 2, 0)]
     queue = deque()
@@ -33,7 +37,7 @@ def remove_flat_bg(img: Image.Image, bg_rgb=(229, 229, 229), tolerance=28) -> Im
     while queue:
         y, x = queue.popleft()
         if diff[y, x] <= tolerance:
-            mask[y, x] = True
+            mask_ext[y, x] = True
             for dy, dx in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
                 ny, nx = y + dy, x + dx
                 if 0 <= ny < h and 0 <= nx < w and not visited[ny, nx]:
@@ -41,10 +45,26 @@ def remove_flat_bg(img: Image.Image, bg_rgb=(229, 229, 229), tolerance=28) -> Im
                     if diff[ny, nx] <= tolerance:
                         queue.append((ny, nx))
 
-    arr[mask, 3] = 0
+    # 2. Détection des poches intérieures grises #E5E5E5 (faible saturation, 212 <= R,G,B <= 245)
+    r = rgb[:, :, 0]
+    g = rgb[:, :, 1]
+    b = rgb[:, :, 2]
+    
+    is_neutral_grey = (
+        (diff <= tolerance) &
+        (np.abs(r - g) < 14) &
+        (np.abs(g - b) < 14) &
+        (np.abs(r - b) < 14) &
+        (r >= 212) & (r <= 245) &
+        (g >= 212) & (g <= 245) &
+        (b >= 212) & (b <= 245)
+    )
+
+    final_mask = mask_ext | is_neutral_grey
+    arr[final_mask, 3] = 0
     return Image.fromarray(arr)
 
-def fit_in_canvas(img: Image.Image, target_size=(700, 700), padding=40) -> Image.Image:
+def fit_in_canvas(img: Image.Image, target_size=(700, 700), padding=30) -> Image.Image:
     """Recadre et centre dans un canevas 700x700 avec padding pour ne jamais couper les bords."""
     bbox = img.getbbox()
     if bbox:
@@ -78,7 +98,6 @@ def apply_sticker_effect(nobg_700: Image.Image) -> Image.Image:
     black_layer = Image.new("RGBA", (w, h), (0, 0, 0, 255))
     white_layer = Image.new("RGBA", (w, h), (255, 255, 255, 255))
     
-    # Superposition : calque noir -> calque blanc -> personnage
     result.paste(black_layer, (0, 0), alpha_black)
     result.paste(white_layer, (0, 0), alpha_white)
     result.paste(nobg_700, (0, 0), nobg_700)
@@ -91,14 +110,14 @@ def main():
     out_dir.mkdir(parents=True, exist_ok=True)
 
     raw_files = sorted(list(raw_dir.glob("*.jpg")) + list(raw_dir.glob("*.png")))
-    print(f"[Build Stickers] Traitement ultra-léger de {len(raw_files)} avatars vers {out_dir}/...")
+    print(f"[Build Stickers] Traitement des poches fermées sur {len(raw_files)} avatars vers {out_dir}/...")
 
     for file_path in raw_files:
         name = file_path.stem
         out_path = out_dir / f"{name}.png"
         with Image.open(file_path) as raw:
-            nobg = remove_flat_bg(raw)
-            fitted = fit_in_canvas(nobg, target_size=(700, 700), padding=40)
+            nobg = remove_flat_bg_advanced(raw)
+            fitted = fit_in_canvas(nobg, target_size=(700, 700), padding=30)
             sticker = apply_sticker_effect(fitted)
             sticker.save(out_path, "PNG")
 
@@ -106,14 +125,14 @@ def main():
     pointing_path = raw_dir / "pointing.jpg"
     if pointing_path.exists():
         with Image.open(pointing_path) as raw:
-            nobg = remove_flat_bg(raw)
+            nobg = remove_flat_bg_advanced(raw)
             w, h = nobg.size
             head = nobg.crop((int(w * 0.15), 0, int(w * 0.85), int(h * 0.52)))
-            fitted = fit_in_canvas(head, target_size=(700, 700), padding=50)
+            fitted = fit_in_canvas(head, target_size=(700, 700), padding=40)
             mini_sticker = apply_sticker_effect(fitted)
             mini_sticker.save(out_dir / "mini.png", "PNG")
 
-    print(f"✓ Tous les 12 stickers sont prêts en pur Pillow/NumPy dans {out_dir}/")
+    print(f"✓ Tous les 12 stickers sont régénérés avec poches fermées nettoyées dans {out_dir}/")
 
 if __name__ == "__main__":
     main()

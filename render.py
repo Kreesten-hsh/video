@@ -29,13 +29,16 @@ def get_audio_duration(audio_file: str) -> float:
 
 def render_video(
     html_path: str = "index.html",
-    audio_path: str = "voix.wav",
+    audio_path: str = "audio_final.wav",
     output_path: str = "output.mp4",
     fps: int = 30
 ):
     html_abs = Path(html_path).resolve().as_uri()
     if not Path(audio_path).exists():
-        raise FileNotFoundError(f"Fichier audio {audio_path} introuvable.")
+        if Path("voix.wav").exists():
+            audio_path = "voix.wav"
+        else:
+            raise FileNotFoundError(f"Fichier audio ({audio_path} ou voix.wav) introuvable.")
 
     duration = get_audio_duration(audio_path)
     total_frames = int(duration * fps)

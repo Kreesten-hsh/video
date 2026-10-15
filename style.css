@@ -147,21 +147,31 @@ body {
 
 /* 1. COMPOSANT : FACE */
 .comp-face {
-  display: flex;
-  flex-direction: column-reverse; /* Badge positionné au-dessus de l'avatar */
-  align-items: center;
-  gap: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1080px;
+  height: 1920px;
+  pointer-events: none;
 }
 
-.avatar-sticker {
-  max-width: 850px;
-  max-height: 1050px;
+.comp-face .avatar-sticker {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 920px;
+  max-height: 1150px;
   object-fit: contain;
   filter: drop-shadow(10px 10px 0px #000000);
   transform-origin: bottom center;
 }
 
-.face-badge {
+.comp-face .face-badge {
+  position: absolute;
+  top: 440px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
   background: var(--yellow);
   color: var(--black);
   border: var(--border);
@@ -171,6 +181,36 @@ body {
   font-size: 56px;
   font-weight: 900;
   text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Cas particulier : tête seule centrée (skeptic, mini) */
+.comp-face.face-headonly {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.comp-face.face-headonly .avatar-sticker {
+  position: relative;
+  bottom: auto;
+  left: auto;
+  transform: none;
+  width: 550px;
+  height: 550px;
+  max-height: 550px;
+  transform-origin: center center;
+}
+
+.comp-face.face-headonly .face-badge {
+  position: relative;
+  top: auto;
+  left: auto;
   transform: rotate(-2deg);
 }
 
