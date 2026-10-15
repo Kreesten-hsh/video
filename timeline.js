@@ -1108,7 +1108,7 @@ window.SCENES = [
     "data": {
       "avatar": "assets/avatars/stop.png",
       "label": "STOP AUX MONTEURS 🛑",
-      "bg": "red"
+      "bg": "alert"
     }
   },
   {
@@ -1119,7 +1119,7 @@ window.SCENES = [
     "data": {
       "text": "💸 HORS DE PRIX",
       "sub": "FACTURES IA EXPLOSÉES",
-      "bg": "red"
+      "bg": "alert"
     }
   },
   {
@@ -1178,7 +1178,7 @@ window.SCENES = [
     "data": {
       "text": "100% CODE",
       "sub": "GÉNÉRÉ PAR ALGORITHME ⚡",
-      "bg": "red"
+      "bg": "mint"
     }
   },
   {
@@ -1269,11 +1269,11 @@ window.SCENES = [
     "start": 29.78,
     "end": 30.92,
     "data": {
-      "title": "terminal_ui.sh",
+      "title": "agent404_terminal.sh",
       "lines": [
-        "$ ./open_window --neo-brutalist",
-        "✓ Bordure 5px #000000",
-        "✓ Ombre dure 10px générée"
+        "$ ./agent404 --deploy-matrix",
+        "✓ Protocole Cyber-Mint #00F5A0",
+        "✓ Système 100% Anonyme : ACTIF"
       ],
       "bg": "grid"
     }
@@ -1332,7 +1332,7 @@ window.SCENES = [
     "data": {
       "text": "30 FPS",
       "sub": "1080x1920 FULL HD FLUIDE 🔥",
-      "bg": "red"
+      "bg": "mint"
     }
   },
   {
@@ -1375,7 +1375,7 @@ window.SCENES = [
     "data": {
       "avatar": "assets/avatars/skeptic.png",
       "label": "IA VIDÉO = RUINEUX 💸",
-      "bg": "red"
+      "bg": "alert"
     }
   },
   {
@@ -1390,7 +1390,7 @@ window.SCENES = [
         "❌ Texte illisible à l'écran",
         "❌ Impossible à modifier"
       ],
-      "bg": "red"
+      "bg": "alert"
     }
   },
   {
@@ -1401,7 +1401,7 @@ window.SCENES = [
     "data": {
       "avatar": "assets/avatars/stop.png",
       "label": "DES HEURES PERDUES ⏳",
-      "bg": "red"
+      "bg": "alert"
     }
   },
   {
@@ -1501,7 +1501,7 @@ window.SCENES = [
     "data": {
       "text": "100% AUTOMATISÉ",
       "sub": "PIPELINE VIDÉO CLÉ EN MAIN ⚙️",
-      "bg": "red"
+      "bg": "mint"
     }
   },
   {
@@ -1533,7 +1533,7 @@ window.SCENES = [
     "end": 71.51,
     "data": {
       "text": "ENVOIE « CODE »",
-      "sub": "EN MESSAGE PRIVÉ 📩",
+      "sub": "EN DM À @AGENT404 📩",
       "bg": "circles"
     }
   }
