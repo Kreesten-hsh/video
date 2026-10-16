@@ -39,63 +39,24 @@ html, body {
 }
 
 /* ==========================================================================
-   CANVAS PRINCIPAL & DÉCORS CYBER-MINT
+   CANVAS PRINCIPAL & DÉCOR FIXE CYBER-MINT
    ========================================================================== */
-#video-canvas {
+#video-canvas,
+#bg-layer,
+.bg-grid,
+.bg-alert,
+.bg-mint,
+.bg-red,
+.bg-diamonds,
+.bg-circles {
   position: relative;
   width: 1080px;
   height: 1920px;
   overflow: hidden;
-  background-color: var(--bg-dark);
-  transition: background-color 0.15s ease;
-}
-
-/* 1. Fond Standard : Matrice de points carbone profond */
-.bg-grid {
   background-color: #0D1117 !important;
-  background-image: radial-gradient(#1F2937 3px, transparent 3px);
-  background-size: 36px 36px;
-}
-
-/* 2. Mode Alerte : Carbone pourpre & Grille technique Rouge Néon */
-.bg-alert, .bg-red {
-  background-color: #180810 !important;
-  background-image: 
-    linear-gradient(rgba(255, 42, 95, 0.18) 1.5px, transparent 1.5px),
-    linear-gradient(90deg, rgba(255, 42, 95, 0.18) 1.5px, transparent 1.5px);
-  background-size: 40px 40px;
-}
-
-/* 3. Mode Puissance : Vert Matrice & Grille Émeraude */
-.bg-mint {
-  background-color: #041E16 !important;
-  background-image: 
-    linear-gradient(rgba(0, 245, 160, 0.18) 1.5px, transparent 1.5px),
-    linear-gradient(90deg, rgba(0, 245, 160, 0.18) 1.5px, transparent 1.5px);
-  background-size: 40px 40px;
-}
-
-/* 4. Losanges Cyber-Mint (Scène 17) : Émeraude sur carbone */
-.bg-diamonds {
-  background-color: #0D1117 !important;
-  background-image: 
-    linear-gradient(45deg, rgba(0, 245, 160, 0.14) 25%, transparent 25%),
-    linear-gradient(-45deg, rgba(0, 245, 160, 0.14) 25%, transparent 25%),
-    linear-gradient(135deg, rgba(0, 245, 160, 0.14) 25%, transparent 25%),
-    linear-gradient(-135deg, rgba(0, 245, 160, 0.14) 25%, transparent 25%);
-  background-size: 80px 80px;
-}
-
-/* 5. Cercles Cyber-Mint (Scène 18) : Anneaux émeraude & blanc sur carbone */
-.bg-circles {
-  background-color: #071A14 !important;
-  background-image: 
-    radial-gradient(circle, transparent 20%, #071A14 20%, #071A14 80%, transparent 80%, transparent),
-    radial-gradient(circle, transparent 20%, #071A14 20%, #071A14 80%, transparent 80%, transparent),
-    radial-gradient(circle, rgba(0, 245, 160, 0.22) 2px, transparent 2px),
-    radial-gradient(circle, rgba(255, 255, 255, 0.18) 2px, transparent 2px);
-  background-size: 100px 100px, 100px 100px, 50px 50px, 50px 50px;
-  background-position: 0 0, 50px 50px, 0 0, 25px 25px;
+  background-image: radial-gradient(#1F2937 3px, transparent 3px) !important;
+  background-size: 36px 36px !important;
+  background-position: 0 0 !important;
 }
 
 /* ==========================================================================
@@ -175,7 +136,7 @@ html, body {
 }
 
 /* ==========================================================================
-   ZONE SOUS-TITRES (TOP 96px) - BOÎTE CYBER-MINT ULTRA LISIBLE
+   ZONE SOUS-TITRES (TOP 96px) - BOÎTE CYBER-MINT UNIQUE
    ========================================================================== */
 #subtitles-zone {
   position: absolute;
@@ -191,40 +152,49 @@ html, body {
   z-index: 25;
 }
 
-#subtitles-container, #subtitles-box, .sub-line {
-  background: var(--white);
-  border: 4px solid var(--mint);
-  box-shadow: 0 8px 0 var(--mint), 0 12px 24px rgba(0, 0, 0, 0.6);
-  border-radius: 18px;
-  padding: 16px 28px;
-  max-width: 960px;
-  display: inline-flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 10px 14px;
-  text-align: center;
+#subtitles-container {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+.sub-line {
+  background: #FFFFFF !important;
+  border: 4px solid #090D16 !important;
+  box-shadow: 0 8px 0 #00F5A0 !important;
+  border-radius: 18px !important;
+  padding: 18px 32px !important;
+  display: inline-flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 10px 14px !important;
+  max-width: 940px !important;
 }
 
 .word, .sub-word {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 48px;
-  font-weight: 800;
-  color: #0D1117;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 44px !important;
+  color: #090D16 !important;
+  padding: 4px 10px !important;
+  border-radius: 10px !important;
+  margin: 0 !important;
   letter-spacing: -0.5px;
-  margin: 0 6px;
-  padding: 2px 8px;
-  border-radius: 8px;
   transition: color 0.05s ease, transform 0.05s ease, background 0.05s ease;
 }
 
 .word.active, .sub-word.active {
-  background: var(--mint);
-  color: var(--bg-carbon);
-  border: 2px solid var(--border-color);
-  transform: scale(1.08);
-  font-weight: 900;
-  box-shadow: 0 3px 0 var(--border-color);
+  background: #00F5A0 !important;
+  color: #090D16 !important;
+  border: none !important;
+  box-shadow: none !important;
+  transform: scale(1.05) !important;
 }
 
 /* ==========================================================================
@@ -322,16 +292,33 @@ html, body {
   transition: transform 0.1s ease;
 }
 
-/* Badge Alerte rouge si scène douleur */
-.face-badge.badge-alert, .is-alert .face-badge {
-  background: var(--alert-red) !important;
-  color: var(--white) !important;
-  border-color: var(--border-color) !important;
+/* Badge Pilule Cyber-Mint */
+.face-badge {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%) rotate(0deg) !important;
+  background: #00F5A0 !important;
+  color: #090D16 !important;
+  border: 4px solid #090D16 !important;
   box-shadow: 0 8px 0 #000000 !important;
+  border-radius: 999px !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 38px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: -0.5px !important;
+  padding: 16px 36px !important;
+  white-space: nowrap !important;
+  max-width: 860px !important;
+  text-align: center !important;
+  z-index: 20;
+  pointer-events: auto;
+  transition: transform 0.1s ease;
 }
 
 /* ==========================================================================
-   2. COMPOSANT BIG (TITRES IMPACTANTS CYBER-MINT / ALERTE)
+   2. COMPOSANT BIG (TITRES IMPACTANTS CYBER-MINT)
    ========================================================================== */
 .comp-big {
   display: flex;
@@ -345,8 +332,12 @@ html, body {
 }
 
 .big-box {
-  background: var(--mint);
-  color: var(--bg-carbon);
+  background: #00F5A0 !important;
+  color: #090D16 !important;
+  border: 4px solid #090D16 !important;
+  box-shadow: 0 10px 0 #047857 !important;
+  border-radius: 18px !important;
+  transform: rotate(0deg) !important;
   font-family: 'Syne', sans-serif;
   font-size: 68px;
   font-weight: 900;
@@ -354,37 +345,23 @@ html, body {
   letter-spacing: -1.5px;
   line-height: 1.15;
   padding: 28px 46px;
-  border: 5px solid var(--border-color);
-  box-shadow: 0 10px 0 #000000;
-  border-radius: 18px;
-  transform: rotate(0deg); /* Droit, chirurgical */
   max-width: 940px;
   word-break: break-word;
 }
 
-.big-box.box-alert, .is-alert .big-box {
-  background: var(--alert-red) !important;
-  color: var(--white) !important;
-}
-
 .big-sub {
-  background: var(--white);
-  color: var(--bg-carbon);
+  background: #FFFFFF !important;
+  color: #090D16 !important;
+  border: 4px solid #090D16 !important;
+  box-shadow: 0 6px 0 #00F5A0 !important;
+  border-radius: 12px;
   font-family: 'Montserrat', sans-serif;
   font-size: 32px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0px;
   padding: 14px 28px;
-  border: 4px solid var(--mint);
-  box-shadow: 0 6px 0 var(--mint);
-  border-radius: 12px;
   max-width: 900px;
-}
-
-.is-alert .big-sub {
-  border-color: var(--alert-red) !important;
-  box-shadow: 0 6px 0 var(--alert-red) !important;
 }
 
 /* ==========================================================================
@@ -404,38 +381,38 @@ html, body {
   gap: 24px;
   padding: 24px 28px;
   border-radius: 18px;
-  border: 4px solid var(--border-color);
+  border: 4px solid #090D16 !important;
   transition: transform 0.1s ease;
 }
 
 /* Carte Impaire : Blanche avec ombre Émeraude */
 .card-item:nth-child(odd) {
-  background: var(--white);
-  color: var(--bg-carbon);
-  box-shadow: 0 8px 0 var(--mint);
+  background: #FFFFFF !important;
+  color: #090D16 !important;
+  box-shadow: 0 8px 0 #00F5A0 !important;
 }
 
 .card-item:nth-child(odd) .card-title {
-  color: var(--bg-carbon);
+  color: #090D16 !important;
 }
 
 .card-item:nth-child(odd) .card-sub {
-  color: var(--mint-dark);
+  color: #047857 !important;
 }
 
 /* Carte Paire : Émeraude avec ombre foncée */
 .card-item:nth-child(even) {
-  background: var(--mint);
-  color: var(--bg-carbon);
-  box-shadow: 0 8px 0 var(--mint-dark);
+  background: #00F5A0 !important;
+  color: #090D16 !important;
+  box-shadow: 0 8px 0 #047857 !important;
 }
 
 .card-item:nth-child(even) .card-title {
-  color: var(--bg-carbon);
+  color: #090D16 !important;
 }
 
 .card-item:nth-child(even) .card-sub {
-  color: var(--bg-carbon);
+  color: #090D16 !important;
 }
 
 .card-icon {
@@ -464,7 +441,7 @@ html, body {
 }
 
 /* ==========================================================================
-   4. COMPOSANT LIST (LISTES NUMÉROTÉES CYBER-MINT / ALERTE)
+   4. COMPOSANT LIST (LISTES NUMÉROTÉES CYBER-MINT)
    ========================================================================== */
 .comp-list {
   display: flex;
@@ -475,72 +452,60 @@ html, body {
 }
 
 .list-header {
-  background: var(--mint);
-  color: var(--bg-carbon);
+  background: #00F5A0 !important;
+  color: #090D16 !important;
   font-family: 'Syne', sans-serif;
   font-size: 34px;
   font-weight: 900;
   text-transform: uppercase;
   padding: 16px 28px;
-  border: 4px solid var(--border-color);
-  box-shadow: 0 6px 0 #000000;
+  border: 4px solid #090D16 !important;
+  box-shadow: 0 6px 0 #047857 !important;
   border-radius: 14px;
   text-align: center;
 }
 
-.list-header.header-alert, .is-alert .list-header {
-  background: var(--alert-red) !important;
-  color: var(--white) !important;
-}
-
-.list-item {
+.list-item, .list-row {
   display: flex;
   align-items: center;
   gap: 20px;
-  background: var(--white);
-  color: var(--bg-carbon);
+  background: #FFFFFF !important;
+  color: #090D16 !important;
   padding: 20px 24px;
-  border: 4px solid var(--border-color);
-  box-shadow: 0 6px 0 var(--mint);
+  border: 4px solid #090D16 !important;
+  box-shadow: 0 6px 0 #1F2937 !important;
   border-radius: 14px;
   transition: transform 0.1s ease;
 }
 
-.is-alert .list-item {
-  box-shadow: 0 6px 0 var(--alert-red) !important;
+.list-item.active, .list-row.active {
+  background: #00F5A0 !important;
+  color: #090D16 !important;
+  border: 4px solid #090D16 !important;
+  box-shadow: 0 6px 0 #047857 !important;
 }
 
-.list-item.active {
-  background: var(--mint);
-  box-shadow: 0 8px 0 var(--mint-dark);
-}
-
-.is-alert .list-item.active {
-  background: var(--alert-red) !important;
-  color: var(--white) !important;
-  box-shadow: 0 8px 0 #8B0021 !important;
-}
-
-.item-num {
-  background: var(--mint);
-  color: var(--bg-carbon);
+.item-num, .list-num {
+  background: #0D1117 !important;
+  color: #00F5A0 !important;
   font-family: 'JetBrains Mono', monospace;
   font-size: 26px;
   font-weight: 900;
   padding: 8px 14px;
-  border: 2px solid var(--border-color);
+  border: 2px solid #090D16 !important;
   border-radius: 8px;
 }
 
-.list-item.active .item-num {
-  background: var(--bg-carbon);
-  color: var(--mint);
+.list-item.active .item-num, .list-row.active .list-num {
+  background: #090D16 !important;
+  color: #FFFFFF !important;
 }
 
-.item-text {
+.item-text, .list-text {
   font-family: 'Montserrat', sans-serif;
   font-size: 30px;
   font-weight: 800;
+  color: #090D16 !important;
   letter-spacing: -0.5px;
 }
 
@@ -631,46 +596,47 @@ html, body {
   font-size: 24px;
   font-weight: 900;
   text-align: center;
-  padding: 10px 16px;
-  border-radius: 12px;
-  border: 3px solid var(--border-color);
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 3px solid #090D16 !important;
   box-shadow: 0 4px 0 #000000;
 }
 
-.split-badge.badge-red {
-  background: var(--alert-red);
-  color: var(--white);
+/* Colonne Gauche (Bad) */
+#split-col-left .split-badge, .split-col.bad .split-badge {
+  background: #0D1117 !important;
+  color: #FFFFFF !important;
 }
 
-.split-badge.badge-green {
-  background: var(--mint);
-  color: var(--bg-carbon);
-}
-
-.split-card {
-  padding: 24px 22px;
+#split-col-left .split-card, .split-col.bad .split-card {
+  background: #FFFFFF !important;
+  color: #090D16 !important;
+  border: 4px solid #090D16 !important;
+  box-shadow: 0 8px 0 #1F2937 !important;
   border-radius: 16px;
-  border: 4px solid var(--border-color);
+  padding: 24px 22px;
 }
 
-#split-col-left .split-card {
-  background: #180810;
-  color: var(--white);
-  border-color: var(--alert-red);
-  box-shadow: 0 8px 0 var(--alert-red);
+/* Colonne Droite (Good) */
+#split-col-right .split-badge, .split-col.good .split-badge {
+  background: #090D16 !important;
+  color: #00F5A0 !important;
 }
 
-#split-col-right .split-card {
-  background: var(--white);
-  color: var(--bg-carbon);
-  border-color: var(--mint);
-  box-shadow: 0 8px 0 var(--mint);
+#split-col-right .split-card, .split-col.good .split-card {
+  background: #00F5A0 !important;
+  color: #090D16 !important;
+  border: 4px solid #090D16 !important;
+  box-shadow: 0 8px 0 #047857 !important;
+  border-radius: 16px;
+  padding: 24px 22px;
 }
 
 .split-title {
   font-family: 'Syne', sans-serif;
   font-size: 28px;
   font-weight: 900;
+  color: #090D16 !important;
   margin-bottom: 16px;
 }
 
@@ -681,23 +647,24 @@ html, body {
   gap: 12px;
 }
 
-.split-items li {
-  font-size: 22px;
-  font-weight: 800;
+.split-items li, .split-point {
+  font-size: 24px !important;
+  font-weight: 800 !important;
   line-height: 1.3;
+  color: #090D16 !important;
 }
 
 /* ==========================================================================
    7. COMPOSANT AUDIO WAVE (SPECTRE & COUPE DE SILENCES)
    ========================================================================== */
-.comp-audio-wave {
+.comp-audio-wave, .comp-wave, .wave-card {
   width: 100%;
   max-width: 940px;
-  background: #161B22;
-  border: 4px solid var(--mint);
-  box-shadow: 0 10px 0 #000000;
-  border-radius: 18px;
-  padding: 30px;
+  background: #FFFFFF !important;
+  border: 4px solid #090D16 !important;
+  box-shadow: 0 10px 0 #00F5A0 !important;
+  border-radius: 20px !important;
+  padding: 28px !important;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -709,47 +676,49 @@ html, body {
   align-items: center;
 }
 
-.wave-title {
+.wave-title, .wave-tag {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--white);
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  color: #090D16 !important;
 }
 
 .wave-status {
-  background: var(--mint);
-  color: var(--bg-carbon);
+  background: #00F5A0 !important;
+  color: #090D16 !important;
+  border: 2px solid #090D16 !important;
+  font-family: 'Montserrat', sans-serif;
   font-size: 18px;
-  font-weight: 900;
+  font-weight: 800 !important;
   padding: 6px 14px;
   border-radius: 8px;
-  border: 2px solid var(--border-color);
 }
 
-.wave-bars-container {
+.wave-bars-container, .wave-box {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
   height: 180px;
-  background: #0D1117;
-  border-radius: 12px;
-  border: 3px solid #1F2937;
+  background: #0D1117 !important;
+  border-radius: 14px !important;
+  border: 3px solid #090D16 !important;
   padding: 0 16px;
 }
 
 .wave-bar {
   width: 14px;
   height: 20px;
-  background: var(--mint);
+  background: #00F5A0;
   border-radius: 4px;
   box-shadow: 0 0 8px rgba(0, 245, 160, 0.4);
-  transition: height 0.05s ease, background 0.1s ease;
+  transition: height 0.05s ease;
 }
 
 .wave-bar.silent {
-  background: var(--alert-red) !important;
-  box-shadow: 0 0 8px rgba(255, 42, 95, 0.5) !important;
+  background: #090D16 !important;
+  border: 1px solid #00F5A0;
+  box-shadow: none !important;
 }
 
 .wave-footer {
@@ -759,31 +728,32 @@ html, body {
 }
 
 .wave-silence-badge {
+  background: #090D16 !important;
+  color: #FFFFFF !important;
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
   font-family: 'JetBrains Mono', monospace;
   font-size: 19px;
-  font-weight: 800;
-  color: var(--white);
-  background: #1F2937;
-  padding: 8px 16px;
-  border-radius: 8px;
+  font-weight: 800 !important;
+  border: 2px solid #090D16;
 }
 
 .wave-btn {
-  background: var(--mint);
-  color: var(--bg-carbon);
+  background: #00F5A0 !important;
+  color: #090D16 !important;
+  border: 2px solid #090D16 !important;
   font-family: 'Montserrat', sans-serif;
   font-size: 20px;
-  font-weight: 900;
+  font-weight: 800 !important;
   padding: 10px 22px;
   border-radius: 10px;
-  border: 3px solid var(--border-color);
-  box-shadow: 0 4px 0 #000000;
+  box-shadow: 0 4px 0 #090D16;
 }
 
 /* ==========================================================================
    8. COMPOSANT ENGINE ARCH (PYTHON -> FFmpeg -> JS DOM)
    ========================================================================== */
-.comp-engine-arch {
+.comp-engine-arch, .comp-engine {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -799,19 +769,39 @@ html, body {
   gap: 24px;
   padding: 24px 28px;
   border-radius: 16px;
-  border: 4px solid var(--border-color);
+  border: 4px solid #090D16 !important;
 }
 
 .arch-block.python {
-  background: var(--white);
-  color: var(--bg-carbon);
-  box-shadow: 0 8px 0 var(--mint);
+  background: #FFFFFF !important;
+  border: 4px solid #090D16 !important;
+  box-shadow: 0 8px 0 #00F5A0 !important;
+}
+
+.arch-block.python .arch-title {
+  color: #090D16 !important;
+  font-weight: 900;
+}
+
+.arch-block.python .arch-desc {
+  color: #374151 !important;
+  font-weight: 700 !important;
 }
 
 .arch-block.js {
-  background: var(--mint);
-  color: var(--bg-carbon);
-  box-shadow: 0 8px 0 var(--mint-dark);
+  background: #00F5A0 !important;
+  border: 4px solid #090D16 !important;
+  box-shadow: 0 8px 0 #047857 !important;
+}
+
+.arch-block.js .arch-title {
+  color: #090D16 !important;
+  font-weight: 900 !important;
+}
+
+.arch-block.js .arch-desc {
+  color: #064E3B !important;
+  font-weight: 800 !important;
 }
 
 .arch-icon {
@@ -842,48 +832,59 @@ html, body {
 }
 
 .arch-flow-tag {
-  background: var(--mint);
-  color: var(--bg-carbon);
+  background: #00F5A0;
+  color: #090D16;
   font-family: 'JetBrains Mono', monospace;
   font-size: 22px;
   font-weight: 900;
   padding: 8px 20px;
   border-radius: 10px;
-  border: 3px solid var(--border-color);
+  border: 3px solid #090D16;
   box-shadow: 0 4px 0 #000000;
 }
 
 /* ==========================================================================
    9. COMPOSANT SYNC TIMER (CALIBRAGE WHISPER)
    ========================================================================== */
-.comp-sync-timer {
+.comp-sync-timer, .comp-timer, .timer-card {
   width: 100%;
   max-width: 940px;
-  background: #0D1117;
-  border: 4px solid var(--mint);
-  box-shadow: 0 10px 0 var(--mint);
-  border-radius: 18px;
-  padding: 34px;
+  background: #FFFFFF !important;
+  border: 4px solid #090D16 !important;
+  box-shadow: 0 10px 0 #00F5A0 !important;
+  border-radius: 20px !important;
+  padding: 34px !important;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 24px;
 }
 
-.sync-header {
+.sync-header, .timer-label {
   font-family: 'Montserrat', sans-serif;
   font-size: 26px;
-  font-weight: 900;
-  color: var(--white);
+  font-weight: 800 !important;
+  color: #090D16 !important;
   letter-spacing: 0.5px;
 }
 
-.sync-digits {
+.sync-display {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.sync-digits, .timer-digits {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 64px;
+  font-size: 58px !important;
   font-weight: 900;
-  color: var(--mint);
-  text-shadow: 0 0 14px rgba(0, 245, 160, 0.7);
+  color: #00F5A0 !important;
+  background: #0D1117 !important;
+  padding: 16px 28px !important;
+  border-radius: 14px !important;
+  border: 3px solid #090D16 !important;
+  text-shadow: none !important;
+  letter-spacing: 1px;
 }
 
 .sync-pills {
@@ -891,56 +892,88 @@ html, body {
   gap: 16px;
 }
 
-.sync-pill {
-  background: var(--mint);
-  color: var(--bg-carbon);
+.sync-pill, .timer-tag {
+  background: #00F5A0 !important;
+  color: #090D16 !important;
   font-family: 'JetBrains Mono', monospace;
   font-size: 22px;
-  font-weight: 900;
+  font-weight: 800 !important;
   padding: 8px 18px;
   border-radius: 8px;
-  border: 2px solid var(--border-color);
+  border: 2px solid #090D16 !important;
   box-shadow: 0 3px 0 #000000;
+  transition: all 0.1s ease;
+}
+
+.sync-pill.locked, .timer-tag.locked {
+  background: #090D16 !important;
+  color: #FFFFFF !important;
+  border-color: #090D16 !important;
 }
 
 /* ==========================================================================
-   10. COMPOSANT EMOTION MORPH
+   10. COMPOSANT EMOTION MORPH (CENTRAGE PARFAIT AU PIXEL PRÈS)
    ========================================================================== */
-.comp-emotion-morph {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
+.comp-emotion, .comp-emotion-morph {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
 }
 
-.morph-avatar {
-  height: 600px;
-  width: auto;
-  object-fit: contain;
+.emotion-stage {
+  position: relative !important;
+  width: 560px !important;
+  height: 560px !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-end !important;
+}
+
+.emotion-img, .morph-avatar {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  margin: 0 auto !important;
+  max-height: 540px !important;
+  width: auto !important;
+  opacity: 0;
+  transform: translateY(30px) scale(0.9);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
   filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.7));
 }
 
-.morph-badge {
-  background: var(--mint);
-  color: var(--bg-carbon);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 34px;
-  font-weight: 900;
-  padding: 16px 36px;
-  border: 4px solid var(--border-color);
-  box-shadow: 0 8px 0 #000000;
-  border-radius: 14px;
+.emotion-img.active, .morph-avatar {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+.emotion-label, .morph-badge {
+  background: #00F5A0 !important;
+  color: #090D16 !important;
+  border: 4px solid #090D16 !important;
+  box-shadow: 0 8px 0 #000000 !important;
+  border-radius: 999px !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 34px !important;
+  font-weight: 900 !important;
+  padding: 16px 36px !important;
+  transform: rotate(0deg) !important;
+  text-align: center;
 }
 
 /* ==========================================================================
    11. COMPOSANT FFMPEG RENDER
    ========================================================================== */
-.comp-ffmpeg-render {
+.comp-ffmpeg-render, .comp-ffmpeg, .ffmpeg-card {
   width: 100%;
   max-width: 940px;
-  background: #0D1117;
-  border: 4px solid var(--mint);
-  box-shadow: 0 10px 0 #000000;
+  background: #FFFFFF !important;
+  border: 4px solid #090D16 !important;
+  box-shadow: 0 10px 0 #00F5A0 !important;
   border-radius: 18px;
   padding: 32px;
   display: flex;
@@ -954,69 +987,74 @@ html, body {
   align-items: center;
 }
 
-.ffmpeg-title-box {
+.ffmpeg-title-box, .ffmpeg-head {
   font-family: 'JetBrains Mono', monospace;
   font-size: 26px;
-  font-weight: 900;
-  color: var(--white);
+  font-weight: 800 !important;
+  color: #090D16 !important;
 }
 
 .ffmpeg-frame-counter {
   font-family: 'JetBrains Mono', monospace;
   font-size: 20px;
-  font-weight: 800;
-  color: var(--mint);
+  font-weight: 800 !important;
+  color: #090D16 !important;
+  background: #00F5A0;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 2px solid #090D16;
 }
 
-.ffmpeg-progress-track {
+.ffmpeg-progress-track, .ffmpeg-bar-bg {
   width: 100%;
   height: 38px;
-  background: #161B22;
-  border: 3px solid var(--border-color);
+  background: #0D1117 !important;
+  border: 3px solid #090D16 !important;
   border-radius: 12px;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
 }
 
-.ffmpeg-progress-fill {
+.ffmpeg-progress-fill, .ffmpeg-bar-fill {
   height: 100%;
-  background: var(--mint);
-  box-shadow: 0 0 14px var(--mint);
-  transition: width 0.05s linear;
+  background: #00F5A0 !important;
+  width: 0%;
+  box-shadow: none;
 }
 
 .ffmpeg-progress-pct {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  right: 18px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 20px;
   font-weight: 900;
-  color: var(--bg-carbon);
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 4px #000;
 }
 
 .ffmpeg-footer-badge {
-  text-align: center;
-  background: var(--mint);
-  color: var(--bg-carbon);
+  background: #00F5A0 !important;
+  color: #090D16 !important;
+  border: 2px solid #090D16 !important;
   font-family: 'Montserrat', sans-serif;
-  font-size: 22px;
-  font-weight: 900;
-  padding: 10px 18px;
+  font-size: 20px;
+  font-weight: 800 !important;
+  padding: 10px 20px;
   border-radius: 10px;
-  border: 3px solid var(--border-color);
+  text-align: center;
 }
 
 /* ==========================================================================
    12. COMPOSANT SPEED COUNTER
    ========================================================================== */
-.comp-speed-counter {
+.comp-speed-counter, .comp-speed, .speed-card {
   width: 100%;
   max-width: 940px;
-  background: #0D1117;
-  border: 4px solid var(--mint);
-  box-shadow: 0 10px 0 #000000;
+  background: #FFFFFF !important;
+  border: 4px solid #090D16 !important;
+  box-shadow: 0 10px 0 #00F5A0 !important;
   border-radius: 18px;
   padding: 34px;
   display: flex;
@@ -1028,19 +1066,19 @@ html, body {
   text-align: center;
 }
 
-.speed-time {
+.speed-time, .speed-title {
   font-family: 'Syne', sans-serif;
   font-size: 64px;
-  font-weight: 900;
-  color: var(--mint);
-  text-shadow: 0 0 12px rgba(0, 245, 160, 0.6);
+  font-weight: 900 !important;
+  color: #090D16 !important;
+  text-shadow: none !important;
 }
 
 .speed-sub {
   font-family: 'Montserrat', sans-serif;
   font-size: 24px;
-  font-weight: 800;
-  color: var(--white);
+  font-weight: 900 !important;
+  color: #090D16 !important;
   margin-top: 6px;
 }
 
@@ -1056,20 +1094,20 @@ html, body {
   gap: 8px;
 }
 
-.speed-label {
+.speed-label, .speed-row-label {
   display: flex;
   justify-content: space-between;
   font-family: 'JetBrains Mono', monospace;
   font-size: 20px;
-  font-weight: 800;
-  color: var(--white);
+  font-weight: 800 !important;
+  color: #090D16 !important;
 }
 
 .speed-bar-track {
   width: 100%;
-  height: 20px;
-  background: #161B22;
-  border: 2px solid var(--border-color);
+  height: 22px;
+  background: #0D1117;
+  border: 2px solid #090D16;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -1077,11 +1115,11 @@ html, body {
 .speed-bar-fill.code {
   width: 100%;
   height: 100%;
-  background: var(--mint);
+  background: #00F5A0;
 }
 
 .speed-bar-fill.human {
   width: 12%;
   height: 100%;
-  background: var(--alert-red);
+  background: #0D1117;
 }

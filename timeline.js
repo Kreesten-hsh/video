@@ -1384,13 +1384,13 @@ window.SCENES = [
     "start": 47.81,
     "end": 49.65,
     "data": {
-      "header": "PROBLÈMES DES IA VIDÉO ❌",
+      "header": "PROBLÈMES DES IA VIDÉO [ ! ]",
       "items": [
         "❌ Visages & mains déformés",
         "❌ Texte illisible à l'écran",
         "❌ Impossible à modifier"
       ],
-      "bg": "alert"
+      "bg": "grid"
     }
   },
   {
