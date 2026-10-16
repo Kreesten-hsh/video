@@ -40,36 +40,14 @@
    * Pilote le décor dynamique de fond sur #video-canvas selon scene.data.bg et t
    */
   function updateBackground(bgType, t, progress) {
-    const targetBg = bgType || "grid";
-    if (targetBg !== currentBg) {
-      currentBg = targetBg;
-      canvas.classList.remove("bg-grid", "bg-alert", "bg-mint", "bg-diamonds", "bg-circles", "bg-red");
-      canvas.classList.add(`bg-${targetBg}`);
+    if (currentBg !== "grid") {
+      currentBg = "grid";
+      canvas.className = "bg-grid";
     }
-
-    if (targetBg === "grid") {
-      const pos = (t * 15) % 36;
-      canvas.style.backgroundPosition = `${pos}px ${pos}px`;
-      canvas.style.backgroundSize = "36px 36px";
-    } else if (targetBg === "alert") {
-      const pos = (t * 25) % 40;
-      canvas.style.backgroundPosition = `0px ${pos}px`;
-      canvas.style.backgroundSize = "40px 40px";
-    } else if (targetBg === "mint") {
-      const pos = (t * 25) % 40;
-      canvas.style.backgroundPosition = `${pos}px 0px`;
-      canvas.style.backgroundSize = "40px 40px";
-    } else if (targetBg === "circles") {
-      const posY = (t * 500) % 120;
-      canvas.style.backgroundPosition = `0px ${posY}px`;
-      canvas.style.backgroundSize = "100px 120px";
-    } else if (targetBg === "diamonds") {
-      const scale = 1.0 + 0.12 * Math.sin(progress * Math.PI);
-      const size = Math.round(80 * scale);
-      const pos = (t * 25) % size;
-      canvas.style.backgroundPosition = `${pos}px ${pos}px`;
-      canvas.style.backgroundSize = `${size}px ${size}px`;
-    }
+    canvas.style.backgroundColor = "#0D1117";
+    canvas.style.backgroundImage = "radial-gradient(#1F2937 3px, transparent 3px)";
+    canvas.style.backgroundSize = "36px 36px";
+    canvas.style.backgroundPosition = "0 0";
   }
 
   /**
@@ -170,32 +148,29 @@
       case "face":
         const isHeadOnly = data.avatar && data.avatar.includes("mini");
         const badgeText = data.badge || data.label || "";
-        const isAlertFace = data.bg === "alert";
         return `
-          <div class="comp-face ${isHeadOnly ? 'face-headonly' : ''} ${isAlertFace ? 'is-alert' : ''}" id="comp-face">
+          <div class="comp-face ${isHeadOnly ? 'face-headonly' : ''}" id="comp-face">
             <img src="${data.avatar}" alt="Avatar" class="avatar-sticker" id="avatar-img" />
-            ${badgeText ? `<div class="face-badge ${isAlertFace ? 'badge-alert' : ''}" id="face-badge">${badgeText}</div>` : ""}
+            ${badgeText ? `<div class="face-badge" id="face-badge">${badgeText}</div>` : ""}
           </div>
         `;
       case "big":
         const isLong = (data.text || "").length > 13;
         const fontSize = isLong ? "56px" : "68px";
-        const isAlertBig = data.bg === "alert";
         return `
-          <div class="comp-big ${isAlertBig ? 'is-alert' : ''}" id="comp-big">
-            <div class="big-box ${isAlertBig ? 'box-alert' : ''}" style="font-size: ${fontSize};">${data.text}</div>
+          <div class="comp-big" id="comp-big">
+            <div class="big-box" style="font-size: ${fontSize};">${data.text}</div>
             ${data.sub ? `<div class="big-sub">${data.sub}</div>` : ""}
           </div>
         `;
       case "list":
-        const isAlertList = data.bg === "alert";
         return `
-          <div class="comp-list ${isAlertList ? 'is-alert' : ''}" id="comp-list">
-            ${data.header ? `<div class="list-header ${isAlertList ? 'header-alert' : ''}">${data.header}</div>` : ""}
+          <div class="comp-list" id="comp-list">
+            ${data.header ? `<div class="list-header">${data.header}</div>` : ""}
             ${(data.items || []).map((item, i) => `
-              <div class="list-item ${isAlertList ? 'item-alert' : ''}" id="list-item-${i}">
-                <div class="item-num">${String(i + 1).padStart(2, '0')}</div>
-                <div class="item-text">${item}</div>
+              <div class="list-item list-row" id="list-item-${i}">
+                <div class="item-num list-num">${String(i + 1).padStart(2, '0')}</div>
+                <div class="item-text list-text">${item}</div>
               </div>
             `).join("")}
           </div>
@@ -233,7 +208,7 @@
         `;
       case "engine_arch":
         return `
-          <div class="comp-engine-arch" id="comp-engine-arch">
+          <div class="comp-engine-arch comp-engine" id="comp-engine-arch">
             <div class="arch-block python">
               <div class="arch-icon">🐍</div>
               <div class="arch-info">
@@ -256,34 +231,36 @@
         `;
       case "sync_timer":
         return `
-          <div class="comp-sync-timer" id="comp-sync-timer">
-            <div class="sync-header">⏱️ ALIGNEMENT TEMPOREL ABSOLU</div>
+          <div class="comp-sync-timer timer-card comp-timer" id="comp-sync-timer">
+            <div class="sync-header timer-label">⏱️ ALIGNEMENT TEMPOREL ABSOLU</div>
             <div class="sync-display">
-              <div class="sync-digits" id="sync-digits">00:21.000 ms</div>
+              <div class="sync-digits timer-digits" id="sync-digits">00:21.000 ms</div>
             </div>
             <div class="sync-pills">
-              <div class="sync-pill" id="sync-pill-0">[CHAQUE]</div>
-              <div class="sync-pill" id="sync-pill-1">[MOT]</div>
-              <div class="sync-pill" id="sync-pill-2">[PRÉCIS]</div>
+              <div class="sync-pill timer-tag" id="sync-pill-0">[CHAQUE]</div>
+              <div class="sync-pill timer-tag" id="sync-pill-1">[MOT]</div>
+              <div class="sync-pill timer-tag" id="sync-pill-2">[PRÉCIS]</div>
             </div>
           </div>
         `;
       case "emotion_morph":
         return `
-          <div class="comp-emotion-morph" id="comp-emotion-morph">
-            <img src="assets/avatars/happy.png" alt="Avatar" class="morph-avatar" id="morph-avatar" />
-            <div class="morph-badge" id="morph-badge">😄 ÉMOTION : ENTHOUSIASTE</div>
+          <div class="comp-emotion comp-emotion-morph" id="comp-emotion-morph">
+            <div class="emotion-stage">
+              <img src="assets/avatars/happy.png" alt="Avatar" class="emotion-img active morph-avatar" id="morph-avatar" />
+            </div>
+            <div class="emotion-label morph-badge" id="morph-badge">😄 ÉMOTION : ENTHOUSIASTE</div>
           </div>
         `;
       case "ffmpeg_render":
         return `
-          <div class="comp-ffmpeg-render" id="comp-ffmpeg-render">
+          <div class="comp-ffmpeg-render comp-ffmpeg ffmpeg-card" id="comp-ffmpeg-render">
             <div class="ffmpeg-header">
-              <div class="ffmpeg-title-box">🎬 COMPILATION FFmpeg</div>
+              <div class="ffmpeg-title-box ffmpeg-head">🎬 COMPILATION FFmpeg</div>
               <div class="ffmpeg-frame-counter" id="ffmpeg-counter">FRAME 0 / 2200</div>
             </div>
-            <div class="ffmpeg-progress-track">
-              <div class="ffmpeg-progress-fill" id="ffmpeg-fill"></div>
+            <div class="ffmpeg-progress-track ffmpeg-bar-bg">
+              <div class="ffmpeg-progress-fill ffmpeg-bar-fill" id="ffmpeg-fill"></div>
               <div class="ffmpeg-progress-pct" id="ffmpeg-pct">0%</div>
             </div>
             <div class="ffmpeg-footer-badge">✓ ENCODAGE H.264 ULTRA RAPIDE (30 FPS)</div>
@@ -291,25 +268,25 @@
         `;
       case "speed_counter":
         return `
-          <div class="comp-speed-counter" id="comp-speed-counter">
+          <div class="comp-speed-counter comp-speed speed-card" id="comp-speed-counter">
             <div class="speed-main-box">
-              <div class="speed-time">⏱️ 02:00 MIN</div>
+              <div class="speed-time speed-title">⏱️ 02:00 MIN</div>
               <div class="speed-sub">DU MÉMO VOCAL AU MP4 FINAL</div>
             </div>
             <div class="speed-compare-zone">
               <div class="speed-row">
-                <div class="speed-label">
+                <div class="speed-label speed-row-label">
                   <span>⚡ CODE PYTHON (MOTEUR)</span>
-                  <span style="color: #2BD980;">100% PRÊT</span>
+                  <span style="color: #047857; font-weight: 900;">100% PRÊT</span>
                 </div>
                 <div class="speed-bar-track">
                   <div class="speed-bar-fill code"></div>
                 </div>
               </div>
               <div class="speed-row">
-                <div class="speed-label">
+                <div class="speed-label speed-row-label">
                   <span>⏳ MONTEUR HUMAIN</span>
-                  <span style="color: var(--accent-red);">5% EN ATTENTE</span>
+                  <span style="color: #090D16; font-weight: 900;">5% EN ATTENTE</span>
                 </div>
                 <div class="speed-bar-track">
                   <div class="speed-bar-fill human"></div>
@@ -325,21 +302,21 @@
         const rItems = data.rightItems || data.right_items || [];
         return `
           <div class="comp-split" id="comp-split">
-            <div class="split-col" id="split-col-left">
-              <div class="split-badge badge-red">${data.left_badge || "IA / MONTEUR ❌"}</div>
+            <div class="split-col bad" id="split-col-left">
+              <div class="split-badge">${data.left_badge || "IA / MONTEUR ❌"}</div>
               <div class="split-card">
                 <div class="split-title">${lTitle}</div>
                 <ul class="split-items">
-                  ${lItems.map(it => `<li>${it.startsWith('❌') || it.startsWith('⚡') ? it : '❌ ' + it}</li>`).join("")}
+                  ${lItems.map(it => `<li class="split-point">${it}</li>`).join("")}
                 </ul>
               </div>
             </div>
-            <div class="split-col" id="split-col-right">
-              <div class="split-badge badge-green">${data.right_badge || "CODE ✅"}</div>
+            <div class="split-col good" id="split-col-right">
+              <div class="split-badge">${data.right_badge || "CODE ✅"}</div>
               <div class="split-card highlight">
                 <div class="split-title">${rTitle}</div>
                 <ul class="split-items">
-                  ${rItems.map(it => `<li>${it.startsWith('❌') || it.startsWith('⚡') ? it : '⚡ ' + it}</li>`).join("")}
+                  ${rItems.map(it => `<li class="split-point">${it}</li>`).join("")}
                 </ul>
               </div>
             </div>
@@ -351,12 +328,12 @@
           `<div class="wave-bar" id="wbar-${i}"></div>`
         ).join("");
         return `
-          <div class="comp-audio-wave" id="comp-audio-wave">
+          <div class="comp-audio-wave wave-card comp-wave" id="comp-audio-wave">
             <div class="wave-header">
-              <div class="wave-tag">${data.title || "vocal1.m4a — NETTOYAGE STUDIO"}</div>
+              <div class="wave-tag wave-title">${data.title || "vocal1.m4a — NETTOYAGE STUDIO"}</div>
               <div class="wave-status" id="wave-status">${data.sub || "ANALYSE DU SPECTRE"}</div>
             </div>
-            <div class="wave-bars-container" id="wave-bars-container">
+            <div class="wave-bars-container wave-box" id="wave-bars-container">
               ${barsHtml}
             </div>
             <div class="wave-footer">
@@ -530,11 +507,13 @@
       if (isCut) {
         if (statusEl) {
           statusEl.textContent = "SILENCES ÉLIMINÉS (-100%)";
-          statusEl.style.background = "#2BD980";
+          statusEl.style.background = "#00F5A0";
+          statusEl.style.color = "#090D16";
         }
         if (silenceBadge) {
           silenceBadge.textContent = "RYTHME 100% ACTIF";
-          silenceBadge.style.background = "#FFE600";
+          silenceBadge.style.background = "#090D16";
+          silenceBadge.style.color = "#00F5A0";
         }
         if (btn) {
           btn.classList.add("pressed");
@@ -543,11 +522,13 @@
       } else {
         if (statusEl) {
           statusEl.textContent = "ANALYSE DU SPECTRE";
-          statusEl.style.background = "var(--yellow)";
+          statusEl.style.background = "#00F5A0";
+          statusEl.style.color = "#090D16";
         }
         if (silenceBadge) {
           silenceBadge.textContent = "SILENCE DÉTECTÉ : 0.38s";
-          silenceBadge.style.background = "var(--bg-beige)";
+          silenceBadge.style.background = "#090D16";
+          silenceBadge.style.color = "#FFFFFF";
         }
         if (btn) {
           btn.classList.remove("pressed");
@@ -603,19 +584,19 @@
       const badge = document.getElementById("morph-badge");
       let src = "assets/avatars/happy.png";
       let text = "😄 ÉMOTION : ENTHOUSIASTE";
-      let badgeBg = "var(--yellow)";
-      let badgeColor = "var(--black)";
+      let badgeBg = "#00F5A0";
+      let badgeColor = "#090D16";
 
       if (progress >= 0.66) {
         src = "assets/avatars/skeptic.png";
         text = "🤨 ÉMOTION : SCEPTIQUE";
-        badgeBg = "var(--white)";
-        badgeColor = "var(--black)";
+        badgeBg = "#FFFFFF";
+        badgeColor = "#090D16";
       } else if (progress >= 0.33) {
         src = "assets/avatars/shock.png";
         text = "😱 ÉMOTION : CHOQUÉ";
-        badgeBg = "var(--accent-red)";
-        badgeColor = "var(--white)";
+        badgeBg = "#00F5A0";
+        badgeColor = "#090D16";
       }
 
       if (avatar && !avatar.src.endsWith(src)) {
@@ -626,10 +607,10 @@
         badge.style.background = badgeBg;
         badge.style.color = badgeColor;
       }
-      const floatY = Math.sin(t * 5) * 10;
-      const camZoom = 1.0 + progress * 0.05;
+      const floatY = Math.sin(t * 5) * 8;
+      const camZoom = 1.0 + progress * 0.04;
       if (avatar) {
-        avatar.style.transform = `translateX(-50%) translateY(${spring.ty + floatY}px) scale(${spring.scale * camZoom})`;
+        avatar.style.transform = `translateY(${spring.ty + floatY}px) scale(${spring.scale * camZoom})`;
       }
     } else if (type === "ffmpeg_render") {
       const el = document.getElementById("comp-ffmpeg-render");
