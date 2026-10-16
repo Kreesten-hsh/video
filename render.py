@@ -40,8 +40,9 @@ def render_video(
         else:
             raise FileNotFoundError(f"Fichier audio ({audio_path} ou voix.wav) introuvable.")
 
+    import math
     duration = get_audio_duration(audio_path)
-    total_frames = int(duration * fps)
+    total_frames = math.ceil(duration * fps)
     print(f"[Render] Durée audio : {duration:.2f}s | {total_frames} frames à générer ({fps} FPS).")
 
     ffmpeg_cmd = [

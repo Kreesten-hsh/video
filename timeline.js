@@ -64,291 +64,281 @@ window.WORDS = [
   },
   {
     "word": "Cette",
-    "start": 2.72,
-    "end": 3.42
-  },
-  {
-    "word": "vidéo",
     "start": 3.42,
     "end": 3.68
   },
   {
-    "word": "que",
+    "word": "vidéo",
     "start": 3.68,
     "end": 3.96
   },
   {
-    "word": "tu",
+    "word": "que",
     "start": 3.96,
     "end": 4.1
   },
   {
-    "word": "regardes",
+    "word": "tu",
     "start": 4.1,
     "end": 4.18
   },
   {
-    "word": "en",
+    "word": "regardes",
     "start": 4.18,
     "end": 4.5
   },
   {
-    "word": "ce",
+    "word": "en",
     "start": 4.5,
     "end": 4.56
   },
   {
-    "word": "moment,",
+    "word": "ce",
     "start": 4.56,
     "end": 4.66
   },
   {
-    "word": "je",
+    "word": "moment,",
     "start": 4.66,
     "end": 4.9
   },
   {
-    "word": "ne",
+    "word": "je",
     "start": 5.16,
     "end": 5.32
   },
   {
-    "word": "l'ai",
+    "word": "ne",
     "start": 5.32,
-    "end": 5.48
+    "end": 5.42
   },
   {
-    "word": "pas",
-    "start": 5.48,
+    "word": "l'ai",
+    "start": 5.42,
     "end": 5.52
   },
   {
-    "word": "montée",
+    "word": "pas",
     "start": 5.52,
     "end": 5.66
   },
   {
-    "word": "sur",
+    "word": "montée",
     "start": 5.66,
     "end": 5.92
   },
   {
-    "word": "Premiere",
+    "word": "sur",
     "start": 5.92,
     "end": 6.08
   },
   {
-    "word": "Pro",
+    "word": "Premiere",
     "start": 6.08,
     "end": 6.34
   },
   {
-    "word": "et",
+    "word": "Pro",
     "start": 6.34,
     "end": 6.68
   },
   {
-    "word": "je",
+    "word": "et",
     "start": 6.68,
     "end": 6.9
   },
   {
-    "word": "n'ai",
+    "word": "je",
     "start": 6.9,
     "end": 7.02
   },
   {
-    "word": "pas",
-    "start": 7.02,
-    "end": 7.02
-  },
-  {
-    "word": "utilisé",
+    "word": "n'ai",
     "start": 7.02,
     "end": 7.14
   },
   {
-    "word": "une",
+    "word": "pas",
     "start": 7.14,
     "end": 7.28
   },
   {
-    "word": "IA",
+    "word": "utilisé",
     "start": 7.28,
     "end": 7.74
   },
   {
-    "word": "vidéo",
+    "word": "une",
     "start": 7.74,
     "end": 7.92
   },
   {
-    "word": "comme",
+    "word": "IA",
     "start": 7.92,
     "end": 8.06
   },
   {
-    "word": "Veo",
+    "word": "vidéo",
     "start": 8.06,
     "end": 8.3
   },
   {
-    "word": "ou",
+    "word": "comme",
     "start": 8.3,
     "end": 8.6
   },
   {
-    "word": "Kling,",
+    "word": "Veo",
     "start": 8.6,
     "end": 8.9
   },
   {
-    "word": "elle",
+    "word": "ou",
     "start": 8.9,
     "end": 9.1
   },
   {
-    "word": "est",
+    "word": "Kling,",
     "start": 9.1,
     "end": 9.34
   },
   {
-    "word": "générée",
+    "word": "elle",
     "start": 9.7,
     "end": 9.84
   },
   {
-    "word": "à",
+    "word": "est",
     "start": 9.84,
     "end": 9.98
   },
   {
-    "word": "100%",
+    "word": "générée",
     "start": 9.98,
     "end": 10.32
   },
   {
-    "word": "par",
+    "word": "à",
     "start": 10.32,
     "end": 10.46
   },
   {
-    "word": "du",
+    "word": "100%",
     "start": 10.46,
     "end": 10.78
   },
   {
-    "word": "code.",
-    "start": 10.78,
+    "word": "par",
+    "start": 11.1,
+    "end": 11.3
+  },
+  {
+    "word": "du",
+    "start": 11.3,
     "end": 11.42
   },
   {
-    "word": "En",
+    "word": "code.",
     "start": 11.42,
     "end": 11.58
   },
   {
-    "word": "fait,",
+    "word": "En",
     "start": 12.1,
     "end": 12.22
   },
   {
-    "word": "j'ai",
+    "word": "fait,",
     "start": 12.22,
     "end": 12.4
   },
   {
-    "word": "codé",
+    "word": "j'ai",
     "start": 12.74,
-    "end": 12.8
-  },
-  {
-    "word": "mon",
-    "start": 12.8,
     "end": 12.88
   },
   {
-    "word": "propre",
+    "word": "codé",
     "start": 12.88,
     "end": 13.1
   },
   {
-    "word": "moteur",
+    "word": "mon",
     "start": 13.1,
     "end": 13.22
   },
   {
-    "word": "en",
+    "word": "propre",
     "start": 13.22,
     "end": 13.52
   },
   {
-    "word": "Python",
+    "word": "moteur",
     "start": 13.52,
     "end": 13.96
   },
   {
-    "word": "et",
+    "word": "en",
     "start": 13.96,
     "end": 14.08
   },
   {
-    "word": "JavaScript.",
+    "word": "Python",
     "start": 14.08,
     "end": 14.32
   },
   {
-    "word": "Le",
+    "word": "et",
     "start": 14.32,
     "end": 14.52
   },
   {
-    "word": "principe",
+    "word": "JavaScript.",
     "start": 14.52,
     "end": 14.82
   },
   {
-    "word": "est",
+    "word": "Le",
     "start": 15.42,
     "end": 15.56
   },
   {
-    "word": "ultra",
+    "word": "principe",
     "start": 15.56,
     "end": 15.82
   },
   {
-    "word": "simple,",
+    "word": "est",
     "start": 15.82,
     "end": 16.1
   },
   {
-    "word": "j'enregistre",
+    "word": "ultra",
     "start": 16.1,
+    "end": 16.42
+  },
+  {
+    "word": "simple,",
+    "start": 16.42,
     "end": 16.8
   },
   {
-    "word": "ma",
+    "word": "j'enregistre",
     "start": 17.12,
-    "end": 17.26
-  },
-  {
-    "word": "voix",
-    "start": 17.26,
     "end": 17.66
   },
   {
-    "word": "sur",
+    "word": "ma",
     "start": 17.66,
     "end": 17.8
   },
   {
-    "word": "mon",
+    "word": "voix",
     "start": 17.8,
     "end": 17.92
   },
   {
-    "word": "téléphone,",
+    "word": "sur",
     "start": 17.92,
     "end": 18.14
   },
@@ -358,232 +348,227 @@ window.WORDS = [
     "end": 18.28
   },
   {
-    "word": "script",
+    "word": "téléphone,",
     "start": 18.28,
     "end": 18.6
   },
   {
-    "word": "coupe",
+    "word": "mon",
     "start": 19.14,
     "end": 19.22
   },
   {
-    "word": "automatiquement",
+    "word": "script",
     "start": 19.22,
     "end": 19.44
   },
   {
-    "word": "tous",
+    "word": "coupe",
     "start": 19.44,
     "end": 19.76
   },
   {
-    "word": "les",
+    "word": "automatiquement",
     "start": 19.76,
     "end": 20.46
   },
   {
-    "word": "silences",
+    "word": "tous",
     "start": 20.46,
     "end": 20.7
   },
   {
-    "word": "et",
+    "word": "les",
     "start": 20.7,
     "end": 20.82
   },
   {
-    "word": "transcrit",
+    "word": "silences",
     "start": 20.82,
     "end": 21.2
   },
   {
-    "word": "chaque",
+    "word": "et",
     "start": 21.2,
     "end": 21.4
   },
   {
-    "word": "mot",
+    "word": "transcrit",
     "start": 21.4,
     "end": 21.76
   },
   {
-    "word": "à",
+    "word": "chaque",
     "start": 21.76,
     "end": 22.02
   },
   {
-    "word": "la",
+    "word": "mot",
     "start": 22.02,
     "end": 22.26
   },
   {
-    "word": "milliseconde.",
+    "word": "à",
     "start": 22.26,
     "end": 22.44
   },
   {
-    "word": "Ensuite,",
+    "word": "la",
     "start": 22.44,
     "end": 22.52
   },
   {
-    "word": "le",
+    "word": "milliseconde.",
     "start": 22.52,
     "end": 23.22
   },
   {
-    "word": "code",
+    "word": "Ensuite,",
     "start": 23.52,
     "end": 23.84
   },
   {
-    "word": "génère",
+    "word": "le",
     "start": 24.12,
     "end": 24.22
   },
   {
-    "word": "toute",
+    "word": "code",
     "start": 24.22,
     "end": 24.4
   },
   {
-    "word": "la",
+    "word": "génère",
     "start": 24.4,
     "end": 24.68
   },
   {
-    "word": "mise",
+    "word": "toute",
     "start": 24.68,
     "end": 24.92
   },
   {
-    "word": "en",
+    "word": "la",
     "start": 24.92,
     "end": 25.08
   },
   {
-    "word": "scène,",
+    "word": "mise",
     "start": 25.08,
     "end": 25.22
   },
   {
-    "word": "il",
+    "word": "en",
     "start": 25.22,
     "end": 25.34
   },
   {
-    "word": "anime",
+    "word": "scène,",
     "start": 25.34,
     "end": 25.56
   },
   {
-    "word": "mon",
+    "word": "il",
     "start": 25.96,
     "end": 26.08
   },
   {
-    "word": "avatar",
+    "word": "anime",
     "start": 26.08,
     "end": 26.26
   },
   {
-    "word": "en",
+    "word": "mon",
     "start": 26.26,
     "end": 26.42
   },
   {
-    "word": "costume",
+    "word": "avatar",
     "start": 26.42,
     "end": 26.68
   },
   {
-    "word": "selon",
+    "word": "en",
     "start": 26.68,
     "end": 26.94
   },
   {
-    "word": "l'émotion,",
+    "word": "costume",
     "start": 26.94,
     "end": 27.24
   },
   {
-    "word": "il",
+    "word": "selon",
     "start": 27.24,
     "end": 27.52
   },
   {
-    "word": "ouvre",
+    "word": "l'émotion,",
     "start": 27.52,
-    "end": 27.64
-  },
-  {
-    "word": "les",
-    "start": 27.64,
     "end": 27.9
   },
   {
-    "word": "terminaux,",
+    "word": "il",
     "start": 27.9,
     "end": 28.48
   },
   {
-    "word": "il",
+    "word": "ouvre",
     "start": 28.48,
     "end": 28.74
   },
   {
-    "word": "affiche",
+    "word": "les",
     "start": 28.74,
     "end": 28.88
   },
   {
-    "word": "des",
+    "word": "terminaux,",
     "start": 28.88,
     "end": 29.42
   },
   {
-    "word": "listes",
+    "word": "il",
     "start": 29.62,
     "end": 29.7
   },
   {
-    "word": "structurées,",
+    "word": "affiche",
     "start": 29.7,
     "end": 29.98
   },
   {
-    "word": "et",
+    "word": "des",
     "start": 29.98,
     "end": 30.14
   },
   {
-    "word": "change",
+    "word": "listes",
     "start": 30.14,
     "end": 30.34
   },
   {
-    "word": "le",
+    "word": "structurées,",
     "start": 30.34,
     "end": 30.94
   },
   {
-    "word": "décor",
+    "word": "et",
     "start": 30.94,
     "end": 31.34
   },
   {
-    "word": "en",
+    "word": "change",
     "start": 31.34,
     "end": 31.54
   },
   {
-    "word": "losanges",
+    "word": "le",
     "start": 31.54,
     "end": 31.7
   },
   {
-    "word": "ou",
+    "word": "décor",
     "start": 31.7,
     "end": 32.02
   },
@@ -593,514 +578,529 @@ window.WORDS = [
     "end": 32.26
   },
   {
-    "word": "cercles,",
+    "word": "losanges",
     "start": 32.26,
     "end": 32.66
   },
   {
-    "word": "et",
+    "word": "ou",
     "start": 32.66,
     "end": 32.88
   },
   {
-    "word": "il",
+    "word": "en",
     "start": 32.88,
     "end": 33.0
   },
   {
-    "word": "compile",
+    "word": "cercles,",
     "start": 33.0,
     "end": 33.52
   },
   {
-    "word": "tout",
+    "word": "et",
     "start": 33.72,
     "end": 33.74
   },
   {
-    "word": "avec",
+    "word": "il",
     "start": 33.74,
     "end": 33.82
   },
   {
-    "word": "FFmpeg",
+    "word": "compile",
     "start": 33.82,
     "end": 34.08
   },
   {
-    "word": "à",
+    "word": "tout",
     "start": 34.08,
     "end": 34.4
   },
   {
-    "word": "30",
+    "word": "avec",
     "start": 34.4,
     "end": 34.68
   },
   {
-    "word": "images",
+    "word": "FFmpeg",
     "start": 34.68,
     "end": 35.42
   },
   {
-    "word": "par",
+    "word": "à",
     "start": 35.42,
     "end": 35.58
   },
   {
-    "word": "seconde.",
+    "word": "30",
     "start": 35.58,
     "end": 35.86
   },
   {
-    "word": "Pourquoi",
+    "word": "images",
     "start": 35.86,
     "end": 36.08
   },
   {
-    "word": "c'est",
+    "word": "par",
     "start": 36.08,
+    "end": 36.26
+  },
+  {
+    "word": "seconde.",
+    "start": 36.26,
     "end": 36.68
   },
   {
-    "word": "une",
+    "word": "Pourquoi",
     "start": 37.08,
     "end": 37.32
   },
   {
-    "word": "révolution",
+    "word": "c'est",
     "start": 37.32,
-    "end": 37.52
-  },
-  {
-    "word": "pour",
-    "start": 37.52,
     "end": 37.54
   },
   {
-    "word": "les",
+    "word": "une",
     "start": 37.54,
     "end": 37.68
   },
   {
-    "word": "fondateurs",
+    "word": "révolution",
     "start": 37.68,
     "end": 38.18
   },
   {
-    "word": "SaaS",
+    "word": "pour",
     "start": 38.18,
     "end": 38.4
   },
   {
-    "word": "et",
+    "word": "les",
     "start": 38.4,
     "end": 38.5
   },
   {
-    "word": "les",
+    "word": "fondateurs",
     "start": 38.5,
     "end": 38.84
   },
   {
-    "word": "entrepreneurs ?",
+    "word": "SaaS",
     "start": 38.84,
     "end": 39.16
   },
   {
-    "word": "Parce",
+    "word": "et",
     "start": 39.16,
     "end": 39.28
   },
   {
-    "word": "que",
+    "word": "les",
     "start": 39.28,
     "end": 39.4
   },
   {
-    "word": "les",
+    "word": "entrepreneurs ?",
     "start": 39.4,
     "end": 39.8
   },
   {
-    "word": "IA",
-    "start": 39.8,
-    "end": 40.4
-  },
-  {
-    "word": "vidéo",
+    "word": "Parce",
     "start": 41.12,
     "end": 41.28
   },
   {
-    "word": "classiques",
+    "word": "que",
     "start": 41.28,
     "end": 41.44
   },
   {
-    "word": "coûtent",
+    "word": "les",
     "start": 41.44,
     "end": 41.54
   },
   {
-    "word": "une",
+    "word": "IA",
     "start": 41.54,
     "end": 41.76
   },
   {
-    "word": "fortune,",
+    "word": "vidéo",
     "start": 41.76,
     "end": 41.98
   },
   {
-    "word": "font",
+    "word": "classiques",
     "start": 41.98,
     "end": 42.48
   },
   {
-    "word": "des",
+    "word": "coûtent",
     "start": 42.48,
     "end": 42.72
   },
   {
-    "word": "erreurs",
+    "word": "une",
     "start": 42.72,
     "end": 42.82
   },
   {
-    "word": "visuelles",
+    "word": "fortune,",
     "start": 42.82,
     "end": 43.22
   },
   {
-    "word": "et",
+    "word": "font",
     "start": 43.6,
     "end": 43.84
   },
   {
-    "word": "prennent",
+    "word": "des",
     "start": 43.84,
     "end": 44.0
   },
   {
-    "word": "des",
+    "word": "erreurs",
     "start": 44.0,
     "end": 44.24
   },
   {
-    "word": "heures",
+    "word": "visuelles",
     "start": 44.24,
     "end": 44.74
   },
   {
-    "word": "à",
+    "word": "et",
     "start": 44.74,
     "end": 44.88
   },
   {
-    "word": "corriger.",
+    "word": "prennent",
     "start": 44.88,
     "end": 45.14
   },
   {
-    "word": "Avec",
+    "word": "des",
     "start": 45.14,
     "end": 45.26
   },
   {
-    "word": "du",
+    "word": "heures",
     "start": 45.26,
     "end": 45.6
   },
   {
-    "word": "code,",
+    "word": "à",
     "start": 45.6,
+    "end": 45.72
+  },
+  {
+    "word": "corriger.",
+    "start": 45.72,
     "end": 46.06
   },
   {
-    "word": "une",
+    "word": "Avec",
     "start": 46.48,
     "end": 46.66
   },
   {
-    "word": "vidéo",
+    "word": "du",
     "start": 46.66,
     "end": 46.86
   },
   {
-    "word": "complète",
+    "word": "code,",
     "start": 46.86,
     "end": 47.08
   },
   {
-    "word": "me",
+    "word": "une",
     "start": 47.32,
     "end": 47.42
   },
   {
-    "word": "prend",
+    "word": "vidéo",
     "start": 47.42,
     "end": 47.7
   },
   {
-    "word": "deux",
+    "word": "complète",
     "start": 47.7,
     "end": 48.2
   },
   {
-    "word": "minutes",
+    "word": "me",
     "start": 48.2,
     "end": 48.34
   },
   {
-    "word": "à",
+    "word": "prend",
     "start": 48.34,
     "end": 48.5
   },
   {
-    "word": "générer",
+    "word": "deux",
     "start": 48.5,
     "end": 48.76
   },
   {
-    "word": "et",
+    "word": "minutes",
     "start": 48.76,
     "end": 48.96
   },
   {
-    "word": "coûte",
+    "word": "à",
     "start": 48.96,
     "end": 49.14
   },
   {
-    "word": "0",
+    "word": "générer",
     "start": 49.14,
     "end": 49.46
   },
   {
-    "word": "euro.",
+    "word": "et",
     "start": 49.46,
     "end": 49.72
   },
   {
-    "word": "Que",
+    "word": "coûte",
     "start": 49.72,
     "end": 49.96
   },
   {
-    "word": "ce",
+    "word": "0",
     "start": 49.96,
+    "end": 50.25
+  },
+  {
+    "word": "euro.",
+    "start": 50.25,
     "end": 50.54
   },
   {
-    "word": "soit",
+    "word": "Que",
     "start": 50.92,
     "end": 51.08
   },
   {
-    "word": "pour",
+    "word": "ce",
     "start": 51.08,
     "end": 51.2
   },
   {
-    "word": "expliquer",
+    "word": "soit",
     "start": 51.2,
     "end": 51.36
   },
   {
-    "word": "ton",
+    "word": "pour",
     "start": 51.36,
     "end": 51.52
   },
   {
-    "word": "logiciel,",
+    "word": "expliquer",
     "start": 51.52,
     "end": 51.88
   },
   {
-    "word": "présenter",
+    "word": "ton",
     "start": 51.88,
     "end": 52.04
   },
   {
-    "word": "ton",
+    "word": "logiciel,",
     "start": 52.04,
     "end": 52.6
   },
   {
-    "word": "offre",
+    "word": "présenter",
     "start": 52.78,
     "end": 53.14
   },
   {
-    "word": "ou",
+    "word": "ton",
     "start": 53.14,
     "end": 53.38
   },
   {
-    "word": "publier",
+    "word": "offre",
     "start": 53.38,
     "end": 53.7
   },
   {
-    "word": "tous",
+    "word": "ou",
     "start": 53.7,
     "end": 53.82
   },
   {
-    "word": "les",
+    "word": "publier",
     "start": 53.82,
     "end": 54.16
   },
   {
-    "word": "jours",
+    "word": "tous",
     "start": 54.16,
     "end": 54.38
   },
   {
-    "word": "sans",
+    "word": "les",
     "start": 54.38,
     "end": 54.52
   },
   {
-    "word": "jamais",
+    "word": "jours",
     "start": 54.52,
     "end": 54.68
   },
   {
-    "word": "allumer",
+    "word": "sans",
     "start": 54.68,
     "end": 54.88
   },
   {
-    "word": "ta",
+    "word": "jamais",
     "start": 54.88,
     "end": 55.24
   },
   {
-    "word": "caméra,",
+    "word": "allumer",
     "start": 55.24,
     "end": 55.44
   },
   {
-    "word": "tout",
+    "word": "ta",
     "start": 55.44,
     "end": 55.64
   },
   {
-    "word": "est",
+    "word": "caméra,",
     "start": 55.64,
     "end": 56.0
   },
   {
-    "word": "automatisé.",
+    "word": "tout",
     "start": 56.46,
     "end": 56.52
   },
   {
-    "word": "Si",
+    "word": "est",
     "start": 56.52,
     "end": 56.7
   },
   {
-    "word": "tu",
+    "word": "automatisé.",
     "start": 56.7,
     "end": 57.26
   },
   {
-    "word": "veux",
+    "word": "Si",
     "start": 57.26,
     "end": 57.86
   },
   {
-    "word": "que",
+    "word": "tu",
     "start": 57.86,
     "end": 57.98
   },
   {
-    "word": "je",
+    "word": "veux",
     "start": 57.98,
     "end": 58.12
   },
   {
-    "word": "déploie",
+    "word": "que",
     "start": 58.12,
     "end": 58.24
   },
   {
-    "word": "ce",
+    "word": "je",
     "start": 58.24,
     "end": 58.32
   },
   {
-    "word": "système",
+    "word": "déploie",
     "start": 58.32,
     "end": 58.62
   },
   {
-    "word": "avec",
+    "word": "ce",
     "start": 58.62,
     "end": 58.76
   },
   {
-    "word": "ton",
+    "word": "système",
     "start": 58.76,
     "end": 59.12
   },
   {
-    "word": "propre",
+    "word": "avec",
     "start": 59.12,
     "end": 59.32
   },
   {
-    "word": "avatar",
+    "word": "ton",
     "start": 59.32,
     "end": 59.5
   },
   {
-    "word": "et",
+    "word": "propre",
     "start": 59.5,
     "end": 59.76
   },
   {
-    "word": "ta",
+    "word": "avatar",
     "start": 59.76,
     "end": 60.08
   },
   {
-    "word": "charte",
+    "word": "et",
     "start": 60.08,
     "end": 60.3
   },
   {
-    "word": "graphique,",
+    "word": "ta",
     "start": 60.3,
     "end": 60.4
   },
   {
-    "word": "envoie-moi",
+    "word": "charte",
     "start": 60.4,
+    "end": 60.62
+  },
+  {
+    "word": "graphique,",
+    "start": 60.62,
     "end": 61.28
   },
   {
-    "word": "« CODE »",
+    "word": "envoie-moi",
     "start": 61.32,
-    "end": 61.62
-  },
-  {
-    "word": "en",
-    "start": 61.62,
     "end": 61.76
   },
   {
-    "word": "message",
+    "word": "« CODE »",
     "start": 61.76,
     "end": 62.1
   },
   {
-    "word": "privé.",
+    "word": "en",
     "start": 62.1,
     "end": 62.36
+  },
+  {
+    "word": "message",
+    "start": 62.36,
+    "end": 62.6
+  },
+  {
+    "word": "privé.",
+    "start": 62.6,
+    "end": 62.98
   }
 ];
 
@@ -1120,7 +1120,7 @@ window.SCENES = [
     "id": "scene_02",
     "type": "big",
     "start": 1.46,
-    "end": 2.72,
+    "end": 3.42,
     "data": {
       "text": "💸 HORS DE PRIX",
       "sub": "FACTURES IA EXPLOSÉES",
@@ -1130,8 +1130,8 @@ window.SCENES = [
   {
     "id": "scene_03",
     "type": "face",
-    "start": 2.72,
-    "end": 4.66,
+    "start": 3.42,
+    "end": 5.16,
     "data": {
       "avatar": "assets/avatars/pointing.png",
       "label": "CETTE VIDÉO 👇",
@@ -1141,8 +1141,8 @@ window.SCENES = [
   {
     "id": "scene_04",
     "type": "cards",
-    "start": 4.66,
-    "end": 6.34,
+    "start": 5.16,
+    "end": 6.68,
     "data": {
       "cards": [
         {
@@ -1157,8 +1157,8 @@ window.SCENES = [
   {
     "id": "scene_05",
     "type": "cards",
-    "start": 6.34,
-    "end": 8.9,
+    "start": 6.68,
+    "end": 9.7,
     "data": {
       "cards": [
         {
@@ -1178,8 +1178,8 @@ window.SCENES = [
   {
     "id": "scene_06",
     "type": "big",
-    "start": 8.9,
-    "end": 11.42,
+    "start": 9.7,
+    "end": 12.1,
     "data": {
       "text": "100% CODE",
       "sub": "GÉNÉRÉ PAR ALGORITHME ⚡",
@@ -1189,8 +1189,8 @@ window.SCENES = [
   {
     "id": "scene_07",
     "type": "face",
-    "start": 11.42,
-    "end": 13.22,
+    "start": 12.1,
+    "end": 13.96,
     "data": {
       "avatar": "assets/avatars/laptop.png",
       "label": "MOTEUR SUR-MESURE 💻",
@@ -1200,8 +1200,8 @@ window.SCENES = [
   {
     "id": "scene_08",
     "type": "engine_arch",
-    "start": 13.22,
-    "end": 14.32,
+    "start": 13.96,
+    "end": 15.42,
     "data": {
       "bg": "grid"
     }
@@ -1209,8 +1209,8 @@ window.SCENES = [
   {
     "id": "scene_09",
     "type": "face",
-    "start": 14.32,
-    "end": 16.1,
+    "start": 15.42,
+    "end": 17.12,
     "data": {
       "avatar": "assets/avatars/idea.png",
       "label": "ULTRA SIMPLE 💡",
@@ -1220,8 +1220,8 @@ window.SCENES = [
   {
     "id": "scene_10",
     "type": "face",
-    "start": 16.1,
-    "end": 18.14,
+    "start": 17.12,
+    "end": 19.14,
     "data": {
       "avatar": "assets/avatars/mic.png",
       "label": "1. MÉMO VOCAL 📱",
@@ -1231,8 +1231,8 @@ window.SCENES = [
   {
     "id": "scene_11",
     "type": "audio_wave",
-    "start": 18.14,
-    "end": 20.7,
+    "start": 19.14,
+    "end": 21.2,
     "data": {
       "title": "vocal1.m4a — NETTOYAGE STUDIO",
       "sub": "✂️ SILENCES SUPPRIMÉS AUTOMATIQUEMENT",
@@ -1242,8 +1242,8 @@ window.SCENES = [
   {
     "id": "scene_12",
     "type": "sync_timer",
-    "start": 20.7,
-    "end": 22.44,
+    "start": 21.2,
+    "end": 23.52,
     "data": {
       "bg": "grid"
     }
@@ -1251,8 +1251,8 @@ window.SCENES = [
   {
     "id": "scene_13",
     "type": "big",
-    "start": 22.44,
-    "end": 25.22,
+    "start": 23.52,
+    "end": 25.96,
     "data": {
       "text": "MISE EN SCÈNE",
       "sub": "100% PILOTÉE PAR LE CODE 🎬",
@@ -1262,8 +1262,8 @@ window.SCENES = [
   {
     "id": "scene_14",
     "type": "emotion_morph",
-    "start": 25.22,
-    "end": 27.24,
+    "start": 25.96,
+    "end": 27.9,
     "data": {
       "bg": "grid"
     }
@@ -1271,8 +1271,8 @@ window.SCENES = [
   {
     "id": "scene_15",
     "type": "window",
-    "start": 27.24,
-    "end": 28.48,
+    "start": 27.9,
+    "end": 29.62,
     "data": {
       "title": "agent404_terminal.sh",
       "lines": [
@@ -1286,8 +1286,8 @@ window.SCENES = [
   {
     "id": "scene_16",
     "type": "list",
-    "start": 28.48,
-    "end": 29.98,
+    "start": 29.62,
+    "end": 30.94,
     "data": {
       "header": "COMPOSANTS DYNAMIQUES",
       "items": [
@@ -1301,8 +1301,8 @@ window.SCENES = [
   {
     "id": "scene_17",
     "type": "big",
-    "start": 29.98,
-    "end": 31.7,
+    "start": 30.94,
+    "end": 32.66,
     "data": {
       "text": "◆ LOSANGES ◆",
       "sub": "CHANGEMENT DE DÉCOR EN DIRECT",
@@ -1312,8 +1312,8 @@ window.SCENES = [
   {
     "id": "scene_18",
     "type": "big",
-    "start": 31.7,
-    "end": 32.66,
+    "start": 32.66,
+    "end": 33.72,
     "data": {
       "text": "● CERCLES ●",
       "sub": "ANIMATION HAUTE VITESSE",
@@ -1323,8 +1323,8 @@ window.SCENES = [
   {
     "id": "scene_19",
     "type": "ffmpeg_render",
-    "start": 32.66,
-    "end": 34.08,
+    "start": 33.72,
+    "end": 35.42,
     "data": {
       "bg": "grid"
     }
@@ -1332,8 +1332,8 @@ window.SCENES = [
   {
     "id": "scene_20",
     "type": "big",
-    "start": 34.08,
-    "end": 35.86,
+    "start": 35.42,
+    "end": 37.08,
     "data": {
       "text": "30 FPS",
       "sub": "1080x1920 FULL HD FLUIDE 🔥",
@@ -1343,8 +1343,8 @@ window.SCENES = [
   {
     "id": "scene_21",
     "type": "face",
-    "start": 35.86,
-    "end": 37.52,
+    "start": 37.08,
+    "end": 38.18,
     "data": {
       "avatar": "assets/avatars/shock.png",
       "label": "UNE RÉVOLUTION 🚀",
@@ -1354,8 +1354,8 @@ window.SCENES = [
   {
     "id": "scene_22",
     "type": "cards",
-    "start": 37.52,
-    "end": 39.16,
+    "start": 38.18,
+    "end": 41.12,
     "data": {
       "cards": [
         {
@@ -1375,8 +1375,8 @@ window.SCENES = [
   {
     "id": "scene_23",
     "type": "face",
-    "start": 39.16,
-    "end": 41.98,
+    "start": 41.12,
+    "end": 43.6,
     "data": {
       "avatar": "assets/avatars/skeptic.png",
       "label": "IA VIDÉO = RUINEUX 💸",
@@ -1386,8 +1386,8 @@ window.SCENES = [
   {
     "id": "scene_24",
     "type": "list",
-    "start": 41.98,
-    "end": 43.22,
+    "start": 43.6,
+    "end": 44.74,
     "data": {
       "header": "PROBLÈMES DES IA VIDÉO ❌",
       "items": [
@@ -1401,8 +1401,8 @@ window.SCENES = [
   {
     "id": "scene_25",
     "type": "face",
-    "start": 43.22,
-    "end": 45.14,
+    "start": 44.74,
+    "end": 46.48,
     "data": {
       "avatar": "assets/avatars/stop.png",
       "label": "DES HEURES PERDUES ⏳",
@@ -1412,8 +1412,8 @@ window.SCENES = [
   {
     "id": "scene_26",
     "type": "split",
-    "start": 45.14,
-    "end": 47.08,
+    "start": 46.48,
+    "end": 48.2,
     "data": {
       "leftTitle": "IA / MONTEUR ❌",
       "leftItems": [
@@ -1433,8 +1433,8 @@ window.SCENES = [
   {
     "id": "scene_27",
     "type": "speed_counter",
-    "start": 47.08,
-    "end": 48.76,
+    "start": 48.2,
+    "end": 49.46,
     "data": {
       "bg": "grid"
     }
@@ -1442,8 +1442,8 @@ window.SCENES = [
   {
     "id": "scene_28",
     "type": "face",
-    "start": 48.76,
-    "end": 49.72,
+    "start": 49.46,
+    "end": 50.92,
     "data": {
       "avatar": "assets/avatars/money.png",
       "label": "COÛT MARGINAL : 0,00 € 🔥",
@@ -1453,8 +1453,8 @@ window.SCENES = [
   {
     "id": "scene_29",
     "type": "cards",
-    "start": 49.72,
-    "end": 51.88,
+    "start": 50.92,
+    "end": 52.78,
     "data": {
       "cards": [
         {
@@ -1469,8 +1469,8 @@ window.SCENES = [
   {
     "id": "scene_30",
     "type": "cards",
-    "start": 51.88,
-    "end": 53.14,
+    "start": 52.78,
+    "end": 53.7,
     "data": {
       "cards": [
         {
@@ -1490,8 +1490,8 @@ window.SCENES = [
   {
     "id": "scene_31",
     "type": "face",
-    "start": 53.14,
-    "end": 55.44,
+    "start": 53.7,
+    "end": 56.46,
     "data": {
       "avatar": "assets/avatars/scissors.png",
       "label": "SANS CAMÉRA • 100% RÉGULIER 🎥",
@@ -1501,8 +1501,8 @@ window.SCENES = [
   {
     "id": "scene_32",
     "type": "big",
-    "start": 55.44,
-    "end": 56.52,
+    "start": 56.46,
+    "end": 57.26,
     "data": {
       "text": "100% AUTOMATISÉ",
       "sub": "PIPELINE VIDÉO CLÉ EN MAIN ⚙️",
@@ -1512,8 +1512,8 @@ window.SCENES = [
   {
     "id": "scene_33",
     "type": "face",
-    "start": 56.52,
-    "end": 59.5,
+    "start": 57.26,
+    "end": 60.08,
     "data": {
       "avatar": "assets/avatars/prof.png",
       "label": "TON AVATAR SUR-MESURE 👔",
@@ -1523,8 +1523,8 @@ window.SCENES = [
   {
     "id": "scene_34",
     "type": "face",
-    "start": 59.5,
-    "end": 60.4,
+    "start": 60.08,
+    "end": 61.32,
     "data": {
       "avatar": "assets/avatars/pointing.png",
       "label": "TA CHARTE GRAPHIQUE 🎨",
@@ -1534,7 +1534,7 @@ window.SCENES = [
   {
     "id": "scene_35",
     "type": "big",
-    "start": 60.4,
+    "start": 61.32,
     "end": 63.164,
     "data": {
       "text": "ENVOIE « CODE »",
