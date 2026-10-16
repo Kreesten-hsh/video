@@ -43,12 +43,14 @@ html, body {
    ========================================================================== */
 #video-canvas,
 #bg-layer,
+#bg-layer.bg-grid,
+#bg-layer.bg-alert,
+#bg-layer.bg-mint,
+#bg-layer.bg-red,
 .bg-grid,
 .bg-alert,
 .bg-mint,
-.bg-red,
-.bg-diamonds,
-.bg-circles {
+.bg-red {
   position: relative;
   width: 1080px;
   height: 1920px;
@@ -56,6 +58,24 @@ html, body {
   background-color: #0D1117 !important;
   background-image: radial-gradient(#1F2937 3px, transparent 3px) !important;
   background-size: 36px 36px !important;
+  background-position: 0 0 !important;
+}
+
+#bg-layer.bg-diamonds,
+#video-canvas.bg-diamonds,
+.bg-diamonds {
+  background-color: #0D1117 !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpolygon points='20,14 26,20 20,26 14,20' fill='%23243042'/%3E%3C/svg%3E") !important;
+  background-size: 40px 40px !important;
+  background-position: 0 0 !important;
+}
+
+#bg-layer.bg-circles,
+#video-canvas.bg-circles,
+.bg-circles {
+  background-color: #0D1117 !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='6' fill='none' stroke='%23243042' stroke-width='2'/%3E%3C/svg%3E") !important;
+  background-size: 40px 40px !important;
   background-position: 0 0 !important;
 }
 

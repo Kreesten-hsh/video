@@ -40,14 +40,15 @@
    * Pilote le décor dynamique de fond sur #video-canvas selon scene.data.bg et t
    */
   function updateBackground(bgType, t, progress) {
-    if (currentBg !== "grid") {
-      currentBg = "grid";
-      canvas.className = "bg-grid";
+    const desired = (bgType === "diamonds" || bgType === "circles") ? `bg-${bgType}` : "bg-grid";
+    if (currentBg !== desired) {
+      currentBg = desired;
+      canvas.className = desired;
     }
-    canvas.style.backgroundColor = "#0D1117";
-    canvas.style.backgroundImage = "radial-gradient(#1F2937 3px, transparent 3px)";
-    canvas.style.backgroundSize = "36px 36px";
-    canvas.style.backgroundPosition = "0 0";
+    canvas.style.backgroundColor = "";
+    canvas.style.backgroundImage = "";
+    canvas.style.backgroundSize = "";
+    canvas.style.backgroundPosition = "";
   }
 
   /**
