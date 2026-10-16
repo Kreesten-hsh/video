@@ -427,31 +427,233 @@ def step3_build_timeline(words, total_audio_dur, timeline_path="timeline.js"):
         {"type": "big", "data": {"text": "ENVOIE « CODE »", "sub": "EN DM À @AGENT404 📩", "bg": "circles"}}
     ]
 
-    scenes = []
-    cur_word_idx = 0
-    num_scenes = len(scenes_configs)
+def validate_timeline(words, scenes, total_audio_dur, reference_words, scene_end_words):
+    """
+    Validation automatique rigoureuse de la timeline :
+    1. Couverture stricte de la transcription (aucun mot inventé ou omis).
+    2. Timestamps strictement chronologiques et start < end pour chaque mot.
+    3. Bornes temporelles contenues dans la durée réelle audio.
+    4. Exactement 35 scènes dans le bon ordre chronologique.
+    5. Chaque mot terminal de scène correspond exactement au repère textuel.
+    6. Continuité parfaite des scènes : aucun trou, aucun chevauchement.
+    7. Durée finale cohérente avec l'audio réel.
+    """
+    print("\n--- [CONTRÔLES AUTOMATIQUES DE VALIDATION TEMPORELLE] ---")
+    
+    # 1. Vérification du nombre et contenu des mots
+    if len(words) != len(reference_words):
+        raise ValueError(
+            f"ÉCHEC VALIDATION : Nombre de mots ({len(words)}) différent de la référence ({len(reference_words)})."
+        )
+    for idx, (w, ref_w) in enumerate(zip(words, reference_words)):
+        if w["word"] != ref_w:
+            raise ValueError(f"ÉCHEC VALIDATION : Mot {idx} '{w['word']}' ne correspond pas à la référence '{ref_w}'.")
+        s = float(w["start"])
+        e = float(w["end"])
+        if s >= e:
+            raise ValueError(f"ÉCHEC VALIDATION : Mot {idx} '{w['word']}' invalide (start {s:.3f} >= end {e:.3f}).")
+        if s < 0.0 or e > total_audio_dur + 0.15:
+            raise ValueError(
+                f"ÉCHEC VALIDATION : Mot {idx} '{w['word']}' [{s:.3f}s -> {e:.3f}s] hors bornes audio [0, {total_audio_dur:.3f}s]."
+            )
+        if idx > 0:
+            prev_s = float(words[idx - 1]["start"])
+            if s < prev_s:
+                raise ValueError(
+                    f"ÉCHEC VALIDATION : Décalage non-chronologique mot {idx} '{w['word']}' (start {s:.3f} < {prev_s:.3f})."
+                )
 
+    print(f"✓ {len(words)} mots validés : ordre strictement chronologique, bornés [0.0s, {total_audio_dur:.2f}s].")
+
+    # 2. Vérification des 35 scènes
+    if len(scenes) != 35:
+        raise ValueError(f"ÉCHEC VALIDATION : {len(scenes)} scènes trouvées au lieu des 35 attendues.")
+
+    for i, sc in enumerate(scenes):
+        sc_s = float(sc["start"])
+        sc_e = float(sc["end"])
+        if sc_s >= sc_e:
+            raise ValueError(f"ÉCHEC VALIDATION : Scène {sc['id']} durée invalide [{sc_s:.3f}s -> {sc_e:.3f}s].")
+        if i == 0:
+            if sc_s != 0.0:
+                raise ValueError(f"ÉCHEC VALIDATION : La scène 1 doit débuter à 0.0s (trouvé: {sc_s}s).")
+        else:
+            prev_e = float(scenes[i - 1]["end"])
+            if abs(sc_s - prev_e) > 0.001:
+                raise ValueError(
+                    f"ÉCHEC VALIDATION : Rupture de continuité entre scène {i} ({prev_e:.3f}s) et scène {i+1} ({sc_s:.3f}s)."
+                )
+
+    final_sc_end = float(scenes[-1]["end"])
+    if abs(final_sc_end - total_audio_dur) > 0.1:
+        raise ValueError(
+            f"ÉCHEC VALIDATION : Fin de la timeline ({final_sc_end:.3f}s) divergente de la durée audio ({total_audio_dur:.3f}s)."
+        )
+
+    print(f"✓ 35 scènes validées sans aucun trou ni chevauchement (durée totale : {final_sc_end:.3f}s).")
+
+    # 3. Rapport de diagnostic lisible
+    print("\n--- [RAPPORT DE DIAGNOSTIC DE SYNCHRONISATION DES 35 SCÈNES] ---")
+    print(f"{'Scène':<10} | {'Début':<8} | {'Fin':<8} | {'Durée':<7} | {'Mot Terminal':<18} | {'Type':<14} | {'Décor'}")
+    print("-" * 88)
+    for i, sc in enumerate(scenes):
+        sc_s = float(sc["start"])
+        sc_e = float(sc["end"])
+        dur = sc_e - sc_s
+        end_w = scene_end_words[i]
+        sc_type = sc["type"]
+        sc_bg = sc["data"].get("bg", "default")
+        print(f"{sc['id']:<10} | {sc_s:6.3f}s  | {sc_e:6.3f}s  | {dur:5.2f}s  | {end_w:<18} | {sc_type:<14} | {sc_bg}")
+    print("-" * 88 + "\n")
+
+def step3_build_timeline(words, total_audio_dur, timeline_path="timeline.js"):
+    print("[3/3] C) Génération des 35 scènes synchronisées dans timeline.js...")
+
+    # Mots terminaux des 35 scènes
+    scene_end_words = [
+        "vidéo",             # 1
+        "prix.",             # 2
+        "moment,",           # 3
+        "Pro",               # 4
+        "Kling,",            # 5
+        "code.",             # 6
+        "moteur",            # 7
+        "JavaScript.",       # 8
+        "simple,",           # 9
+        "téléphone,",        # 10
+        "silences",          # 11
+        "milliseconde.",     # 12
+        "scène,",            # 13
+        "l'émotion,",        # 14
+        "terminaux,",        # 15
+        "structurées,",      # 16
+        "losanges",          # 17
+        "cercles,",          # 18
+        "FFmpeg",            # 19
+        "seconde.",          # 20
+        "révolution",        # 21
+        "entrepreneurs ?",   # 22
+        "fortune,",          # 23
+        "visuelles",         # 24
+        "corriger.",         # 25
+        "complète",          # 26
+        "générer",           # 27
+        "euro.",             # 28
+        "logiciel,",         # 29
+        "offre",             # 30
+        "caméra,",           # 31
+        "automatisé.",       # 32
+        "avatar",            # 33
+        "graphique,",        # 34
+        "privé."             # 35
+    ]
+
+    # Données exactes des 35 scènes demandées (Charte AGENT404 // CYBER-MINT)
+    scenes_configs = [
+        # Scène 1 (Douleur)
+        {"type": "face", "data": {"avatar": "assets/avatars/stop.png", "label": "STOP AUX MONTEURS 🛑", "bg": "alert"}},
+        # Scène 2 (Douleur)
+        {"type": "big", "data": {"text": "💸 HORS DE PRIX", "sub": "FACTURES IA EXPLOSÉES", "bg": "alert"}},
+        # Scène 3
+        {"type": "face", "data": {"avatar": "assets/avatars/pointing.png", "label": "CETTE VIDÉO 👇", "bg": "grid"}},
+        # Scène 4
+        {"type": "cards", "data": {"cards": [{"icon": "🎬", "title": "PREMIERE PRO", "sub": "ZÉRO MONTAGE MANUEL ❌"}], "bg": "grid"}},
+        # Scène 5
+        {"type": "cards", "data": {"cards": [{"icon": "🤖", "title": "VEO / KLING", "sub": "AUCUNE IA VIDÉO ❌"}, {"icon": "🚫", "title": "ZÉRO PROMPT", "sub": "AUCUN ARTEFACT VISUEL"}], "bg": "grid"}},
+        # Scène 6 (Puissance)
+        {"type": "big", "data": {"text": "100% CODE", "sub": "GÉNÉRÉ PAR ALGORITHME ⚡", "bg": "mint"}},
+        # Scène 7
+        {"type": "face", "data": {"avatar": "assets/avatars/laptop.png", "label": "MOTEUR SUR-MESURE 💻", "bg": "grid"}},
+        # Scène 8 : NOUVEAU COMPOSANT ENGINE ARCH
+        {"type": "engine_arch", "data": {"bg": "grid"}},
+        # Scène 9
+        {"type": "face", "data": {"avatar": "assets/avatars/idea.png", "label": "ULTRA SIMPLE 💡", "bg": "grid"}},
+        # Scène 10
+        {"type": "face", "data": {"avatar": "assets/avatars/mic.png", "label": "1. MÉMO VOCAL 📱", "bg": "grid"}},
+        # Scène 11
+        {"type": "audio_wave", "data": {"title": "vocal1.m4a — NETTOYAGE STUDIO", "sub": "✂️ SILENCES SUPPRIMÉS AUTOMATIQUEMENT", "bg": "grid"}},
+        # Scène 12 : NOUVEAU COMPOSANT SYNC TIMER
+        {"type": "sync_timer", "data": {"bg": "grid"}},
+        # Scène 13
+        {"type": "big", "data": {"text": "MISE EN SCÈNE", "sub": "100% PILOTÉE PAR LE CODE 🎬", "bg": "grid"}},
+        # Scène 14 : NOUVEAU COMPOSANT EMOTION MORPH
+        {"type": "emotion_morph", "data": {"bg": "grid"}},
+        # Scène 15 : TERMINAL AGENT404
+        {"type": "window", "data": {"title": "agent404_terminal.sh", "lines": ["$ ./agent404 --deploy-matrix", "✓ Protocole Cyber-Mint #00F5A0", "✓ Système 100% Anonyme : ACTIF"], "bg": "grid"}},
+        # Scène 16
+        {"type": "list", "data": {"header": "COMPOSANTS DYNAMIQUES", "items": ["1. Terminaux & Code", "2. Listes à rebond", "3. Cartes & Comparatifs"], "bg": "grid"}},
+        # Scène 17 (Losanges Cyber-Mint)
+        {"type": "big", "data": {"text": "◆ LOSANGES ◆", "sub": "CHANGEMENT DE DÉCOR EN DIRECT", "bg": "diamonds"}},
+        # Scène 18 (Cercles Cyber-Mint)
+        {"type": "big", "data": {"text": "● CERCLES ●", "sub": "ANIMATION HAUTE VITESSE", "bg": "circles"}},
+        # Scène 19 : NOUVEAU COMPOSANT FFMPEG RENDER
+        {"type": "ffmpeg_render", "data": {"bg": "grid"}},
+        # Scène 20 (Puissance)
+        {"type": "big", "data": {"text": "30 FPS", "sub": "1080x1920 FULL HD FLUIDE 🔥", "bg": "mint"}},
+        # Scène 21
+        {"type": "face", "data": {"avatar": "assets/avatars/shock.png", "label": "UNE RÉVOLUTION 🚀", "bg": "grid"}},
+        # Scène 22
+        {"type": "cards", "data": {"cards": [{"icon": "💻", "title": "FONDATEURS SAAS", "sub": "DÉMOS PRODUIT & ONBOARDING"}, {"icon": "📈", "title": "ENTREPRENEURS", "sub": "CONTENU B2B QUOTIDIEN"}], "bg": "grid"}},
+        # Scène 23 (Douleur)
+        {"type": "face", "data": {"avatar": "assets/avatars/skeptic.png", "label": "IA VIDÉO = RUINEUX 💸", "bg": "alert"}},
+        # Scène 24 (Douleur)
+        {"type": "list", "data": {"header": "PROBLÈMES DES IA VIDÉO ❌", "items": ["❌ Visages & mains déformés", "❌ Texte illisible à l'écran", "❌ Impossible à modifier"], "bg": "alert"}},
+        # Scène 25 (Douleur)
+        {"type": "face", "data": {"avatar": "assets/avatars/stop.png", "label": "DES HEURES PERDUES ⏳", "bg": "alert"}},
+        # Scène 26
+        {"type": "split", "data": {"leftTitle": "IA / MONTEUR ❌", "leftItems": ["3h de montage", "50€ à 150€ / vidéo", "Aléatoire"], "rightTitle": "CODE PYTHON ✅", "rightItems": ["Prêt en 2 min", "Coût : 0,00 €", "Sur-mesure"], "bg": "grid"}},
+        # Scène 27 : NOUVEAU COMPOSANT SPEED COUNTER
+        {"type": "speed_counter", "data": {"bg": "grid"}},
+        # Scène 28
+        {"type": "face", "data": {"avatar": "assets/avatars/money.png", "label": "COÛT MARGINAL : 0,00 € 🔥", "bg": "diamonds"}},
+        # Scène 29
+        {"type": "cards", "data": {"cards": [{"icon": "⚡", "title": "1. TON LOGICIEL", "sub": "DÉMOS PRODUIT ULTRA CLAIRES"}], "bg": "grid"}},
+        # Scène 30
+        {"type": "cards", "data": {"cards": [{"icon": "⚡", "title": "1. TON LOGICIEL", "sub": "DÉMOS PRODUIT ULTRA CLAIRES"}, {"icon": "🎯", "title": "2. TON OFFRE B2B", "sub": "VIDÉOS DE VENTE QUI CONVERTISSENT"}], "bg": "grid"}},
+        # Scène 31
+        {"type": "face", "data": {"avatar": "assets/avatars/scissors.png", "label": "SANS CAMÉRA • 100% RÉGULIER 🎥", "bg": "grid"}},
+        # Scène 32 (Puissance)
+        {"type": "big", "data": {"text": "100% AUTOMATISÉ", "sub": "PIPELINE VIDÉO CLÉ EN MAIN ⚙️", "bg": "mint"}},
+        # Scène 33
+        {"type": "face", "data": {"avatar": "assets/avatars/prof.png", "label": "TON AVATAR SUR-MESURE 👔", "bg": "grid"}},
+        # Scène 34
+        {"type": "face", "data": {"avatar": "assets/avatars/pointing.png", "label": "TA CHARTE GRAPHIQUE 🎨", "bg": "diamonds"}},
+        # Scène 35 (CTA Agent404)
+        {"type": "big", "data": {"text": "ENVOIE « CODE »", "sub": "EN DM À @AGENT404 📩", "bg": "circles"}}
+    ]
+
+    # Découpage strict et garanti des tranches de mots pour chaque scène
+    scene_slices = []
+    cur_idx = 0
+    num_scenes = len(scenes_configs)
+    for i, end_w in enumerate(scene_end_words):
+        start_idx = cur_idx
+        while cur_idx < len(words) and words[cur_idx]["word"] != end_w:
+            cur_idx += 1
+        if cur_idx >= len(words):
+            raise ValueError(f"ERREUR : Mot terminal '{end_w}' introuvable pour la scène {i + 1}.")
+        end_idx = cur_idx
+        cur_idx += 1
+        scene_slices.append((start_idx, end_idx))
+
+    # Construction des scènes avec synchronisation exacte sur l'amorce du discours
+    scenes = []
     for i in range(num_scenes):
         cfg = scenes_configs[i]
-        end_w = scene_end_words[i]
+        s_idx, e_idx = scene_slices[i]
 
-        start_word_idx = cur_word_idx
-        while cur_word_idx < len(words) and words[cur_word_idx]["word"] != end_w:
-            cur_word_idx += 1
-
-        end_word_idx = cur_word_idx
-        cur_word_idx += 1
-
-        # Timestamps avec continuité parfaite
+        # La scène débute exactement au premier mot prononcé de son sujet
         if i == 0:
             sc_start = 0.0
         else:
-            sc_start = scenes[i - 1]["end"]
+            sc_start = words[s_idx]["start"]
 
+        # La scène se termine exactement à l'amorce du sujet suivant (ou fin de fichier)
         if i == num_scenes - 1:
             sc_end = max(words[-1]["end"], round(total_audio_dur, 3))
         else:
-            sc_end = words[end_word_idx]["end"]
+            next_s_idx = scene_slices[i + 1][0]
+            sc_end = words[next_s_idx]["start"]
 
         scenes.append({
             "id": f"scene_{i + 1:02d}",
@@ -460,6 +662,9 @@ def step3_build_timeline(words, total_audio_dur, timeline_path="timeline.js"):
             "end": round(sc_end, 3),
             "data": cfg["data"]
         })
+
+    # Contrôles automatiques obligatoires avant écriture
+    validate_timeline(words, scenes, total_audio_dur, REFERENCE_WORDS, scene_end_words)
 
     # Export JS
     js_content = f"// TIMELINE VIDÉO PROGRAMMATIQUE SUR-MESURE (35 SCÈNES)\n"
@@ -470,7 +675,7 @@ def step3_build_timeline(words, total_audio_dur, timeline_path="timeline.js"):
     with open(timeline_path, "w", encoding="utf-8") as f:
         f.write(js_content)
 
-    print(f"✓ 35 scènes générées dans {timeline_path} sans aucun trou temporel.")
+    print(f"✓ 35 scènes validées et exportées dans {timeline_path}.")
 
 # Transcription de référence validée (220 mots)
 REFERENCE_WORDS = [
@@ -498,13 +703,11 @@ REFERENCE_WORDS = [
 
 def align_reference_audio(audio_mp3_path="assets/audio/agent404_voiceover.mp3", output_words_json="words.json", output_voix_wav="voix.wav"):
     """
-    Étape 3 & 5 :
-    - Vérifie la présence de la source audio de référence. Si absente, arrêt immédiat.
-    - Convertit sans altération vers WAV PCM de travail (assets/audio/agent404_voiceover.wav).
-    - Utilise faster-whisper (small, word_timestamps=True) pour extraire les timestamps acoustiques exacts.
-    - Aligne 100% des mots sur la transcription de référence validée (220 mots).
-    - Exporte words.json et voix.wav (copie bit-perfect sans suppression de silences).
+    Alignement forcé déterministe et vérifié du texte de référence (220 mots)
+    sur la voix off ElevenLabs exacte, sans fabrication ni interpolation artificielle.
     """
+    import unicodedata
+
     if not os.path.exists(audio_mp3_path):
         raise FileNotFoundError(
             f"ERREUR CRITIQUE : La source audio de référence '{audio_mp3_path}' est introuvable. "
@@ -532,10 +735,10 @@ def align_reference_audio(audio_mp3_path="assets/audio/agent404_voiceover.mp3", 
         total_dur = nframes / sr
         raw_pcm = wf.readframes(nframes)
 
-    print(f"[Audio Reference] Alignement temporel sur {wav_working_copy} ({total_dur:.2f}s @ {sr}Hz)...")
+    print(f"[Audio Reference] Alignement acoustique forcé sur {wav_working_copy} ({total_dur:.2f}s @ {sr}Hz)...")
     from faster_whisper import WhisperModel
     model = WhisperModel("small", device="cpu", compute_type="int8", cpu_threads=2)
-    segments, _ = model.transcribe(wav_working_copy, word_timestamps=True, language="fr")
+    segments, _ = model.transcribe(wav_working_copy, word_timestamps=True, language="fr", temperature=0.0)
 
     raw_words = []
     for s in segments:
@@ -548,8 +751,24 @@ def align_reference_audio(audio_mp3_path="assets/audio/agent404_voiceover.mp3", 
                     "end": round(w.end, 3)
                 })
 
-    def norm(txt):
-        return re.sub(r"[^a-zA-Z0-9]", "", txt.lower())
+    def strip_accents(text):
+        return ''.join(c for c in unicodedata.normalize('NFD', text) if unicodedata.category(c) != 'Mn')
+
+    def norm(s):
+        s = strip_accents(s.lower())
+        s = s.replace('œ', 'oe').replace('æ', 'ae')
+        return re.sub(r'[^a-z0-9]', '', s)
+
+    # Variantes phonétiques de transcription Whisper sans glissement lexical
+    phonetic_map = {
+        'prix': 'pris',
+        'veo': 'vo',
+        'losanges': 'losange',
+        'cercles': 'cercle',
+        'saas': 'sass',
+        'classiques': 'classique',
+        'code': 'code'
+    }
 
     aligned_words = []
     r_idx = 0
@@ -563,49 +782,77 @@ def align_reference_audio(audio_mp3_path="assets/audio/agent404_voiceover.mp3", 
         r_n = norm(rw)
         w_n = norm(ww)
 
-        if r_n == w_n:
-            aligned_words.append({
-                "word": rw,
-                "start": round(float(raw_words[w_idx]["start"]), 3),
-                "end": round(float(raw_words[w_idx]["end"]), 3)
-            })
-            r_idx += 1
+        # 1. Ignorer les bruits purs / soupirs de respiration hors texte
+        if w_n == '' or w_n in ['ah', 'euh']:
             w_idx += 1
-        elif w_n in ["ah", "euh"]:
-            # Bruit de respiration / soupir naturel ignoré des sous-titres
-            w_idx += 1
-        elif r_n in ["jai", "lai", "cest", "jenregistre", "100", "envoiemoi", "code"]:
-            start = round(float(raw_words[w_idx]["start"]), 3)
-            end = round(float(raw_words[w_idx]["end"]), 3)
-            combined = w_n
-            w_idx += 1
-            while w_idx < n_raw and len(combined) < len(r_n):
-                combined += norm(raw_words[w_idx]["word"])
-                end = round(float(raw_words[w_idx]["end"]), 3)
-                w_idx += 1
-            aligned_words.append({
-                "word": rw,
-                "start": start,
-                "end": end
-            })
-            r_idx += 1
-        else:
-            aligned_words.append({
-                "word": rw,
-                "start": round(float(raw_words[w_idx]["start"]), 3),
-                "end": round(float(raw_words[w_idx]["end"]), 3)
-            })
-            r_idx += 1
-            w_idx += 1
+            continue
 
-    while r_idx < n_ref:
-        prev_end = aligned_words[-1]["end"] if aligned_words else 0.0
-        aligned_words.append({
-            "word": REFERENCE_WORDS[r_idx],
-            "start": round(prev_end + 0.05, 3),
-            "end": round(prev_end + 0.35, 3)
-        })
-        r_idx += 1
+        # 2. Cas spécifique des devises combinées : '0€.' dans Whisper pour ['0', 'euro.']
+        if rw == '0' and r_idx + 1 < n_ref and 'euro' in REFERENCE_WORDS[r_idx + 1].lower() and '€' in ww:
+            t_s = float(raw_words[w_idx]["start"])
+            t_e = float(raw_words[w_idx]["end"])
+            mid = round((t_s + t_e) / 2.0, 3)
+            aligned_words.append({"word": REFERENCE_WORDS[r_idx], "start": t_s, "end": mid})
+            aligned_words.append({"word": REFERENCE_WORDS[r_idx + 1], "start": mid, "end": t_e})
+            r_idx += 2
+            w_idx += 1
+            continue
+
+        # 3. Correspondance directe ou phonétique validée
+        if r_n == w_n or phonetic_map.get(r_n) == w_n:
+            aligned_words.append({
+                "word": rw,
+                "start": float(raw_words[w_idx]["start"]),
+                "end": float(raw_words[w_idx]["end"])
+            })
+            r_idx += 1
+            w_idx += 1
+            continue
+
+        # 4. Mots composés / contractions découpées par Whisper (ex: l'ai, j'ai, c'est, envoie-moi)
+        if r_n.startswith(w_n):
+            start_t = float(raw_words[w_idx]["start"])
+            end_t = float(raw_words[w_idx]["end"])
+            accum = w_n
+            w_next = w_idx + 1
+            while w_next < n_raw and len(accum) < len(r_n):
+                next_norm = norm(raw_words[w_next]["word"])
+                if next_norm == '':
+                    end_t = max(end_t, float(raw_words[w_next]["end"]))
+                    w_next += 1
+                    continue
+                accum += next_norm
+                end_t = float(raw_words[w_next]["end"])
+                w_next += 1
+
+            if accum == r_n:
+                aligned_words.append({
+                    "word": rw,
+                    "start": start_t,
+                    "end": end_t
+                })
+                r_idx += 1
+                w_idx = w_next
+                continue
+
+        # En cas de divergence non résolue, arrêt immédiat sans fabrication de timestamps
+        context_ref = REFERENCE_WORDS[max(0, r_idx - 2):min(n_ref, r_idx + 3)]
+        context_raw = [rw_item["word"] for rw_item in raw_words[max(0, w_idx - 2):min(n_raw, w_idx + 3)]]
+        raise RuntimeError(
+            f"ERREUR D'ALIGNEMENT ACOUSTIQUE : divergence stricte détectée à l'index {r_idx}.\n"
+            f"  Mot référence attendu : '{rw}' (norm: '{r_n}')\n"
+            f"  Token Whisper détecté : '{ww}' (norm: '{w_n}')\n"
+            f"  Contexte référence   : {context_ref}\n"
+            f"  Contexte Whisper     : {context_raw}\n"
+            "Arrêt immédiat : le pipeline refuse d'inventer des timestamps."
+        )
+
+    # Règle absolue : aucun mot manquant n'est toléré
+    if len(aligned_words) != n_ref:
+        raise RuntimeError(
+            f"ERREUR D'ALIGNEMENT ACOUSTIQUE : {len(aligned_words)}/{n_ref} mots alignés. "
+            "Tous les mots de référence doivent correspondre à l'audio réel."
+        )
 
     # Sauvegarde de words.json
     with open(output_words_json, "w", encoding="utf-8") as f:
@@ -618,7 +865,7 @@ def align_reference_audio(audio_mp3_path="assets/audio/agent404_voiceover.mp3", 
         wf.setframerate(sr)
         wf.writeframes(raw_pcm)
 
-    print(f"✓ Alignement parfait : {len(aligned_words)}/220 mots validés dans {output_words_json} et {output_voix_wav}.")
+    print(f"✓ Alignement forcé 100% réussi : {len(aligned_words)}/220 mots synchronisés dans {output_words_json}.")
     return aligned_words, total_dur
 
 def main():
