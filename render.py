@@ -66,9 +66,10 @@ def render_video(
 
     with sync_playwright() as p:
         # Lancement sécurisé : pas de saturation de GPU partagé ni de /dev/shm
-        browser = p.chromium.launch(
-            headless=True,
-            args=[
+        chrome_bin = "/usr/bin/google-chrome"
+        launch_kwargs = {
+            "headless": True,
+            "args": [
                 "--disable-gpu",
                 "--disable-dev-shm-usage",
                 "--no-sandbox",
@@ -79,7 +80,10 @@ def render_video(
                 "--disable-default-apps",
                 "--disable-sync",
             ]
-        )
+        }
+        if os.path.exists(chrome_bin):
+            launch_kwargs["executable_path"] = chrome_bin
+        browser = p.chromium.launch(**launch_kwargs)
         context = browser.new_context(viewport={"width": 1080, "height": 1920}, device_scale_factor=1)
         page = context.new_page()
         page.goto(html_abs)

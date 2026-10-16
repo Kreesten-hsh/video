@@ -424,678 +424,678 @@ window.WORDS = [
   },
   {
     "word": "le",
-    "start": 25.85,
-    "end": 25.85
+    "start": 25.9,
+    "end": 25.92
   },
   {
     "word": "code",
-    "start": 25.85,
-    "end": 25.85
+    "start": 25.92,
+    "end": 26.12
   },
   {
     "word": "génère",
-    "start": 25.85,
-    "end": 26.06
+    "start": 26.12,
+    "end": 26.66
   },
   {
     "word": "toute",
-    "start": 26.06,
-    "end": 26.18
+    "start": 26.66,
+    "end": 26.78
   },
   {
     "word": "la",
-    "start": 26.18,
-    "end": 26.42
+    "start": 26.78,
+    "end": 27.02
   },
   {
     "word": "mise",
-    "start": 26.42,
-    "end": 26.62
+    "start": 27.02,
+    "end": 27.22
   },
   {
     "word": "en",
-    "start": 26.62,
-    "end": 26.84
+    "start": 27.22,
+    "end": 27.44
   },
   {
     "word": "scène,",
-    "start": 26.84,
-    "end": 27.08
+    "start": 27.44,
+    "end": 27.68
   },
   {
     "word": "il",
-    "start": 27.22,
-    "end": 27.3
+    "start": 27.82,
+    "end": 27.9
   },
   {
     "word": "anime",
-    "start": 27.3,
-    "end": 27.66
+    "start": 27.9,
+    "end": 28.26
   },
   {
     "word": "mon",
-    "start": 27.66,
-    "end": 27.92
+    "start": 28.26,
+    "end": 28.52
   },
   {
     "word": "avatar",
-    "start": 27.92,
-    "end": 28.24
-  },
-  {
-    "word": "en",
-    "start": 28.24,
-    "end": 28.58
-  },
-  {
-    "word": "costume",
-    "start": 28.58,
+    "start": 28.52,
     "end": 28.84
   },
   {
-    "word": "selon",
+    "word": "en",
     "start": 28.84,
-    "end": 29.3
+    "end": 29.18
+  },
+  {
+    "word": "costume",
+    "start": 29.18,
+    "end": 29.44
+  },
+  {
+    "word": "selon",
+    "start": 29.44,
+    "end": 29.9
   },
   {
     "word": "l'émotion,",
-    "start": 29.3,
-    "end": 29.78
+    "start": 29.9,
+    "end": 30.38
   },
   {
     "word": "il",
-    "start": 29.92,
-    "end": 30.0
+    "start": 30.52,
+    "end": 30.6
   },
   {
     "word": "ouvre",
-    "start": 30.0,
-    "end": 30.24
+    "start": 30.6,
+    "end": 30.84
   },
   {
     "word": "les",
-    "start": 30.24,
-    "end": 30.46
+    "start": 30.84,
+    "end": 31.06
   },
   {
     "word": "terminaux,",
-    "start": 30.46,
-    "end": 30.92
-  },
-  {
-    "word": "il",
     "start": 31.06,
-    "end": 31.1
-  },
-  {
-    "word": "affiche",
-    "start": 31.1,
     "end": 31.52
   },
   {
+    "word": "il",
+    "start": 31.66,
+    "end": 31.7
+  },
+  {
+    "word": "affiche",
+    "start": 31.7,
+    "end": 32.12
+  },
+  {
     "word": "des",
-    "start": 31.52,
-    "end": 31.78
+    "start": 32.12,
+    "end": 32.38
   },
   {
     "word": "listes",
-    "start": 31.78,
-    "end": 32.08
+    "start": 32.38,
+    "end": 32.68
   },
   {
     "word": "structurées,",
-    "start": 32.08,
-    "end": 32.94
+    "start": 32.68,
+    "end": 33.54
   },
   {
     "word": "et",
-    "start": 32.94,
-    "end": 33.55
+    "start": 33.54,
+    "end": 34.34
   },
   {
     "word": "change",
-    "start": 33.55,
-    "end": 33.71
+    "start": 34.34,
+    "end": 34.64
   },
   {
     "word": "le",
-    "start": 33.71,
-    "end": 33.99
+    "start": 34.64,
+    "end": 34.92
   },
   {
     "word": "décor",
-    "start": 33.99,
-    "end": 34.25
+    "start": 34.92,
+    "end": 35.18
   },
   {
     "word": "en",
-    "start": 34.25,
-    "end": 34.47
+    "start": 35.18,
+    "end": 35.4
   },
   {
     "word": "losanges",
-    "start": 34.47,
-    "end": 34.95
+    "start": 35.4,
+    "end": 35.88
   },
   {
     "word": "ou",
-    "start": 34.95,
-    "end": 35.27
+    "start": 35.88,
+    "end": 36.2
   },
   {
     "word": "en",
-    "start": 35.27,
-    "end": 35.53
+    "start": 36.2,
+    "end": 36.46
   },
   {
     "word": "cercles,",
-    "start": 35.53,
-    "end": 35.79
+    "start": 36.46,
+    "end": 36.72
   },
   {
     "word": "et",
-    "start": 35.79,
-    "end": 36.49
+    "start": 36.72,
+    "end": 37.76
   },
   {
     "word": "il",
-    "start": 36.49,
-    "end": 36.59
+    "start": 37.76,
+    "end": 38.0
   },
   {
     "word": "compile",
-    "start": 36.59,
-    "end": 37.05
+    "start": 38.0,
+    "end": 38.46
   },
   {
     "word": "tout",
-    "start": 37.05,
-    "end": 37.25
+    "start": 38.46,
+    "end": 38.66
   },
   {
     "word": "avec",
-    "start": 37.25,
-    "end": 37.71
+    "start": 38.66,
+    "end": 39.12
   },
   {
     "word": "FFmpeg",
-    "start": 37.71,
-    "end": 39.01
+    "start": 39.12,
+    "end": 40.42
   },
   {
     "word": "à",
-    "start": 39.01,
-    "end": 39.43
+    "start": 40.42,
+    "end": 40.84
   },
   {
     "word": "30",
-    "start": 39.43,
-    "end": 39.89
+    "start": 40.84,
+    "end": 41.3
   },
   {
     "word": "images",
-    "start": 39.89,
-    "end": 40.15
+    "start": 41.3,
+    "end": 41.56
   },
   {
     "word": "par",
-    "start": 40.15,
-    "end": 40.41
+    "start": 41.56,
+    "end": 41.82
   },
   {
     "word": "seconde.",
-    "start": 40.41,
-    "end": 40.97
+    "start": 41.82,
+    "end": 42.38
   },
   {
     "word": "Pourquoi",
-    "start": 40.97,
-    "end": 41.72
+    "start": 42.38,
+    "end": 43.5
   },
   {
     "word": "c'est",
-    "start": 41.72,
-    "end": 41.98
+    "start": 43.5,
+    "end": 43.76
   },
   {
     "word": "une",
-    "start": 41.98,
-    "end": 42.1
+    "start": 43.76,
+    "end": 43.88
   },
   {
     "word": "révolution",
-    "start": 42.1,
-    "end": 42.58
+    "start": 43.88,
+    "end": 44.36
   },
   {
     "word": "pour",
-    "start": 42.58,
-    "end": 42.9
+    "start": 44.36,
+    "end": 44.68
   },
   {
     "word": "les",
-    "start": 42.9,
-    "end": 43.0
+    "start": 44.68,
+    "end": 44.78
   },
   {
     "word": "fondateurs",
-    "start": 43.0,
-    "end": 43.52
+    "start": 44.78,
+    "end": 45.3
   },
   {
     "word": "SaaS",
-    "start": 43.52,
-    "end": 43.86
+    "start": 45.3,
+    "end": 45.64
   },
   {
     "word": "et",
-    "start": 43.86,
-    "end": 44.14
+    "start": 45.64,
+    "end": 45.92
   },
   {
     "word": "les",
-    "start": 44.14,
-    "end": 44.26
+    "start": 45.92,
+    "end": 46.04
   },
   {
     "word": "entrepreneurs ?",
-    "start": 44.26,
-    "end": 45.37
+    "start": 46.04,
+    "end": 47.28
   },
   {
     "word": "Parce",
-    "start": 45.39,
-    "end": 45.82
+    "start": 47.28,
+    "end": 47.48
   },
   {
     "word": "que",
-    "start": 45.82,
-    "end": 46.21
+    "start": 47.48,
+    "end": 49.5
   },
   {
     "word": "les",
-    "start": 46.21,
-    "end": 46.35
+    "start": 49.5,
+    "end": 49.72
   },
   {
     "word": "IA",
-    "start": 46.35,
-    "end": 46.62
+    "start": 49.72,
+    "end": 50.14
   },
   {
     "word": "vidéo",
-    "start": 46.21,
-    "end": 46.49
+    "start": 50.14,
+    "end": 50.42
   },
   {
     "word": "classiques",
-    "start": 46.49,
-    "end": 47.03
+    "start": 50.42,
+    "end": 50.96
   },
   {
     "word": "coûtent",
-    "start": 47.03,
-    "end": 47.35
+    "start": 50.96,
+    "end": 51.28
   },
   {
     "word": "une",
-    "start": 47.35,
-    "end": 47.51
+    "start": 51.28,
+    "end": 51.44
   },
   {
     "word": "fortune,",
-    "start": 47.51,
-    "end": 47.81
+    "start": 51.44,
+    "end": 51.74
   },
   {
     "word": "font",
-    "start": 47.95,
-    "end": 48.31
+    "start": 51.88,
+    "end": 52.24
   },
   {
     "word": "des",
-    "start": 48.31,
-    "end": 48.59
+    "start": 52.24,
+    "end": 52.52
   },
   {
     "word": "erreurs",
-    "start": 48.59,
-    "end": 48.97
+    "start": 52.52,
+    "end": 52.9
   },
   {
     "word": "visuelles",
-    "start": 48.97,
-    "end": 49.65
+    "start": 52.9,
+    "end": 53.58
   },
   {
     "word": "et",
-    "start": 49.65,
-    "end": 49.83
+    "start": 53.58,
+    "end": 53.76
   },
   {
     "word": "prennent",
-    "start": 49.83,
-    "end": 50.35
+    "start": 53.76,
+    "end": 54.28
   },
   {
     "word": "des",
-    "start": 50.35,
-    "end": 50.63
+    "start": 54.28,
+    "end": 54.56
   },
   {
     "word": "heures",
-    "start": 50.63,
-    "end": 50.93
+    "start": 54.56,
+    "end": 54.86
   },
   {
     "word": "à",
-    "start": 50.93,
-    "end": 51.11
+    "start": 54.86,
+    "end": 55.04
   },
   {
     "word": "corriger.",
-    "start": 51.11,
-    "end": 51.59
+    "start": 55.04,
+    "end": 55.52
   },
   {
     "word": "Avec",
-    "start": 51.73,
-    "end": 52.13
+    "start": 55.66,
+    "end": 56.06
   },
   {
     "word": "du",
-    "start": 52.13,
-    "end": 52.35
+    "start": 56.06,
+    "end": 56.28
   },
   {
     "word": "code",
-    "start": 52.35,
-    "end": 52.59
+    "start": 56.28,
+    "end": 56.52
   },
   {
     "word": "une",
-    "start": 52.59,
-    "end": 52.95
+    "start": 56.52,
+    "end": 56.88
   },
   {
     "word": "vidéo",
-    "start": 52.95,
-    "end": 53.31
+    "start": 56.88,
+    "end": 57.24
   },
   {
     "word": "complète",
-    "start": 53.31,
-    "end": 54.15
+    "start": 57.24,
+    "end": 58.08
   },
   {
     "word": "me",
-    "start": 54.15,
-    "end": 54.81
+    "start": 58.08,
+    "end": 58.74
   },
   {
     "word": "prend",
-    "start": 54.81,
-    "end": 55.05
+    "start": 58.74,
+    "end": 58.98
   },
   {
     "word": "deux",
-    "start": 55.05,
-    "end": 55.69
+    "start": 58.98,
+    "end": 59.62
   },
   {
     "word": "minutes",
-    "start": 55.69,
-    "end": 55.99
+    "start": 59.62,
+    "end": 59.92
   },
   {
     "word": "à",
-    "start": 55.99,
-    "end": 56.27
+    "start": 59.92,
+    "end": 60.2
   },
   {
     "word": "générer",
-    "start": 56.27,
-    "end": 56.69
+    "start": 60.2,
+    "end": 60.62
   },
   {
     "word": "et",
-    "start": 56.69,
-    "end": 56.95
+    "start": 60.62,
+    "end": 60.88
   },
   {
     "word": "coûte",
-    "start": 56.95,
-    "end": 57.13
+    "start": 60.88,
+    "end": 61.06
   },
   {
     "word": "0",
-    "start": 57.13,
-    "end": 57.45
+    "start": 61.06,
+    "end": 61.38
   },
   {
     "word": "euro.",
-    "start": 57.45,
-    "end": 57.83
+    "start": 61.38,
+    "end": 61.76
   },
   {
     "word": "Que",
-    "start": 57.83,
-    "end": 58.47
+    "start": 61.76,
+    "end": 62.4
   },
   {
     "word": "ce",
-    "start": 58.47,
-    "end": 58.61
+    "start": 62.4,
+    "end": 62.54
   },
   {
     "word": "soit",
-    "start": 58.61,
-    "end": 58.83
+    "start": 62.54,
+    "end": 62.76
   },
   {
     "word": "pour",
-    "start": 58.83,
-    "end": 58.99
+    "start": 62.76,
+    "end": 62.92
   },
   {
     "word": "expliquer",
-    "start": 58.99,
-    "end": 59.47
+    "start": 62.92,
+    "end": 63.4
   },
   {
     "word": "ton",
-    "start": 59.47,
-    "end": 59.65
+    "start": 63.4,
+    "end": 63.58
   },
   {
     "word": "logiciel,",
-    "start": 59.65,
-    "end": 60.29
+    "start": 63.58,
+    "end": 64.22
   },
   {
     "word": "présenter",
-    "start": 60.47,
-    "end": 60.99
+    "start": 64.4,
+    "end": 64.92
   },
   {
     "word": "ton",
-    "start": 60.99,
-    "end": 61.23
+    "start": 64.92,
+    "end": 65.16
   },
   {
     "word": "offre",
-    "start": 61.23,
-    "end": 61.57
+    "start": 65.16,
+    "end": 65.5
   },
   {
     "word": "ou",
-    "start": 61.57,
-    "end": 61.65
+    "start": 65.5,
+    "end": 65.58
   },
   {
     "word": "publier",
-    "start": 61.65,
-    "end": 62.11
+    "start": 65.58,
+    "end": 66.04
   },
   {
     "word": "tous",
-    "start": 62.11,
-    "end": 62.35
+    "start": 66.04,
+    "end": 66.28
   },
   {
     "word": "les",
-    "start": 62.35,
-    "end": 62.55
+    "start": 66.28,
+    "end": 66.48
   },
   {
     "word": "jours",
-    "start": 62.55,
-    "end": 62.71
+    "start": 66.48,
+    "end": 66.64
   },
   {
     "word": "sans",
-    "start": 62.71,
-    "end": 62.95
+    "start": 66.64,
+    "end": 66.88
   },
   {
     "word": "jamais",
-    "start": 62.95,
-    "end": 63.29
+    "start": 66.88,
+    "end": 67.22
   },
   {
     "word": "allumer",
-    "start": 63.29,
-    "end": 63.59
+    "start": 67.22,
+    "end": 67.52
   },
   {
     "word": "ta",
-    "start": 63.59,
-    "end": 63.81
+    "start": 67.52,
+    "end": 67.74
   },
   {
     "word": "caméra,",
-    "start": 63.81,
-    "end": 64.73
+    "start": 67.74,
+    "end": 68.66
   },
   {
     "word": "tout",
-    "start": 64.83,
-    "end": 64.89
+    "start": 68.76,
+    "end": 68.9
   },
   {
     "word": "est",
-    "start": 64.89,
-    "end": 64.89
+    "start": 68.9,
+    "end": 69.08
   },
   {
     "word": "automatisé.",
-    "start": 64.89,
-    "end": 65.43
+    "start": 69.08,
+    "end": 69.9
   },
   {
     "word": "Si",
-    "start": 65.57,
-    "end": 65.79
+    "start": 70.04,
+    "end": 70.26
   },
   {
     "word": "tu",
-    "start": 65.79,
-    "end": 65.95
+    "start": 70.26,
+    "end": 70.42
   },
   {
     "word": "veux",
-    "start": 65.95,
-    "end": 66.11
+    "start": 70.42,
+    "end": 70.58
   },
   {
     "word": "que",
-    "start": 66.11,
-    "end": 66.27
+    "start": 70.58,
+    "end": 70.74
   },
   {
     "word": "je",
-    "start": 66.27,
-    "end": 66.39
+    "start": 70.74,
+    "end": 70.86
   },
   {
     "word": "déploie",
-    "start": 66.39,
-    "end": 66.73
+    "start": 70.86,
+    "end": 71.2
   },
   {
     "word": "ce",
-    "start": 66.73,
-    "end": 66.93
+    "start": 71.2,
+    "end": 71.4
   },
   {
     "word": "système",
-    "start": 66.93,
-    "end": 67.25
+    "start": 71.4,
+    "end": 71.72
   },
   {
     "word": "avec",
-    "start": 67.25,
-    "end": 67.45
+    "start": 71.72,
+    "end": 71.92
   },
   {
     "word": "ton",
-    "start": 67.45,
-    "end": 67.71
+    "start": 71.92,
+    "end": 72.18
   },
   {
     "word": "propre",
-    "start": 67.71,
-    "end": 67.91
+    "start": 72.18,
+    "end": 72.38
   },
   {
     "word": "avatar",
-    "start": 67.91,
-    "end": 68.33
+    "start": 72.38,
+    "end": 72.8
   },
   {
     "word": "et",
-    "start": 68.33,
-    "end": 68.99
+    "start": 72.8,
+    "end": 73.66
   },
   {
     "word": "ta",
-    "start": 68.99,
-    "end": 68.99
+    "start": 73.66,
+    "end": 73.84
   },
   {
     "word": "charte",
-    "start": 68.99,
-    "end": 69.03
+    "start": 73.84,
+    "end": 74.06
   },
   {
     "word": "graphique,",
-    "start": 69.03,
-    "end": 69.69
+    "start": 74.06,
+    "end": 74.72
   },
   {
     "word": "envoie-moi",
-    "start": 69.75,
-    "end": 70.15
+    "start": 74.78,
+    "end": 75.18
   },
   {
     "word": "« CODE »",
-    "start": 70.15,
-    "end": 70.47
+    "start": 75.18,
+    "end": 75.5
   },
   {
     "word": "en",
-    "start": 70.47,
-    "end": 70.73
+    "start": 75.5,
+    "end": 75.76
   },
   {
     "word": "message",
-    "start": 70.73,
-    "end": 70.99
+    "start": 75.76,
+    "end": 76.02
   },
   {
     "word": "privé.",
-    "start": 70.99,
-    "end": 71.43
+    "start": 76.02,
+    "end": 76.46
   }
 ];
 
@@ -1247,7 +1247,7 @@ window.SCENES = [
     "id": "scene_13",
     "type": "big",
     "start": 24.72,
-    "end": 27.08,
+    "end": 27.68,
     "data": {
       "text": "MISE EN SCÈNE",
       "sub": "100% PILOTÉE PAR LE CODE 🎬",
@@ -1257,8 +1257,8 @@ window.SCENES = [
   {
     "id": "scene_14",
     "type": "emotion_morph",
-    "start": 27.08,
-    "end": 29.78,
+    "start": 27.68,
+    "end": 30.38,
     "data": {
       "bg": "grid"
     }
@@ -1266,8 +1266,8 @@ window.SCENES = [
   {
     "id": "scene_15",
     "type": "window",
-    "start": 29.78,
-    "end": 30.92,
+    "start": 30.38,
+    "end": 31.52,
     "data": {
       "title": "agent404_terminal.sh",
       "lines": [
@@ -1281,8 +1281,8 @@ window.SCENES = [
   {
     "id": "scene_16",
     "type": "list",
-    "start": 30.92,
-    "end": 32.94,
+    "start": 31.52,
+    "end": 33.54,
     "data": {
       "header": "COMPOSANTS DYNAMIQUES",
       "items": [
@@ -1296,8 +1296,8 @@ window.SCENES = [
   {
     "id": "scene_17",
     "type": "big",
-    "start": 32.94,
-    "end": 34.95,
+    "start": 33.54,
+    "end": 35.88,
     "data": {
       "text": "◆ LOSANGES ◆",
       "sub": "CHANGEMENT DE DÉCOR EN DIRECT",
@@ -1307,8 +1307,8 @@ window.SCENES = [
   {
     "id": "scene_18",
     "type": "big",
-    "start": 34.95,
-    "end": 35.79,
+    "start": 35.88,
+    "end": 36.72,
     "data": {
       "text": "● CERCLES ●",
       "sub": "ANIMATION HAUTE VITESSE",
@@ -1318,8 +1318,8 @@ window.SCENES = [
   {
     "id": "scene_19",
     "type": "ffmpeg_render",
-    "start": 35.79,
-    "end": 39.01,
+    "start": 36.72,
+    "end": 40.42,
     "data": {
       "bg": "grid"
     }
@@ -1327,8 +1327,8 @@ window.SCENES = [
   {
     "id": "scene_20",
     "type": "big",
-    "start": 39.01,
-    "end": 40.97,
+    "start": 40.42,
+    "end": 42.38,
     "data": {
       "text": "30 FPS",
       "sub": "1080x1920 FULL HD FLUIDE 🔥",
@@ -1338,8 +1338,8 @@ window.SCENES = [
   {
     "id": "scene_21",
     "type": "face",
-    "start": 40.97,
-    "end": 42.58,
+    "start": 42.38,
+    "end": 44.36,
     "data": {
       "avatar": "assets/avatars/shock.png",
       "label": "UNE RÉVOLUTION 🚀",
@@ -1349,8 +1349,8 @@ window.SCENES = [
   {
     "id": "scene_22",
     "type": "cards",
-    "start": 42.58,
-    "end": 45.37,
+    "start": 44.36,
+    "end": 47.28,
     "data": {
       "cards": [
         {
@@ -1370,8 +1370,8 @@ window.SCENES = [
   {
     "id": "scene_23",
     "type": "face",
-    "start": 45.37,
-    "end": 47.81,
+    "start": 47.28,
+    "end": 51.74,
     "data": {
       "avatar": "assets/avatars/skeptic.png",
       "label": "IA VIDÉO = RUINEUX 💸",
@@ -1381,23 +1381,23 @@ window.SCENES = [
   {
     "id": "scene_24",
     "type": "list",
-    "start": 47.81,
-    "end": 49.65,
+    "start": 51.74,
+    "end": 53.58,
     "data": {
-      "header": "PROBLÈMES DES IA VIDÉO [ ! ]",
+      "header": "PROBLÈMES DES IA VIDÉO ❌",
       "items": [
         "❌ Visages & mains déformés",
         "❌ Texte illisible à l'écran",
         "❌ Impossible à modifier"
       ],
-      "bg": "grid"
+      "bg": "alert"
     }
   },
   {
     "id": "scene_25",
     "type": "face",
-    "start": 49.65,
-    "end": 51.59,
+    "start": 53.58,
+    "end": 55.52,
     "data": {
       "avatar": "assets/avatars/stop.png",
       "label": "DES HEURES PERDUES ⏳",
@@ -1407,8 +1407,8 @@ window.SCENES = [
   {
     "id": "scene_26",
     "type": "split",
-    "start": 51.59,
-    "end": 54.15,
+    "start": 55.52,
+    "end": 58.08,
     "data": {
       "leftTitle": "IA / MONTEUR ❌",
       "leftItems": [
@@ -1428,8 +1428,8 @@ window.SCENES = [
   {
     "id": "scene_27",
     "type": "speed_counter",
-    "start": 54.15,
-    "end": 56.69,
+    "start": 58.08,
+    "end": 60.62,
     "data": {
       "bg": "grid"
     }
@@ -1437,8 +1437,8 @@ window.SCENES = [
   {
     "id": "scene_28",
     "type": "face",
-    "start": 56.69,
-    "end": 57.83,
+    "start": 60.62,
+    "end": 61.76,
     "data": {
       "avatar": "assets/avatars/money.png",
       "label": "COÛT MARGINAL : 0,00 € 🔥",
@@ -1448,8 +1448,8 @@ window.SCENES = [
   {
     "id": "scene_29",
     "type": "cards",
-    "start": 57.83,
-    "end": 60.29,
+    "start": 61.76,
+    "end": 64.22,
     "data": {
       "cards": [
         {
@@ -1464,8 +1464,8 @@ window.SCENES = [
   {
     "id": "scene_30",
     "type": "cards",
-    "start": 60.29,
-    "end": 61.57,
+    "start": 64.22,
+    "end": 65.5,
     "data": {
       "cards": [
         {
@@ -1485,8 +1485,8 @@ window.SCENES = [
   {
     "id": "scene_31",
     "type": "face",
-    "start": 61.57,
-    "end": 64.73,
+    "start": 65.5,
+    "end": 68.66,
     "data": {
       "avatar": "assets/avatars/scissors.png",
       "label": "SANS CAMÉRA • 100% RÉGULIER 🎥",
@@ -1496,8 +1496,8 @@ window.SCENES = [
   {
     "id": "scene_32",
     "type": "big",
-    "start": 64.73,
-    "end": 65.43,
+    "start": 68.66,
+    "end": 69.9,
     "data": {
       "text": "100% AUTOMATISÉ",
       "sub": "PIPELINE VIDÉO CLÉ EN MAIN ⚙️",
@@ -1507,8 +1507,8 @@ window.SCENES = [
   {
     "id": "scene_33",
     "type": "face",
-    "start": 65.43,
-    "end": 68.33,
+    "start": 69.9,
+    "end": 72.8,
     "data": {
       "avatar": "assets/avatars/prof.png",
       "label": "TON AVATAR SUR-MESURE 👔",
@@ -1518,8 +1518,8 @@ window.SCENES = [
   {
     "id": "scene_34",
     "type": "face",
-    "start": 68.33,
-    "end": 69.69,
+    "start": 72.8,
+    "end": 74.72,
     "data": {
       "avatar": "assets/avatars/pointing.png",
       "label": "TA CHARTE GRAPHIQUE 🎨",
@@ -1529,8 +1529,8 @@ window.SCENES = [
   {
     "id": "scene_35",
     "type": "big",
-    "start": 69.69,
-    "end": 71.51,
+    "start": 74.72,
+    "end": 76.54,
     "data": {
       "text": "ENVOIE « CODE »",
       "sub": "EN DM À @AGENT404 📩",
