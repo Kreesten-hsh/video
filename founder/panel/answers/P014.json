@@ -1,0 +1,13 @@
+{
+  "id": "P014",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "On veut intégrer ce moteur de rendu dans notre stack marketing interne via l'offre Déploiement.",
+  "objection": "Je préfère déployer le moteur chez moi en interne plutôt que de payer un abonnement",
+  "would_change_my_mind": "",
+  "price_too_cheap": 350,
+  "price_cheap": 600,
+  "price_expensive": 1000,
+  "price_too_expensive": 1600
+}

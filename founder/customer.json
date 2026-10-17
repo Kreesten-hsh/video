@@ -1,0 +1,32 @@
+{
+  "business": "AGENT404 (Moteur & Studio de Vidéos Verticales Programmatiques B2B)",
+  "target": "Fondateurs SaaS, solopreneurs tech et dirigeants d'agences d'automatisation cherchant à générer des leads qualifiés via TikTok, YouTube Shorts, Reels et LinkedIn sans y passer 10h par semaine",
+  "where": "International (focus France, Europe et francophonie tech)",
+  "age": [26, 45],
+  "segments": [
+    {"name": "Solopreneur SaaS / AI builder", "share": 0.40, "income": [45000, 95000]},
+    {"name": "Fondateur Startup B2B financée / post-revenue", "share": 0.35, "income": [95000, 180000]},
+    {"name": "Dirigeant d'agence marketing & automatisation", "share": 0.25, "income": [70000, 140000]}
+  ],
+  "behaviours": [
+    {"name": "Growth hacker pragmatique", "share": 0.25, "how": "Mesure le ROI de chaque canal, veut du volume et de l'acquisition organique prévisible."},
+    {"name": "Ingénieur centré produit", "share": 0.25, "how": "Adore l'automatisation et le code, déteste passer du temps sur Premiere Pro ou CapCut."},
+    {"name": "Outbound & personal branding builder", "share": 0.20, "how": "Publie régulièrement sur LinkedIn et veut décliner son contenu en formats vidéo verticaux percutants."},
+    {"name": "Délégateur strict (Done-For-You)", "share": 0.15, "how": "Veut juste fournir un bullet point d'idées et recevoir des MP4 prêts à être postés."},
+    {"name": "Bricoleur prudent", "share": 0.15, "how": "Veut voir des exemples concrets et un test avant de signer un engagement mensuel."}
+  ],
+  "objections": [
+    "500 € par mois c'est un budget si je ne sais pas combien de leads ça va convertir",
+    "Est-ce que le style animé programmatique correspond à mon image de marque ?",
+    "J'ai déjà testé des outils comme Opus Clip ou HeyGen, en quoi est-ce différent ?",
+    "Combien de temps ça va me prendre pour vous briefer chaque mois ?",
+    "Je préfère déployer le moteur chez moi en interne plutôt que de payer un abonnement",
+    "Je n'ai pas le temps de gérer la publication et les métriques"
+  ],
+  "habits": [
+    "vous consultez LinkedIn tous les matins avant de coder ou de lancer vos réunions",
+    "vous suivez les tendances de croissance B2B sur X / Twitter",
+    "vous avez un pipeline de vente ou une liste d'attente à convertir",
+    "vous cherchez à diversifier votre acquisition au-delà du SEO et du cold email"
+  ]
+}
