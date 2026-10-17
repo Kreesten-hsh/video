@@ -1,0 +1,13 @@
+{
+  "id": "P018",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "convenience",
+  "reason": "Envoyer des idées brutes et recevoir les MP4 sous 72h sans friction résout mon goulot d'étranglement.",
+  "objection": "Je n'ai pas le temps de gérer la publication et les métriques",
+  "would_change_my_mind": "",
+  "price_too_cheap": 200,
+  "price_cheap": 380,
+  "price_expensive": 650,
+  "price_too_expensive": 1000
+}

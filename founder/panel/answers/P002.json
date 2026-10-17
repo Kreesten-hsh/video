@@ -1,0 +1,13 @@
+{
+  "id": "P002",
+  "buys": true,
+  "purchases_first_month": 1,
+  "reason_code": "need",
+  "reason": "L'offre de déploiement à 750€ est exactement ce que je cherchais pour mon agence afin d'intégrer le moteur dans nos pipelines.",
+  "objection": "Je préfère déployer le moteur chez moi en interne plutôt que de payer un abonnement",
+  "would_change_my_mind": "",
+  "price_too_cheap": 300,
+  "price_cheap": 500,
+  "price_expensive": 900,
+  "price_too_expensive": 1600
+}

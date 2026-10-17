@@ -1,0 +1,13 @@
+{
+  "id": "P005",
+  "buys": false,
+  "purchases_first_month": 0,
+  "reason_code": "trust",
+  "reason": "Je veux tester la réactivité et la qualité sur une seule vidéo avant de m'engager sur un pack mensuel.",
+  "objection": "Combien de temps ça va me prendre pour vous briefer chaque mois ?",
+  "would_change_my_mind": "Une première vidéo d'essai à 50€ ou remboursée.",
+  "price_too_cheap": 150,
+  "price_cheap": 300,
+  "price_expensive": 500,
+  "price_too_expensive": 800
+}

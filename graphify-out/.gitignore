@@ -1,0 +1,9 @@
+# Machine-local / transient graphify runtime cache & backups
+cache/
+20*
+.graphify_python
+.graphify_root
+.graphify_detect.json
+.graphify_analysis.json
+.graphify_labels.pending.json
+.cloud-cta-shown
