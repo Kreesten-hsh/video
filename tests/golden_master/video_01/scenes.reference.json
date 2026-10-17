@@ -1,0 +1,439 @@
+[
+  {
+    "id": "scene_01",
+    "type": "face",
+    "start": 0.0,
+    "end": 1.46,
+    "data": {
+      "avatar": "assets/avatars/stop.png",
+      "label": "STOP AUX MONTEURS 🛑",
+      "bg": "alert"
+    }
+  },
+  {
+    "id": "scene_02",
+    "type": "big",
+    "start": 1.46,
+    "end": 3.42,
+    "data": {
+      "text": "💸 HORS DE PRIX",
+      "sub": "FACTURES IA EXPLOSÉES",
+      "bg": "alert"
+    }
+  },
+  {
+    "id": "scene_03",
+    "type": "face",
+    "start": 3.42,
+    "end": 5.16,
+    "data": {
+      "avatar": "assets/avatars/pointing.png",
+      "label": "CETTE VIDÉO 👇",
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_04",
+    "type": "cards",
+    "start": 5.16,
+    "end": 6.68,
+    "data": {
+      "cards": [
+        {
+          "icon": "🎬",
+          "title": "PREMIERE PRO",
+          "sub": "ZÉRO MONTAGE MANUEL ❌"
+        }
+      ],
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_05",
+    "type": "cards",
+    "start": 6.68,
+    "end": 9.7,
+    "data": {
+      "cards": [
+        {
+          "icon": "🤖",
+          "title": "VEO / KLING",
+          "sub": "AUCUNE IA VIDÉO ❌"
+        },
+        {
+          "icon": "🚫",
+          "title": "ZÉRO PROMPT",
+          "sub": "AUCUN ARTEFACT VISUEL"
+        }
+      ],
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_06",
+    "type": "big",
+    "start": 9.7,
+    "end": 12.1,
+    "data": {
+      "text": "100% CODE",
+      "sub": "GÉNÉRÉ PAR ALGORITHME ⚡",
+      "bg": "mint"
+    }
+  },
+  {
+    "id": "scene_07",
+    "type": "face",
+    "start": 12.1,
+    "end": 13.96,
+    "data": {
+      "avatar": "assets/avatars/laptop.png",
+      "label": "MOTEUR SUR-MESURE 💻",
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_08",
+    "type": "engine_arch",
+    "start": 13.96,
+    "end": 15.42,
+    "data": {
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_09",
+    "type": "face",
+    "start": 15.42,
+    "end": 17.12,
+    "data": {
+      "avatar": "assets/avatars/idea.png",
+      "label": "ULTRA SIMPLE 💡",
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_10",
+    "type": "face",
+    "start": 17.12,
+    "end": 19.14,
+    "data": {
+      "avatar": "assets/avatars/mic.png",
+      "label": "1. MÉMO VOCAL 📱",
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_11",
+    "type": "audio_wave",
+    "start": 19.14,
+    "end": 21.2,
+    "data": {
+      "title": "vocal1.m4a — NETTOYAGE STUDIO",
+      "sub": "✂️ SILENCES SUPPRIMÉS AUTOMATIQUEMENT",
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_12",
+    "type": "sync_timer",
+    "start": 21.2,
+    "end": 23.52,
+    "data": {
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_13",
+    "type": "big",
+    "start": 23.52,
+    "end": 25.96,
+    "data": {
+      "text": "MISE EN SCÈNE",
+      "sub": "100% PILOTÉE PAR LE CODE 🎬",
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_14",
+    "type": "emotion_morph",
+    "start": 25.96,
+    "end": 27.9,
+    "data": {
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_15",
+    "type": "window",
+    "start": 27.9,
+    "end": 29.62,
+    "data": {
+      "title": "agent404_terminal.sh",
+      "lines": [
+        "$ ./agent404 --deploy-matrix",
+        "✓ Protocole Cyber-Mint #00F5A0",
+        "✓ Système 100% Anonyme : ACTIF"
+      ],
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_16",
+    "type": "list",
+    "start": 29.62,
+    "end": 30.94,
+    "data": {
+      "header": "COMPOSANTS DYNAMIQUES",
+      "items": [
+        "1. Terminaux & Code",
+        "2. Listes à rebond",
+        "3. Cartes & Comparatifs"
+      ],
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_17",
+    "type": "big",
+    "start": 30.94,
+    "end": 32.66,
+    "data": {
+      "text": "◆ LOSANGES ◆",
+      "sub": "CHANGEMENT DE DÉCOR EN DIRECT",
+      "bg": "diamonds"
+    }
+  },
+  {
+    "id": "scene_18",
+    "type": "big",
+    "start": 32.66,
+    "end": 33.72,
+    "data": {
+      "text": "● CERCLES ●",
+      "sub": "ANIMATION HAUTE VITESSE",
+      "bg": "circles"
+    }
+  },
+  {
+    "id": "scene_19",
+    "type": "ffmpeg_render",
+    "start": 33.72,
+    "end": 35.42,
+    "data": {
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_20",
+    "type": "big",
+    "start": 35.42,
+    "end": 37.08,
+    "data": {
+      "text": "30 FPS",
+      "sub": "1080x1920 FULL HD FLUIDE 🔥",
+      "bg": "mint"
+    }
+  },
+  {
+    "id": "scene_21",
+    "type": "face",
+    "start": 37.08,
+    "end": 38.18,
+    "data": {
+      "avatar": "assets/avatars/shock.png",
+      "label": "UNE RÉVOLUTION 🚀",
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_22",
+    "type": "cards",
+    "start": 38.18,
+    "end": 41.12,
+    "data": {
+      "cards": [
+        {
+          "icon": "💻",
+          "title": "FONDATEURS SAAS",
+          "sub": "DÉMOS PRODUIT & ONBOARDING"
+        },
+        {
+          "icon": "📈",
+          "title": "ENTREPRENEURS",
+          "sub": "CONTENU B2B QUOTIDIEN"
+        }
+      ],
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_23",
+    "type": "face",
+    "start": 41.12,
+    "end": 43.6,
+    "data": {
+      "avatar": "assets/avatars/skeptic.png",
+      "label": "IA VIDÉO = RUINEUX 💸",
+      "bg": "alert"
+    }
+  },
+  {
+    "id": "scene_24",
+    "type": "list",
+    "start": 43.6,
+    "end": 44.74,
+    "data": {
+      "header": "PROBLÈMES DES IA VIDÉO ❌",
+      "items": [
+        "❌ Visages & mains déformés",
+        "❌ Texte illisible à l'écran",
+        "❌ Impossible à modifier"
+      ],
+      "bg": "alert"
+    }
+  },
+  {
+    "id": "scene_25",
+    "type": "face",
+    "start": 44.74,
+    "end": 46.48,
+    "data": {
+      "avatar": "assets/avatars/stop.png",
+      "label": "DES HEURES PERDUES ⏳",
+      "bg": "alert"
+    }
+  },
+  {
+    "id": "scene_26",
+    "type": "split",
+    "start": 46.48,
+    "end": 48.2,
+    "data": {
+      "leftTitle": "IA / MONTEUR ❌",
+      "leftItems": [
+        "3h de montage",
+        "50€ à 150€ / vidéo",
+        "Aléatoire"
+      ],
+      "rightTitle": "CODE PYTHON ✅",
+      "rightItems": [
+        "Prêt en 2 min",
+        "Coût : 0,00 €",
+        "Sur-mesure"
+      ],
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_27",
+    "type": "speed_counter",
+    "start": 48.2,
+    "end": 49.46,
+    "data": {
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_28",
+    "type": "face",
+    "start": 49.46,
+    "end": 50.92,
+    "data": {
+      "avatar": "assets/avatars/money.png",
+      "label": "COÛT MARGINAL : 0,00 € 🔥",
+      "bg": "diamonds"
+    }
+  },
+  {
+    "id": "scene_29",
+    "type": "cards",
+    "start": 50.92,
+    "end": 52.78,
+    "data": {
+      "cards": [
+        {
+          "icon": "⚡",
+          "title": "1. TON LOGICIEL",
+          "sub": "DÉMOS PRODUIT ULTRA CLAIRES"
+        }
+      ],
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_30",
+    "type": "cards",
+    "start": 52.78,
+    "end": 53.7,
+    "data": {
+      "cards": [
+        {
+          "icon": "⚡",
+          "title": "1. TON LOGICIEL",
+          "sub": "DÉMOS PRODUIT ULTRA CLAIRES"
+        },
+        {
+          "icon": "🎯",
+          "title": "2. TON OFFRE B2B",
+          "sub": "VIDÉOS DE VENTE QUI CONVERTISSENT"
+        }
+      ],
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_31",
+    "type": "face",
+    "start": 53.7,
+    "end": 56.46,
+    "data": {
+      "avatar": "assets/avatars/scissors.png",
+      "label": "SANS CAMÉRA • 100% RÉGULIER 🎥",
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_32",
+    "type": "big",
+    "start": 56.46,
+    "end": 57.26,
+    "data": {
+      "text": "100% AUTOMATISÉ",
+      "sub": "PIPELINE VIDÉO CLÉ EN MAIN ⚙️",
+      "bg": "mint"
+    }
+  },
+  {
+    "id": "scene_33",
+    "type": "face",
+    "start": 57.26,
+    "end": 60.08,
+    "data": {
+      "avatar": "assets/avatars/prof.png",
+      "label": "TON AVATAR SUR-MESURE 👔",
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_34",
+    "type": "face",
+    "start": 60.08,
+    "end": 61.32,
+    "data": {
+      "avatar": "assets/avatars/pointing.png",
+      "label": "TA CHARTE GRAPHIQUE 🎨",
+      "bg": "diamonds"
+    }
+  },
+  {
+    "id": "scene_35",
+    "type": "big",
+    "start": 61.32,
+    "end": 63.164,
+    "data": {
+      "text": "ENVOIE « CODE »",
+      "sub": "EN DM À @AGENT404 📩",
+      "bg": "circles"
+    }
+  }
+]

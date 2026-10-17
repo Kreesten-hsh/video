@@ -12,3 +12,7 @@ comparatif_univers.html
 .env
 .env.*
 !*.example.*
+
+# Rendus temporaires et candidats
+output.candidate.mp4
+output.*.mp4
