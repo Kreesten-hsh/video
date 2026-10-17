@@ -1,208 +1,127 @@
-# AGENT404 // PLAN D'EXÉCUTION FINANCIER (OBJECTIF 31 DÉCEMBRE 2026)
+# AGENT404 : MODÈLE FINANCIER ET PLAN D'ENCAISSEMENT AU 31 DÉCEMBRE 2026
 
-> **Statut de gouvernance** : DOCUMENT STRATÉGIQUE MAÎTRE  
-> **Dernière mise à jour** : 17 octobre 2026  
-> **Horizon d'exécution** : 75 jours restants (17 octobre 2026 ➔ 31 décembre 2026)  
+Statut de gouvernance : DOCUMENT FINANCIER MAÎTRE  
+Date de référence : 17 octobre 2026  
+Propriétaire : Kreesten AGBOTON (Abomey-Calavi, Bénin)  
+Taux de conversion officiel de référence : 1 EUR = 655,957 FCFA (parité fixe zone Franc CFA)  
+Horizon d'exécution : 75 jours (du 17 octobre 2026 au 31 décembre 2026)  
 
 ---
 
-## 1. CADRAGE DE LA NORTH STAR FINANCIÈRE
+## 1. Cadrage de l'Objectif Financier Directeur (North Star)
 
-Le projet AGENT404 est gouverné par un unique objectif financier prioritaire. Toutes les décisions techniques, éditoriales et opérationnelles sont évaluées à l'aune de leur capacité à maximiser rationnellement la probabilité d'atteindre cet encaissement.
+L'unique objectif du projet AGENT404 est d'encaisser du cash réel avant la fin de l'exercice 2026.
 
-### A. Tableau des objectifs de revenus
-*Taux de conversion officiel de référence : $1\text{ EUR} = 655{,}957\text{ FCFA}$ (zone UEMOA / CEMAC).*
-
-| Scénario | Montant en Euros (€) | Équivalent FCFA arrondi | Nature & Rôle stratégique |
+| Indicateur | Valeur en FCFA | Valeur en Euros (€) | Statut méthodologique |
 | :--- | :---: | :---: | :--- |
-| **Plancher Inférieur** | **1 560 €** | **1 023 000 FCFA** | Filet de survie économique minimal en cas de friction sévère. |
-| **Plancher Supérieur** | **2 000 €** | **1 312 000 FCFA** | Validation du modèle avec rentabilité nette positive. |
-| **CIBLE PRINCIPALE (North Star)** | **≈ 3 049 €** | **2 000 000 FCFA** | **OBJECTIF PRIORITAIRE ABSOLU** à atteindre au 31/12/2026. |
+| **OBJECTIF MAÎTRE (North Star)** | **2 000 000 FCFA** | **≈ 3 049 €** | [OBJECTIF] Cible impérative au 31/12/2026 |
+| **Plancher de repli réaliste** | **1 639 892 FCFA** | **2 500 €** | [OBJECTIF] Seuil de validation commerciale forte (82 %) |
+| **Plancher de survie minimal** | **819 946 FCFA** | **1 250 €** | [OBJECTIF] Filet de sécurité en cas de friction sévère (41 %) |
+
+Règle de gestion stricte : seul le cash effectivement crédité sur le compte bancaire est comptabilisé. Les promesses orales, intentions d'achat et factures émises non réglées valent 0 FCFA.
 
 ---
 
-## 2. TABLEAU DE BORD DES FLUX FINANCIERS
+## 2. Situation Comptable Réelle au 17 Octobre 2026
 
-> [!CRITICAL]
-> **RÈGLE COMPTABLE DE VÉRITÉ** :  
-> Ne jamais confondre chiffre d'affaires facturé et cash encaissé. Une facture émise n'est pas un revenu tant que les fonds ne sont pas disponibles sur le compte.
-
-### Matrice de suivi en 4 colonnes
-
-| Catégorie comptable | Définition stricte | Montant au 17/10/2026 | Statut de vérification |
-| :--- | :--- | :---: | :--- |
-| **1. Encaissé réel (Cash in Bank)** | Sommes effectivement perçues et disponibles sur le compte. | **0 € / 0 FCFA** | *[INCERTITUDE]* À confirmer par le propriétaire. |
-| **2. Facturé non encaissé (Pending)** | Factures émises en attente de paiement client. | **0 € / 0 FCFA** | *[FAIT VÉRIFIÉ]* Aucune créance en cours. |
-| **3. Dépenses professionnelles** | Coûts réels engagés (outils, voix, domaine, serveurs). | **< 15 € / < 10 000 FCFA** | *[FAIT VÉRIFIÉ]* Coûts minimes actuels (modèle local). |
-| **4. Résultat net après coûts** | Encaissé réel déduction faite des dépenses professionnelles. | **0 € / 0 FCFA** | *[INCERTITUDE]* Dépend des encaissements initiaux. |
-
-- **Montant restant à encaisser pour atteindre la CIBLE PRINCIPALE** : **2 000 000 FCFA** (environ **3 049 €**).
-- **Montant restant à encaisser pour le PLANCHER INFÉRIEUR** : **1 023 000 FCFA** (environ **1 560 €**).
+| Poste comptable | Montant constaté | Statut d'audit |
+| :--- | :---: | :--- |
+| **Encaissements réels à date** | **0 € / 0 FCFA** | [INCONNU] À confirmer formellement par le propriétaire |
+| **Factures émises non encaissées** | **0 € / 0 FCFA** | [FAIT VÉRIFIÉ] Aucune créance client en cours |
+| **Nombre de prospects contactés** | **0** | [FAIT VÉRIFIÉ] Prospection non démarrée |
+| **Preuve de marché réelle** | **Aucune** | [FAIT VÉRIFIÉ] Les personas du panel étaient simulées |
+| **Montant restant à encaisser** | **2 000 000 FCFA** | [OBJECTIF] Soit environ 3 049 € à trouver en 75 jours |
 
 ---
 
-## 3. IMPACT CRITIQUE DU TEMPS RESTANT ET DE LA DURÉE D'ENGAGEMENT
+## 3. Structure des Coûts et Incertitudes Opérationnelles
 
-Nous sommes le **17 octobre 2026**. Il reste exactement **75 jours** avant l'échéance du 31 décembre 2026 (soit environ 10,7 semaines).
+L'affirmation antérieure selon laquelle les coûts seraient inférieurs à 15 € et la rentabilité supérieure à 90 % n'a jamais été démontrée par des pièces comptables. Voici la réalité disséquée poste par poste :
 
-### A. L'effet de calendrier sur l'Offre 1 (Studio @ 500 € / mois)
-Un abonnement vendu mensuellement n'encaisse que les mois écoulés **avant le 31 décembre** :
+### A. Coûts variables de production
+- **Génération vidéo locale (AGENT404)** : 0 € d'API vidéo par génération. Le pipeline tourne en local avec Playwright Chromium, Faster-Whisper et FFmpeg [FAIT VÉRIFIÉ].
+- **Synthèse vocale (ElevenLabs ou équivalent)** :
+  - Tarifs publics constatés : Formule Starter à 5 $ / mois (environ 3 000 FCFA pour 30 000 caractères avec droits commerciaux), Formule Creator à 22 $ / mois (environ 14 000 FCFA pour 100 000 caractères) [FAIT VÉRIFIÉ].
+  - Abonnement actif réel du propriétaire : [INCONNU] (à renseigner par le propriétaire). Si le client fournit son propre mémo vocal, le coût d'API vocale est de 0 €.
+- **Électricité et connectivité locale (Abomey-Calavi)** : Coût marginal estimé à 5 000 FCFA par mois de calcul machine [HYPOTHÈSE].
 
-```
-Date de signature client       Mois encaissés en 2026      Total encaissé par client
-────────────────────────────────────────────────────────────────────────────────────
-Signé avant le 31 octobre      3 mois (Oct, Nov, Déc)      1 500 € (≈ 984 000 FCFA)
-Signé entre le 1er et le 15 nov 2 mois (Nov, Déc)           1 000 € (≈ 656 000 FCFA)
-Signé après le 1er décembre    1 mois (Décembre)             500 € (≈ 328 000 FCFA)
-```
+### B. Frais d'encaissement et commissions de paiement
+- **Réception des fonds en devises (SEPA / International)** :
+  - Option Moneco (compte avec IBAN européen pour la diaspora) : Frais de virement SEPA entrant, frais de conversion et commission de rapatriement vers portefeuille local ou banque locale : [INCONNU] (à mesurer via un virement test réel).
+  - Option Ecobank Bénin : Frais de virement international SWIFT entrant, commissions de change et délais de compensation interbancaire : [INCONNU] (variables selon banque émettrice, généralement forfait de 10 € à 25 € par virement + marge de change).
+  - [DÉCISION] : Réaliser immédiatement un virement test de 10 € pour calibrer exactement les frais de friction bancaire réels.
 
-> [!WARNING]
-> **DÉDUCTION MATHÉMATIQUE MAJEURE** :  
-> Chaque semaine perdue en octobre réduit de **500 €** le potentiel d'encaissement d'un client récurrent sur l'année 2026. Si le premier client Studio est signé après le 15 novembre, il ne rapportera au maximum que 1 000 € en 2026. L'urgence commerciale est immédiate.
+### C. Temps de travail humain (temps de production)
+- Le moteur impose actuellement d'écrire en dur les scènes et les mots dans le code Python (`build_master_timeline.py`) pour chaque nouvelle vidéo.
+- Temps passé par vidéo client : entre 1h30 et 3h par vidéo (ajustement du texte, validation acoustique, relecture visuelle) [HYPOTHÈSE].
+- Temps non mesuré à date sur une vraie commande client : [INCONNU].
 
-### B. L'effet de trésorerie sur l'Offre 2 (Déploiement @ 750 €)
-L'Offre 2 est payée comptant (ou 50% à la commande, 50% à la livraison).  
-- 1 vente = **750 € encaissés immédiatement** (≈ 492 000 FCFA).
-- C'est l'offre qui injecte le plus de cashflow instantané par transaction, mais elle exige une capacité de déploiement chez le tiers.
-
----
-
-## 4. SCÉNARIOS CHIFFRÉS D'ENCAISSEMENT
-
-### Hypothèses tarifaires
-- **Offre 1 (Studio)** : 500 € / mois (≈ 328 000 FCFA).
-- **Offre 2 (Déploiement)** : 750 € / vente (≈ 492 000 FCFA).
-- **Offre Pilote d'essai (Offre d'amorçage)** : 250 € (≈ 164 000 FCFA) pour 3 vidéos de test, transformable en abonnement complet.
+### D. Rentabilité et marge nette
+- [FAIT VÉRIFIÉ] : Aucune marge nette ne peut être garantie ni annoncée comme prouvée tant que les frais bancaires et le temps de travail par vidéo n'ont pas été mesurés sur les 3 premières livraisons.
 
 ---
 
-### Scénario A : Cible Principale — 2 000 000 FCFA (≈ 3 049 €) [OBJECTIF]
+## 4. Calendrier d'Encaissement du Forfait Studio (Effet Mois Pleins)
 
-Pour encaisser 3 049 € en 75 jours, 3 combinaisons viables sont modélisées :
+L'Offre Studio (500 € par mois pour 8 vidéos) est payée d'avance chaque mois.  
+Dans l'intervalle restant du 17 octobre au 31 décembre 2026, un client Studio ne peut rapporter que les mois entamés avant le 31 décembre :
 
-#### Option A.1 : Mix 2 Abonnements rapides + 2 Déploiements (Recommandée)
-- **Client Studio 1** (signé fin octobre, 3 mois : oct, nov, déc) : $3 \times 500\text{ €} = 1\,500\text{ €}$
-- **Client Studio 2** (signé mi-novembre, 2 mois : nov, déc) : $2 \times 500\text{ €} = 1\,000\text{ €}$
-- **Déploiement Moteur 1** (vendu en décembre) : $1 \times 750\text{ €} = 750\text{ €}$
-- **TOTAL ENCAISSÉ** : **3 250 €** (≈ **2 131 000 FCFA**) ➔ **CIBLE DÉPASSÉE (106 %)**.
+| Période de signature du contrat | Mois encaissables en 2026 | Cash collecté par client (€) | Cash collecté en FCFA |
+| :--- | :---: | :---: | :---: |
+| Signature avant le 31 octobre | 3 mois (Octobre, Novembre, Décembre) | 1 500 € | 983 936 FCFA |
+| Signature entre le 1er et le 15 novembre | 2 mois (Novembre, Décembre) | 1 000 € | 655 957 FCFA |
+| Signature entre le 16 et le 30 novembre | 1,5 mois (acompte 50 % nov + déc) | 750 € | 491 968 FCFA |
+| Signature après le 1er décembre | 1 mois (Décembre uniquement) | 500 € | 327 979 FCFA |
 
-#### Option A.2 : Purement Studio (3 à 4 clients récurrents)
-- **Client 1** (signé fin octobre, 3 mois) : $1\,500\text{ €}$
-- **Client 2** (signé mi-novembre, 2 mois) : $1\,000\text{ €}$
-- **Client 3** (signé début décembre, 1 mois) : $500\text{ €}$
-- **Client 4** (signé début décembre, 1 mois) : $500\text{ €}$
-- **TOTAL ENCAISSÉ** : **3 500 €** (≈ **2 295 000 FCFA**).
-
-#### Option A.3 : Déploiements Moteur dominants (4 ventes)
-- 4 déploiements moteur vendus à 750 € = **3 000 €** (≈ **1 968 000 FCFA**).
-- *Condition* : Nécessite que le moteur soit stabilisé et installable sans friction chez le client dès novembre.
+Constat mathématique : Dès que le 31 octobre sera passé sans signature Studio, le potentiel maximal d'un nouveau client Studio tombera mécaniquement de 1 500 € à 1 000 € pour l'année 2026.
 
 ---
 
-### Scénario B : Plancher Supérieur — 2 000 € (≈ 1 312 000 FCFA) [OBJECTIF DE REPLI]
+## 5. Trois Scénarios d'Exécution Chiffrés
 
-- **Client Studio 1** (signé mi-novembre, 2 mois) : $1\,000\text{ €}$
-- **Client Studio 2** (signé mi-novembre, 2 mois) : $1\,000\text{ €}$
-- **TOTAL ENCAISSÉ** : **2 000 €** (≈ **1 312 000 FCFA**).
+Les calculs reposent exclusivement sur les deux seules offres actives :
+- **Offre Pilote** : 250 € (163 989 FCFA) pour 3 vidéos verticales.
+- **Offre Studio** : 500 € / mois (327 979 FCFA) pour 8 vidéos verticales.
 
----
+Toutes les hypothèses de conversion ci-dessous sont marquées [HYPOTHÈSE] car aucune prospection réelle n'a encore été menée.
 
-### Scénario C : Plancher Inférieur — 1 560 € (≈ 1 023 000 FCFA) [FILET DE SÉCURITÉ]
+### Scénario 1 : Prudent (Friction marché et retards)
+- *Hypothèses* : Démarrage de la prospection début novembre. 25 prospects contactés, 3 réponses, 2 démos. Objections fortes sur la jeunesse de l'agence.
+- *Ventes réalisées* :
+  - 3 Pilotes vendus (2 en novembre, 1 en décembre) : $3 \times 250\text{ €} = 750\text{ €}$
+  - 1 client Pilote converti en Studio pour décembre uniquement : $1 \times 500\text{ €} = 500\text{ €}$
+- *Encaissement total* : **1 250 €** (environ **819 946 FCFA**).
+- *Taux d'atteinte de la cible* : **41,0 %**.
+- *Bilan* : L'objectif des 2 000 000 FCFA n'est pas atteint, mais 17 vidéos sont livrées et le modèle est validé par de vrais acheteurs.
 
-- **1 Déploiement Moteur** (750 €) + **1 Client Studio sur 1,5 mois** (750 €) + **1 Pilote** (250 €) :
-- **TOTAL ENCAISSÉ** : **1 750 €** (≈ **1 148 000 FCFA**) ➔ **Plancher validé**.
+### Scénario 2 : Réaliste (Exécution commerciale rigoureuse)
+- *Hypothèses* : Démarrage immédiat fin octobre sur les 10 prospects les mieux vérifiés. 5 démonstrations personnalisées sans clone non consenti.
+- *Ventes réalisées* :
+  - 4 Pilotes vendus en novembre : $4 \times 250\text{ €} = 1\,000\text{ €}$
+  - 1 client Pilote transformé en Studio sur 2 mois (mi-novembre et décembre) : $1 \times 1\,000\text{ €} = 1\,000\text{ €}$
+  - 1 client Studio direct signé début décembre : $1 \times 500\text{ €} = 500\text{ €}$
+- *Encaissement total* : **2 500 €** (environ **1 639 892 FCFA**).
+- *Taux d'atteinte de la cible* : **82,0 %**.
+- *Bilan* : Encaissement solide de plus de 1,6 million FCFA. Base récurrente établie pour janvier 2027.
 
----
-
-## 5. POSTES DE COÛTS RÉELS & SEUILS DE RENTABILITÉ
-
-Le modèle AGENT404 présente un ratio de rentabilité brute exceptionnel (> 90 %) en raison de sa conception locale sans abonnement cloud lourd.
-
-| Poste de coût | Estimation par vidéo | Estimation mensuelle (16 vidéos) | Nature du coût |
-| :--- | :---: | :---: | :--- |
-| **Synthèse vocale ElevenLabs** | ~0,30 € / minute de voix | ~4,80 € / mois | Variable (consommation API) |
-| **Génération / Rendu local** | 0,00 € (CPU local) | 0,00 € | Fixe (matériel déjà amorti) |
-| **Whisper / Alignement** | 0,00 € (modèle local int8) | 0,00 € | Fixe (open-source) |
-| **Frais de transaction bancaire** | ~2 à 3 % par encaissement | ~30 € pour 1 500 € | Variable |
-| **Total des coûts directs** | **< 1 € par vidéo** | **< 40 € / mois** | **Marge brute estimée : > 92 %** |
-
----
-
-## 6. FUNNEL DE PROSPECTION COMMERCIALE & RATIOS ESTIMATIFS
-
-Pour obtenir 2 à 4 clients payants avant fin décembre, le tunnel commercial suivant doit être alimenté sans interruption :
-
-```
-[ 150 Prospects Ciblés Qualifiés ] (Fondateurs SaaS, Agences B2B, Formateurs sur LinkedIn/X)
-                │ (Taux de réponse estimé : 20%)
-                ▼
-[ 30 Conversations Engagées par Message Privé ]
-                │ (Taux d'intérêt pour démo : 50%)
-                ▼
-[ 15 Démonstrations Personnalisées Réalisées ] (Génération d'un extrait de 20s avec leur avatar/sujet)
-                │ (Taux de conversion pilote : 40%)
-                ▼
-[ 6 Offres Pilotes Proposées ]
-                │ (Taux de closing : 50%)
-                ▼
-[ 2 à 3 Clients Payants Encaissés ]
-```
-
-### Indicateurs clés de performance (KPIs) hebdomadaires à consigner
-1. **Volume de prospection** : Nombre de messages personnalisés envoyés à des cibles qualifiées.
-2. **Taux de réponse** : Nombre de réponses positives ou de curiosité.
-3. **Démos envoyées** : Nombre d'extraits vidéo personnalisés générés pour prouver la valeur.
-4. **Propositions commerciales formulées** : Nombre de devis ou liens de paiement partagés.
-5. **Encaissements réels (€ et FCFA)** : Argent crédité sur le compte.
+### Scénario 3 : Ambitieux (Atteinte et dépassement des 2 000 000 FCFA)
+- *Hypothèses* : Prospection active, retours rapides, 7 démos présentées, conversion forte grâce à la qualité visuelle du moteur.
+- *Ventes réalisées* :
+  - 5 Pilotes vendus : $5 \times 250\text{ €} = 1\,250\text{ €}$ (819 946 FCFA)
+  - 2 clients Studio convertis dès novembre (chacun 2 mois : novembre + décembre) : $2 \times 2 \times 500\text{ €} = 2\,000\text{ €}$ (1 311 914 FCFA)
+- *Encaissement total* : **3 250 €** (environ **2 131 860 FCFA**).
+- *Taux d'atteinte de la cible* : **106,6 %**.
+- *Bilan* : **Objectif de 2 000 000 FCFA franchi avant le 31 décembre 2026.**
 
 ---
 
-## 7. RÈGLES DE DÉCISION ET D'ARBITRAGE STRATÉGIQUE
+## 6. Ce Qu'il Faut Réellement Vendre Pour Faire 2 000 000 FCFA
 
-Pour éviter que le projet ne s'égare dans des tâches improductives, les règles suivantes s'appliquent de manière impérative :
+Pour encaisser exactement ou plus de 2 000 000 FCFA (soit 3 049 €) avant le 31 décembre 2026 avec les seules offres actives, Kreesten AGBOTON doit impérativement concrétiser l'une des combinaisons suivantes :
 
-```
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│                           MATRICE D'ARBITRAGE DÉCISIONNEL                       │
-├──────────────────────────────────────┬──────────────────────────────────────────┤
-│ SYMPTÔME OBSERVÉ                     │ DÉCISION OPÉRATIONNELLE IMMÉDIATE        │
-├──────────────────────────────────────┼──────────────────────────────────────────┤
-│ 0 réponse après 40 messages envoyés  │ Arrêter l'envoi. Revoir le profil cible, │
-│                                      │ l'accroche et le lien vers la démo.      │
-├──────────────────────────────────────┼──────────────────────────────────────────┤
-│ Réponses positives mais 0 signature  │ L'offre ou le prix suscite un doute.     │
-│                                      │ Proposer le pilote d'essai à 250 €.      │
-├──────────────────────────────────────┼──────────────────────────────────────────┤
-│ Client signé mais livraison trop     │ Automatiser uniquement le point de blocage│
-│ lente ou pénible                     │ exact qui a ralenti la livraison.        │
-├──────────────────────────────────────┼──────────────────────────────────────────┤
-│ Tentation de refactoriser le code    │ REFUS STRICT : Si le code actuel produit │
-│ ou d'ajouter une fonctionnalité      │ le MP4 livrable, l'amélioration attend   │
-│ graphique non réclamée par le client │ que les ventes soient encaissées.        │
-└──────────────────────────────────────┴──────────────────────────────────────────┘
-```
+1. **Option A (Mix équilibré recommandé)** : Vendre **5 Pilotes** (1 250 €) et signer **2 abonnements Studio sur 2 mois** (2 000 €). Total : **3 250 €** (2 131 860 FCFA).
+2. **Option B (Forte récurrence Studio)** : Signer **1 client Studio fin octobre** (3 mois = 1 500 €) + **1 client Studio mi-novembre** (2 mois = 1 000 €) + **1 client Studio en décembre** (1 mois = 500 €) + **1 Pilote** (250 €). Total : **3 250 €** (2 131 860 FCFA).
+3. **Option C (Pur Pilote sans récurrence)** : Vendre **13 Pilotes payants** à 250 € chacun. Total : **3 250 €** (2 131 860 FCFA). Exige de trouver 13 clients distincts en 75 jours (charge de prospection très élevée).
 
----
-
-## 8. ROUTINE DE REVUE HEBDOMADAIRE (CADENCE DES 75 JOURS)
-
-Chaque **dimanche soir**, le propriétaire doit renseigner le statut d'avancement selon la grille suivante :
-
-- **Semaine en cours (S42 à S52)** :
-- **Cash réellement encaissé cette semaine** : ______ € (______ FCFA)
-- **Cumul encaissé à date** : ______ € / 3 049 € (______ %)
-- **Nombre de prospects contactés** : ______
-- **Nombre de démos en cours** : ______
-- **Statut de la trajectoire** : `D'AVANCE` / `SUR LA CIBLE` / `EN RETARD` / `ALERTE CRITIQUE`
-- **Décision corrective pour la semaine suivante** : (1 phrase d'action commerciale précise).
-
----
-
-## 9. ANALYSE DES RISQUES FINANCIERS ET PARADES
-
-1. **Risque 1 : Lenteur de conversion des abonnements mensuels**  
-   *Parade* : Pousser l'Offre 2 (Déploiement comptant à 750 €) ou proposer le paiement trimestriel d'avance avec une réduction incitative (ex: 3 mois à 1 300 € au lieu de 1 500 € encaissés immédiatement).
-2. **Risque 2 : Syndrome du produit inachevé (peur de vendre)**  
-   *Parade* : Rappeler que le client achète la vidéo livrée, pas la propreté du code source. La vidéo n° 1 prouve déjà que le résultat est livrable.
-3. **Risque 3 : Temps absorbé par des demandes hors périmètre**  
-   *Parade* : Application stricte du document [OFFRES.md](file:///home/hasashi/Bureau/video/OFFRES.md) : 1 révision raisonnable par vidéo, script validé avant génération, facturation supplémentaire pour toute dérive.
+### Condition critique de succès
+Arrêter immédiatement tout développement technique superficiel et démarrer les premiers contacts directs auprès des décideurs cibles avant la fin du mois d'octobre 2026.
