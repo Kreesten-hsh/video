@@ -16,3 +16,6 @@ comparatif_univers.html
 # Rendus temporaires et candidats
 output.candidate.mp4
 output.*.mp4
+
+# Données privées de prospection et CRM
+/output/
