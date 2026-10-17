@@ -1,17 +1,17 @@
 # Graph Report - video  (2026-10-17)
 
 ## Corpus Check
-- 137 files · ~612,653 words
+- 142 files · ~621,486 words
 - Verdict: corpus is large enough that graph structure adds value.
-- Unclassified: 5 file(s) not represented in the graph (top: (none) 2, .csv 2, .css 1)
+- Unclassified: 6 file(s) not represented in the graph (top: .csv 3, (none) 2, .css 1)
 
 ## Summary
-- 922 nodes · 1036 edges · 103 communities (76 shown, 27 thin omitted)
+- 1006 nodes · 1115 edges · 108 communities (81 shown, 27 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 8 edges (avg confidence: 0.67)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `f602efc1`
+- Built from commit: `c3b17df5`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -96,18 +96,23 @@
 - SKILLS_INDEX.md
 - idea.md
 - pricing-curve.md
+- Lot A · Prospects Prioritaires (10 Dossiers Clés)
+- AGENT404 · AUDIT DE MATURITÉ & ÉTUDE DE SÉCURITÉ DE HARVEY
+- AGENT404 · TOP 10 DES PROSPECTS QUALIFIÉS ET VÉRIFIÉS (LOT V2)
+- AGENT404 · PLAN DE PRODUCTION DE LA VITRINE SHOWCASE (3 STYLES)
+- 2. Feuille de Route Opérationnelle par Phase (75 Jours)
 
 ## God Nodes (most connected - your core abstractions)
 1. `Caption Animation` - 14 edges
 2. `Short-Form Video` - 13 edges
 3. `Tasks: [FEATURE NAME]` - 13 edges
-4. `Word-Timed Captions — End-to-End Build` - 12 edges
-5. `Lower Thirds` - 12 edges
-6. `save()` - 11 edges
-7. `tally()` - 11 edges
-8. `main()` - 11 edges
-9. `create-new-feature.sh script` - 11 edges
-10. `Countdown Video` - 11 edges
+4. `AGENT404 · TOP 10 DES PROSPECTS QUALIFIÉS ET VÉRIFIÉS (LOT V2)` - 13 edges
+5. `Word-Timed Captions — End-to-End Build` - 12 edges
+6. `Lower Thirds` - 12 edges
+7. `save()` - 11 edges
+8. `tally()` - 11 edges
+9. `main()` - 11 edges
+10. `create-new-feature.sh script` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `Step 3: deal and run` --references--> `init()`  [INFERRED]
@@ -124,7 +129,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (103 total, 27 thin omitted)
+## Communities (108 total, 27 thin omitted)
 
 ### Community 0 - "json"
 Cohesion: 0.10
@@ -430,18 +435,38 @@ Nodes (4): AGENT404 — Board Brief, L'Idée & L'Offre, La Cible, Les Chiffres &
 Cohesion: 0.40
 Nodes (4): [Category 1], [Category 2], [CHECKLIST TYPE] Checklist: [FEATURE NAME], Notes
 
+### Community 103 - "Lot A · Prospects Prioritaires (10 Dossiers Clés)"
+Cohesion: 0.06
+Nodes (30): 10. Contournement — Alexis Kovalenko (Co-fondateur), 11. Overloop — Vincenzo Ruggiero (Fondateur & CEO), 12. Captain Data — Marc-Antoine Lacroix (CEO & Co-fondateur), 13. La Growth Machine — Adrien Moreau Camard (Co-fondateur & COO), 14. Folk — Simona Pop (Head of Growth & Co-fondatrice), 15. Mindee — Jonathan Grandperrin (CEO & Co-fondateur), 16. Agendrix — Mathieu Allaire (CEO & Co-fondateur), 1. Typebot — Baptiste Arnaud (Fondateur & Créateur) (+22 more)
+
+### Community 104 - "AGENT404 · AUDIT DE MATURITÉ & ÉTUDE DE SÉCURITÉ DE HARVEY"
+Cohesion: 0.12
+Nodes (15): 1. Environnement technique & Dépendances système, 2. Incompatibilité Critique du Fournisseur IA (Codex CLI vs Claude), 3. Analyse des Canaux, des Coûts et des Risques Opérationnels, 4. Mode Brouillon Uniquement & Garde-Fous Humains, 5. Gestion des Rejets, Bounces et Désabonnements, 6. Recommandation Stratégique pour AGENT404, A. Canaux d'envoi d'emails, A. Configuration dans `harvey.yaml` (+7 more)
+
+### Community 105 - "AGENT404 · TOP 10 DES PROSPECTS QUALIFIÉS ET VÉRIFIÉS (LOT V2)"
+Cohesion: 0.14
+Nodes (13): 10. Contournement, 1. Typebot, 2. Piloterr, 3. Breakcold, 4. Pharow, 5. Tally, 6. Noqode, 7. Digidop (+5 more)
+
+### Community 106 - "AGENT404 · PLAN DE PRODUCTION DE LA VITRINE SHOWCASE (3 STYLES)"
+Cohesion: 0.15
+Nodes (12): 1. Diagnostic du moteur actuel & Capital technique existant, 2. Démonstration 1 · Style Produit SaaS & DevTool (Le cas "API to Data"), 3. Démonstration 2 · Style Animation de Concept Technique (Le cas "Architecture IA"), 4. Démonstration 3 · Style Corporate Sobre & Institutionnel (Le cas "Gain Métier B2B"), 5. Protocole de production, d'isolation et de contrôle qualité, AGENT404 · PLAN DE PRODUCTION DE LA VITRINE SHOWCASE (3 STYLES), Cadrage stratégique, Cadrage stratégique (+4 more)
+
+### Community 107 - "2. Feuille de Route Opérationnelle par Phase (75 Jours)"
+Cohesion: 0.20
+Nodes (9): 1. Modélisation de l'Objectif Financier (2 000 000 FCFA), 2. Feuille de Route Opérationnelle par Phase (75 Jours), 3. Matrice des Risques et Parades d'Exécution, AGENT404 · PLAN D'ACTION COMMERCIAL & TRAJECTOIRE FINANCIÈRE, Étape 1 · Sécurisation & Confidentialité (Aujourd'hui — 17 octobre), Étape 2 · Production de la Vitrine Commerciale (18 au 22 octobre), Étape 3 · Les 5 Premiers Contacts Manuels Ultra-Ciblés (23 au 27 octobre), Étape 4 · Gestion des Réponses & Closing du Pilote (28 octobre au 5 novembre) (+1 more)
+
 ## Knowledge Gaps
 - **27 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Sélection resserrée pour conversion rapide vers l'objectif 2 000 000 FCFA` connect `Sélection resserrée pour conversion rapide vers l'objectif 2 000 000 FCFA` to `#10 · Missive (Philippe Lehoux — CEO & Co-fondateur)`, `#1 · Typebot (Baptiste Arnaud — Fondateur & Créateur)`, `#4 · Noqode (Amaury de Luca — Fondateur & CEO)`, `#5 · Breakcold (Arnaud Belinga — CEO & Co-fondateur)`, `#6 · Tally (Marie Martens — Co-fondatrice & Head of Growth)`, `#7 · Contournement (Alexis Kovalenko — Co-fondateur)`, `#8 · Axonaut (Nicolas Lemonnier — CEO & Co-fondateur)`, `#9 · Dust.tt (Gabriel Hubert — CEO & Co-fondateur)`, `#2 · Piloterr (Josselin Liebe — Fondateur & CEO)`, `#3 · Pharow (Bruno Laporte — CEO & Co-fondateur)`?**
-  _High betweenness centrality (0.009) - this node is a cross-community bridge._
+- **Why does `AGENT404 // Moteur de Vidéo Programmatique & Studio B2B` connect `AGENT404 // Moteur de Vidéo Programmatique & Studio B2B` to `build_master_timeline.py`?**
+  _High betweenness centrality (0.006) - this node is a cross-community bridge._
 - **Should `json` be split into smaller, more focused modules?**
   _Cohesion score 0.09988385598141696 - nodes in this community are weakly interconnected._
-- **Why does `AGENT404 // Moteur de Vidéo Programmatique & Studio B2B` connect `AGENT404 // Moteur de Vidéo Programmatique & Studio B2B` to `build_master_timeline.py`?**
-  _High betweenness centrality (0.007) - this node is a cross-community bridge._
+- **Why does `Sélection resserrée pour conversion rapide vers l'objectif 2 000 000 FCFA` connect `Sélection resserrée pour conversion rapide vers l'objectif 2 000 000 FCFA` to `#10 · Missive (Philippe Lehoux — CEO & Co-fondateur)`, `#1 · Typebot (Baptiste Arnaud — Fondateur & Créateur)`, `#4 · Noqode (Amaury de Luca — Fondateur & CEO)`, `#5 · Breakcold (Arnaud Belinga — CEO & Co-fondateur)`, `#6 · Tally (Marie Martens — Co-fondatrice & Head of Growth)`, `#7 · Contournement (Alexis Kovalenko — Co-fondateur)`, `#8 · Axonaut (Nicolas Lemonnier — CEO & Co-fondateur)`, `#9 · Dust.tt (Gabriel Hubert — CEO & Co-fondateur)`, `#2 · Piloterr (Josselin Liebe — Fondateur & CEO)`, `#3 · Pharow (Bruno Laporte — CEO & Co-fondateur)`?**
+  _High betweenness centrality (0.006) - this node is a cross-community bridge._
 - **Should `build_master_timeline.py` be split into smaller, more focused modules?**
   _Cohesion score 0.08585858585858586 - nodes in this community are weakly interconnected._
 - **Should `AGENT404 · Business plan` be split into smaller, more focused modules?**

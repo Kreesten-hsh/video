@@ -7,3 +7,9 @@ test_*
 *.tmp
 comparatif_univers.html
 .DS_Store
+
+# Environment & Secrets
+.env
+.env.*
+!*.example.*
+harvey.db

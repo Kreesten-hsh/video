@@ -1012,5 +1012,41 @@
     "seen": 1792248783.2208846,
     "ast_hash": "d3db2e2794c882bdd4033b1317066372",
     "semantic_hash": ""
+  },
+  "output/commercial_audit_v2/commercial_next_steps.md": {
+    "mtime": 1792252032.6078188,
+    "seen": 1792252694.842221,
+    "ast_hash": "081062732891649f929ae0336ff42282",
+    "semantic_hash": ""
+  },
+  "output/commercial_audit_v2/harvey_config.example.yaml": {
+    "mtime": 1792252007.691764,
+    "seen": 1792252694.8422298,
+    "ast_hash": "29280c6b46b686b735b946e52b900477",
+    "semantic_hash": ""
+  },
+  "output/commercial_audit_v2/harvey_readiness_audit.md": {
+    "mtime": 1792251975.1576853,
+    "seen": 1792252694.8422382,
+    "ast_hash": "f05088a72b2e0022b694ecebbe3799ba",
+    "semantic_hash": ""
+  },
+  "output/commercial_audit_v2/messages_revised.md": {
+    "mtime": 1792251899.602466,
+    "seen": 1792252694.8422408,
+    "ast_hash": "68f19691382b26a70bb1eda5f73c092f",
+    "semantic_hash": ""
+  },
+  "output/commercial_audit_v2/showcase_plan.md": {
+    "mtime": 1792251936.65558,
+    "seen": 1792252694.842243,
+    "ast_hash": "3afa89446c6ee1a7ebece99b4fafe04d",
+    "semantic_hash": ""
+  },
+  "output/commercial_audit_v2/top10_verifies.md": {
+    "mtime": 1792251855.8673136,
+    "seen": 1792252694.8422453,
+    "ast_hash": "80646e04efcbacb88b2d4aa7fc0ef6e3",
+    "semantic_hash": ""
   }
 }

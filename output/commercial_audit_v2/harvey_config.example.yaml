@@ -1,0 +1,92 @@
+# ==============================================================================
+# AGENT404 STUDIO · CONFIGURATION HARVEY SÉCURISÉE (MODE BROUILLON STRICT)
+# ==============================================================================
+# ATTENTION : Ce fichier est un modèle d'exemple expurgé de tout secret.
+# RÈGLES DE SÉCURITÉ :
+# 1. require_approval: true (AUCUN email ne part sans validation humaine explicite).
+# 2. linkedin.enabled: false (Scraping de comptes LinkedIn strictement désactivé).
+# 3. max_daily_sends: 0 en mode passif (seules les approbations manuelles sortent).
+# 4. Zéro promesse de conversion ou de viralité non vérifiée dans les prompts.
+# ==============================================================================
+
+persona:
+  name: "Kreesten Agboton"
+  company: "AGENT404"
+  role: "Fondateur & Ingénieur Système"
+  email: "contact@agent404studio.com"       # Domaine secondaire dédié à configurer (jamais le domaine principal)
+  linkedin: "https://www.linkedin.com/in/kreesten-agboton/"
+  tone: "technique, sobre, direct, respectueux, sans jargon marketing"
+
+product:
+  name: "AGENT404 Short-Form Studio"
+  description: >-
+    Moteur de rendu vidéo programmatique 1080x1920 à 30 FPS déterministe.
+    Nous transformons des documentations d'APIs, des changelogs GitHub, des flux
+    d'automatisation et des interfaces SaaS en micro-démonstrations animées
+    verticales (15 à 30 secondes) prêtes pour LinkedIn, X et YouTube Shorts.
+  pricing: "Pilote 3 vidéos à 250 € HT · Abonnement Studio mensuel à 500 € HT"
+  key_benefits:
+    - "Démonstration visuelle immédiate des fonctionnalités sans forcer l'utilisateur à lire de longs snippets de code ou de la documentation cURL."
+    - "Production déterministe par code : synchronisation audio/sous-titres au millième de seconde, typographie dynamique, respect strict des safe zones 9:16."
+    - "Délai de livraison de 48 heures sans mobiliser de monteur vidéo traditionnel ni de temps de tournage chez le client."
+  objection_responses:
+    "trop cher": "Nous proposons un premier pilote sans engagement de 3 capsules vidéo à 250 € pour tester concrètement la réactivité et la pertinence du format sur vos réseaux."
+    "nous faisons déjà des vidéos": "Notre moteur est pensé pour la vidéo verticale de produit très rythmée (15-30s) générée par code, en complément de vos formats longs ou tutoriels horizontaux."
+    "pas le temps de gérer un prestataire": "Le format est clé en main : vous nous donnez l'URL d'un endpoint, d'une release ou d'une page de doc, et nous livrons le fichier MP4 master prêt à diffuser."
+    "pas intéressé": "Entendu, merci pour votre retour rapide. Bonne continuation dans le développement de votre produit."
+  offer:
+    primary: "Abonnement mensuel Studio : 8 vidéos verticales par mois à 500 € HT"
+    entry: "Pack Pilote : 3 micro-démos verticales de 20s pour 250 € HT"
+    goal: "get_reply"                      # Objectif : obtenir une réponse ou l'accord pour envoyer un extrait vidéo de 15s
+    booking_method: "ask_preference"       # Pas de forçage de lien Calendly dans le premier message
+    booking_url: ""
+    meeting_duration: "15 minutes"
+    meeting_owner: "Kreesten Agboton"
+
+icp:
+  industries:
+    - "SaaS B2B"
+    - "DevTools & APIs"
+    - "Agences Webflow & Nocode"
+    - "Organismes de Formation Tech & IA"
+  company_size: "1 à 25 employés (Solo-makers, bootstrapped startups, TPEs agiles)"
+  titles:
+    - "Fondateur & CEO"
+    - "Co-fondateur & CTO"
+    - "Head of Growth"
+    - "Product Lead"
+  geography:
+    - "France"
+    - "Belgique"
+    - "Suisse (Suisse romande)"
+    - "Luxembourg"
+    - "Canada (Québec)"
+    - "Afrique de l'Ouest (Sénégal, Côte d'Ivoire, Bénin)"
+  hiring_signals: []
+
+channels:
+  email:
+    enabled: true
+    provider: "gmail"                      # Option recommandée : Google Workspace OAuth sur domaine secondaire
+    max_daily_sends: 15                    # Limite prudente pour préserver la réputation d'envoi
+    require_approval: true                 # GARDE-FOU ABSOLU : Chaque brouillon doit être relu via 'harvey outbox'
+    send_to_risky: false                   # Refus strict des domaines catch-all non vérifiables
+    max_bounce_rate: 0.03                  # Coupe-circuit d'urgence : suspension dès 3% de rejets
+  linkedin:
+    enabled: false                         # DÉSACTIVÉ : Pas d'automatisation Playwright contraire aux CGU LinkedIn
+    max_daily_connections: 0
+    max_daily_messages: 0
+
+usage:
+  max_daily_claude_percent: 70
+  heartbeat_interval_minutes: 30
+  quiet_hours:
+    start: "19:00"
+    end: "08:30"
+    timezone: "Europe/Paris"
+
+compliance:
+  precleared:
+    enabled: false
+    sender_country: "FR"
+    address_source: "published"            # Sources publiques uniquement (sites officiels, mentions légales, commits)
