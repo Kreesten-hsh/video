@@ -3,7 +3,12 @@ __pycache__/
 *.pyc
 .venv/
 temp_*
-test_*
+/test_*
 *.tmp
 comparatif_univers.html
 .DS_Store
+
+# Secrets
+.env
+.env.*
+!*.example.*

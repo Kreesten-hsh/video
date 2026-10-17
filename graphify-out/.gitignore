@@ -7,3 +7,9 @@ cache/
 .graphify_analysis.json
 .graphify_labels.pending.json
 .cloud-cta-shown
+
+# Reconstructible graphify outputs
+GRAPH_REPORT.md
+graph.html
+graph.json
+manifest.json
