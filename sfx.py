@@ -70,10 +70,28 @@ def load_scenes_from_timeline(timeline_path="timeline.js"):
     except Exception:
         return []
 
-def mix_sfx(voix_path="voix.wav", out_path="audio_final.wav", timeline_path="timeline.js"):
+def mix_sfx(
+    voix_path: str = None,
+    out_path: str = None,
+    timeline_path: str = None,
+    project_path: str = None
+):
+    from pathlib import Path
+
+    if project_path:
+        p_dir = Path(project_path)
+        if p_dir.is_file():
+            p_dir = p_dir.parent
+        voix_path = voix_path or str(p_dir / "voix.wav")
+        out_path = out_path or str(p_dir / "audio_final.wav")
+        timeline_path = timeline_path or str(p_dir / "timeline.js")
+    else:
+        voix_path = voix_path or "voix.wav"
+        out_path = out_path or "audio_final.wav"
+        timeline_path = timeline_path or "timeline.js"
+
     if not os.path.exists(voix_path):
-        print(f"Erreur : {voix_path} introuvable.")
-        return
+        raise FileNotFoundError(f"Erreur : fichier voix '{voix_path}' introuvable.")
 
     scenes = load_scenes_from_timeline(timeline_path)
     print(f"[SFX] {len(scenes)} scènes chargées depuis {timeline_path}")
@@ -140,6 +158,25 @@ def mix_sfx(voix_path="voix.wav", out_path="audio_final.wav", timeline_path="tim
         wf.writeframes(out_audio.tobytes())
 
     print(f"✓ Mixage SFX feutré terminé avec succès -> {out_path} ({len(out_audio)/framerate:.2f}s)")
+    return out_path
+
 
 if __name__ == "__main__":
-    mix_sfx()
+    import argparse
+    parser = argparse.ArgumentParser(description="Mixage SFX vidéo programmatique AGENT404.")
+    parser.add_argument("--projet", "-p", default=None, help="Chemin du dossier projet")
+    parser.add_argument("--voix", default=None, help="Chemin voix.wav")
+    parser.add_argument("--out", default=None, help="Chemin audio_final.wav")
+    parser.add_argument("--timeline", default=None, help="Chemin timeline.js")
+    args = parser.parse_args()
+
+    default_proj = args.projet
+    if default_proj is None and not args.voix and os.path.exists("studio_perso/video_01"):
+        default_proj = "studio_perso/video_01"
+
+    mix_sfx(
+        voix_path=args.voix,
+        out_path=args.out,
+        timeline_path=args.timeline,
+        project_path=default_proj
+    )

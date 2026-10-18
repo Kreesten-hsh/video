@@ -1,6 +1,6 @@
 """
-AGENT404 — Test automatisé de non-régression Golden Master (Vidéo n° 1)
-Protège les 220 mots, les 35 scènes et la cohérence de la timeline de référence.
+AGENT404 : Test automatisé de non-régression Golden Master (Vidéo n° 1)
+Protège les mots, les scènes et la cohérence de la timeline de référence.
 Ce test effectue uniquement des vérifications en lecture seule et ne modifie aucun artefact.
 """
 
@@ -59,8 +59,13 @@ class TestVideo01GoldenMaster(unittest.TestCase):
         self.manifest_path = GOLDEN_MASTER_DIR / "manifest.json"
         self.words_ref_path = GOLDEN_MASTER_DIR / "words.reference.json"
         self.scenes_ref_path = GOLDEN_MASTER_DIR / "scenes.reference.json"
-        self.timeline_js_path = REPO_ROOT / "timeline.js"
-        self.words_json_path = REPO_ROOT / "words.json"
+
+        cand_timeline = REPO_ROOT / "studio_perso" / "video_01" / "timeline.js"
+        self.timeline_js_path = cand_timeline if cand_timeline.exists() else REPO_ROOT / "timeline.js"
+
+        cand_words = REPO_ROOT / "studio_perso" / "video_01" / "words.json"
+        self.words_json_path = cand_words if cand_words.exists() else REPO_ROOT / "words.json"
+
         rel_video = "video1.mp4"
         if self.manifest_path.exists():
             try:
@@ -69,7 +74,15 @@ class TestVideo01GoldenMaster(unittest.TestCase):
                 rel_video = m_data.get("measured_facts", {}).get("output_mp4", {}).get("path", "video1.mp4")
             except Exception:
                 pass
-        self.output_mp4_path = REPO_ROOT / rel_video
+
+        cand_vid_root = REPO_ROOT / rel_video
+        cand_vid_studio = REPO_ROOT / "studio_perso" / "video_01" / Path(rel_video).name
+        if cand_vid_studio.exists():
+            self.output_mp4_path = cand_vid_studio
+        elif cand_vid_root.exists():
+            self.output_mp4_path = cand_vid_root
+        else:
+            self.output_mp4_path = cand_vid_studio
 
     def test_01_reference_artifacts_exist(self):
         """Vérifie la présence et la non-vacuité de tous les artefacts Golden Master."""

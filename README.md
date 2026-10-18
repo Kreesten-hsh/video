@@ -47,15 +47,34 @@ playwright install chromium
 ```bash
 python3 -m unittest -v
 ```
-La suite valide l'intégrité temporelle des mots, la continuité des 35 scènes, la conformité de la vidéo master et la tolérance visuelle des captures de référence.
+La suite valide l'intégrité temporelle des mots, la continuité des scènes, la conformité de la vidéo master et la tolérance visuelle des captures de référence.
 
-### Lancement du rendu vidéo
+### Orchestration complète de production vidéo
 ```bash
-# Génère la vidéo finale
-python3 render.py video1.mp4
+# Génère timeline, SFX, rendu vidéo et vérifications en une seule commande
+python3 make_video.py studio_perso/video_01
 ```
 
-Le script vérifie la présence des binaires, attend le chargement complet des polices locales et le décodage des images, puis valide automatiquement qu'aucun avatar n'est absent.
+### Création d'un projet client (studio_clients)
+Pour initialiser un nouveau projet client dans `studio_clients/` :
+1. Créer le dossier du client : `mkdir -p studio_clients/<nom_client>/video_01`.
+2. Copier le modèle de configuration :
+   ```bash
+   cp studio_perso/video_01/project.json studio_clients/<nom_client>/video_01/project.json
+   ```
+3. Adapter `project.json` :
+   - `video_number` : numéro de la vidéo (ex: 1).
+   - `title` : titre du projet.
+   - `audio_path` : chemin du fichier audio source (WAV ou MP3).
+   - `reference_words` : liste ordonnée des mots du texte de référence.
+   - `scenes` : liste des scènes avec leurs types (`face`, `big`, `cards`, `window`, etc.) et décors (`grid`, `mint`, `diamonds`, `circles`, `alert`).
+   - `scene_end_words` : liste des mots terminaux marquant la coupure de chaque scène (même longueur que `scenes`).
+   - `phonetic_map` : dictionnaire des équivalences phonétiques de transcription Whisper éventuelles.
+4. Lancer la production :
+   ```bash
+   python3 make_video.py studio_clients/<nom_client>/video_01
+   ```
+La vidéo finale sera générée directement dans `studio_clients/<nom_client>/video_01/video1.mp4`.
 
 ---
 

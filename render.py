@@ -75,15 +75,23 @@ def get_audio_duration(audio_file: str) -> float:
     return float(res)
 
 
-def setup_render_page(browser, html_abs_uri: str):
-    """Crée une page isolée hors réseau, attend les polices locales et pré-décode les avatars."""
+def setup_render_page(browser, html_abs_uri: str, timeline_path: str = None):
+    """Crée une page isolée hors réseau, injecte la timeline locale, attend les polices et pré-décode les avatars."""
     context = browser.new_context(
         viewport={"width": 1080, "height": 1920},
         device_scale_factor=1,
         offline=True
     )
     page = context.new_page()
-    page.goto(html_abs_uri)
+
+    if timeline_path and Path(timeline_path).exists():
+        page.add_init_script(path=str(Path(timeline_path).resolve()))
+
+    target_url = html_abs_uri
+    if timeline_path and Path(timeline_path).exists():
+        target_url = f"{html_abs_uri}?timeline={Path(timeline_path).resolve().as_uri()}"
+
+    page.goto(target_url)
     page.wait_for_load_state("networkidle")
 
     # Pré-décodage complet de toutes les images d'avatar et attente des polices locales
@@ -127,6 +135,9 @@ def verify_rendered_avatars(video_path: str, scenes: list) -> bool:
         if not avatar or "mini" in avatar:
             continue
 
+        if "start" not in sc:
+            continue
+
         # Vérifier dès la toute première frame de la scène
         t_sample = float(sc["start"])
         frame_idx = int(round(t_sample * fps))
@@ -159,22 +170,60 @@ def verify_rendered_avatars(video_path: str, scenes: list) -> bool:
 
 
 def render_video(
+    project_path: str = None,
     html_path: str = "index.html",
-    audio_path: str = "audio_final.wav",
-    output_path: str = "output.candidate.mp4",
+    audio_path: str = None,
+    timeline_path: str = None,
+    output_path: str = None,
     fps: int = 30,
     verify_avatars: bool = True,
     scenes: list = None
 ):
     check_dependencies()
 
-    html_abs = Path(html_path).resolve().as_uri()
-    if not Path(audio_path).exists():
-        if Path("voix.wav").exists():
-            audio_path = "voix.wav"
-        else:
-            raise FileNotFoundError(f"Fichier audio ({audio_path} ou voix.wav) introuvable.")
+    if project_path:
+        p_dir = Path(project_path)
+        if p_dir.is_file():
+            p_dir = p_dir.parent
+        proj_file = p_dir / "project.json"
+        video_num = 1
+        if proj_file.exists():
+            try:
+                with open(proj_file, "r", encoding="utf-8") as f:
+                    p_data = json.load(f)
+                    video_num = p_data.get("video_number", 1)
+                    if scenes is None:
+                        scenes = p_data.get("scenes")
+            except Exception:
+                pass
 
+        output_path = output_path or str(p_dir / f"video{video_num}.mp4")
+        if not audio_path:
+            cand_final = p_dir / "audio_final.wav"
+            cand_voix = p_dir / "voix.wav"
+            audio_path = str(cand_final) if cand_final.exists() else str(cand_voix)
+        timeline_path = timeline_path or str(p_dir / "timeline.js")
+
+    if not output_path:
+        raise ValueError("Aucun chemin de sortie spécifié pour render_video. Renseignez --projet ou --output.")
+
+    if not audio_path or not Path(audio_path).exists():
+        raise FileNotFoundError(f"Fichier audio introuvable : '{audio_path}'.")
+
+    if not timeline_path or not Path(timeline_path).exists():
+        raise FileNotFoundError(f"Fichier timeline.js introuvable : '{timeline_path}'.")
+
+    if scenes is None:
+        try:
+            with open(timeline_path, "r", encoding="utf-8") as f:
+                c = f.read()
+            m = re.search(r"window\.SCENES\s*=\s*(\[.*?\]);", c, re.DOTALL)
+            if m:
+                scenes = json.loads(m.group(1))
+        except Exception:
+            pass
+
+    html_abs = Path(html_path).resolve().as_uri()
     duration = get_audio_duration(audio_path)
     total_frames = math.ceil(duration * fps)
     print(f"[Render] Durée audio : {duration:.2f}s | {total_frames} frames à générer ({fps} FPS).")
@@ -210,7 +259,7 @@ def render_video(
                 "Veuillez exécuter 'playwright install chromium' ou vérifier l'installation du navigateur."
             )
 
-        context, page = setup_render_page(browser, html_abs)
+        context, page = setup_render_page(browser, html_abs, timeline_path=timeline_path)
 
         print("[Render] Capture et encodage déterministe avec synchronisation totale des images et polices...")
         for i in range(total_frames):
@@ -237,7 +286,7 @@ def render_video(
                 page.close()
                 context.close()
                 gc.collect()
-                context, page = setup_render_page(browser, html_abs)
+                context, page = setup_render_page(browser, html_abs, timeline_path=timeline_path)
 
             if i % 15 == 0 or i == total_frames - 1:
                 percent = int((i + 1) / total_frames * 100)
@@ -254,7 +303,29 @@ def render_video(
     if verify_avatars and scenes is not None:
         verify_rendered_avatars(output_path, scenes)
 
+    return output_path
+
 
 if __name__ == "__main__":
-    out_target = sys.argv[1] if len(sys.argv) > 1 else "output.candidate.mp4"
-    render_video(output_path=out_target)
+    import argparse
+    parser = argparse.ArgumentParser(description="Moteur de rendu vidéo headless AGENT404.")
+    parser.add_argument("--projet", "-p", default=None, help="Chemin du dossier projet")
+    parser.add_argument("--output", "-o", default=None, help="Chemin du fichier MP4 de sortie")
+    parser.add_argument("--audio", "-a", default=None, help="Chemin du fichier audio")
+    parser.add_argument("--timeline", "-t", default=None, help="Chemin de timeline.js")
+    parser.add_argument("--fps", type=int, default=30, help="Images par seconde")
+    parser.add_argument("--no-verify-avatars", action="store_true", help="Désactive la vérification des avatars")
+    args = parser.parse_args()
+
+    default_proj = args.projet
+    if default_proj is None and not args.output and os.path.exists("studio_perso/video_01"):
+        default_proj = "studio_perso/video_01"
+
+    render_video(
+        project_path=default_proj,
+        audio_path=args.audio,
+        timeline_path=args.timeline,
+        output_path=args.output,
+        fps=args.fps,
+        verify_avatars=not args.no_verify_avatars
+    )

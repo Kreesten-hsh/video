@@ -13,18 +13,23 @@ Le pipeline repose sur un découpage en 4 phases strictement séquentielles :
 
 ```mermaid
 flowchart TD
+    subgraph INPUT["Entrée Projet : studio_perso/ ou studio_clients/"]
+        P["project.json (texte, scènes, audio, audio_path)"]
+        A["Fichier audio source (MP3 / WAV)"]
+    end
+
     subgraph PHASE_1["Phase 1 : Traitement Audio & Alignement Acoustique"]
-        A["Master Audio : assets/audio/agent404_voiceover.mp3"] --> B["build_master_timeline.py"]
-        C["Transcription & Découpage : 220 mots / 35 scènes"] --> B
-        B -->|FFmpeg PCM s16le 44.1kHz mono| D["voix.wav"]
-        B -->|Faster-Whisper small int8 CPU| E["words.json"]
-        B -->|Génération synchronisée| F["timeline.js"]
+        P --> B["build_master_timeline.py --projet <chemin>"]
+        A --> B
+        B -->|FFmpeg PCM s16le 44.1kHz mono| D["<projet>/voix.wav"]
+        B -->|Faster-Whisper small int8 CPU| E["<projet>/words.json"]
+        B -->|Génération synchronisée| F["<projet>/timeline.js"]
     end
 
     subgraph PHASE_2["Phase 2 : Design Sonore Procédural (SFX)"]
-        D --> G["sfx.py"]
+        D --> G["sfx.py --projet <chemin>"]
         F --> G
-        G -->|Synthèse NumPy 44.1kHz : Whoosh, Pop, Micro-clics| H["audio_final.wav"]
+        G -->|Synthèse NumPy 44.1kHz : Whoosh, Pop, Micro-clics| H["<projet>/audio_final.wav"]
     end
 
     subgraph PHASE_3["Phase 3 : Moteur Graphique DOM Déterministe"]
@@ -34,9 +39,10 @@ flowchart TD
     end
 
     subgraph PHASE_4["Phase 4 : Rendu Frame-par-Frame & Encodage"]
-        I --> L["render.py : Playwright Headless Chromium"]
+        I --> L["render.py --projet <chemin> : Playwright Headless"]
+        H --> L
         L -->|Capture JPEG q90 via stdin pipe:0| M["ffmpeg (libx264 CRF 18 @ 30 FPS)"]
-        M --> N["video1.mp4"]
+        M --> N["<projet>/video<N>.mp4"]
     end
 ```
 
@@ -114,8 +120,10 @@ flowchart TD
 
 ---
 
-## 4. LIMITES ACTUELLES D'ARCHITECTURE
+## 4. ARCHITECTURE MULTI-PROJETS (STUDIO PERSO & CLIENTS)
 
-L'audit technique met en évidence la rigidité principale à lever avant toute vitrine multi-vidéos :
-- **Mots et scènes codés en dur dans Python** : `build_master_timeline.py` impose 220 mots et 35 scènes spécifiques à la vidéo n° 1. Produire une vidéo pour un tiers impose actuellement de réécrire le code de ce script.
-- **Généralisation requise (étape 5.2)** : Externaliser les définitions de scènes et le texte de référence dans un fichier de configuration de projet (`project.json`) sans altérer le rendu au bit près de la vidéo n° 1.
+La séparation des studios est effective et élimine tout contenu en dur dans le moteur :
+- **Studio Perso (`studio_perso/`)** : Dédié aux vidéos propres d'AGENT404 (vitrine, démonstrations, acquisition client).
+- **Studio Clients (`studio_clients/`)** : Dédié aux productions des clients, chaque client disposant de son dossier et de sa configuration propre.
+- **Configuration unifiée (`project.json`)** : Chaque projet définit son numéro de vidéo, titre, audio, texte de référence, scènes, mots terminaux et variantes phonétiques.
+- **Orchestrateur universel (`make_video.py`)** : Pilote de bout en bout la génération de timeline, le mixage SFX, le rendu déterministe, la vérification des avatars et le contrôle technique ffprobe.

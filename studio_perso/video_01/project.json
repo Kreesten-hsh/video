@@ -1,0 +1,610 @@
+{
+  "video_number": 1,
+  "title": "Arrête de payer des monteurs vidéo et des IA hors de prix",
+  "audio_path": "assets/audio/agent404_voiceover.mp3",
+  "reference_words": [
+    "Arrête",
+    "de",
+    "payer",
+    "des",
+    "monteurs",
+    "vidéo",
+    "et",
+    "des",
+    "IA",
+    "hors",
+    "de",
+    "prix.",
+    "Cette",
+    "vidéo",
+    "que",
+    "tu",
+    "regardes",
+    "en",
+    "ce",
+    "moment,",
+    "je",
+    "ne",
+    "l'ai",
+    "pas",
+    "montée",
+    "sur",
+    "Premiere",
+    "Pro",
+    "et",
+    "je",
+    "n'ai",
+    "pas",
+    "utilisé",
+    "une",
+    "IA",
+    "vidéo",
+    "comme",
+    "Veo",
+    "ou",
+    "Kling,",
+    "elle",
+    "est",
+    "générée",
+    "à",
+    "100%",
+    "par",
+    "du",
+    "code.",
+    "En",
+    "fait,",
+    "j'ai",
+    "codé",
+    "mon",
+    "propre",
+    "moteur",
+    "en",
+    "Python",
+    "et",
+    "JavaScript.",
+    "Le",
+    "principe",
+    "est",
+    "ultra",
+    "simple,",
+    "j'enregistre",
+    "ma",
+    "voix",
+    "sur",
+    "mon",
+    "téléphone,",
+    "mon",
+    "script",
+    "coupe",
+    "automatiquement",
+    "tous",
+    "les",
+    "silences",
+    "et",
+    "transcrit",
+    "chaque",
+    "mot",
+    "à",
+    "la",
+    "milliseconde.",
+    "Ensuite,",
+    "le",
+    "code",
+    "génère",
+    "toute",
+    "la",
+    "mise",
+    "en",
+    "scène,",
+    "il",
+    "anime",
+    "mon",
+    "avatar",
+    "en",
+    "costume",
+    "selon",
+    "l'émotion,",
+    "il",
+    "ouvre",
+    "les",
+    "terminaux,",
+    "il",
+    "affiche",
+    "des",
+    "listes",
+    "structurées,",
+    "et",
+    "change",
+    "le",
+    "décor",
+    "en",
+    "losanges",
+    "ou",
+    "en",
+    "cercles,",
+    "et",
+    "il",
+    "compile",
+    "tout",
+    "avec",
+    "FFmpeg",
+    "à",
+    "30",
+    "images",
+    "par",
+    "seconde.",
+    "Pourquoi",
+    "c'est",
+    "une",
+    "révolution",
+    "pour",
+    "les",
+    "fondateurs",
+    "SaaS",
+    "et",
+    "les",
+    "entrepreneurs ?",
+    "Parce",
+    "que",
+    "les",
+    "IA",
+    "vidéo",
+    "classiques",
+    "coûtent",
+    "une",
+    "fortune,",
+    "font",
+    "des",
+    "erreurs",
+    "visuelles",
+    "et",
+    "prennent",
+    "des",
+    "heures",
+    "à",
+    "corriger.",
+    "Avec",
+    "du",
+    "code,",
+    "une",
+    "vidéo",
+    "complète",
+    "me",
+    "prend",
+    "deux",
+    "minutes",
+    "à",
+    "générer",
+    "et",
+    "coûte",
+    "0",
+    "euro.",
+    "Que",
+    "ce",
+    "soit",
+    "pour",
+    "expliquer",
+    "ton",
+    "logiciel,",
+    "présenter",
+    "ton",
+    "offre",
+    "ou",
+    "publier",
+    "tous",
+    "les",
+    "jours",
+    "sans",
+    "jamais",
+    "allumer",
+    "ta",
+    "caméra,",
+    "tout",
+    "est",
+    "automatisé.",
+    "Si",
+    "tu",
+    "veux",
+    "que",
+    "je",
+    "déploie",
+    "ce",
+    "système",
+    "avec",
+    "ton",
+    "propre",
+    "avatar",
+    "et",
+    "ta",
+    "charte",
+    "graphique,",
+    "envoie-moi",
+    "« CODE »",
+    "en",
+    "message",
+    "privé."
+  ],
+  "scenes": [
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/stop.png",
+        "label": "STOP AUX MONTEURS 🛑",
+        "bg": "alert"
+      }
+    },
+    {
+      "type": "big",
+      "data": {
+        "text": "💸 HORS DE PRIX",
+        "sub": "FACTURES IA EXPLOSÉES",
+        "bg": "alert"
+      }
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/pointing.png",
+        "label": "CETTE VIDÉO 👇",
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "cards",
+      "data": {
+        "cards": [
+          {
+            "icon": "🎬",
+            "title": "PREMIERE PRO",
+            "sub": "ZÉRO MONTAGE MANUEL ❌"
+          }
+        ],
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "cards",
+      "data": {
+        "cards": [
+          {
+            "icon": "🤖",
+            "title": "VEO / KLING",
+            "sub": "AUCUNE IA VIDÉO ❌"
+          },
+          {
+            "icon": "🚫",
+            "title": "ZÉRO PROMPT",
+            "sub": "AUCUN ARTEFACT VISUEL"
+          }
+        ],
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "big",
+      "data": {
+        "text": "100% CODE",
+        "sub": "GÉNÉRÉ PAR ALGORITHME ⚡",
+        "bg": "mint"
+      }
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/laptop.png",
+        "label": "MOTEUR SUR-MESURE 💻",
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "engine_arch",
+      "data": {
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/idea.png",
+        "label": "ULTRA SIMPLE 💡",
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/mic.png",
+        "label": "1. MÉMO VOCAL 📱",
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "audio_wave",
+      "data": {
+        "title": "vocal1.m4a — NETTOYAGE STUDIO",
+        "sub": "✂️ SILENCES SUPPRIMÉS AUTOMATIQUEMENT",
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "sync_timer",
+      "data": {
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "big",
+      "data": {
+        "text": "MISE EN SCÈNE",
+        "sub": "100% PILOTÉE PAR LE CODE 🎬",
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "emotion_morph",
+      "data": {
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "window",
+      "data": {
+        "title": "agent404_terminal.sh",
+        "lines": [
+          "$ ./agent404 --deploy-matrix",
+          "✓ Protocole Cyber-Mint #00F5A0",
+          "✓ Système 100% Anonyme : ACTIF"
+        ],
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "list",
+      "data": {
+        "header": "COMPOSANTS DYNAMIQUES",
+        "items": [
+          "1. Terminaux & Code",
+          "2. Listes à rebond",
+          "3. Cartes & Comparatifs"
+        ],
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "big",
+      "data": {
+        "text": "◆ LOSANGES ◆",
+        "sub": "CHANGEMENT DE DÉCOR EN DIRECT",
+        "bg": "diamonds"
+      }
+    },
+    {
+      "type": "big",
+      "data": {
+        "text": "● CERCLES ●",
+        "sub": "ANIMATION HAUTE VITESSE",
+        "bg": "circles"
+      }
+    },
+    {
+      "type": "ffmpeg_render",
+      "data": {
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "big",
+      "data": {
+        "text": "30 FPS",
+        "sub": "1080x1920 FULL HD FLUIDE 🔥",
+        "bg": "mint"
+      }
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/shock.png",
+        "label": "UNE RÉVOLUTION 🚀",
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "cards",
+      "data": {
+        "cards": [
+          {
+            "icon": "💻",
+            "title": "FONDATEURS SAAS",
+            "sub": "DÉMOS PRODUIT & ONBOARDING"
+          },
+          {
+            "icon": "📈",
+            "title": "ENTREPRENEURS",
+            "sub": "CONTENU B2B QUOTIDIEN"
+          }
+        ],
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/skeptic.png",
+        "label": "IA VIDÉO = RUINEUX 💸",
+        "bg": "alert"
+      }
+    },
+    {
+      "type": "list",
+      "data": {
+        "header": "PROBLÈMES DES IA VIDÉO ❌",
+        "items": [
+          "❌ Visages & mains déformés",
+          "❌ Texte illisible à l'écran",
+          "❌ Impossible à modifier"
+        ],
+        "bg": "alert"
+      }
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/stop.png",
+        "label": "DES HEURES PERDUES ⏳",
+        "bg": "alert"
+      }
+    },
+    {
+      "type": "split",
+      "data": {
+        "leftTitle": "IA / MONTEUR ❌",
+        "leftItems": [
+          "3h de montage",
+          "50€ à 150€ / vidéo",
+          "Aléatoire"
+        ],
+        "rightTitle": "CODE PYTHON ✅",
+        "rightItems": [
+          "Prêt en 2 min",
+          "Coût : 0,00 €",
+          "Sur-mesure"
+        ],
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "speed_counter",
+      "data": {
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/money.png",
+        "label": "COÛT MARGINAL : 0,00 € 🔥",
+        "bg": "diamonds"
+      }
+    },
+    {
+      "type": "cards",
+      "data": {
+        "cards": [
+          {
+            "icon": "⚡",
+            "title": "1. TON LOGICIEL",
+            "sub": "DÉMOS PRODUIT ULTRA CLAIRES"
+          }
+        ],
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "cards",
+      "data": {
+        "cards": [
+          {
+            "icon": "⚡",
+            "title": "1. TON LOGICIEL",
+            "sub": "DÉMOS PRODUIT ULTRA CLAIRES"
+          },
+          {
+            "icon": "🎯",
+            "title": "2. TON OFFRE B2B",
+            "sub": "VIDÉOS DE VENTE QUI CONVERTISSENT"
+          }
+        ],
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/scissors.png",
+        "label": "SANS CAMÉRA • 100% RÉGULIER 🎥",
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "big",
+      "data": {
+        "text": "100% AUTOMATISÉ",
+        "sub": "PIPELINE VIDÉO CLÉ EN MAIN ⚙️",
+        "bg": "mint"
+      }
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/prof.png",
+        "label": "TON AVATAR SUR-MESURE 👔",
+        "bg": "grid"
+      }
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/pointing.png",
+        "label": "TA CHARTE GRAPHIQUE 🎨",
+        "bg": "diamonds"
+      }
+    },
+    {
+      "type": "big",
+      "data": {
+        "text": "ENVOIE « CODE »",
+        "sub": "EN DM À @AGENT404 📩",
+        "bg": "circles"
+      }
+    }
+  ],
+  "scene_end_words": [
+    "vidéo",
+    "prix.",
+    "moment,",
+    "Pro",
+    "Kling,",
+    "code.",
+    "moteur",
+    "JavaScript.",
+    "simple,",
+    "téléphone,",
+    "silences",
+    "milliseconde.",
+    "scène,",
+    "l'émotion,",
+    "terminaux,",
+    "structurées,",
+    "losanges",
+    "cercles,",
+    "FFmpeg",
+    "seconde.",
+    "révolution",
+    "entrepreneurs ?",
+    "fortune,",
+    "visuelles",
+    "corriger.",
+    "complète",
+    "générer",
+    "euro.",
+    "logiciel,",
+    "offre",
+    "caméra,",
+    "automatisé.",
+    "avatar",
+    "graphique,",
+    "privé."
+  ],
+  "phonetic_map": {
+    "prix": "pris",
+    "veo": "vo",
+    "losanges": "losange",
+    "cercles": "cercle",
+    "saas": "sass",
+    "classiques": "classique",
+    "code": "code"
+  },
+  "special_cases": {
+    "zero_euro_split": true
+  }
+}
