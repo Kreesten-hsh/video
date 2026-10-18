@@ -69,6 +69,7 @@ flowchart TD
   1. *Whoosh feutré (40 ms)* : Bruit filtré passe-bas avec enveloppe en cloche de Hann sur les transitions majeures. Atténuation : $-24\text{ dB}$.
   2. *Pop organique mat (35 ms)* : Glissement sinusoïdal grave (90 Hz vers 40 Hz) avec enveloppe amortie pour les apparitions de cartes et d'avatars. Atténuation : $-22\text{ dB}$.
   3. *Micro-clics typewriter (8 ms)* : Impulsions amorties à 650 Hz injectées toutes les 120 ms pendant l'animation de la fenêtre terminal. Atténuation : $-26\text{ dB}$.
+- **Reproductibilité déterministe** : Lorsque `rendu_deterministe: true` (par défaut), une graine stable dérivée de l'identifiant du projet (`zlib.crc32`) alimente un générateur `np.random.default_rng(seed)`. Deux mixages successifs produisent des fichiers WAV identiques octet par octet (SHA-256 rigoureusement identiques). Si `rendu_deterministe: false` (cas de `video_01`), le comportement historique sans graine est préservé.
 - **Mixage** : Superpose les formes d'ondes au signal vocal, applique un clamp strict $[-32767, 32767]$ pour éviter tout écrêtage, et exporte [audio_final.wav](../audio_final.wav).
 
 ### C. Moteur Graphique et Composants Visuels : [video.js](../video.js)
@@ -91,6 +92,8 @@ flowchart TD
 
 ### D. Capture Headless et Compilation Vidéo : [render.py](../render.py)
 - **Rôle** : Orchestre Playwright Headless pour capturer chaque frame à 30 FPS et les injecter directement dans le pipe d'entrée de FFmpeg.
+- **Rendu déterministe bit-à-bit** :
+  - Lorsque `rendu_deterministe: true` (par défaut), injecte une feuille de style désactivant toutes les transitions et animations CSS (`*, *::before, *::after { transition: none !important; animation: none !important; }`), éliminant l'interpolation en temps réel pendant les captures Playwright. Deux rendus successifs produisent des frames décodées 100% identiques (framemd5 identiques, PSNR infini).
 - **Synchronisation totale des images et polices** :
   - Attente de `document.fonts.ready` et exécution de `img.decode()` sur toutes les images avant chaque capture pour éradiquer les images d'avatar vides.
   - Pré-décodage complet de tous les avatars à l'initialisation et à chaque recyclage.

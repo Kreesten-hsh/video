@@ -52,8 +52,16 @@ La suite valide l'intégrité temporelle des mots, la continuité des scènes, l
 ### Orchestration complète de production vidéo
 ```bash
 # Génère timeline, SFX, rendu vidéo et vérifications en une seule commande
-python3 make_video.py studio_perso/video_01
+python3 make_video.py studio_clients/<nom_client>/video_01
+
+# Redirection vers un dossier de sortie isolé (sans modifier le dossier projet)
+python3 make_video.py studio_perso/video_01 --sortie /tmp/sortie_isolee
+
+# Forcer la réécriture sur un projet gelé ("gele": true) ou une vidéo existante
+python3 make_video.py studio_perso/video_01 --forcer
 ```
+
+Les projets marqués `"gele": true` dans `project.json` refusent toute écriture dans leur propre dossier sans `--forcer` ou `--sortie`. Le mode `"rendu_deterministe": true` (actif par défaut pour tout nouveau projet) neutralise les transitions CSS et dérive une graine stable (CRC32) pour les bruitages afin de garantir des rendus rigoureusement reproductibles bit-à-bit.
 
 ### Création d'un projet client (studio_clients)
 Pour initialiser un nouveau projet client dans `studio_clients/` :
