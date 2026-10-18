@@ -75,7 +75,7 @@ def get_audio_duration(audio_file: str) -> float:
     return float(res)
 
 
-def setup_render_page(browser, html_abs_uri: str, timeline_path: str = None):
+def setup_render_page(browser, html_abs_uri: str, timeline_path: str = None, rendu_deterministe: bool = True):
     """Crée une page isolée hors réseau, injecte la timeline locale, attend les polices et pré-décode les avatars."""
     context = browser.new_context(
         viewport={"width": 1080, "height": 1920},
@@ -93,6 +93,11 @@ def setup_render_page(browser, html_abs_uri: str, timeline_path: str = None):
 
     page.goto(target_url)
     page.wait_for_load_state("networkidle")
+
+    if rendu_deterministe:
+        page.add_style_tag(
+            content="*, *::before, *::after { transition: none !important; animation: none !important; }"
+        )
 
     # Pré-décodage complet de toutes les images d'avatar et attente des polices locales
     page.evaluate("""async () => {
@@ -177,7 +182,8 @@ def render_video(
     output_path: str = None,
     fps: int = 30,
     verify_avatars: bool = True,
-    scenes: list = None
+    scenes: list = None,
+    rendu_deterministe: bool = None
 ):
     check_dependencies()
 
@@ -194,8 +200,13 @@ def render_video(
                     video_num = p_data.get("video_number", 1)
                     if scenes is None:
                         scenes = p_data.get("scenes")
+                    if rendu_deterministe is None:
+                        rendu_deterministe = p_data.get("rendu_deterministe", True)
             except Exception:
                 pass
+
+    if rendu_deterministe is None:
+        rendu_deterministe = True
 
         output_path = output_path or str(p_dir / f"video{video_num}.mp4")
         if not audio_path:
@@ -259,7 +270,7 @@ def render_video(
                 "Veuillez exécuter 'playwright install chromium' ou vérifier l'installation du navigateur."
             )
 
-        context, page = setup_render_page(browser, html_abs, timeline_path=timeline_path)
+        context, page = setup_render_page(browser, html_abs, timeline_path=timeline_path, rendu_deterministe=rendu_deterministe)
 
         print("[Render] Capture et encodage déterministe avec synchronisation totale des images et polices...")
         for i in range(total_frames):
@@ -286,7 +297,7 @@ def render_video(
                 page.close()
                 context.close()
                 gc.collect()
-                context, page = setup_render_page(browser, html_abs, timeline_path=timeline_path)
+                context, page = setup_render_page(browser, html_abs, timeline_path=timeline_path, rendu_deterministe=rendu_deterministe)
 
             if i % 15 == 0 or i == total_frames - 1:
                 percent = int((i + 1) / total_frames * 100)
@@ -315,6 +326,8 @@ if __name__ == "__main__":
     parser.add_argument("--timeline", "-t", default=None, help="Chemin de timeline.js")
     parser.add_argument("--fps", type=int, default=30, help="Images par seconde")
     parser.add_argument("--no-verify-avatars", action="store_true", help="Désactive la vérification des avatars")
+    parser.add_argument("--rendu-deterministe", dest="rendu_deterministe", action="store_true", default=None, help="Active le rendu déterministe (par défaut)")
+    parser.add_argument("--no-rendu-deterministe", dest="rendu_deterministe", action="store_false", help="Désactive le rendu déterministe")
     args = parser.parse_args()
 
     default_proj = args.projet
@@ -327,5 +340,6 @@ if __name__ == "__main__":
         timeline_path=args.timeline,
         output_path=args.output,
         fps=args.fps,
-        verify_avatars=not args.no_verify_avatars
+        verify_avatars=not args.no_verify_avatars,
+        rendu_deterministe=args.rendu_deterministe
     )

@@ -157,7 +157,8 @@ def make_video(
         timeline_path=str(target_timeline_path),
         output_path=str(target_video_path),
         verify_avatars=False,  # Exécuté explicitement à l'étape 4 pour mesure séparée
-        scenes=scenes
+        scenes=scenes,
+        rendu_deterministe=p_data.get("rendu_deterministe", True)
     )
     time_render = time.time() - t0
     print(f"✓ Étape 3 terminée en {time_render:.2f}s")

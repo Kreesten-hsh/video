@@ -3,6 +3,7 @@
   "title": "Arrête de payer des monteurs vidéo et des IA hors de prix",
   "audio_path": "assets/audio/agent404_voiceover.mp3",
   "gele": true,
+  "rendu_deterministe": false,
   "reference_words": [
     "Arrête",
     "de",
