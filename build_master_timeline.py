@@ -423,7 +423,13 @@ def align_reference_audio(audio_source_path: Path, reference_words: list, phonet
     return aligned_words, total_dur
 
 
-def run_pipeline(project_path_str: str, force_realign: bool = False):
+def run_pipeline(
+    project_path_str: str,
+    force_realign: bool = False,
+    output_timeline_js: str = None,
+    output_words_json: str = None,
+    output_voix_wav: str = None
+):
     """Exécute l'orchestration complète de génération de timeline pour un projet donné."""
     project_dir, project_data = load_project(project_path_str)
     audio_source = project_data["_resolved_audio"]
@@ -433,17 +439,20 @@ def run_pipeline(project_path_str: str, force_realign: bool = False):
     phonetic_map = project_data.get("phonetic_map", {})
     special_cases = project_data.get("special_cases", {})
 
-    output_words_json = project_dir / "words.json"
-    output_voix_wav = project_dir / "voix.wav"
-    output_timeline_js = project_dir / "timeline.js"
+    target_words_json = Path(output_words_json) if output_words_json else (project_dir / "words.json")
+    target_voix_wav = Path(output_voix_wav) if output_voix_wav else (project_dir / "voix.wav")
+    target_timeline_js = Path(output_timeline_js) if output_timeline_js else (project_dir / "timeline.js")
+
+    # Source de words existante (soit cible, soit dossier du projet en lecture)
+    source_words_json = target_words_json if target_words_json.exists() else (project_dir / "words.json")
 
     # Vérification de la nécessité d'un réalignement acoustique Whisper
     should_align = False
     if force_realign:
         should_align = True
-    elif not output_words_json.exists():
+    elif not source_words_json.exists():
         should_align = True
-    elif audio_source.stat().st_mtime > output_words_json.stat().st_mtime:
+    elif audio_source.stat().st_mtime > source_words_json.stat().st_mtime:
         should_align = True
 
     if should_align:
@@ -453,28 +462,30 @@ def run_pipeline(project_path_str: str, force_realign: bool = False):
             reference_words=ref_words,
             phonetic_map=phonetic_map,
             special_cases=special_cases,
-            output_words_json=output_words_json,
-            output_voix_wav=output_voix_wav
+            output_words_json=target_words_json,
+            output_voix_wav=target_voix_wav
         )
     else:
-        print(f"[Pipeline] Alignement existant réutilisé ({output_words_json}).")
-        with open(output_words_json, "r", encoding="utf-8") as f:
+        print(f"[Pipeline] Alignement existant réutilisé ({source_words_json}).")
+        with open(source_words_json, "r", encoding="utf-8") as f:
             words = json.load(f)
 
         # Garantir l'existence de voix.wav si non présent
-        if not output_voix_wav.exists() or audio_source.stat().st_mtime > output_voix_wav.stat().st_mtime:
-            print(f"[Pipeline] Génération de {output_voix_wav} depuis {audio_source.name}...")
+        source_voix_wav = target_voix_wav if target_voix_wav.exists() else (project_dir / "voix.wav")
+        if not source_voix_wav.exists() or audio_source.stat().st_mtime > source_voix_wav.stat().st_mtime:
+            print(f"[Pipeline] Génération de {target_voix_wav} depuis {audio_source.name}...")
             cmd = [
                 "ffmpeg", "-y",
                 "-i", str(audio_source),
                 "-c:a", "pcm_s16le",
                 "-ar", "44100",
                 "-ac", "1",
-                str(output_voix_wav)
+                str(target_voix_wav)
             ]
             subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE)
+            source_voix_wav = target_voix_wav
 
-        total_dur = get_audio_duration(output_voix_wav)
+        total_dur = get_audio_duration(source_voix_wav)
 
     step3_build_timeline(
         words=words,
@@ -482,7 +493,7 @@ def run_pipeline(project_path_str: str, force_realign: bool = False):
         scene_end_words=scene_end_words,
         reference_words=ref_words,
         total_audio_dur=total_dur,
-        timeline_path=str(output_timeline_js)
+        timeline_path=str(target_timeline_js)
     )
 
     print(f"✓ Pipeline timeline terminé avec succès pour {project_dir.name} ({total_dur:.2f}s).")
@@ -501,9 +512,18 @@ def main():
         action="store_true",
         help="Force le réalignement acoustique via faster-whisper même si words.json est à jour"
     )
+    parser.add_argument("--timeline", "-t", default=None, help="Chemin du fichier timeline.js de sortie")
+    parser.add_argument("--words", "-w", default=None, help="Chemin du fichier words.json")
+    parser.add_argument("--voix", default=None, help="Chemin du fichier voix.wav")
     args = parser.parse_args()
 
-    run_pipeline(args.projet, force_realign=args.realigner)
+    run_pipeline(
+        args.projet,
+        force_realign=args.realigner,
+        output_timeline_js=args.timeline,
+        output_words_json=args.words,
+        output_voix_wav=args.voix
+    )
 
 
 if __name__ == "__main__":
