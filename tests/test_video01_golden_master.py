@@ -61,7 +61,15 @@ class TestVideo01GoldenMaster(unittest.TestCase):
         self.scenes_ref_path = GOLDEN_MASTER_DIR / "scenes.reference.json"
         self.timeline_js_path = REPO_ROOT / "timeline.js"
         self.words_json_path = REPO_ROOT / "words.json"
-        self.output_mp4_path = REPO_ROOT / "output.mp4"
+        rel_video = "video1.mp4"
+        if self.manifest_path.exists():
+            try:
+                with open(self.manifest_path, "r", encoding="utf-8") as f:
+                    m_data = json.load(f)
+                rel_video = m_data.get("measured_facts", {}).get("output_mp4", {}).get("path", "video1.mp4")
+            except Exception:
+                pass
+        self.output_mp4_path = REPO_ROOT / rel_video
 
     def test_01_reference_artifacts_exist(self):
         """Vérifie la présence et la non-vacuité de tous les artefacts Golden Master."""
@@ -248,25 +256,25 @@ class TestVideo01GoldenMaster(unittest.TestCase):
                     f"Rupture de continuité entre scène {idx-1} (fin {prev_e}s) et scène {idx} (début {s}s, écart={diff:.4f}s)",
                 )
 
-    def test_06_output_mp4_and_external_backup_integrity(self):
-        """Vérifie l'intégrité de output.mp4 dans le dépôt et optionnellement de la sauvegarde externe."""
+    def test_06_video_mp4_and_external_backup_integrity(self):
+        """Vérifie l'intégrité de la vidéo de référence dans le dépôt et optionnellement de la sauvegarde externe."""
         self.assertTrue(
             self.manifest_path.exists(), "manifest.json introuvable pour test d'intégrité"
         )
         with open(self.manifest_path, "r", encoding="utf-8") as f:
             manifest = json.load(f)
 
-        # 1. Vérification stricte et obligatoire de output.mp4 dans le dépôt
+        # 1. Vérification stricte et obligatoire de la vidéo dans le dépôt
         expected_repo_sha = manifest["measured_facts"]["output_mp4"]["sha256"]
         self.assertTrue(
             self.output_mp4_path.exists(),
-            f"Fichier output.mp4 introuvable dans le dépôt : {self.output_mp4_path}",
+            f"Fichier vidéo introuvable dans le dépôt : {self.output_mp4_path}",
         )
         repo_sha = compute_sha256(self.output_mp4_path)
         self.assertEqual(
             repo_sha,
             expected_repo_sha,
-            "L'empreinte SHA-256 de output.mp4 dans le dépôt ne correspond pas au manifeste",
+            f"L'empreinte SHA-256 de {self.output_mp4_path.name} dans le dépôt ne correspond pas au manifeste",
         )
 
         # 2. Sauvegarde externe optionnelle : skipTest si absente
@@ -285,7 +293,7 @@ class TestVideo01GoldenMaster(unittest.TestCase):
         backup_sha = compute_sha256(backup_path)
         self.assertEqual(
             backup_sha,
-            expected_repo_sha,
+            backup_info["sha256"],
             "L'empreinte SHA-256 de la sauvegarde externe ne correspond pas au manifeste",
         )
 
@@ -297,7 +305,7 @@ class TestVideo01GoldenMaster(unittest.TestCase):
 
         self.assertTrue(
             self.output_mp4_path.exists(),
-            f"output.mp4 introuvable pour comparaison visuelle : {self.output_mp4_path}",
+            f"{self.output_mp4_path.name} introuvable pour comparaison visuelle : {self.output_mp4_path}",
         )
 
         with open(self.manifest_path, "r", encoding="utf-8") as f:

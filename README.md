@@ -51,8 +51,8 @@ La suite valide l'intégrité temporelle des mots, la continuité des 35 scènes
 
 ### Lancement du rendu vidéo
 ```bash
-# Génère une vidéo candidate sans jamais écraser le master
-python3 render.py output.candidate.mp4
+# Génère la vidéo finale
+python3 render.py video1.mp4
 ```
 
 Le script vérifie la présence des binaires, attend le chargement complet des polices locales et le décodage des images, puis valide automatiquement qu'aucun avatar n'est absent.

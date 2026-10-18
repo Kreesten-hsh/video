@@ -36,8 +36,7 @@ flowchart TD
     subgraph PHASE_4["Phase 4 : Rendu Frame-par-Frame & Encodage"]
         I --> L["render.py : Playwright Headless Chromium"]
         L -->|Capture JPEG q90 via stdin pipe:0| M["ffmpeg (libx264 CRF 18 @ 30 FPS)"]
-        H --> M
-        M --> N["output.candidate.mp4 ou output.mp4"]
+        M --> N["video1.mp4"]
     end
 ```
 

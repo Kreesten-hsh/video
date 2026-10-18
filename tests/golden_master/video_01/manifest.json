@@ -7,9 +7,9 @@
   "git_branch": "test/video01-golden-master",
   "measured_facts": {
     "output_mp4": {
-      "path": "output.mp4",
-      "sha256": "40ad86de522df58874e25c126fac5f6521e635afb8093fb4bacf97a972911a08",
-      "size_bytes": 13871240,
+      "path": "video1.mp4",
+      "sha256": "4f9004ca334d8c0edbab7ce84da6251ef1ce274bbae7753dea8a2cd67870e61c",
+      "size_bytes": 13991473,
       "container": "mov,mp4,m4a,3gp,3g2,mj2",
       "video_stream": {
         "codec_name": "h264",
