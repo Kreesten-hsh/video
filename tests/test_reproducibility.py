@@ -3,6 +3,7 @@ import re
 import json
 import wave
 import shutil
+import hashlib
 import subprocess
 import tempfile
 import unittest
@@ -176,6 +177,96 @@ class TestReproducibility(unittest.TestCase):
             ], stderr=subprocess.STDOUT).decode()
 
             self.assertIn("average:inf", psnr_output, f"Le PSNR entre les deux rendus n'est pas infini : {psnr_output}")
+
+    def test_deterministic_sfx_mix(self):
+        """Vérifie que deux mixages successifs d'un projet déterministe produisent des WAV identiques octet par octet (SHA-256)."""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp_path = Path(tmp_dir)
+            p_dir = tmp_path / "projet_sfx"
+            p_dir.mkdir()
+
+            # Création d'un audio voix factice de 2 secondes
+            voix_path = p_dir / "voix.wav"
+            sr = 44100
+            duration = 2.0
+            n_samples = int(sr * duration)
+            with wave.open(str(voix_path), "wb") as wf:
+                wf.setnchannels(1)
+                wf.setsampwidth(2)
+                wf.setframerate(sr)
+                # Onde sinusoïdale simple à 220Hz
+                t = np.linspace(0, duration, n_samples, endpoint=False)
+                samples = (np.sin(2 * np.pi * 220 * t) * 10000).astype(np.int16)
+                wf.writeframes(samples.tobytes())
+
+            # Timeline avec scènes générant des sfx (face = pop, big = whoosh, window = clicks)
+            scenes = [
+                {"id": "sc1", "type": "big", "start": 0.0, "end": 0.6, "data": {"text": "A", "bg": "grid"}},
+                {"id": "sc2", "type": "window", "start": 0.6, "end": 1.4, "data": {"text": "Code"}},
+                {"id": "sc3", "type": "face", "start": 1.4, "end": 2.0, "data": {"badge": "OK"}}
+            ]
+            timeline_path = p_dir / "timeline.js"
+            with open(timeline_path, "w", encoding="utf-8") as f:
+                f.write(f"window.SCENES = {json.dumps(scenes)};\n")
+
+            # Project.json déterministe
+            with open(p_dir / "project.json", "w", encoding="utf-8") as f:
+                json.dump({"video_number": 1, "rendu_deterministe": True}, f)
+
+            out1 = tmp_path / "out1.wav"
+            out2 = tmp_path / "out2.wav"
+
+            # Deux mixages successifs via project_path
+            sfx.mix_sfx(
+                voix_path=str(voix_path),
+                out_path=str(out1),
+                timeline_path=str(timeline_path),
+                project_path=str(p_dir)
+            )
+
+            sfx.mix_sfx(
+                voix_path=str(voix_path),
+                out_path=str(out2),
+                timeline_path=str(timeline_path),
+                project_path=str(p_dir)
+            )
+
+            with open(out1, "rb") as f:
+                sha1 = hashlib.sha256(f.read()).hexdigest()
+            with open(out2, "rb") as f:
+                sha2 = hashlib.sha256(f.read()).hexdigest()
+
+            self.assertEqual(sha1, sha2, f"Les hash SHA-256 diffèrent : {sha1} != {sha2}")
+
+            # Vérification qu'en mode non-déterministe, les hash diffèrent bien (effet du bruit non seedé)
+            with open(p_dir / "project.json", "w", encoding="utf-8") as f:
+                json.dump({"video_number": 1, "rendu_deterministe": False}, f)
+
+            out_rnd1 = tmp_path / "rnd1.wav"
+            out_rnd2 = tmp_path / "rnd2.wav"
+
+            sfx.mix_sfx(
+                voix_path=str(voix_path),
+                out_path=str(out_rnd1),
+                timeline_path=str(timeline_path),
+                project_path=str(p_dir)
+            )
+            sfx.mix_sfx(
+                voix_path=str(voix_path),
+                out_path=str(out_rnd2),
+                timeline_path=str(timeline_path),
+                project_path=str(p_dir)
+            )
+
+            with open(out_rnd1, "rb") as f:
+                sha_rnd1 = hashlib.sha256(f.read()).hexdigest()
+            with open(out_rnd2, "rb") as f:
+                sha_rnd2 = hashlib.sha256(f.read()).hexdigest()
+
+            self.assertNotEqual(
+                sha_rnd1, sha_rnd2,
+                "En mode non-déterministe, les fichiers sont inopinément identiques."
+            )
 
 
 if __name__ == "__main__":

@@ -3,10 +3,11 @@ import re
 import sys
 import json
 import wave
+import zlib
 
 import numpy as np
 
-def generate_soft_whoosh(sr=44100, duration=0.040) -> np.ndarray:
+def generate_soft_whoosh(sr=44100, duration=0.040, rng=None) -> np.ndarray:
     """
     Whoosh feutré de transition (40ms) :
     Bruit rose/blanc filtré passe-bas avec enveloppe en cloche douce (Hann).
@@ -16,7 +17,10 @@ def generate_soft_whoosh(sr=44100, duration=0.040) -> np.ndarray:
     t = np.linspace(0, duration, n_samples, endpoint=False)
     
     # Bruit aléatoire lissé par moyenne mobile (filtre passe-bas acoustique ~1200Hz)
-    noise = np.random.uniform(-1.0, 1.0, n_samples)
+    if rng is not None:
+        noise = rng.uniform(-1.0, 1.0, n_samples)
+    else:
+        noise = np.random.uniform(-1.0, 1.0, n_samples)
     window_len = 16
     kernel = np.ones(window_len) / window_len
     smoothed_noise = np.convolve(noise, kernel, mode="same")
@@ -42,7 +46,7 @@ def generate_organic_pop(sr=44100, duration=0.035) -> np.ndarray:
     pop = np.sin(phase) * envelope * 0.079  # -22 dB
     return pop.astype(np.float32)
 
-def generate_micro_click(sr=44100, duration=0.008) -> np.ndarray:
+def generate_micro_click(sr=44100, duration=0.008, rng=None) -> np.ndarray:
     """
     Micro-clic mécanique discret (8ms) pour typewriter :
     Impulsion amortie 650Hz sans stridence.
@@ -53,7 +57,10 @@ def generate_micro_click(sr=44100, duration=0.008) -> np.ndarray:
     
     envelope = np.exp(-t * 550)
     sine = np.sin(2 * np.pi * 650 * t) * 0.7
-    noise = np.random.uniform(-0.3, 0.3, n_samples)
+    if rng is not None:
+        noise = rng.uniform(-0.3, 0.3, n_samples)
+    else:
+        noise = np.random.uniform(-0.3, 0.3, n_samples)
     click = (sine + noise) * envelope * 0.050  # -26 dB
     return click.astype(np.float32)
 
@@ -74,10 +81,13 @@ def mix_sfx(
     voix_path: str = None,
     out_path: str = None,
     timeline_path: str = None,
-    project_path: str = None
+    project_path: str = None,
+    seed: int = None
 ):
     from pathlib import Path
 
+    p_dir = None
+    rendu_deterministe = None
     if project_path:
         p_dir = Path(project_path)
         if p_dir.is_file():
@@ -85,10 +95,30 @@ def mix_sfx(
         voix_path = voix_path or str(p_dir / "voix.wav")
         out_path = out_path or str(p_dir / "audio_final.wav")
         timeline_path = timeline_path or str(p_dir / "timeline.js")
+        proj_file = p_dir / "project.json"
+        if proj_file.exists():
+            try:
+                with open(proj_file, "r", encoding="utf-8") as f:
+                    p_data = json.load(f)
+                    rendu_deterministe = p_data.get("rendu_deterministe")
+            except Exception:
+                pass
     else:
         voix_path = voix_path or "voix.wav"
         out_path = out_path or "audio_final.wav"
         timeline_path = timeline_path or "timeline.js"
+
+    # Détermination de la graine aléatoire pour les bruitages
+    rng = None
+    if seed is not None:
+        rng = np.random.default_rng(seed)
+    elif rendu_deterministe is False:
+        rng = None  # Comportement aléatoire non déterministe historique préservé
+    else:
+        # Dérivation stable de la graine via zlib.crc32 du nom du projet
+        proj_id = p_dir.name if p_dir else Path(out_path).stem
+        stable_seed = zlib.crc32(proj_id.encode("utf-8"))
+        rng = np.random.default_rng(stable_seed)
 
     if not os.path.exists(voix_path):
         raise FileNotFoundError(f"Erreur : fichier voix '{voix_path}' introuvable.")
@@ -113,9 +143,9 @@ def mix_sfx(
     total_samples = len(audio)
 
     # Génération des banques acoustiques douces
-    whoosh_sfx = generate_soft_whoosh(framerate)
+    whoosh_sfx = generate_soft_whoosh(framerate, rng=rng)
     pop_sfx = generate_organic_pop(framerate)
-    click_sfx = generate_micro_click(framerate)
+    click_sfx = generate_micro_click(framerate, rng=rng)
 
     for sc in scenes:
         t_start = sc.get("start", 0.0)
@@ -168,6 +198,7 @@ if __name__ == "__main__":
     parser.add_argument("--voix", default=None, help="Chemin voix.wav")
     parser.add_argument("--out", default=None, help="Chemin audio_final.wav")
     parser.add_argument("--timeline", default=None, help="Chemin timeline.js")
+    parser.add_argument("--seed", type=int, default=None, help="Graine aléatoire pour bruitages déterministes")
     args = parser.parse_args()
 
     default_proj = args.projet
@@ -178,5 +209,6 @@ if __name__ == "__main__":
         voix_path=args.voix,
         out_path=args.out,
         timeline_path=args.timeline,
-        project_path=default_proj
+        project_path=default_proj,
+        seed=args.seed
     )
