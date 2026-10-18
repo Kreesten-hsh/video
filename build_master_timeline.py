@@ -3,17 +3,16 @@ import sys
 import re
 import json
 import wave
-import site
+import shutil
 import subprocess
 from pathlib import Path
 
-_user_site = os.path.expanduser("~/.local/lib/python3.12/site-packages")
-if _user_site not in sys.path:
-    site.addsitedir(_user_site)
-
+# Ajout dynamique du répertoire bin local du dépôt au PATH si présent
 _local_bin = str(Path(__file__).parent.resolve() / "bin")
-if _local_bin not in os.environ.get("PATH", ""):
-    os.environ["PATH"] = f"{_local_bin}:{os.environ.get('PATH', '')}"
+_path_elements = os.environ.get("PATH", "").split(os.pathsep) if os.environ.get("PATH") else []
+if _local_bin not in _path_elements and Path(_local_bin).is_dir():
+    _path_elements.insert(0, _local_bin)
+os.environ["PATH"] = os.pathsep.join(_path_elements)
 
 import numpy as np
 

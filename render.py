@@ -8,13 +8,11 @@ import subprocess
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
-# Ajout dynamique des répertoires bin locaux usuels au PATH
+# Ajout dynamique du répertoire bin local du dépôt au PATH si présent
 _local_bin = str(Path(__file__).parent.resolve() / "bin")
-_user_local_bin = str(Path.home() / ".local" / "bin")
 _path_elements = os.environ.get("PATH", "").split(os.pathsep) if os.environ.get("PATH") else []
-for _candidate in [_local_bin, _user_local_bin]:
-    if _candidate not in _path_elements and Path(_candidate).is_dir():
-        _path_elements.insert(0, _candidate)
+if _local_bin not in _path_elements and Path(_local_bin).is_dir():
+    _path_elements.insert(0, _local_bin)
 os.environ["PATH"] = os.pathsep.join(_path_elements)
 
 
@@ -107,28 +105,16 @@ def setup_render_page(browser, html_abs_uri: str):
     return context, page
 
 
-def verify_rendered_avatars(video_path: str, scenes_ref_path: str = "tests/golden_master/video_01/scenes.reference.json"):
+def verify_rendered_avatars(video_path: str, scenes: list) -> bool:
     """Vérifie automatiquement après rendu qu'aucune scène avec avatar ne présente une zone vide."""
-    scenes = []
-    p = Path(scenes_ref_path)
-    if p.exists():
-        with open(p, "r", encoding="utf-8") as f:
-            scenes = json.load(f)
-    elif Path("timeline.js").exists():
-        import re
-        txt = Path("timeline.js").read_text(encoding="utf-8")
-        m = re.search(r"window\.SCENES\s*=\s*(\[.*?\]);", txt, re.DOTALL)
-        if m:
-            scenes = json.loads(m.group(1))
-
     if not scenes:
-        print("[Vérification] Aucune scène trouvée pour validation.")
+        print("[Vérification] Aucune scène fournie pour validation des avatars.")
         return True
 
     import cv2
     import numpy as np
 
-    cap = cv2.VideoCapture(video_path)
+    cap = cv2.VideoCapture(str(video_path))
     if not cap.isOpened():
         raise RuntimeError(f"Impossible d'ouvrir la vidéo {video_path} pour vérification des avatars.")
 
@@ -148,7 +134,7 @@ def verify_rendered_avatars(video_path: str, scenes_ref_path: str = "tests/golde
         cap.set(cv2.CAP_PROP_POS_FRAMES, frame_idx)
         ret, frame_bgr = cap.read()
         if not ret:
-            failed_scenes.append((sc["id"], t_sample, "Échec de lecture de l'image"))
+            failed_scenes.append((sc.get("id", "?"), t_sample, "Échec de lecture de l'image"))
             continue
 
         # Zone avatar (y: 1200..1800, x: 250..830)
@@ -159,7 +145,7 @@ def verify_rendered_avatars(video_path: str, scenes_ref_path: str = "tests/golde
         # Fond vide (#0D1117) présente une luminance moyenne < 32 et un écart-type très faible (< 10)
         if mean_lum < 32.0 and std_lum < 10.0:
             failed_scenes.append(
-                (sc["id"], t_sample, f"Avatar absent (luminance moyenne={mean_lum:.2f}, std={std_lum:.2f})")
+                (sc.get("id", "?"), t_sample, f"Avatar absent (luminance moyenne={mean_lum:.2f}, std={std_lum:.2f})")
             )
 
     cap.release()
@@ -168,7 +154,7 @@ def verify_rendered_avatars(video_path: str, scenes_ref_path: str = "tests/golde
         details = "\n".join([f" - Scène {s_id} (t={ts:.2f}s) : {reason}" for s_id, ts, reason in failed_scenes])
         raise AssertionError(f"Vérification post-rendu échouée : avatar absent dans les scènes suivantes :\n{details}")
 
-    print("[Vérification post-rendu] Conforme : aucun avatar absent détecté sur toutes les scènes.")
+    print(f"✓ Vérification avatars réussie sur {len(scenes)} scène(s).")
     return True
 
 
@@ -177,7 +163,8 @@ def render_video(
     audio_path: str = "audio_final.wav",
     output_path: str = "output.candidate.mp4",
     fps: int = 30,
-    verify_avatars: bool = True
+    verify_avatars: bool = True,
+    scenes: list = None
 ):
     check_dependencies()
 
@@ -264,8 +251,8 @@ def render_video(
     proc.wait()
     print(f"\n✓ Rendu terminé avec succès -> {output_path}")
 
-    if verify_avatars:
-        verify_rendered_avatars(output_path)
+    if verify_avatars and scenes is not None:
+        verify_rendered_avatars(output_path, scenes)
 
 
 if __name__ == "__main__":

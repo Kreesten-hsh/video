@@ -3,12 +3,6 @@ import re
 import sys
 import json
 import wave
-import site
-from pathlib import Path
-
-_user_site = os.path.expanduser("~/.local/lib/python3.12/site-packages")
-if _user_site not in sys.path:
-    site.addsitedir(_user_site)
 
 import numpy as np
 

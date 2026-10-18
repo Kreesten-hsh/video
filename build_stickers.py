@@ -1,12 +1,5 @@
 import os
 import sys
-import site
-from pathlib import Path
-from collections import deque
-
-_user_site = os.path.expanduser("~/.local/lib/python3.12/site-packages")
-if _user_site not in sys.path:
-    site.addsitedir(_user_site)
 
 import numpy as np
 from PIL import Image, ImageFilter
