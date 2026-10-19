@@ -219,7 +219,7 @@ def validate_timeline(words, scenes, total_audio_dur, reference_words, scene_end
     print("-" * 88 + "\n")
 
 
-def step3_build_timeline(words, scenes_configs, scene_end_words, reference_words, total_audio_dur, timeline_path="timeline.js"):
+def step3_build_timeline(words, scenes_configs, scene_end_words, reference_words, total_audio_dur, timeline_path="timeline.js", project_config=None):
     num_scenes = len(scenes_configs)
     print(f"[Timeline] Génération des {num_scenes} scènes synchronisées dans {timeline_path}...")
 
@@ -271,6 +271,8 @@ def step3_build_timeline(words, scenes_configs, scene_end_words, reference_words
     # Export JS
     js_content = f"// TIMELINE VIDÉO PROGRAMMATIQUE SUR-MESURE ({num_scenes} SCÈNES)\n"
     js_content += f"// Généré automatiquement par build_master_timeline.py\n\n"
+    if project_config:
+        js_content += f"window.PROJECT_CONFIG = {json.dumps(project_config, indent=2, ensure_ascii=False)};\n\n"
     js_content += f"window.WORDS = {json.dumps(words, indent=2, ensure_ascii=False)};\n\n"
     js_content += f"window.SCENES = {json.dumps(scenes, indent=2, ensure_ascii=False)};\n"
 
@@ -336,6 +338,7 @@ def align_reference_audio(audio_source_path: Path, reference_words: list, phonet
     n_ref = len(reference_words)
     n_raw = len(raw_words)
     handle_zero_euro = special_cases.get("zero_euro_split", False)
+    handle_video_02_merges = special_cases.get("video_02_merges", False)
 
     while r_idx < n_ref and w_idx < n_raw:
         rw = reference_words[r_idx]
@@ -359,8 +362,34 @@ def align_reference_audio(audio_source_path: Path, reference_words: list, phonet
             w_idx += 1
             continue
 
+        # 2b. Cas spécifique video_02 pour 'recoin de' (Whisper: 'recointe')
+        if handle_video_02_merges and rw == "recoin" and r_idx + 1 < n_ref and reference_words[r_idx + 1] == "de" and w_n == "recointe":
+            t_s = float(raw_words[w_idx]["start"])
+            t_e = float(raw_words[w_idx]["end"])
+            mid = round((t_s + t_e) / 2.0, 3)
+            aligned_words.append({"word": rw, "start": t_s, "end": mid})
+            aligned_words.append({"word": reference_words[r_idx + 1], "start": mid, "end": t_e})
+            r_idx += 2
+            w_idx += 1
+            continue
+
+        # 2c. Cas spécifique video_02 pour 'haut de ta landing' (Whisper: 'haute' + 'talending')
+        if handle_video_02_merges and rw == "haut" and r_idx + 3 < n_ref and reference_words[r_idx:r_idx+4] == ["haut", "de", "ta", "landing"] and w_n == "haute" and w_idx + 1 < n_raw and norm(raw_words[w_idx+1]["word"]) == "talending":
+            t0 = float(raw_words[w_idx]["start"])
+            t1 = float(raw_words[w_idx]["end"])
+            t2 = float(raw_words[w_idx+1]["start"])
+            t3 = float(raw_words[w_idx+1]["end"])
+            aligned_words.append({"word": "haut", "start": t0, "end": t1})
+            step = (t3 - t2) / 3.0
+            aligned_words.append({"word": "de", "start": t2, "end": round(t2 + step, 3)})
+            aligned_words.append({"word": "ta", "start": round(t2 + step, 3), "end": round(t2 + 2*step, 3)})
+            aligned_words.append({"word": "landing", "start": round(t2 + 2*step, 3), "end": t3})
+            r_idx += 4
+            w_idx += 2
+            continue
+
         # 3. Correspondance directe ou phonétique validée
-        if r_n == w_n or phonetic_map.get(r_n) == w_n:
+        if r_n == w_n or phonetic_map.get(r_n) == w_n or phonetic_map.get(w_n) == r_n:
             aligned_words.append({
                 "word": rw,
                 "start": float(raw_words[w_idx]["start"]),
@@ -370,13 +399,14 @@ def align_reference_audio(audio_source_path: Path, reference_words: list, phonet
             w_idx += 1
             continue
 
-        # 4. Mots composés / contractions découpées par Whisper (ex: l'ai, j'ai, c'est, envoie-moi)
-        if r_n.startswith(w_n):
+        # 4. Mots composés / contractions découpées par Whisper (ex: l'ai, j'ai, c'est, envoie-moi, demo -> des+mots)
+        expected_norm = phonetic_map.get(r_n, r_n)
+        if expected_norm.startswith(w_n):
             start_t = float(raw_words[w_idx]["start"])
             end_t = float(raw_words[w_idx]["end"])
             accum = w_n
             w_next = w_idx + 1
-            while w_next < n_raw and len(accum) < len(r_n):
+            while w_next < n_raw and len(accum) < len(expected_norm):
                 next_norm = norm(raw_words[w_next]["word"])
                 if next_norm == '':
                     end_t = max(end_t, float(raw_words[w_next]["end"]))
@@ -386,7 +416,7 @@ def align_reference_audio(audio_source_path: Path, reference_words: list, phonet
                 end_t = float(raw_words[w_next]["end"])
                 w_next += 1
 
-            if accum == r_n:
+            if accum == expected_norm:
                 aligned_words.append({
                     "word": rw,
                     "start": start_t,
@@ -487,13 +517,18 @@ def run_pipeline(
 
         total_dur = get_audio_duration(source_voix_wav)
 
+    proj_cfg = {}
+    if "theme" in project_data:
+        proj_cfg["theme"] = project_data["theme"]
+
     step3_build_timeline(
         words=words,
         scenes_configs=scenes_configs,
         scene_end_words=scene_end_words,
         reference_words=ref_words,
         total_audio_dur=total_dur,
-        timeline_path=str(target_timeline_js)
+        timeline_path=str(target_timeline_js),
+        project_config=proj_cfg if proj_cfg else None
     )
 
     print(f"✓ Pipeline timeline terminé avec succès pour {project_dir.name} ({total_dur:.2f}s).")

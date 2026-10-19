@@ -123,5 +123,21 @@ Pour encaisser exactement ou plus de 2 000 000 FCFA (soit 3 049 €) avant le 31
 2. **Option B (Forte récurrence Studio)** : Signer **1 client Studio fin octobre** (3 mois = 1 500 €) + **1 client Studio mi-novembre** (2 mois = 1 000 €) + **1 client Studio en décembre** (1 mois = 500 €) + **1 Pilote** (250 €). Total : **3 250 €** (2 131 860 FCFA).
 3. **Option C (Pur Pilote sans récurrence)** : Vendre **13 Pilotes payants** à 250 € chacun. Total : **3 250 €** (2 131 860 FCFA). Exige de trouver 13 clients distincts en 75 jours (charge de prospection très élevée).
 
+---
+
+## 7. Répartition Chirurgicale des Efforts & Application des 5 Concepts
+
+### A. Ciblage des segments rentables (70 / 30)
+- **70 % des efforts commerciaux** : Cible n° 1 — **Fondateurs de SaaS B2B bootstrappés rentables** (Typebot, Piloterr, Breakcold, Pharow, Tally). Painkiller : leurs fonctionnalités sont techniques, les prospects ne regardent pas les Looms de 10 min. Conversion naturelle : Pilote 250 € (3 vidéos) vers Studio 500 €/m.
+- **30 % des efforts commerciaux** : Cible n° 2 — **Agences B2B expertes & Organismes Tech** (Digidop, Noqode, Contournement, Ottho). Painkiller : publient à l'écrit mais pas le temps de tourner en vidéo face caméra. Conversion naturelle : Studio 500 €/m (8 vidéos) pour du MRR prévisible.
+- **Exclusion stricte** : Freelances débutants (pas de budget 250 €) et grandes licornes (Pennylane, Gorgias avec studios internes) -> Zéro temps alloué.
+
+### B. Application des 5 concepts directeurs à l'objectif financier
+1. **Concept 1 (Problème précis)** : Ne plus vendre une idée vague ou du code Python, mais vendre la clarté visuelle qui remplace la caméra et convertit les prospects B2B.
+2. **Concept 2 (Fonctionnement étape par étape)** : Cycle de vente standardisé : message d'accroche ultra-ciblé → proposition d'un pilote 250 € sous 48h → encaissement d'avance → livraison MP4 1080x1920.
+3. **Concept 3 (Non-objectifs clairs)** : Refus d'accorder des remises, refus de faire des démos gratuites non sollicitées, refus de prospecter hors du Top 10 qualifié.
+4. **Concept 4 (Constat précis mesuré)** : Suivi rigoureux du tableau de conversion : nombre de décideurs contactés, taux de réponse, nombre de paiements reçus (rapprochement bancaire).
+5. **Concept 5 (Critères d'acceptation testables)** : L'objectif 2 000 000 FCFA est validé uniquement lorsque les relevés bancaires attestent 2 000 000 FCFA crédités.
+
 ### Condition critique de succès
-Arrêter immédiatement tout développement technique superficiel et démarrer les premiers contacts directs auprès des décideurs cibles avant la fin du mois d'octobre 2026.
+Arrêter immédiatement tout développement technique superflu et démarrer les premiers contacts directs auprès des décideurs cibles avant la fin du mois d'octobre 2026.

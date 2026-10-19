@@ -1,0 +1,704 @@
+{
+  "video_number": 2,
+  "title": "La mort des démos Loom",
+  "audio_path": "voix.wav",
+  "gele": false,
+  "rendu_deterministe": true,
+  "reference_words": [
+    "Arrête",
+    "d'envoyer",
+    "des",
+    "vidéos",
+    "Loom",
+    "de",
+    "dix",
+    "minutes",
+    "à",
+    "tes",
+    "prospects,",
+    "personne",
+    "ne",
+    "les",
+    "regarde",
+    "jusqu'au",
+    "bout.",
+    "Quand",
+    "un",
+    "décideur",
+    "ouvre",
+    "ton",
+    "lien",
+    "et",
+    "voit",
+    "douze",
+    "minutes",
+    "d'écran",
+    "partagé,",
+    "avec",
+    "des",
+    "hésitations,",
+    "des",
+    "silences",
+    "et",
+    "une",
+    "voix",
+    "fatiguée,",
+    "il",
+    "ferme",
+    "l'onglet",
+    "en",
+    "trente",
+    "secondes.",
+    "Le",
+    "pire,",
+    "c'est",
+    "que",
+    "ton",
+    "produit",
+    "est",
+    "peut-être",
+    "excellent,",
+    "mais",
+    "ta",
+    "démonstration",
+    "détruit",
+    "toute",
+    "sa",
+    "valeur",
+    "perçue",
+    "avant",
+    "même",
+    "le",
+    "premier",
+    "appel.",
+    "Aujourd'hui,",
+    "un",
+    "acheteur",
+    "B2B",
+    "ne",
+    "veut",
+    "pas",
+    "visiter",
+    "chaque",
+    "recoin",
+    "de",
+    "ton",
+    "interface,",
+    "il",
+    "veut",
+    "comprendre",
+    "en",
+    "soixante",
+    "secondes",
+    "comment",
+    "tu",
+    "règles",
+    "son",
+    "problème.",
+    "C'est",
+    "pour",
+    "ça",
+    "qu'on",
+    "a",
+    "créé",
+    "un",
+    "format",
+    "vidéo",
+    "chirurgical,",
+    "entièrement",
+    "animé",
+    "par",
+    "le",
+    "code.",
+    "Zéro",
+    "caméra,",
+    "zéro",
+    "prise",
+    "ratée.",
+    "Tu",
+    "enregistres",
+    "une",
+    "simple",
+    "note",
+    "vocale",
+    "de",
+    "deux",
+    "minutes",
+    "pour",
+    "expliquer",
+    "ton",
+    "outil,",
+    "notre",
+    "système",
+    "coupe",
+    "chaque",
+    "hésitation",
+    "et",
+    "synchronise",
+    "chaque",
+    "mot",
+    "au",
+    "centième",
+    "de",
+    "seconde.",
+    "Ensuite,",
+    "le",
+    "rendu",
+    "met",
+    "en",
+    "scène",
+    "ton",
+    "interface:",
+    "il",
+    "isole",
+    "tes",
+    "fonctionnalités",
+    "clés,",
+    "simule",
+    "le",
+    "parcours",
+    "utilisateur",
+    "et",
+    "génère",
+    "une",
+    "démonstration",
+    "haute",
+    "définition",
+    "au",
+    "pixel",
+    "près.",
+    "En",
+    "quarante-huit",
+    "heures,",
+    "tu",
+    "reçois",
+    "trois",
+    "vidéos",
+    "verticales",
+    "prêtes",
+    "à",
+    "capter",
+    "l'attention",
+    "sur",
+    "LinkedIn,",
+    "en",
+    "prospection",
+    "ou",
+    "en",
+    "haut",
+    "de",
+    "ta",
+    "landing",
+    "page.",
+    "Si",
+    "tu",
+    "veux",
+    "transformer",
+    "tes",
+    "démos",
+    "passives",
+    "en",
+    "machine",
+    "à",
+    "générer",
+    "des",
+    "rendez-vous",
+    "qualifiés,",
+    "envoie-moi",
+    "DEMO",
+    "en",
+    "message",
+    "privé."
+  ],
+  "scenes": [
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/stop.png",
+        "badge": "STOP AUX LOOM DE 10 MIN 🛑",
+        "bg": "alert"
+      },
+      "id": "sc_01"
+    },
+    {
+      "type": "loom_player_fail",
+      "data": {
+        "title": "demo_produit_v4.mp4",
+        "duration": "11:45",
+        "stoppedAt": "00:28",
+        "dropRate": "-88%",
+        "label": "DÉCROCHAGE PROSPECT",
+        "bg": "alert"
+      },
+      "id": "sc_02"
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/watch.png",
+        "badge": "12 MINUTES D'ÉCRAN PARTAGÉ ⏳",
+        "bg": "grid"
+      },
+      "id": "sc_03"
+    },
+    {
+      "type": "list",
+      "data": {
+        "header": "POURQUOI TON PROSPECT DÉCROCHE ❌",
+        "items": [
+          "Euh... attends je partage",
+          "Silences & micro mal réglé",
+          "Zéro structure visuelle"
+        ],
+        "bg": "alert"
+      },
+      "id": "sc_04"
+    },
+    {
+      "type": "big",
+      "data": {
+        "text": "ONGLET FERMÉ ❌",
+        "sub": "PERDU EN 30 SECONDES CHRONO",
+        "bg": "alert"
+      },
+      "id": "sc_05"
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/skeptic.png",
+        "badge": "TON PRODUIT EST EXCELLENT... MAIS 🤨",
+        "bg": "grid"
+      },
+      "id": "sc_06"
+    },
+    {
+      "type": "cards",
+      "data": {
+        "cards": [
+          {
+            "icon": "📉",
+            "title": "VALEUR PERÇUE DÉTRUITE",
+            "sub": "UNE DÉMO AMATEUR COÛTE DES DEALS"
+          }
+        ],
+        "bg": "alert"
+      },
+      "id": "sc_07"
+    },
+    {
+      "type": "phone_mockup_duo",
+      "data": {
+        "left": {
+          "title": "LOOM 12 MIN ❌",
+          "badge": "0 RDV BOOKÉ",
+          "items": [
+            "12 min d'écran partagé",
+            "Hésitations & silences",
+            "Zéro structure visuelle"
+          ]
+        },
+        "right": {
+          "title": "PITCH 60S ✅",
+          "badge": "DÉCIDEUR CAPTIVÉ",
+          "items": [
+            "60 secondes chrono",
+            "Bénéfices visibles d'emblée",
+            "Zooms & sous-titres dynamiques"
+          ]
+        },
+        "bg": "grid"
+      },
+      "id": "sc_08"
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/trash.png",
+        "badge": "ZÉRO VISITE GUIDÉE ENNUYEUSE 🗑️",
+        "bg": "grid"
+      },
+      "id": "sc_09"
+    },
+    {
+      "type": "sync_timer",
+      "data": {
+        "header": "⏱️ FENÊTRE D'ATTENTION B2B",
+        "digits": "00:60.000 s",
+        "pills": [
+          "[CLARTÉ]",
+          "[IMPACT]",
+          "[ACTION]"
+        ],
+        "bg": "grid"
+      },
+      "id": "sc_10"
+    },
+    {
+      "type": "big",
+      "data": {
+        "text": "60 SECONDES",
+        "sub": "POUR PROUVER TON ROI IMMÉDIAT ⚡",
+        "bg": "mint"
+      },
+      "id": "sc_11"
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/idea.png",
+        "badge": "LA NOUVELLE MÉTHODE B2B 💡",
+        "bg": "grid"
+      },
+      "id": "sc_12"
+    },
+    {
+      "type": "window",
+      "data": {
+        "title": "agent404_terminal.sh",
+        "code": "$ ./agent404 --build-saas-demo\n✓ Extraction des bénéfices clés\n✓ Rendu net au pixel près : OK",
+        "bg": "grid"
+      },
+      "id": "sc_13"
+    },
+    {
+      "type": "cards",
+      "data": {
+        "cards": [
+          {
+            "icon": "📱",
+            "title": "ZÉRO CAMÉRA REQUISE",
+            "sub": "AUCUN MATÉRIEL COÛTEUX NI FOND VERT"
+          }
+        ],
+        "bg": "grid"
+      },
+      "id": "sc_14"
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/target.png",
+        "badge": "ZÉRO PRISE RATÉE 🎯",
+        "bg": "grid"
+      },
+      "id": "sc_15"
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/mic.png",
+        "badge": "1. TA NOTE VOCALE (2 MIN) 🎙️",
+        "bg": "grid"
+      },
+      "id": "sc_16"
+    },
+    {
+      "type": "cards",
+      "data": {
+        "cards": [
+          {
+            "icon": "🎙️",
+            "title": "UN SIMPLE MÉMO AUDIO",
+            "sub": "TU PARLES NATURELLEMENT DE TON OFFRE"
+          }
+        ],
+        "bg": "grid"
+      },
+      "id": "sc_17"
+    },
+    {
+      "type": "audio_wave",
+      "data": {
+        "title": "demo_voice.m4a — PURGE DES SILENCES",
+        "sub": "✂️ HÉSITATIONS SUPPRIMÉES",
+        "bg": "grid"
+      },
+      "id": "sc_18"
+    },
+    {
+      "type": "sync_timer",
+      "data": {
+        "header": "SYNCHRONISATION ACOUSTIQUE",
+        "digits": "00:00.010 ms",
+        "pills": [
+          "[MOT]",
+          "[PAR]",
+          "[MOT]"
+        ],
+        "bg": "diamonds"
+      },
+      "id": "sc_19"
+    },
+    {
+      "type": "window",
+      "data": {
+        "title": "saas_interface_builder.sh",
+        "code": "$ ./pipeline --animate-saas-ui\n✓ Détection des boutons d'action\n✓ Zooms dynamiques 60 FPS",
+        "bg": "grid"
+      },
+      "id": "sc_20"
+    },
+    {
+      "type": "cards",
+      "data": {
+        "cards": [
+          {
+            "icon": "⚡",
+            "title": "PROBLÈME RÉSOLU",
+            "sub": "VISIBLE DÈS LA PREMIÈRE SECONDE"
+          },
+          {
+            "icon": "💰",
+            "title": "ROI CHIFFRÉ",
+            "sub": "ARGUMENTS B2B STRUCTURÉS"
+          }
+        ],
+        "bg": "grid"
+      },
+      "id": "sc_21"
+    },
+    {
+      "type": "workflow_nodes",
+      "data": {
+        "header": "PARCOURS CLIENT SIMPLIFIÉ",
+        "steps": [
+          {
+            "num": "01",
+            "title": "PROBLÈME CLIENT",
+            "desc": "Douleur identifiée"
+          },
+          {
+            "num": "02",
+            "title": "TON PRODUIT",
+            "desc": "Solution en 1 clic"
+          },
+          {
+            "num": "03",
+            "title": "RÉSULTAT",
+            "desc": "Adoption & conversion"
+          }
+        ],
+        "bg": "grid"
+      },
+      "id": "sc_22"
+    },
+    {
+      "type": "ffmpeg_render",
+      "data": {
+        "header": "COMPILATION VIDÉO PROGRAMMATIQUE",
+        "bg": "grid"
+      },
+      "id": "sc_23"
+    },
+    {
+      "type": "big",
+      "data": {
+        "text": "1080x1920",
+        "sub": "30 FPS • QUALITÉ BROADCAST 🔥",
+        "bg": "mint"
+      },
+      "id": "sc_24"
+    },
+    {
+      "type": "speed_counter",
+      "data": {
+        "bg": "grid"
+      },
+      "id": "sc_25"
+    },
+    {
+      "type": "tier_table",
+      "data": {
+        "header": "PACK 3 VIDÉOS DÉDIÉES",
+        "tiers": [
+          {
+            "num": "01",
+            "name": "Vidéo Hook & Problème",
+            "desc": "Capte l'attention dans le feed sans le son"
+          },
+          {
+            "num": "02",
+            "name": "Vidéo Démo Produit 60s",
+            "desc": "Prouve la valeur et le gain de temps direct"
+          },
+          {
+            "num": "03",
+            "name": "Vidéo Preuve & Action",
+            "desc": "Convertit le prospect en rendez-vous"
+          }
+        ],
+        "bg": "grid"
+      },
+      "id": "sc_26"
+    },
+    {
+      "type": "cursor_action",
+      "data": {
+        "windowTitle": "PAGE DE VENTE SAAS",
+        "buttonText": "RÉSERVER UNE DÉMO ⚡",
+        "feedback": "✓ RENDEZ-VOUS CONFIRMÉ",
+        "bg": "grid"
+      },
+      "id": "sc_27"
+    },
+    {
+      "type": "cards",
+      "data": {
+        "cards": [
+          {
+            "icon": "💼",
+            "title": "LINKEDIN & OUTBOUND",
+            "sub": "CAPTE L'ATTENTION DANS LE FEED SANS LE SON"
+          }
+        ],
+        "bg": "grid"
+      },
+      "id": "sc_28"
+    },
+    {
+      "type": "cards",
+      "data": {
+        "cards": [
+          {
+            "icon": "💼",
+            "title": "LINKEDIN & OUTBOUND",
+            "sub": "CAPTE LE FEED SANS LE SON"
+          },
+          {
+            "icon": "📩",
+            "title": "COLD EMAIL & RELANCES",
+            "sub": "REMPLACE TES PAVÉS DE TEXTE"
+          }
+        ],
+        "bg": "grid"
+      },
+      "id": "sc_29"
+    },
+    {
+      "type": "split",
+      "data": {
+        "left": {
+          "tag": "LOOM CLASSIQUE ❌",
+          "badge": "0 RDV BOOKÉ",
+          "text": "12 min d'écran flou\nTaux de clic faible\nZéro montage"
+        },
+        "right": {
+          "tag": "PITCH AGENT404 ✅",
+          "badge": "DÉCIDEUR CONQUIS",
+          "text": "3 vidéos de 60s\nClé en main\nLivrées en 48h"
+        },
+        "bg": "grid"
+      },
+      "id": "sc_30"
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/mindblown.png",
+        "badge": "CHANGE DE DIMENSION VISUELLE 🚀",
+        "bg": "grid"
+      },
+      "id": "sc_31"
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/contract.png",
+        "badge": "3 VIDÉOS LIVRÉES CLÉ EN MAIN 📋",
+        "bg": "grid"
+      },
+      "id": "sc_32"
+    },
+    {
+      "type": "face",
+      "data": {
+        "avatar": "assets/avatars/pointing.png",
+        "badge": "PASSE À L'ACTION MAINTENANT 👇",
+        "bg": "diamonds"
+      },
+      "id": "sc_33"
+    },
+    {
+      "type": "big",
+      "data": {
+        "text": "ENVOIE « DEMO »",
+        "sub": "POUR CRÉER TES 3 VIDÉOS SUR-MESURE",
+        "bg": "mint"
+      },
+      "id": "sc_34"
+    },
+    {
+      "type": "dm_cta_sim",
+      "data": {
+        "targetUser": "@AGENT404",
+        "keyword": "DEMO",
+        "responseText": "✓ Message reçu. Démo envoyée en 2 min.",
+        "bg": "circles"
+      },
+      "id": "sc_35"
+    }
+  ],
+  "scene_end_words": [
+    "prospects,",
+    "bout.",
+    "partagé,",
+    "fatiguée,",
+    "secondes.",
+    "excellent,",
+    "perçue",
+    "appel.",
+    "interface,",
+    "secondes",
+    "problème.",
+    "chirurgical,",
+    "code.",
+    "caméra,",
+    "ratée.",
+    "minutes",
+    "outil,",
+    "hésitation",
+    "seconde.",
+    "interface:",
+    "clés,",
+    "utilisateur",
+    "définition",
+    "près.",
+    "heures,",
+    "verticales",
+    "l'attention",
+    "LinkedIn,",
+    "prospection",
+    "page.",
+    "passives",
+    "qualifiés,",
+    "envoie-moi",
+    "DEMO",
+    "privé."
+  ],
+  "phonetic_map": {
+    "loom": "looms",
+    "dix": "10",
+    "douze": "12",
+    "trente": "30",
+    "soixante": "60",
+    "zero": "0",
+    "deux": "2",
+    "quarantehuit": "48",
+    "trois": "3",
+    "demo": "desmots",
+    "partage": "partages",
+    "machines": "machine",
+    "messages": "message",
+    "prives": "prive"
+  },
+  "special_cases": {
+    "video_02_merges": true
+  },
+  "theme": {
+    "mint": "#00F5A0",
+    "bg_carbon": "#090D16",
+    "bg_dark": "#0B0E14",
+    "border": "#161B22"
+  }
+}

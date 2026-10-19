@@ -34,6 +34,12 @@
 
   function initData() {
     subtitleChunks = buildSubtitleChunks(window.WORDS || []);
+    if (window.PROJECT_CONFIG && window.PROJECT_CONFIG.theme) {
+      const root = document.documentElement;
+      for (const [key, val] of Object.entries(window.PROJECT_CONFIG.theme)) {
+        root.style.setProperty(`--${key}`, val);
+      }
+    }
   }
 
   /**
@@ -57,20 +63,6 @@
   window.setTime = function (t) {
     if (subtitleChunks.length === 0 && window.WORDS && window.WORDS.length > 0) {
       initData();
-    }
-
-    // 0. HUD AGENT404
-    const totalDuration = (window.SCENES && window.SCENES.length > 0) ? window.SCENES[window.SCENES.length - 1].end : 71.51;
-    const hudFill = document.getElementById("hud-progress-fill");
-    const hudTimer = document.getElementById("hud-timer");
-    if (hudFill && totalDuration > 0) {
-      const pct = Math.min(100, Math.max(0, (t / totalDuration) * 100));
-      hudFill.style.width = `${pct}%`;
-    }
-    if (hudTimer) {
-      const mins = Math.floor(t / 60).toString().padStart(2, "0");
-      const secs = Math.floor(t % 60).toString().padStart(2, "0");
-      hudTimer.textContent = `${mins}:${secs} // 30FPS`;
     }
 
     // 1. Sous-titres dynamiques (Top)
@@ -360,6 +352,162 @@
             </div>
           </div>
         `;
+      case "loom_player_fail":
+        return `
+          <div class="comp-loom-fail" id="comp-loom-fail">
+            <div class="loom-window-bar">
+              <div class="loom-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <div class="loom-file-title">${data.title || "demo_produit_v4.mp4"}</div>
+              <div class="loom-status-tag">LECTEUR BLOQUÉ</div>
+            </div>
+            <div class="loom-screen">
+              <div class="loom-video-inner">
+                <div class="loom-avatar-freeze">🥱</div>
+                <div class="loom-pause-circle">⏸</div>
+              </div>
+              <div class="loom-alert-card" id="loom-alert-card">
+                <div class="loom-alert-icon">📉</div>
+                <div class="loom-alert-content">
+                  <div class="loom-alert-title">${data.dropRate || "-88%"} D'AUDIENCE</div>
+                  <div class="loom-alert-sub">${data.label || "DÉCROCHAGE APRÈS 28 SECONDES"}</div>
+                </div>
+              </div>
+            </div>
+            <div class="loom-bottom-bar">
+              <div class="loom-time-track">
+                <div class="loom-time-fill" id="loom-time-fill"></div>
+              </div>
+              <div class="loom-timestamps">
+                <span class="time-cur">${data.stoppedAt || "00:28"}</span>
+                <span class="time-sep">/</span>
+                <span class="time-end">${data.duration || "11:45"}</span>
+                <span class="time-note">❌ ONGLET FERMÉ</span>
+              </div>
+            </div>
+          </div>
+        `;
+      case "phone_mockup_duo":
+        const leftData = data.left || { title: "LOOM 12 MIN ❌", badge: "0 RDV BOOKÉ", items: ["12 min d'écran partagé", "Hésitations & silences", "Zéro structure visuelle"] };
+        const rightData = data.right || { title: "PITCH 60S ✅", badge: "DÉCIDEUR CAPTIVÉ", items: ["60 secondes chrono", "Bénéfices visibles d'emblée", "Zooms & sous-titres dynamiques"] };
+        return `
+          <div class="comp-phone-duo" id="comp-phone-duo">
+            <div class="phone-card fail-card" id="phone-left">
+              <div class="phone-badge fail">${leftData.title}</div>
+              <div class="phone-result-tag fail">${leftData.badge}</div>
+              <div class="phone-items">
+                ${(leftData.items || []).map(it => `<div class="phone-row fail">❌ ${it}</div>`).join("")}
+              </div>
+            </div>
+            <div class="phone-card win-card" id="phone-right">
+              <div class="phone-badge win">${rightData.title}</div>
+              <div class="phone-result-tag win">${rightData.badge}</div>
+              <div class="phone-items">
+                ${(rightData.items || []).map(it => `<div class="phone-row win">⚡ ${it}</div>`).join("")}
+              </div>
+            </div>
+          </div>
+        `;
+      case "workflow_nodes":
+        const wfSteps = data.steps || [
+          { num: "01", title: "PROBLÈME CLIENT", desc: "Douleur identifiée" },
+          { num: "02", title: "TON PRODUIT", desc: "Solution visible en 1 clic" },
+          { num: "03", title: "RÉSULTAT", desc: "Adoption & conversion" }
+        ];
+        return `
+          <div class="comp-workflow-nodes" id="comp-workflow-nodes">
+            ${data.header ? `<div class="wf-header">${data.header}</div>` : ""}
+            <div class="wf-track">
+              ${wfSteps.map((s, idx) => `
+                <div class="wf-node ${idx === 1 ? 'wf-active' : ''}" id="wf-node-${idx}">
+                  <div class="wf-num">${s.num}</div>
+                  <div class="wf-info">
+                    <div class="wf-title">${s.title}</div>
+                    <div class="wf-desc">${s.desc}</div>
+                  </div>
+                </div>
+                ${idx < wfSteps.length - 1 ? `<div class="wf-arrow" id="wf-arrow-${idx}">➔</div>` : ""}
+              `).join("")}
+            </div>
+          </div>
+        `;
+      case "tier_table":
+        const tiers = data.tiers || [
+          { num: "01", name: "Vidéo Hook & Problème", desc: "Capte l'attention dans le feed sans le son" },
+          { num: "02", name: "Vidéo Démo Produit 60s", desc: "Prouve la valeur et le gain de temps direct" },
+          { num: "03", name: "Vidéo Preuve & Action", desc: "Convertit le prospect en rendez-vous" }
+        ];
+        return `
+          <div class="comp-tier-table" id="comp-tier-table">
+            <div class="tier-head">${data.header || "PACK 3 VIDÉOS DÉDIÉES"}</div>
+            <div class="tier-rows">
+              ${tiers.map((tItem, idx) => `
+                <div class="tier-card" id="tier-card-${idx}">
+                  <div class="tier-pill">FORMAT ${tItem.num}</div>
+                  <div class="tier-body">
+                    <div class="tier-name">${tItem.name}</div>
+                    <div class="tier-desc">${tItem.desc}</div>
+                  </div>
+                  <div class="tier-status">✓ INCLUS</div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      case "cursor_action":
+        return `
+          <div class="comp-cursor-action" id="comp-cursor-action">
+            <div class="cursor-window">
+              <div class="cursor-window-bar">
+                <div class="cursor-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <div class="cursor-window-title">${data.windowTitle || "PAGE DE VENTE SAAS"}</div>
+              </div>
+              <div class="cursor-window-body">
+                <div class="cursor-target-btn" id="cursor-target-btn">
+                  <span class="btn-sparkle">⚡</span>
+                  <span class="btn-caption">${data.buttonText || "RÉSERVER UNE DÉMO"}</span>
+                </div>
+                <div class="cursor-feedback-badge" id="cursor-feedback-badge">
+                  ${data.feedback || "✓ RENDEZ-VOUS CONFIRMÉ"}
+                </div>
+              </div>
+            </div>
+            <div class="virtual-cursor" id="virtual-cursor">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                <path d="M4 3L11 21L14 13L22 10L4 3Z" fill="#00F5A0" stroke="#090D16" stroke-width="2.5" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        `;
+      case "dm_cta_sim":
+        return `
+          <div class="comp-dm-cta" id="comp-dm-cta">
+            <div class="dm-head">
+              <div class="dm-avatar-circle">🤖</div>
+              <div class="dm-meta">
+                <div class="dm-recipient">${data.targetUser || "@AGENT404"}</div>
+                <div class="dm-online-badge">● EN LIGNE</div>
+              </div>
+            </div>
+            <div class="dm-chat-zone">
+              <div class="dm-bubble user-msg" id="dm-user-bubble">
+                <span class="bubble-tag">TOI</span>
+                <span class="bubble-content" id="dm-typewriter">${data.keyword || "DEMO"}</span>
+              </div>
+              <div class="dm-bubble bot-msg" id="dm-bot-bubble">
+                <span class="bubble-tag">AGENT404</span>
+                <span class="bubble-content">${data.responseText || "✓ Message reçu. Démo envoyée en 2 min."}</span>
+              </div>
+            </div>
+            <div class="dm-bar">
+              <div class="dm-text-field">Message privé...</div>
+              <div class="dm-action-send" id="dm-action-send">➔</div>
+            </div>
+          </div>
+        `;
       default:
         return `<div>Scène non définie</div>`;
     }
@@ -628,6 +776,102 @@
     } else if (type === "speed_counter") {
       const el = document.getElementById("comp-speed-counter");
       if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+    } else if (type === "loom_player_fail") {
+      const el = document.getElementById("comp-loom-fail");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+      const fill = document.getElementById("loom-time-fill");
+      if (fill) {
+        const fillP = Math.min(1, elapsed / 0.35);
+        fill.style.width = `${fillP * 18}%`;
+      }
+      const badge = document.getElementById("loom-alert-card");
+      if (badge) {
+        const bp = Math.min(1, elapsed / 0.3);
+        const bscale = bp < 1 ? (0.6 + 0.4 * bp + 0.1 * Math.sin(bp * Math.PI)) : 1.0;
+        badge.style.transform = `scale(${bscale})`;
+      }
+    } else if (type === "phone_mockup_duo") {
+      const left = document.getElementById("phone-left");
+      const right = document.getElementById("phone-right");
+      if (left) {
+        const lp = Math.min(1, elapsed / 0.22);
+        const lScale = lp < 1 ? (0.8 + 0.2 * lp) : 1.0;
+        left.style.transform = `translateX(${(1 - lp) * -40}px) scale(${lScale})`;
+        left.style.opacity = `${lp}`;
+      }
+      if (right) {
+        const rightElapsed = Math.max(0, elapsed - 0.12);
+        const rp = Math.min(1, rightElapsed / 0.22);
+        const rScale = rp < 1 ? (0.8 + 0.2 * rp + 0.08 * Math.sin(rp * Math.PI)) : 1.0;
+        right.style.transform = `translateX(${(1 - rp) * 40}px) scale(${rScale})`;
+        right.style.opacity = `${rp}`;
+      }
+    } else if (type === "workflow_nodes") {
+      const el = document.getElementById("comp-workflow-nodes");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+      for (let i = 0; i < 3; i++) {
+        const node = document.getElementById(`wf-node-${i}`);
+        if (!node) continue;
+        const nElapsed = Math.max(0, elapsed - i * 0.12);
+        const np = Math.min(1, nElapsed / 0.2);
+        const nScale = np < 1 ? (0.7 + 0.3 * np + 0.1 * Math.sin(np * Math.PI)) : 1.0;
+        node.style.transform = `scale(${nScale})`;
+        node.style.opacity = `${np}`;
+      }
+    } else if (type === "tier_table") {
+      const el = document.getElementById("comp-tier-table");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+      for (let i = 0; i < 3; i++) {
+        const row = document.getElementById(`tier-card-${i}`);
+        if (!row) continue;
+        const rElapsed = Math.max(0, elapsed - i * 0.12);
+        const rp = Math.min(1, rElapsed / 0.2);
+        const rScale = rp < 1 ? (0.8 + 0.2 * rp) : 1.0;
+        row.style.transform = `translateX(${(1 - rp) * 30}px) scale(${rScale})`;
+        row.style.opacity = `${rp}`;
+      }
+    } else if (type === "cursor_action") {
+      const el = document.getElementById("comp-cursor-action");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+      const cur = document.getElementById("virtual-cursor");
+      const btn = document.getElementById("cursor-target-btn");
+      const feedback = document.getElementById("cursor-feedback-badge");
+      const moveP = Math.min(1, elapsed / 0.45);
+      const startX = 260, startY = 220;
+      const targetX = 0, targetY = 0;
+      const curX = startX + (targetX - startX) * moveP;
+      const curY = startY + (targetY - startY) * moveP;
+      const isClicked = elapsed >= 0.45;
+      if (cur) {
+        cur.style.transform = `translate(${curX}px, ${curY}px) scale(${isClicked ? 0.9 : 1.0})`;
+      }
+      if (btn) {
+        btn.style.transform = `scale(${isClicked ? 0.96 : 1.0})`;
+        if (isClicked) {
+          btn.style.boxShadow = "0 2px 0 #000000";
+          btn.style.background = "#047857";
+        }
+      }
+      if (feedback) {
+        const fp = Math.max(0, Math.min(1, (elapsed - 0.48) / 0.2));
+        feedback.style.opacity = `${fp}`;
+        feedback.style.transform = `scale(${0.8 + 0.2 * fp})`;
+      }
+    } else if (type === "dm_cta_sim") {
+      const el = document.getElementById("comp-dm-cta");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+      const userBubble = document.getElementById("dm-user-bubble");
+      const botBubble = document.getElementById("dm-bot-bubble");
+      const up = Math.min(1, elapsed / 0.25);
+      if (userBubble) {
+        userBubble.style.opacity = `${up}`;
+        userBubble.style.transform = `scale(${0.8 + 0.2 * up})`;
+      }
+      if (botBubble) {
+        const bp = Math.max(0, Math.min(1, (elapsed - 0.4) / 0.25));
+        botBubble.style.opacity = `${bp}`;
+        botBubble.style.transform = `scale(${0.8 + 0.2 * bp})`;
+      }
     }
   }
 

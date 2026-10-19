@@ -1,13 +1,40 @@
 # RÈGLE ABSOLUE : PROGRESSION CONTINUE ET NON-RÉGRESSION DE LA QUALITÉ VIDÉO
 # STANDARD DE CRAFT ET D'EXCELLENCE AGENT404
 
-Date d'effet : Octobre 2026  
+Date d'effet : Octobre 2026 (révisé le 19 octobre 2026)  
 Portée : Tous les projets vidéo (vidéos personnelles studio_perso/ et vidéos clients studio_clients/)  
 Gouvernance : Kreesten AGBOTON  
+Positionnement : Clarté visuelle B2B qui remplace la caméra et fait signer des clients (Arrêter de vendre « du code Python »).  
+Ciblage chirurgical : 70 % des efforts sur les fondateurs de SaaS B2B bootstrappés rentables ; 30 % sur les agences B2B expertes ; exclusion stricte des freelances débutants et des licornes internalisées.
 
 ---
 
-## 1. PRINCIPE CARDINAL : L'EFFET CLIQUET (ZERO REGRESSION)
+## 1. LES 5 CONCEPTS DIRECTEURS DE PRODUCTION VIDÉO
+
+Toute capsule vidéo créée pour AGENT404 ou pour un client applique obligatoirement les 5 concepts suivants :
+
+1. **Concept 1 : Définir le problème précis plutôt qu'une idée vague**  
+   *« Tu ne décris plus une idée. Tu définis le problème à résoudre. »*  
+   - Le script ne part jamais d'une idée floue (« parlons de notre produit »), mais attaque frontalement la douleur aiguë du prospect : l'abandon des Looms de 10 minutes, la documentation que personne ne lit, ou la perte de leads qualifiés.
+2. **Concept 2 : Décrire les gestes et le fonctionnement étape par étape**  
+   *« Tu passes d'un concept à un fonctionnement que tu peux vérifier, étape par étape. »*  
+   - Chaque argument est séquencé en étapes visuelles vérifiables : 1 proposition = 1 scène de 1,8 à 2,2s avec une action visuelle concrète (carte comparative, simulation d'interface, frappe typewriter, dialogue).
+3. **Concept 3 : Définir explicitement ce qu'on refuse (Les non-objectifs)**  
+   *« Dis aussi ce que tu ne veux pas. La clarté, c'est aussi décider ce qui peut attendre. »*  
+   - **Refus absolu du jargon technique** : Proscription totale de mots comme Python, FFmpeg, Whisper, codebase dans les scripts et sous-titres vidéos.
+   - **Refus absolu des prix** : Zéro montant (250 €, 500 €) ni symbole tarifaire dans les vidéos publiques.
+   - **Refus absolu du HUD** : Banni définitivement de l'interface graphique.
+   - **Refus de la duplication interne** : Zéro composant ou animation identique dupliqué dans une même vidéo.
+4. **Concept 4 : Remplacer « ça ne marche pas » par un constat précis mesuré**  
+   *« Identifie l'écart entre le résultat attendu et le résultat obtenu. »*  
+   - Tout écart est audité avec des valeurs mesurées : durée exacte de transition, écart de luminance de l'avatar (> 32 sur zone sticker via OpenCV), mesure de marge safe-area (> 280 px en bas, > 80 px à droite).
+5. **Concept 5 : Des décisions claires avec critères d'acceptation testables**  
+   *« Je saurai que ça fonctionne si... Un brief précis ne garantit pas un code fiable : il faut encore le tester. »*  
+   - La vidéo est acceptée uniquement si la suite de tests automatisés dédiée (`tests/test_video0X_spec.py`) valide 100 % des critères : 0 trou temporel dans `timeline.js`, conformité audio/vidéo stricte `ffprobe`, présence vérifiée de chaque sticker.
+
+---
+
+## 2. PRINCIPE CARDINAL : L'EFFET CLIQUET (ZERO REGRESSION)
 
 Chaque nouvelle vidéo produite sur le moteur AGENT404 (vidéo $N+1$) doit impérativement être supérieure ou égale à la vidéo précédente (vidéo $N$) sur l'ensemble des axes d'évaluation. Aucune régression n'est autorisée :
 - Ni dans la qualité de l'écriture narrative et du sound design.
@@ -18,7 +45,7 @@ Tout ajout ou modification de vidéo doit hisser le niveau global du studio sans
 
 ---
 
-## 2. LES 4 PILIERS D'AMÉLIORATION CONTINUE
+## 3. LES 4 PILIERS D'AMÉLIORATION CONTINUE
 
 ### A. Écriture & Rythme Narratif (Copywriting de Rétention)
 - **Hook immédiat ($t \le 1{,}2\text{ s}$)** : Accroche textuelle percutante affichée dès l'image 0 sans fondu au noir, appuyée par une rupture visuelle franche à 1,2s (punch-in zoom ou pop sonore mat).
@@ -43,7 +70,7 @@ Tout ajout ou modification de vidéo doit hisser le niveau global du studio sans
 
 ---
 
-## 3. SCÉNARIOS D'APPLICATION ET GESTION DES CAS LIMITES
+## 4. SCÉNARIOS D'APPLICATION ET GESTION DES CAS LIMITES
 
 ### Scénario 1 : Vidéos Clients (`studio_clients/`)
 - La règle s'applique avec adaptation stricte à la charte et à la personnalité du client :
@@ -64,7 +91,7 @@ Tout ajout ou modification de vidéo doit hisser le niveau global du studio sans
 
 ---
 
-## 4. GRILLE DE VALIDATION AVANT EXPORT DÉFINITIF
+## 5. GRILLE DE VALIDATION AVANT EXPORT DÉFINITIF
 
 Avant d'approuver une vidéo pour diffusion ou livraison client, valider les 5 points de contrôle suivants :
 1. [ ] **Supériorité relative** : Cette vidéo surpasse-t-elle la précédente en écriture, rythme ou finesse d'animation ?

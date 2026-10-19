@@ -1,12 +1,46 @@
 # AGENT404 : SPÉCIFICATIONS TECHNIQUES DE L'ARCHITECTURE DU MOTEUR
 
 Statut de gouvernance : DOCUMENTATION TECHNIQUE DE RÉFÉRENCE  
-Dernière mise à jour : 17 octobre 2026  
+Dernière mise à jour : 19 octobre 2026  
 Type de système : Moteur vidéo programmatique déterministe (1080x1920 @ 30 FPS, vertical 9:16)  
+Positionnement stratégique : Clarté visuelle B2B programmatique qui remplace la caméra et fait signer des clients. Ne pas vendre « du code Python », mais un pipeline de transformation transformant des Looms inefficaces ou des notes vocales en vidéos de 45-60s percutantes pour SaaS B2B (70%) et agences tech (30%).
 
 ---
 
-## 1. VUE D'ENSEMBLE DU PIPELINE DE PRODUCTION
+## 1. LES 5 CONCEPTS DIRECTEURS DE L'ARCHITECTURE
+
+L'ensemble de l'architecture logicielle est rigoureusement aligné sur 5 concepts immuables :
+
+1. **Concept 1 : Définir le problème précis plutôt qu'une idée vague**  
+   *« Tu ne décris plus une idée. Tu définis le problème à résoudre. »*  
+   - L'architecture résout un problème précis : l'abandon précoce des prospects B2B face à des démos d'écran partagé trop longues (Looms de 10 min). Chaque module logiciel vise la clarté immédiate et la densification du message en moins de 60 secondes.
+2. **Concept 2 : Décrire les gestes et le fonctionnement étape par étape**  
+   *« Tu passes d'un concept à un fonctionnement que tu peux vérifier, étape par étape. »*  
+   - Zéro effet boîte noire : le pipeline est décomposé en 4 étapes modulaires, traçables et vérifiables individuellement :
+     - Étape 1 : Conversion PCM et alignement acoustique forcé mot-à-mot via Whisper (`build_master_timeline.py`).
+     - Étape 2 : Synthèse mathématique de sound design procédural sans banque d'échantillons (`sfx.py`).
+     - Étape 3 : Pilotage temporel analytique déterministe du DOM sans horloge asynchrone (`video.js`).
+     - Étape 4 : Rendu image-par-image sous Chromium Headless et encodage FFmpeg (`render.py`).
+3. **Concept 3 : Définir explicitement ce qu'on refuse (Les non-objectifs)**  
+   *« Dis aussi ce que tu ne veux pas. La clarté, c'est aussi décider ce qui peut attendre. »*  
+   - **Refus des frameworks lourds** : Aucun runtime React, Node.js, Next.js ou Remotion dans le moteur de rendu.
+   - **Refus du non-déterminisme** : Proscription de toute animation CSS temps réel ou interpolation asynchrone (`Date.now()`, `requestAnimationFrame`).
+   - **Refus du HUD** : Suppression définitive et irrévocable de tout bandeau HUD (`#agent-hud`) dans le DOM.
+   - **Refus du jargon technique et des prix dans les vidéos** : Aucun terme technique ou chiffre tarifaire n'apparaît dans les sous-titres ou éléments visuels publics.
+4. **Concept 4 : Remplacer « ça ne marche pas » par un constat précis mesuré**  
+   *« Identifie l'écart entre le résultat attendu et le résultat obtenu. »*  
+   - Les écarts sont systématiquement quantifiés par des sondes techniques :
+     - Écart d'alignement audio mesuré en millisecondes ($\Delta t \le 0{,}001\text{ s}$).
+     - Reproductibilité validée par framemd5 et PSNR infini.
+     - Contrôle de présence d'avatar par analyse d'histogramme de luminance OpenCV (> 32 sur zone sticker).
+     - Vérification de conformité de flux par `ffprobe` (1080x1920, 30.0 fps, yuv420p, aac).
+5. **Concept 5 : Des décisions claires avec critères d'acceptation testables**  
+   *« Je saurai que ça fonctionne si... Un brief précis ne garantit pas un code fiable : il faut encore le tester. »*  
+   - Aucun commit ni rendu n'est considéré valide sans le passage à 100 % de la suite de tests automatisés (`pytest tests/`). Les critères d'acceptation couvrent l'intégrité temporelle, la continuité des scènes et l'intégrité bit-à-bit.
+
+---
+
+## 2. VUE D'ENSEMBLE DU PIPELINE DE PRODUCTION
 
 Le moteur AGENT404 convertit une piste audio vocale et un texte en un fichier MP4 finalisé sans recours à un logiciel de montage conventionnel (Premiere Pro, DaVinci) ni à un framework vidéo lourd (Remotion, React, Node.js).  
 Le pipeline repose sur un découpage en 4 phases strictement séquentielles :
@@ -48,7 +82,7 @@ flowchart TD
 
 ---
 
-## 2. DÉTAIL DES MODULES LOGICIELS ET SCRIPTS
+## 3. DÉTAIL DES MODULES LOGICIELS ET SCRIPTS
 
 ### A. Ingestion et Alignement Forcé : [build_master_timeline.py](../build_master_timeline.py)
 - **Rôle** : Convertit l'audio brut en PCM standardisé, force l'alignement acoustique mot-à-mot via Whisper, découpe la narration en scènes continues et génère [timeline.js](../timeline.js).
@@ -107,7 +141,7 @@ flowchart TD
 
 ---
 
-## 3. DÉPENDANCES ET ENVIRONNEMENT TECHNIQUE
+## 4. DÉPENDANCES ET ENVIRONNEMENT TECHNIQUE
 
 ### A. Dépendances Python réelles
 - `faster-whisper >= 1.0.0` (Inférence acoustique via CTranslate2)
@@ -123,7 +157,7 @@ flowchart TD
 
 ---
 
-## 4. ARCHITECTURE MULTI-PROJETS (STUDIO PERSO & CLIENTS)
+## 5. ARCHITECTURE MULTI-PROJETS (STUDIO PERSO & CLIENTS)
 
 La séparation des studios est effective et élimine tout contenu en dur dans le moteur :
 - **Studio Perso (`studio_perso/`)** : Dédié aux vidéos propres d'AGENT404 (vitrine, démonstrations, acquisition client).

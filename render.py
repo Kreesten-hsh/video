@@ -75,8 +75,8 @@ def get_audio_duration(audio_file: str) -> float:
     return float(res)
 
 
-def setup_render_page(browser, html_abs_uri: str, timeline_path: str = None, rendu_deterministe: bool = True):
-    """Crée une page isolée hors réseau, injecte la timeline locale, attend les polices et pré-décode les avatars."""
+def setup_render_page(browser, html_abs_uri: str, timeline_path: str = None, rendu_deterministe: bool = True, scenes: list = None):
+    """Crée une page isolée hors réseau, injecte la timeline locale, attend les polices et pré-décode dynamiquement les avatars."""
     context = browser.new_context(
         viewport={"width": 1080, "height": 1920},
         device_scale_factor=1,
@@ -99,22 +99,28 @@ def setup_render_page(browser, html_abs_uri: str, timeline_path: str = None, ren
             content="*, *::before, *::after { transition: none !important; animation: none !important; }"
         )
 
-    # Pré-décodage complet de toutes les images d'avatar et attente des polices locales
-    page.evaluate("""async () => {
+    # Pré-décodage dynamique de tous les avatars référencés dans le projet et attente des polices locales
+    avatars_to_predecode = [
+        'assets/avatars/happy.png', 'assets/avatars/idea.png', 'assets/avatars/laptop.png',
+        'assets/avatars/mic.png', 'assets/avatars/mini.png', 'assets/avatars/money.png',
+        'assets/avatars/pointing.png', 'assets/avatars/prof.png', 'assets/avatars/scissors.png',
+        'assets/avatars/shock.png', 'assets/avatars/skeptic.png', 'assets/avatars/stop.png',
+        'assets/pfp/pfp_agent404_pro_slate.png'
+    ]
+    if scenes:
+        for sc in scenes:
+            av = sc.get("data", {}).get("avatar")
+            if av and av not in avatars_to_predecode:
+                avatars_to_predecode.append(av)
+
+    page.evaluate("""async (avatars) => {
         await document.fonts.ready;
-        const avatars = [
-            'assets/avatars/happy.png', 'assets/avatars/idea.png', 'assets/avatars/laptop.png',
-            'assets/avatars/mic.png', 'assets/avatars/mini.png', 'assets/avatars/money.png',
-            'assets/avatars/pointing.png', 'assets/avatars/prof.png', 'assets/avatars/scissors.png',
-            'assets/avatars/shock.png', 'assets/avatars/skeptic.png', 'assets/avatars/stop.png',
-            'assets/pfp/pfp_agent404_pro_slate.png'
-        ];
         await Promise.all(avatars.map(src => {
             const img = new Image();
             img.src = src;
             return img.decode().catch(() => {});
         }));
-    }""")
+    }""", avatars_to_predecode)
     return context, page
 
 
@@ -143,8 +149,9 @@ def verify_rendered_avatars(video_path: str, scenes: list) -> bool:
         if "start" not in sc:
             continue
 
-        # Vérifier dès la toute première frame de la scène
-        t_sample = float(sc["start"])
+        t_start = float(sc["start"])
+        t_end = float(sc.get("end", t_start + 1.0))
+        t_sample = min(t_start + 0.1, (t_start + t_end) / 2.0)
         frame_idx = int(round(t_sample * fps))
 
         cap.set(cv2.CAP_PROP_POS_FRAMES, frame_idx)
@@ -205,15 +212,15 @@ def render_video(
             except Exception:
                 pass
 
-    if rendu_deterministe is None:
-        rendu_deterministe = True
-
         output_path = output_path or str(p_dir / f"video{video_num}.mp4")
         if not audio_path:
             cand_final = p_dir / "audio_final.wav"
             cand_voix = p_dir / "voix.wav"
             audio_path = str(cand_final) if cand_final.exists() else str(cand_voix)
         timeline_path = timeline_path or str(p_dir / "timeline.js")
+
+    if rendu_deterministe is None:
+        rendu_deterministe = True
 
     if not output_path:
         raise ValueError("Aucun chemin de sortie spécifié pour render_video. Renseignez --projet ou --output.")
@@ -270,7 +277,7 @@ def render_video(
                 "Veuillez exécuter 'playwright install chromium' ou vérifier l'installation du navigateur."
             )
 
-        context, page = setup_render_page(browser, html_abs, timeline_path=timeline_path, rendu_deterministe=rendu_deterministe)
+        context, page = setup_render_page(browser, html_abs, timeline_path=timeline_path, rendu_deterministe=rendu_deterministe, scenes=scenes)
 
         print("[Render] Capture et encodage déterministe avec synchronisation totale des images et polices...")
         for i in range(total_frames):
@@ -297,7 +304,7 @@ def render_video(
                 page.close()
                 context.close()
                 gc.collect()
-                context, page = setup_render_page(browser, html_abs, timeline_path=timeline_path, rendu_deterministe=rendu_deterministe)
+                context, page = setup_render_page(browser, html_abs, timeline_path=timeline_path, rendu_deterministe=rendu_deterministe, scenes=scenes)
 
             if i % 15 == 0 or i == total_frames - 1:
                 percent = int((i + 1) / total_frames * 100)
