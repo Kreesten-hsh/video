@@ -1,0 +1,76 @@
+{
+  "version": "1.0.0",
+  "banned_global_jargon": [
+    "whisper",
+    "faster-whisper",
+    "ffmpeg",
+    "playwright",
+    "chromium",
+    "codebase",
+    "python",
+    "javascript"
+  ],
+  "videos": [
+    {
+      "video_id": "video_01",
+      "target": "studio_perso",
+      "title": "Arrête de payer des monteurs vidéo et des IA hors de prix",
+      "topic": "Génération de vidéos B2B programmatiques par le code",
+      "cta_keyword": "CODE",
+      "used_illustrations": [
+        "cards_monteurs_ia",
+        "engine_arch_stack",
+        "audio_wave_sync",
+        "sync_timer_precision",
+        "emotion_morph_display",
+        "terminal_window_code",
+        "list_workflow_steps",
+        "ffmpeg_render_bar",
+        "speed_counter_60fps"
+      ],
+      "avatar_sequence": [
+        "stop",
+        "pointing",
+        "laptop",
+        "idea",
+        "mic",
+        "shock",
+        "skeptic",
+        "stop",
+        "money",
+        "scissors",
+        "prof",
+        "pointing"
+      ]
+    },
+    {
+      "video_id": "video_02",
+      "target": "studio_perso",
+      "title": "La mort des démos Loom",
+      "topic": "Remplacement des démos Loom par des capsules B2B chirurgicales",
+      "cta_keyword": "DEMO",
+      "used_illustrations": [
+        "loom_player_dropoff",
+        "loom_12min_shock",
+        "loom_3_flaws_cards",
+        "browser_close_30s",
+        "excellent_saas_product",
+        "perceived_value_crash",
+        "interface_labyrinth_rejected",
+        "sixty_second_roi_bridge",
+        "code_engine_stack",
+        "audio_surgical_sync",
+        "saas_3_stage_theater",
+        "delivery_48h_3_channels_vertical",
+        "cta_giant_demo_impact"
+      ],
+      "avatar_sequence": [
+        "stop",
+        "skeptic",
+        "idea",
+        "mic",
+        "pointing"
+      ]
+    }
+  ]
+}

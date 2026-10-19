@@ -5,6 +5,8 @@ import json
 import math
 import shutil
 import subprocess
+import re
+from typing import Union
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
@@ -124,10 +126,38 @@ def setup_render_page(browser, html_abs_uri: str, timeline_path: str = None, ren
     return context, page
 
 
-def verify_rendered_avatars(video_path: str, scenes: list) -> bool:
-    """Vérifie automatiquement après rendu qu'aucune scène avec avatar ne présente une zone vide."""
-    if not scenes:
+def verify_rendered_avatars(video_path: str, scenes: Union[list, str, Path] = None) -> bool:
+    """Vérifie automatiquement après rendu qu'aucune scène avec avatar (buste ou PiP) ne présente une zone vide.
+    Charge dynamiquement les scènes depuis project.json ou timeline.js si un chemin est fourni."""
+    if scenes is None:
         print("[Vérification] Aucune scène fournie pour validation des avatars.")
+        return True
+
+    if isinstance(scenes, (str, Path)):
+        p = Path(scenes)
+        target_dir = p if p.is_dir() else p.parent
+        proj_json = target_dir / "project.json"
+        timeline_js = target_dir / "timeline.js"
+        loaded_scenes = None
+        if proj_json.exists():
+            try:
+                with open(proj_json, "r", encoding="utf-8") as f:
+                    loaded_scenes = json.load(f).get("scenes")
+            except Exception:
+                pass
+        if loaded_scenes is None and timeline_js.exists():
+            try:
+                with open(timeline_js, "r", encoding="utf-8") as f:
+                    c = f.read()
+                m = re.search(r"window\.SCENES\s*=\s*(\[.*?\]);", c, re.DOTALL)
+                if m:
+                    loaded_scenes = json.loads(m.group(1))
+            except Exception:
+                pass
+        scenes = loaded_scenes or []
+
+    if not scenes:
+        print("[Vérification] Aucune scène exploitable pour validation des avatars.")
         return True
 
     import cv2
@@ -143,7 +173,13 @@ def verify_rendered_avatars(video_path: str, scenes: list) -> bool:
     for sc in scenes:
         data = sc.get("data", {})
         avatar = data.get("avatar")
-        if not avatar or "mini" in avatar:
+        avatar_pip = data.get("avatar_pip")
+        sc_type = sc.get("type", "")
+
+        has_bust = (avatar and "mini" not in str(avatar)) or (sc_type == "face" and avatar)
+        has_pip = bool(avatar_pip)
+
+        if not has_bust and not has_pip:
             continue
 
         if "start" not in sc:
@@ -151,7 +187,7 @@ def verify_rendered_avatars(video_path: str, scenes: list) -> bool:
 
         t_start = float(sc["start"])
         t_end = float(sc.get("end", t_start + 1.0))
-        t_sample = min(t_start + 0.1, (t_start + t_end) / 2.0)
+        t_sample = min(t_start + 0.15, (t_start + t_end) / 2.0)
         frame_idx = int(round(t_sample * fps))
 
         cap.set(cv2.CAP_PROP_POS_FRAMES, frame_idx)
@@ -160,16 +196,27 @@ def verify_rendered_avatars(video_path: str, scenes: list) -> bool:
             failed_scenes.append((sc.get("id", "?"), t_sample, "Échec de lecture de l'image"))
             continue
 
-        # Zone avatar (y: 1200..1800, x: 250..830)
-        avatar_crop = frame_bgr[1200:1800, 250:830]
-        mean_lum = float(np.mean(avatar_crop))
-        std_lum = float(np.std(avatar_crop))
+        # 1. Vérification Avatar Buste Plein Écran (y: 1200..1800, x: 250..830)
+        if has_bust:
+            avatar_crop = frame_bgr[1200:1800, 250:830]
+            mean_lum = float(np.mean(avatar_crop))
+            std_lum = float(np.std(avatar_crop))
 
-        # Fond vide (#0D1117) présente une luminance moyenne < 32 et un écart-type très faible (< 10)
-        if mean_lum < 32.0 and std_lum < 10.0:
-            failed_scenes.append(
-                (sc.get("id", "?"), t_sample, f"Avatar absent (luminance moyenne={mean_lum:.2f}, std={std_lum:.2f})")
-            )
+            # Fond vide (#0D1117) présente une luminance moyenne < 32 et un écart-type très faible (< 10)
+            if mean_lum < 32.0 and std_lum < 10.0:
+                failed_scenes.append(
+                    (sc.get("id", "?"), t_sample, f"Avatar buste absent (luminance moyenne={mean_lum:.2f}, std={std_lum:.2f})")
+                )
+
+        # 2. Vérification Avatar Médaillon PiP (y: 1200..1750, x: 680..1020)
+        if has_pip:
+            pip_crop = frame_bgr[1200:1750, 680:1020]
+            mean_lum = float(np.mean(pip_crop))
+            std_lum = float(np.std(pip_crop))
+            if mean_lum < 28.0 and std_lum < 8.0:
+                failed_scenes.append(
+                    (sc.get("id", "?"), t_sample, f"Avatar PiP absent (luminance moyenne={mean_lum:.2f}, std={std_lum:.2f})")
+                )
 
     cap.release()
 
@@ -190,7 +237,8 @@ def render_video(
     fps: int = 30,
     verify_avatars: bool = True,
     scenes: list = None,
-    rendu_deterministe: bool = None
+    rendu_deterministe: bool = None,
+    preflight: bool = True
 ):
     check_dependencies()
 
@@ -230,6 +278,19 @@ def render_video(
 
     if not timeline_path or not Path(timeline_path).exists():
         raise FileNotFoundError(f"Fichier timeline.js introuvable : '{timeline_path}'.")
+
+    # Contrôle de qualité pré-vol automatique (Pre-Flight Gatekeeper < 3s)
+    if preflight and project_path:
+        print("[Gatekeeper] Contrôle qualité pré-vol (preflight check)...")
+        try:
+            from preflight_check import run_preflight_check
+            report = run_preflight_check(project_dir=project_path, timeline_path=timeline_path, html_path=html_path)
+            if not report.get("success", False):
+                errors = "\n".join([f" - {err}" for err in report.get("errors", [])])
+                raise RuntimeError(f"Échec des contrôles pre-flight pour '{project_path}' :\n{errors}")
+            print("✓ Contrôles pre-flight validés avec succès.")
+        except ImportError:
+            pass
 
     if scenes is None:
         try:
@@ -333,6 +394,7 @@ if __name__ == "__main__":
     parser.add_argument("--timeline", "-t", default=None, help="Chemin de timeline.js")
     parser.add_argument("--fps", type=int, default=30, help="Images par seconde")
     parser.add_argument("--no-verify-avatars", action="store_true", help="Désactive la vérification des avatars")
+    parser.add_argument("--no-preflight", action="store_true", help="Désactive le contrôle pré-vol Gatekeeper")
     parser.add_argument("--rendu-deterministe", dest="rendu_deterministe", action="store_true", default=None, help="Active le rendu déterministe (par défaut)")
     parser.add_argument("--no-rendu-deterministe", dest="rendu_deterministe", action="store_false", help="Désactive le rendu déterministe")
     args = parser.parse_args()
@@ -348,5 +410,6 @@ if __name__ == "__main__":
         output_path=args.output,
         fps=args.fps,
         verify_avatars=not args.no_verify_avatars,
-        rendu_deterministe=args.rendu_deterministe
+        rendu_deterministe=args.rendu_deterministe,
+        preflight=not args.no_preflight
     )

@@ -155,6 +155,29 @@ class TestVideo02Spec(unittest.TestCase):
             )
             hashes[h] = p.name
 
+    def test_hud_banned_from_project(self):
+        """Règle absolue : le bandeau supérieur HUD (#agent-hud, .hud-brand, .hud-timer) est strictement banni du projet."""
+        index_html_path = REPO_ROOT / "index.html"
+        style_css_path = REPO_ROOT / "style.css"
+        video_js_path = REPO_ROOT / "video.js"
+
+        if index_html_path.exists():
+            content = index_html_path.read_text(encoding="utf-8")
+            self.assertNotIn("agent-hud", content, "Le HUD supérieur (#agent-hud) est strictement banni de index.html")
+            self.assertNotIn("hud-timer", content, "Le HUD supérieur (hud-timer) est strictement banni de index.html")
+            self.assertNotIn("hud-brand", content, "Le HUD supérieur (hud-brand) est strictement banni de index.html")
+
+        if style_css_path.exists():
+            content = style_css_path.read_text(encoding="utf-8")
+            self.assertNotIn("#agent-hud", content, "#agent-hud ne doit pas être défini dans style.css")
+            self.assertNotIn(".hud-timer", content, ".hud-timer ne doit pas être défini dans style.css")
+
+        if video_js_path.exists():
+            content = video_js_path.read_text(encoding="utf-8")
+            self.assertNotIn("hud-progress-fill", content, "video.js ne doit pas piloter le HUD banni")
+            self.assertNotIn("hud-timer", content, "video.js ne doit pas piloter le HUD banni")
+
 
 if __name__ == "__main__":
     unittest.main()
+

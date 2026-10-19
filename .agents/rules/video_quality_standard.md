@@ -37,14 +37,27 @@ Toute capsule vidéo créée pour AGENT404 ou pour un client applique obligatoir
 
 ---
 
-## 2. PRINCIPE CARDINAL : L'EFFET CLIQUET (ZERO REGRESSION)
+## 2. PRINCIPE CARDINAL : LA LOI D'EFFET CLIQUET & D'EXCELLENCE PROGRESSIVE (N+1 > N)
 
-Chaque nouvelle vidéo produite sur le moteur AGENT404 (vidéo $N+1$) doit impérativement être supérieure ou égale à la vidéo précédente (vidéo $N$) sur l'ensemble des axes d'évaluation. Aucune régression n'est autorisée :
-- Ni dans la qualité de l'écriture narrative et du sound design.
-- Ni dans l'impact visuel, la cinétique et la fluidité des animations DOM.
-- Ni dans la stabilité, le déterminisme et la couverture de tests du code source.
+Chaque nouvelle vidéo produite sur le moteur AGENT404 (vidéo $N+1$) doit impérativement surpasser la vidéo précédente (vidéo $N$) sur l'ensemble des axes d'évaluation. Aucune régression n'est tolérée :
 
-Tout ajout ou modification de vidéo doit hisser le niveau global du studio sans jamais abaisser les exigences de rendu acquises.
+1. **Effet Cliquet Systémique & Tests Bloquants** :
+   - Toute anomalie constatée et corrigée sur une vidéo $N$ (ex. retours à la ligne orphelins sur KPIs, listes multi-étapes figées, textes trop petits, éléments HUD parasites) devient immédiatement et irrévocablement une règle d'architecture et un test unitaire bloquant (`unittest` + `preflight_check.py`) pour toutes les vidéos $N+1$.
+2. **Unicité Créative Absolue Inter-Vidéos & Intra-Vidéo** :
+   - **Interdiction de recyclage inter-vidéos** : Une vidéo $N+1$ ne doit réutiliser aucun identifiant ni gabarit d'illustration d'une vidéo antérieure (validé automatiquement contre le registre `registry/video_memory.json`).
+   - **Interdiction de duplication intra-vidéo** : Zéro composant visuel, carte ou animation réutilisé deux fois au sein du même clip (sauf intention narrative explicite).
+3. **Sélection Sémantique des Avatars (Zéro Forçage Mécanique)** :
+   - Le choix des poses et stickers d'avatars découle à 100 % du sens littéral et de l'émotion vocale de la réplique prononcée.
+   - Il n'existe aucune obligation de réutiliser tout l'éventail des poses existantes d'une vidéo à l'autre : la pertinence sémantique prime sur la variété forcée.
+4. **Synchronisation Millimétrée des Énumérations & Listes** :
+   - Pour toute liste, carte multi-canaux ou énumération, la cinétique visuelle est strictement asservie au millième de seconde aux timestamps des mots audio prononcés. Chaque carte s'active ou s'illumine au moment précis où le mot clé correspondant est audible.
+5. **Occupation Obligatoire de la Safe Zone 9:16 & Standards Typographiques** :
+   - **Gabarit des cartes centrales** : Largeur minimale absolue de `840px` (plage cible `880px–940px`), hauteur minimale de `520px` (plage cible `620px–880px`) pour éliminer tout vide vertical excessif sur écran 1080×1920.
+   - **Lisibilité mobile garantie** : Aucun texte visible dans `#scene-container` ne doit avoir une taille calculée inférieure à `18px` (seuil de conception recommandé : `22px` minimum pour le corps de texte, `34px-56px` pour les titres et KPIs).
+   - **Anti-Orphelin & No-Wrap** : `white-space: nowrap` obligatoire sur tous les badges `[ ... ]`, KPIs, résolutions géantes et étiquettes courtes, avec vérification géométrique `scrollWidth <= clientWidth + 2`.
+6. **Thématisation 100 % Variables CSS & Proscription des Couleurs Bannies** :
+   - 100 % des couleurs proviennent des variables sémantiques déclarées dans `:root` (`--bg-canvas`, `--surface-card`, `--accent-primary`, `--accent-warning`, etc.) pour autoriser une thématisation instantanée sur les projets clients `studio_clients/`.
+   - Bannissement absolu et perpétuel du rose/rouge `#FF2A5F` et du HUD supérieur (`#agent-hud`).
 
 ---
 

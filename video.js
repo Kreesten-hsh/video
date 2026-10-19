@@ -65,20 +65,6 @@
       initData();
     }
 
-    // 0. HUD AGENT404
-    const totalDuration = (window.SCENES && window.SCENES.length > 0) ? window.SCENES[window.SCENES.length - 1].end : 65.15;
-    const hudFill = document.getElementById("hud-progress-fill");
-    const hudTimer = document.getElementById("hud-timer");
-    if (hudFill && totalDuration > 0) {
-      const pct = Math.min(100, Math.max(0, (t / totalDuration) * 100));
-      hudFill.style.width = `${pct}%`;
-    }
-    if (hudTimer) {
-      const mins = Math.floor(t / 60).toString().padStart(2, "0");
-      const secs = Math.floor(t % 60).toString().padStart(2, "0");
-      hudTimer.textContent = `${mins}:${secs} // 30FPS`;
-    }
-
     // 1. Sous-titres dynamiques (Top)
     updateSubtitles(t);
 
@@ -296,7 +282,7 @@
               <div class="speed-row">
                 <div class="speed-label speed-row-label">
                   <span>⚡ CODE PYTHON (MOTEUR)</span>
-                  <span style="color: #047857; font-weight: 900;">100% PRÊT</span>
+                  <span style="color: var(--mint-dark); font-weight: 900;">100% PRÊT</span>
                 </div>
                 <div class="speed-bar-track">
                   <div class="speed-bar-fill code"></div>
@@ -305,7 +291,7 @@
               <div class="speed-row">
                 <div class="speed-label speed-row-label">
                   <span>⏳ MONTEUR HUMAIN</span>
-                  <span style="color: #090D16; font-weight: 900;">5% EN ATTENTE</span>
+                  <span style="color: var(--bg-carbon); font-weight: 900;">5% EN ATTENTE</span>
                 </div>
                 <div class="speed-bar-track">
                   <div class="speed-bar-fill human"></div>
@@ -503,7 +489,7 @@
             </div>
             <div class="virtual-cursor" id="virtual-cursor">
               <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
-                <path d="M4 3L11 21L14 13L22 10L4 3Z" fill="#00F5A0" stroke="#090D16" stroke-width="2.5" stroke-linejoin="round"/>
+                <path d="M4 3L11 21L14 13L22 10L4 3Z" fill="var(--accent-primary)" stroke="var(--bg-carbon)" stroke-width="2.5" stroke-linejoin="round"/>
               </svg>
             </div>
           </div>
@@ -551,13 +537,13 @@
                 <svg class="loom-drop-chart-svg" viewBox="0 0 860 220" preserveAspectRatio="none">
                   <defs>
                     <linearGradient id="dropGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.3" />
-                      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0.0" />
+                      <stop offset="0%" stop-color="var(--accent-warning)" stop-opacity="0.3" />
+                      <stop offset="100%" stop-color="var(--accent-warning)" stop-opacity="0.0" />
                     </linearGradient>
                   </defs>
                   <path d="M 0 30 Q 180 35 240 180 L 860 195 L 860 220 L 0 220 Z" fill="url(#dropGrad)" />
-                  <path d="M 0 30 Q 180 35 240 180 L 860 195" fill="none" stroke="#F59E0B" stroke-width="6" stroke-linecap="round" />
-                  <line x1="240" y1="20" x2="240" y2="200" stroke="#F59E0B" stroke-width="3" stroke-dasharray="6,6" />
+                  <path d="M 0 30 Q 180 35 240 180 L 860 195" fill="none" stroke="var(--accent-warning)" stroke-width="6" stroke-linecap="round" />
+                  <line x1="240" y1="20" x2="240" y2="200" stroke="var(--accent-warning)" stroke-width="3" stroke-dasharray="6,6" />
                 </svg>
                 <div class="retention-marker" id="retention-marker">📉 00:28 : CHUTE BRUTALE D'AUDIENCE</div>
               </div>
@@ -707,7 +693,7 @@
             </div>
             <div class="virtual-cursor" id="tab-cursor" style="position: absolute; pointer-events: none; z-index: 60;">
               <svg width="68" height="68" viewBox="0 0 24 24" fill="none">
-                <path d="M4 3L11 21L14 13L22 10L4 3Z" fill="#F59E0B" stroke="#0D1117" stroke-width="2.5" stroke-linejoin="round"/>
+                <path d="M4 3L11 21L14 13L22 10L4 3Z" fill="var(--accent-warning)" stroke="var(--bg-dark)" stroke-width="2.5" stroke-linejoin="round"/>
               </svg>
             </div>
           </div>
@@ -759,7 +745,7 @@
                   <div class="widget-metric-num">+340%</div>
                   <div class="widget-metric-lbl">EFFICACITÉ API & CORE</div>
                   <svg class="widget-trend-svg" viewBox="0 0 160 40">
-                    <path d="M 0 35 Q 40 30 80 18 T 160 5" fill="none" stroke="#00F5A0" stroke-width="4" stroke-linecap="round"/>
+                    <path d="M 0 35 Q 40 30 80 18 T 160 5" fill="none" stroke="var(--accent-primary)" stroke-width="4" stroke-linecap="round"/>
                   </svg>
                 </div>
                 <div class="saas-widget-box full-span">
@@ -807,8 +793,8 @@
           <div class="comp-sixty-bridge" id="comp-sixty-bridge">
             <div class="bridge-top-circle-chrono">
               <svg class="chrono-svg-ring" viewBox="0 0 240 240">
-                <circle cx="120" cy="120" r="102" fill="#0D1117" stroke="#30363D" stroke-width="12" />
-                <circle cx="120" cy="120" r="102" fill="none" stroke="#00F5A0" stroke-width="12"
+                <circle cx="120" cy="120" r="102" fill="var(--bg-dark)" stroke="var(--border-subtle)" stroke-width="12" />
+                <circle cx="120" cy="120" r="102" fill="none" stroke="var(--accent-primary)" stroke-width="12"
                   stroke-dasharray="640" stroke-dashoffset="0" stroke-linecap="round" id="chrono-progress-ring"
                   transform="rotate(-90 120 120)" />
               </svg>
@@ -935,7 +921,7 @@
                     <div class="wid-hero-num">+312% CONVERSION B2B</div>
                     <div class="wid-hero-sub">Pipeline généré en 1 clic</div>
                     <svg class="wid-chart-svg" viewBox="0 0 280 60">
-                      <path d="M 0 50 Q 70 45 140 25 T 280 8" fill="none" stroke="#00F5A0" stroke-width="5" stroke-linecap="round"/>
+                      <path d="M 0 50 Q 70 45 140 25 T 280 8" fill="none" stroke="var(--accent-primary)" stroke-width="5" stroke-linecap="round"/>
                     </svg>
                   </div>
                   <div class="mini-widget blur" id="d-wid-2">⚙️ Webhooks</div>
@@ -971,7 +957,7 @@
                 </div>
                 <div class="virtual-cursor" id="journey-cursor" style="position: absolute; pointer-events: none; z-index: 50;">
                   <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
-                    <path d="M4 3L11 21L14 13L22 10L4 3Z" fill="#00F5A0" stroke="#0D1117" stroke-width="2.5" stroke-linejoin="round"/>
+                    <path d="M4 3L11 21L14 13L22 10L4 3Z" fill="var(--accent-primary)" stroke="var(--bg-dark)" stroke-width="2.5" stroke-linejoin="round"/>
                   </svg>
                 </div>
               </div>
@@ -985,7 +971,7 @@
                   <div class="hd-giant-res">1080 × 1920 PX</div>
                   <div class="hd-sub-badge">HAUTE DÉFINITION • AU PIXEL PRÈS ✓</div>
                   <div class="hd-tags-row">
-                    <span class="hd-tag">[ NETTETÉ VECTORIELLE 100% ]</span>
+                    <span class="hd-tag">[ NETTETÉ 100% ]</span>
                     <span class="hd-tag">[ 60 SECONDES ]</span>
                     <span class="hd-tag">[ PRÊT À PUBLIER ]</span>
                   </div>
@@ -1073,7 +1059,7 @@
                 </div>
                 <div class="virtual-cursor" id="cta-cursor" style="position: absolute; pointer-events: none; z-index: 70;">
                   <svg width="68" height="68" viewBox="0 0 24 24" fill="none">
-                    <path d="M4 3L11 21L14 13L22 10L4 3Z" fill="#F59E0B" stroke="#0D1117" stroke-width="2.5" stroke-linejoin="round"/>
+                    <path d="M4 3L11 21L14 13L22 10L4 3Z" fill="var(--accent-warning)" stroke="var(--bg-dark)" stroke-width="2.5" stroke-linejoin="round"/>
                   </svg>
                 </div>
               </div>
@@ -1233,13 +1219,13 @@
       if (isCut) {
         if (statusEl) {
           statusEl.textContent = "SILENCES ÉLIMINÉS (-100%)";
-          statusEl.style.background = "#00F5A0";
-          statusEl.style.color = "#090D16";
+          statusEl.style.background = "var(--accent-primary)";
+          statusEl.style.color = "var(--bg-carbon)";
         }
         if (silenceBadge) {
           silenceBadge.textContent = "RYTHME 100% ACTIF";
-          silenceBadge.style.background = "#090D16";
-          silenceBadge.style.color = "#00F5A0";
+          silenceBadge.style.background = "var(--bg-carbon)";
+          silenceBadge.style.color = "var(--accent-primary)";
         }
         if (btn) {
           btn.classList.add("pressed");
@@ -1248,13 +1234,13 @@
       } else {
         if (statusEl) {
           statusEl.textContent = "ANALYSE DU SPECTRE";
-          statusEl.style.background = "#00F5A0";
-          statusEl.style.color = "#090D16";
+          statusEl.style.background = "var(--accent-primary)";
+          statusEl.style.color = "var(--bg-carbon)";
         }
         if (silenceBadge) {
           silenceBadge.textContent = "SILENCE DÉTECTÉ : 0.38s";
-          silenceBadge.style.background = "#090D16";
-          silenceBadge.style.color = "#FFFFFF";
+          silenceBadge.style.background = "var(--bg-carbon)";
+          silenceBadge.style.color = "var(--white)";
         }
         if (btn) {
           btn.classList.remove("pressed");
@@ -1310,19 +1296,19 @@
       const badge = document.getElementById("morph-badge");
       let src = "assets/avatars/happy.png";
       let text = "😄 ÉMOTION : ENTHOUSIASTE";
-      let badgeBg = "#00F5A0";
-      let badgeColor = "#090D16";
+      let badgeBg = "var(--accent-primary)";
+      let badgeColor = "var(--bg-carbon)";
 
       if (progress >= 0.66) {
         src = "assets/avatars/skeptic.png";
         text = "🤨 ÉMOTION : SCEPTIQUE";
-        badgeBg = "#FFFFFF";
-        badgeColor = "#090D16";
+        badgeBg = "var(--white)";
+        badgeColor = "var(--bg-carbon)";
       } else if (progress >= 0.33) {
         src = "assets/avatars/shock.png";
         text = "😱 ÉMOTION : CHOQUÉ";
-        badgeBg = "#00F5A0";
-        badgeColor = "#090D16";
+        badgeBg = "var(--accent-primary)";
+        badgeColor = "var(--bg-carbon)";
       }
 
       if (avatar && !avatar.src.endsWith(src)) {
@@ -1425,8 +1411,8 @@
       if (btn) {
         btn.style.transform = `scale(${isClicked ? 0.96 : 1.0})`;
         if (isClicked) {
-          btn.style.boxShadow = "0 2px 0 #000000";
-          btn.style.background = "#047857";
+          btn.style.boxShadow = "0 2px 0 var(--surface-black)";
+          btn.style.background = "var(--mint-dark)";
         }
       }
       if (feedback) {
@@ -1491,35 +1477,35 @@
 
       if (card0) {
         if (isCard0Active) {
-          card0.style.borderColor = "#F59E0B";
+          card0.style.borderColor = "var(--accent-warning)";
           card0.style.transform = "scale(1.03)";
-          card0.style.background = "#1F190D";
+          card0.style.background = "var(--accent-warning-dim)";
         } else {
-          card0.style.borderColor = "#30363D";
+          card0.style.borderColor = "var(--border-subtle)";
           card0.style.transform = "scale(1.0)";
-          card0.style.background = "#161B22";
+          card0.style.background = "var(--surface-card)";
         }
       }
       if (card1) {
         if (isCard1Active) {
-          card1.style.borderColor = "#F59E0B";
+          card1.style.borderColor = "var(--accent-warning)";
           card1.style.transform = "scale(1.03)";
-          card1.style.background = "#1F190D";
+          card1.style.background = "var(--accent-warning-dim)";
         } else {
-          card1.style.borderColor = "#30363D";
+          card1.style.borderColor = "var(--border-subtle)";
           card1.style.transform = "scale(1.0)";
-          card1.style.background = "#161B22";
+          card1.style.background = "var(--surface-card)";
         }
       }
       if (card2) {
         if (isCard2Active) {
-          card2.style.borderColor = "#F59E0B";
+          card2.style.borderColor = "var(--accent-warning)";
           card2.style.transform = "scale(1.03)";
-          card2.style.background = "#1F190D";
+          card2.style.background = "var(--accent-warning-dim)";
         } else {
-          card2.style.borderColor = "#30363D";
+          card2.style.borderColor = "var(--border-subtle)";
           card2.style.transform = "scale(1.0)";
-          card2.style.background = "#161B22";
+          card2.style.background = "var(--surface-card)";
         }
       }
     } else if (type === "tab_close_cursor") {
@@ -1543,12 +1529,12 @@
       }
       if (btn) {
         if (isClicked) {
-          btn.style.background = "#F59E0B";
-          btn.style.color = "#0D1117";
+          btn.style.background = "var(--accent-warning)";
+          btn.style.color = "var(--bg-dark)";
           btn.style.transform = "scale(0.94)";
         } else {
-          btn.style.background = "#30363D";
-          btn.style.color = "#F59E0B";
+          btn.style.background = "var(--border-subtle)";
+          btn.style.color = "var(--accent-warning)";
           btn.style.transform = "scale(1.0)";
         }
       }
@@ -1657,24 +1643,24 @@
 
       if (cardCam) {
         if (isCamActive) {
-          cardCam.style.borderColor = "#FFFFFF";
+          cardCam.style.borderColor = "var(--white)";
           cardCam.style.transform = "scale(1.04)";
-          cardCam.style.boxShadow = "0 14px 0 #000000, 0 0 20px rgba(255, 255, 255, 0.2)";
+          cardCam.style.boxShadow = "0 14px 0 var(--surface-black), 0 0 20px rgba(255, 255, 255, 0.2)";
         } else {
-          cardCam.style.borderColor = "#30363D";
+          cardCam.style.borderColor = "var(--border-subtle)";
           cardCam.style.transform = "scale(1.0)";
-          cardCam.style.boxShadow = "0 12px 0 #000000";
+          cardCam.style.boxShadow = "0 12px 0 var(--surface-black)";
         }
       }
       if (cardRetakes) {
         if (isRetakesActive) {
-          cardRetakes.style.borderColor = "#00F5A0";
+          cardRetakes.style.borderColor = "var(--accent-primary)";
           cardRetakes.style.transform = "scale(1.04)";
-          cardRetakes.style.boxShadow = "0 14px 0 #000000, 0 0 24px rgba(0, 245, 160, 0.4)";
+          cardRetakes.style.boxShadow = "0 14px 0 var(--surface-black), 0 0 24px rgba(0, 245, 160, 0.4)";
         } else {
-          cardRetakes.style.borderColor = "#30363D";
+          cardRetakes.style.borderColor = "var(--border-subtle)";
           cardRetakes.style.transform = "scale(1.0)";
-          cardRetakes.style.boxShadow = "0 12px 0 #000000";
+          cardRetakes.style.boxShadow = "0 12px 0 var(--surface-black)";
         }
       }
     } else if (type === "voice_to_word_grid") {
@@ -1690,7 +1676,7 @@
       if (isCutPhase) {
         if (s1) { s1.style.width = "0px"; s1.style.opacity = "0"; s1.style.padding = "0"; s1.style.border = "none"; }
         if (s2) { s2.style.width = "0px"; s2.style.opacity = "0"; s2.style.padding = "0"; s2.style.border = "none"; }
-        if (cleanTag) { cleanTag.style.background = "#00F5A0"; cleanTag.style.color = "#0D1117"; }
+        if (cleanTag) { cleanTag.style.background = "var(--accent-primary)"; cleanTag.style.color = "var(--bg-dark)"; }
       } else {
         if (s1) { s1.style.width = "180px"; s1.style.opacity = "1"; }
         if (s2) { s2.style.width = "220px"; s2.style.opacity = "1"; }
@@ -1773,7 +1759,7 @@
         }
         if (ctaBtn && curP >= 0.8) {
           ctaBtn.style.transform = "scale(0.96)";
-          ctaBtn.style.background = "#FFFFFF";
+          ctaBtn.style.background = "var(--white)";
         }
         if (step2 && curP >= 0.4) step2.classList.add("checked");
         if (step3 && curP >= 0.8) step3.classList.add("checked");
@@ -1789,15 +1775,28 @@
       const el = document.getElementById("comp-delivery-channels");
       if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
 
-      // Synchronisation précise avec les mots prononcés :
-      // 00:55.4 "sur LinkedIn" | 00:56.5 "en prospection" | 00:57.4 "ou en haut de ta landing page"
+      // Synchronisation exclusive avec chaque mot prononcé :
+      // 00:52.2 - 00:55.3 : aucune carte sur-allumée
+      // 00:55.3 - 00:56.6 : Carte 01 (SUR LINKEDIN)
+      // 00:56.6 - 00:57.5 : Carte 02 (EN PROSPECTION B2B)
+      // 00:57.5 - 00:58.8 : Carte 03 (EN HAUT DE TA LANDING PAGE)
       const r0 = document.getElementById("channel-row-0");
       const r1 = document.getElementById("channel-row-1");
       const r2 = document.getElementById("channel-row-2");
 
-      const isR0 = t >= 55.4 || progress >= 0.41;
-      const isR1 = t >= 56.5 || progress >= 0.58;
-      const isR2 = t >= 57.4 || progress >= 0.72;
+      let isR0 = false;
+      let isR1 = false;
+      let isR2 = false;
+
+      if (t >= 10) {
+        isR0 = (t >= 55.3 && t < 56.6);
+        isR1 = (t >= 56.6 && t < 57.5);
+        isR2 = (t >= 57.5 && t <= 58.8);
+      } else {
+        isR0 = (progress >= 0.40 && progress < 0.59);
+        isR1 = (progress >= 0.59 && progress < 0.725);
+        isR2 = (progress >= 0.725 && progress <= 0.92);
+      }
 
       if (r0) {
         if (isR0) r0.classList.add("active");
@@ -1880,10 +1879,10 @@
         if (giantBox) {
           if (isSpoken) {
             giantBox.style.transform = "scale(1.08)";
-            giantBox.style.boxShadow = "18px 18px 0px #FFFFFF, 0 0 60px rgba(0, 245, 160, 0.6)";
+            giantBox.style.boxShadow = "18px 18px 0px var(--white), 0 0 60px rgba(0, 245, 160, 0.6)";
           } else {
             giantBox.style.transform = "scale(1.0)";
-            giantBox.style.boxShadow = "14px 14px 0px #FFFFFF, 0 0 40px rgba(0, 245, 160, 0.4)";
+            giantBox.style.boxShadow = "14px 14px 0px var(--white), 0 0 40px rgba(0, 245, 160, 0.4)";
           }
         }
         if (cursor) {
@@ -1894,7 +1893,7 @@
         }
         if (sendBtn && isSpoken) {
           sendBtn.style.transform = "translateY(4px) scale(0.97)";
-          sendBtn.style.boxShadow = "2px 2px 0px #00F5A0";
+          sendBtn.style.boxShadow = "2px 2px 0px var(--accent-primary)";
         }
       }
     }
