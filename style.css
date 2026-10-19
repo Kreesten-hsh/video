@@ -1758,11 +1758,12 @@ html, body {
 .loom-drop-badge {
   background: var(--accent-warning);
   color: var(--bg-dark);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 900;
   padding: 6px 16px;
   border-radius: 8px;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 .loom-drop-screen {
   position: relative;
@@ -2042,13 +2043,14 @@ html, body {
 }
 .overload-tag-item {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 800;
   color: var(--text-secondary);
   background: var(--surface-card);
   border: 2px solid var(--border-subtle);
-  padding: 8px 18px;
+  padding: 8px 14px;
   border-radius: 10px;
+  white-space: nowrap;
 }
 
 /* 3. LES 3 FAILLES LOOM (loom_3_flaws_timeline) - 920px x 820px */
@@ -2408,10 +2410,11 @@ html, body {
 }
 .widget-status-dot {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 800;
   color: var(--accent-primary);
   margin-top: 8px;
+  white-space: nowrap;
 }
 .widget-row-feature {
   display: flex;
@@ -2891,13 +2894,14 @@ html, body {
   justify-content: center;
   transition: all 0.3s var(--ease-out);
 }
-.audio-silence-block.s1 { width: 180px; }
-.audio-silence-block.s2 { width: 220px; }
+.audio-silence-block.s1 { width: 230px; }
+.audio-silence-block.s2 { width: 230px; }
 .silence-label {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 800;
   color: var(--accent-warning);
+  white-space: nowrap;
 }
 .audio-wave-bars-active {
   flex: 1;
@@ -3311,13 +3315,14 @@ html, body {
 }
 .chan-badge {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 800;
   color: var(--bg-dark);
   background: var(--accent-primary);
   padding: 4px 12px;
   border-radius: 6px;
   margin-left: auto;
+  white-space: nowrap;
 }
 .chan-pitch {
   font-size: 24px;

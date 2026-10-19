@@ -151,7 +151,7 @@ def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_pat
             }
 
         # Échantillonnage de chaque scène au milieu de sa durée
-        dom_report = page.evaluate("""(scenes) => {
+        dom_report = page.evaluate(r"""(scenes) => {
             const report = {
                 geometric_violations: [],
                 font_size_violations: [],
@@ -199,8 +199,11 @@ def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_pat
                     }
                 }
 
-                // 3. Contrôle Typographique Mobile (fontSize >= 18px sur tout texte visible)
+                // 3. Contrôle Typographique Mobile à 2 niveaux (Axe 2)
                 const allElements = container.querySelectorAll('*');
+                let maxFsInScene = 0;
+                let maxFsText = '';
+
                 allElements.forEach(el => {
                     const style = window.getComputedStyle(el);
                     // Détection rose/rouge banni
@@ -212,53 +215,177 @@ def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_pat
                     const hasText = Array.from(el.childNodes).some(n => n.nodeType === 3 && n.textContent.trim().length > 0);
                     if (hasText && el.offsetWidth > 0 && el.offsetHeight > 0) {
                         const fs = parseFloat(style.fontSize);
-                        if (fs < 17.5) {
-                            report.font_size_violations.push({
-                                scene: sc.id,
-                                tag: el.tagName,
-                                text: el.textContent.trim().substring(0, 30),
-                                fontSize: fs
-                            });
+                        const text = el.textContent.trim().replace(/\s+/g, ' ');
+                        if (fs > maxFsInScene) {
+                            maxFsInScene = fs;
+                            maxFsText = text.substring(0, 30);
+                        }
+
+                        // Micro-tags techniques autorisés au plancher de 18px (tolérance 17.5px)
+                        const isMicroTag = el.matches(
+                            '.webcam-mute-badge, .wf-bar, .editor-lang-tag, .thumb-mini-tag, .window-title, ' +
+                            '.editor-tab, .code-line-num, .axis-label, .chart-axis, .badge-micro, .dot-status, ' +
+                            '.kbd-key, .status-sub, .file-crumb, .commit-hash, .terminal-prompt'
+                        ) || el.closest('.chart-axis, .editor-tab');
+
+                        if (isMicroTag) {
+                            if (fs < 17.5) {
+                                report.font_size_violations.push({
+                                    scene: sc.id,
+                                    tag: el.tagName,
+                                    text: text.substring(0, 30),
+                                    fontSize: fs,
+                                    required: 18,
+                                    type: 'micro_tag'
+                                });
+                            }
+                        } else {
+                            // Tout autre texte visible, badge, description ou étape doit être >= 20px (tolérance 19.5px)
+                            if (fs < 19.5) {
+                                report.font_size_violations.push({
+                                    scene: sc.id,
+                                    tag: el.tagName,
+                                    text: text.substring(0, 30),
+                                    fontSize: fs,
+                                    required: 20,
+                                    type: 'regular_text'
+                                });
+                            }
                         }
                     }
 
-                    // 4. Contrôle Anti-Orphelin (nowrap ne déborde pas)
-                    if (style.whiteSpace === 'nowrap' && el.offsetWidth > 0) {
-                        if (el.scrollWidth > el.clientWidth + 2) {
-                            report.nowrap_overflow_violations.push({
-                                scene: sc.id,
-                                tag: el.tagName,
-                                text: el.textContent.trim().substring(0, 30),
-                                scrollWidth: el.scrollWidth,
-                                clientWidth: el.clientWidth
-                            });
+                    // 4. Contrôle Anti-Orphelin (Axe 3 : 1 seule ligne et zéro débordement horizontal)
+                    if (el.offsetWidth > 0 && el.offsetHeight > 0) {
+                        const text = el.textContent.trim();
+                        const isBracketBadge = text.startsWith('[') && text.endsWith(']');
+                        // Si l'élément est un conteneur parent contenant d'autres badges, on évalue ses enfants individuellement
+                        const isBadgeContainer = el.children.length > 0 && Array.from(el.children).some(c => c.textContent.trim().startsWith('['));
+                        const isShortKpiOrHeader = text.length <= 22 && (
+                            el.matches('.badge, .tag, .kpi-num, .kpi-lbl, .counter, .header, .title, .num, .sub-badge, [class*="badge"], [class*="tag"], [class*="kpi"], [class*="counter"], [class*="digits"]') ||
+                            ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'].includes(el.tagName)
+                        );
+                        const isExemptMicro = el.matches('.thumb-mini-tag, .webcam-mute-badge, .wf-bar, .editor-lang-tag');
+
+                        if ((isBracketBadge || isShortKpiOrHeader) && !isBadgeContainer && !isExemptMicro) {
+                            let lh = parseFloat(style.lineHeight);
+                            if (isNaN(lh) || lh <= 0) {
+                                lh = parseFloat(style.fontSize) * 1.25;
+                            }
+                            const pt = parseFloat(style.paddingTop) || 0;
+                            const pb = parseFloat(style.paddingBottom) || 0;
+                            const bt = parseFloat(style.borderTopWidth) || 0;
+                            const bb = parseFloat(style.borderBottomWidth) || 0;
+                            const contentHeight = el.getBoundingClientRect().height - pt - pb - bt - bb;
+
+                            // Vérification Range multi-lignes
+                            let rangeLines = 1;
+                            try {
+                                const range = document.createRange();
+                                range.selectNodeContents(el);
+                                rangeLines = range.getClientRects().length;
+                            } catch (e) {}
+
+                            if (rangeLines > 1 || contentHeight > lh * 1.45) {
+                                report.nowrap_overflow_violations.push({
+                                    scene: sc.id,
+                                    tag: el.tagName,
+                                    text: text.substring(0, 30),
+                                    error: `Retour orphelin : texte cassé sur plusieurs lignes (${Math.round(contentHeight)}px > max 1 ligne ${Math.round(lh * 1.45)}px)`
+                                });
+                            }
+
+                            if (el.scrollWidth > el.clientWidth + 2) {
+                                report.nowrap_overflow_violations.push({
+                                    scene: sc.id,
+                                    tag: el.tagName,
+                                    text: text.substring(0, 30),
+                                    error: `Débordement horizontal (scrollWidth=${el.scrollWidth} > clientWidth=${el.clientWidth})`
+                                });
+                            }
+                        } else if (style.whiteSpace === 'nowrap') {
+                            if (el.scrollWidth > el.clientWidth + 2) {
+                                report.nowrap_overflow_violations.push({
+                                    scene: sc.id,
+                                    tag: el.tagName,
+                                    text: text.substring(0, 30),
+                                    error: `Débordement horizontal nowrap (scrollWidth=${el.scrollWidth} > clientWidth=${el.clientWidth})`
+                                });
+                            }
                         }
                     }
                 });
 
-                // 5. Contrôle Dynamique Multi-Étapes (> 3.5s avec plusieurs cartes/items)
+                // Validation titre principal >= 28px sur scène d'illustration
+                if (sc.type !== 'face' && sc.type !== 'big') {
+                    if (maxFsInScene < 27.5) {
+                        report.font_size_violations.push({
+                            scene: sc.id,
+                            type: 'main_title_below_28px',
+                            fontSize: maxFsInScene,
+                            required: 28,
+                            text: maxFsText,
+                            error: `Scène d'illustration sans titre principal >= 28px (max trouvé : ${maxFsInScene}px)`
+                        });
+                    }
+                }
+
+                // 5. Contrôle Dynamique Multi-Étapes (Axe 4 : balayage par pas de 0.3s et activation de CHAQUE carte)
                 const duration = sc.end - sc.start;
                 if (duration > 3.5) {
-                    const multiCards = container.querySelectorAll('.step, .delivery-channel-row, .channel-card, .flaw-card, .saas-step, .perception-stage');
+                    const cardSelectors = '.delivery-channel-row, .flaw-card, .step-box, .channel-card, .saas-step, .perception-stage, .step-card, .workflow-step';
+                    let multiCards = Array.from(container.querySelectorAll(cardSelectors));
+                    if (multiCards.length < 2) {
+                        const listContainers = container.querySelectorAll('.steps-list, .cards-list, .channels-vertical-stack, .delivery-channels-vertical-stack, .saas-steps-row');
+                        for (const lc of listContainers) {
+                            if (lc.children.length >= 2) {
+                                multiCards = Array.from(lc.children);
+                                break;
+                            }
+                        }
+                    }
+
                     if (multiCards.length >= 2) {
-                        // Échantillonnage à 20%, 55%, 85%
-                        const t20 = sc.start + duration * 0.20;
-                        const t55 = sc.start + duration * 0.55;
-                        const t85 = sc.start + duration * 0.85;
+                        const N = multiCards.length;
+                        const getSig = (card) => {
+                            const cs = window.getComputedStyle(card);
+                            return card.className + '|' + cs.borderColor + '|' + cs.transform + '|' + cs.opacity + '|' + cs.backgroundColor;
+                        };
 
-                        window.setTime(t20);
-                        const s20 = Array.from(multiCards).map(c => c.className + '|' + (c.style.transform || '')).join(';');
+                        window.setTime(sc.start);
+                        const initialSigs = multiCards.map(c => getSig(c));
+                        const cardChanged = new Array(N).fill(false);
+                        const cardActive = new Array(N).fill(false);
 
-                        window.setTime(t55);
-                        const s55 = Array.from(multiCards).map(c => c.className + '|' + (c.style.transform || '')).join(';');
+                        // Balayage par pas de 0.3s
+                        const step = 0.3;
+                        for (let t = sc.start; t <= sc.end + 0.05; t += step) {
+                            window.setTime(t);
+                            multiCards.forEach((c, idx) => {
+                                const sig = getSig(c);
+                                if (sig !== initialSigs[idx]) {
+                                    cardChanged[idx] = true;
+                                }
+                                if (c.classList.contains('active') || c.classList.contains('highlighted') || c.classList.contains('current')) {
+                                    cardActive[idx] = true;
+                                }
+                            });
+                        }
 
-                        window.setTime(t85);
-                        const s85 = Array.from(multiCards).map(c => c.className + '|' + (c.style.transform || '')).join(';');
-
-                        if (s20 === s55 && s55 === s85) {
+                        const anyChanged = cardChanged.some(Boolean) || cardActive.some(Boolean);
+                        if (anyChanged) {
+                            for (let k = 0; k < N; k++) {
+                                if (!cardChanged[k] && !cardActive[k]) {
+                                    const cardText = multiCards[k].textContent.trim().substring(0, 30).replace(/\s+/g, ' ');
+                                    report.multistep_evaluations.push({
+                                        scene: sc.id,
+                                        error: `Scène multi-étapes non synchronisée : la carte ${k + 1}/${N} ('${cardText}') est restée inerte pendant toute la scène alors que d'autres cartes se sont activées.`
+                                    });
+                                }
+                            }
+                        } else {
                             report.multistep_evaluations.push({
                                 scene: sc.id,
-                                error: 'Scène multi-étapes figée : aucun changement de classe active ou style détecté entre 20%, 55% et 85%'
+                                error: 'Scène multi-étapes figée : aucune activation ni changement de style détecté au fil de la scène.'
                             });
                         }
                     }
@@ -289,14 +416,20 @@ def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_pat
     typo_viols = dom_report.get("font_size_violations", [])
     if typo_viols:
         for v in typo_viols:
-            errors.append(f"Contrôle Typographique : Scène {v.get('scene')} texte trop petit (<18px) : '{v.get('text')}' ({v.get('fontSize')}px)")
+            if v.get("type") == "main_title_below_28px":
+                errors.append(f"Contrôle Typographique : Scène {v.get('scene')} : {v.get('error')}")
+            else:
+                errors.append(f"Contrôle Typographique : Scène {v.get('scene')} texte trop petit (<{v.get('required', 20)}px) : '{v.get('text')}' ({v.get('fontSize')}px)")
     else:
         checks_passed += 1
 
     nowrap_viols = dom_report.get("nowrap_overflow_violations", [])
     if nowrap_viols:
         for v in nowrap_viols:
-            errors.append(f"Contrôle No-Wrap : Scène {v.get('scene')} texte nowrap débordant : '{v.get('text')}' (scroll={v.get('scrollWidth')} > client={v.get('clientWidth')})")
+            if "error" in v:
+                errors.append(f"Contrôle Anti-Orphelin : Scène {v.get('scene')} '{v.get('text')}' : {v.get('error')}")
+            else:
+                errors.append(f"Contrôle Anti-Orphelin : Scène {v.get('scene')} texte débordant : '{v.get('text')}' (scroll={v.get('scrollWidth')} > client={v.get('clientWidth')})")
     else:
         checks_passed += 1
 

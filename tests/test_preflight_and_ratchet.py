@@ -2,17 +2,20 @@
 AGENT404 : Suite de tests automatisés pour l'Effet Cliquet et le Pre-Flight Gatekeeper.
 Garantit qu'aucune régression architecturale ne peut être introduite :
   - Dépendances requises (opencv-python-headless)
-  - Zéro code couleur hexadécimal hors :root dans style.css (thématisation 100% variables CSS)
+  - Zéro code couleur hexadécimal hors :root dans tous les style.css (thématisation 100% variables CSS)
   - Zéro présence du rose banni #FF2A5F dans le projet
   - Zéro chemin utilisateur absolu (~/.local ou /home/) dans les scripts
   - Détection dynamique des avatars dans verify_rendered_avatars
   - Intégrité du registre anti-répétition registry/video_memory.json
-  - Succès à 100% du Pre-Flight Gatekeeper sur video_02
+  - Succès à 100% du Pre-Flight Gatekeeper sur video_02 (Axes 1 à 5)
+  - Détection infaillible des failles Axe 2 (typo), Axe 3 (anti-orphelin) et Axe 4 (cartes inertes)
+  - Bon fonctionnement du générateur CLI init_video.py en environnement temporaire
 """
 
 import os
 import re
 import json
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -30,28 +33,38 @@ class TestPreflightAndRatchet(unittest.TestCase):
         self.assertIn("opencv-python-headless", content)
 
     def test_style_css_zero_hardcoded_hex_outside_root(self):
-        """Garantit que 100% des couleurs hors :root dans style.css utilisent des variables CSS sémantiques."""
-        style_path = REPO_ROOT / "style.css"
-        self.assertTrue(style_path.exists(), "Fichier style.css introuvable")
-        content = style_path.read_text(encoding="utf-8")
+        """Garantit que 100% des couleurs hors :root dans tous les fichiers style.css utilisent des variables CSS sémantiques."""
+        style_files = [
+            REPO_ROOT / "style.css",
+            REPO_ROOT / "studio_perso" / "video_02" / "style.css"
+        ]
 
-        root_match = re.search(r":root\s*\{([^}]+)\}", content)
-        self.assertIsNotNone(root_match, "Bloc :root introuvable dans style.css")
+        for style_path in style_files:
+            self.assertTrue(style_path.exists(), f"Fichier {style_path} introuvable")
+            content = style_path.read_text(encoding="utf-8")
 
-        body_css = content[root_match.end():]
-        # Ignore les data URIs SVG éventuels où %23 remplace #
-        hex_outside_root = re.findall(r"#[0-9a-fA-F]{3,8}", body_css)
-        self.assertEqual(
-            hex_outside_root,
-            [],
-            f"Couleurs hexadécimales en dur détectées hors :root dans style.css : {set(hex_outside_root)}"
-        )
+            root_match = re.search(r":root\s*\{([^}]+)\}", content)
+            self.assertIsNotNone(root_match, f"Bloc :root introuvable dans {style_path.relative_to(REPO_ROOT)}")
+
+            body_css = content[root_match.end():]
+            # Ignore les data URIs SVG éventuels où %23 remplace #
+            hex_outside_root = re.findall(r"#[0-9a-fA-F]{3,8}", body_css)
+            self.assertEqual(
+                hex_outside_root,
+                [],
+                f"Couleurs hexadécimales en dur détectées hors :root dans {style_path.relative_to(REPO_ROOT)} : {set(hex_outside_root)}"
+            )
 
     def test_style_css_zero_banned_pink_ff2a5f(self):
         """Règle d'or : bannissement absolu et perpétuel de #FF2A5F dans l'ensemble du projet."""
-        style_path = REPO_ROOT / "style.css"
-        content = style_path.read_text(encoding="utf-8").upper()
-        self.assertNotIn("#FF2A5F", content, "Le rose #FF2A5F est formellement banni de style.css")
+        style_files = [
+            REPO_ROOT / "style.css",
+            REPO_ROOT / "studio_perso" / "video_02" / "style.css"
+        ]
+        for style_path in style_files:
+            if style_path.exists():
+                content = style_path.read_text(encoding="utf-8").upper()
+                self.assertNotIn("#FF2A5F", content, f"Le rose #FF2A5F est formellement banni de {style_path}")
 
         vjs_path = REPO_ROOT / "video.js"
         if vjs_path.exists():
@@ -121,7 +134,7 @@ class TestPreflightAndRatchet(unittest.TestCase):
         self.assertEqual(overlap, set(), f"Recyclage d'illustrations détecté entre video_01 et video_02 : {overlap}")
 
     def test_preflight_check_passes_on_video02(self):
-        """Exécute run_preflight_check sur video_02 et valide le succès complet à 100%."""
+        """Exécute run_preflight_check sur video_02 et valide le succès complet à 100% sur les 5 axes."""
         from preflight_check import run_preflight_check
         report = run_preflight_check(project_dir="studio_perso/video_02")
         self.assertTrue(
@@ -129,6 +142,42 @@ class TestPreflightAndRatchet(unittest.TestCase):
             f"Le contrôle preflight a échoué sur video_02 : {report.get('errors')}"
         )
         self.assertEqual(report.get("checks_passed"), 5, "Les 5 axes de contrôle doivent être validés.")
+
+    def test_init_video_scaffolding(self):
+        """Valide le bon fonctionnement de init_video.py dans un dossier temporaire."""
+        from init_video import init_video_project
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            target = Path(tmpdir) / "studio_perso" / "video_03"
+            res = init_video_project(target=str(target), cta="TARIF", title="Vidéo 3 Test")
+
+            self.assertTrue(res.get("success"), "L'initialisation du projet a échoué.")
+            self.assertEqual(res.get("cta_keyword"), "TARIF")
+
+            # Vérification des fichiers créés
+            for fname in ["project_config.json", "project.json", "index.html", "style.css", "timeline.js", "video.js"]:
+                fpath = target / fname
+                self.assertTrue(fpath.exists(), f"Fichier {fname} manquant dans le projet généré.")
+
+            # Vérification contenu index.html (Strictement sans HUD)
+            index_content = (target / "index.html").read_text(encoding="utf-8")
+            self.assertNotIn("agent-hud", index_content, "Le HUD ne doit jamais être présent dans index.html")
+            self.assertIn("video-canvas", index_content)
+
+            # Vérification style.css (:root complet et 0 hex hors :root)
+            css_content = (target / "style.css").read_text(encoding="utf-8")
+            self.assertIn(":root", css_content)
+            self.assertNotIn("#FF2A5F", css_content.upper())
+            m = re.search(r":root\s*\{([^}]+)\}", css_content)
+            self.assertIsNotNone(m)
+            body_css = css_content[m.end():]
+            hex_outside = re.findall(r"#[0-9a-fA-F]{3,8}", body_css)
+            self.assertEqual(hex_outside, [], f"Hex hors :root dans style.css généré : {hex_outside}")
+
+            # Vérification video.js (Rappel du mot-clé CTA et de l'interdiction de recyclage)
+            vjs_content = (target / "video.js").read_text(encoding="utf-8")
+            self.assertIn("TARIF", vjs_content)
+            self.assertIn("loom_player_dropoff", vjs_content)  # Illustration passée rappelée en commentaire
 
 
 if __name__ == "__main__":
