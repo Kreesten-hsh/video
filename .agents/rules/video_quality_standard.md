@@ -16,21 +16,24 @@ Toute capsule vidéo créée pour AGENT404 ou pour un client applique obligatoir
 1. **Concept 1 : Définir le problème précis plutôt qu'une idée vague**  
    *« Tu ne décris plus une idée. Tu définis le problème à résoudre. »*  
    - Le script ne part jamais d'une idée floue (« parlons de notre produit »), mais attaque frontalement la douleur aiguë du prospect : l'abandon des Looms de 10 minutes, la documentation que personne ne lit, ou la perte de leads qualifiés.
-2. **Concept 2 : Décrire les gestes et le fonctionnement étape par étape**  
+2. **Concept 2 : Décrire les gestes et le fonctionnement étape par étape (Show, Don't Tell)**  
    *« Tu passes d'un concept à un fonctionnement que tu peux vérifier, étape par étape. »*  
-   - Chaque argument est séquencé en étapes visuelles vérifiables : 1 proposition = 1 scène de 1,8 à 2,2s avec une action visuelle concrète (carte comparative, simulation d'interface, frappe typewriter, dialogue).
-3. **Concept 3 : Définir explicitement ce qu'on refuse (Les non-objectifs)**  
+   - Chaque argument est séquencé en étapes visuelles vérifiables : 1 proposition = 1 scène avec une simulation concrète de l'objet métier (lecteur Loom qui décroche, interface SaaS vivante, grille de distribution 3 canaux).
+   - Règle « 1 Mot Prononcé = 1 Action Visuelle » : Pour toute énumération ou liste, chaque élément s'affiche ou s'anime au centième de seconde exact où il est prononcé.
+3. **Concept 3 : Définir explicitement ce qu'on refuse (Les non-objectifs & Zéro Recyclage)**  
    *« Dis aussi ce que tu ne veux pas. La clarté, c'est aussi décider ce qui peut attendre. »*  
    - **Refus absolu du jargon technique** : Proscription totale de mots comme Python, FFmpeg, Whisper, codebase dans les scripts et sous-titres vidéos.
    - **Refus absolu des prix** : Zéro montant (250 €, 500 €) ni symbole tarifaire dans les vidéos publiques.
-   - **Refus absolu du HUD** : Banni définitivement de l'interface graphique.
+   - **Refus absolu du HUD** : Le bandeau supérieur (#agent-hud) est banni définitivement de l'interface graphique.
+   - **Refus absolu du rouge/rose (#FF2A5F)** : Zéro `bg: "alert"` et zéro `bg: "mint"`. Pour les états négatifs ou erreurs, utiliser l'ardoise `#161B22`, bordures `#30363D`, texte `#8B949E` et accents ambre `#F59E0B`.
+   - **Refus absolu de l'inter-recyclage** : Interdiction totale de réutiliser dans une nouvelle vidéo un composant visuel, une carte, un texte d'écran ou un terminal provenant d'une vidéo précédente (ex. interdiction de reprendre la carte `00:21.466 ms`, le spectre `vocal1.m4a` ou la barre `COMPILATION FFmpeg` de la Vidéo 1 dans la Vidéo 2).
    - **Refus de la duplication interne** : Zéro composant ou animation identique dupliqué dans une même vidéo.
 4. **Concept 4 : Remplacer « ça ne marche pas » par un constat précis mesuré**  
    *« Identifie l'écart entre le résultat attendu et le résultat obtenu. »*  
    - Tout écart est audité avec des valeurs mesurées : durée exacte de transition, écart de luminance de l'avatar (> 32 sur zone sticker via OpenCV), mesure de marge safe-area (> 280 px en bas, > 80 px à droite).
 5. **Concept 5 : Des décisions claires avec critères d'acceptation testables**  
    *« Je saurai que ça fonctionne si... Un brief précis ne garantit pas un code fiable : il faut encore le tester. »*  
-   - La vidéo est acceptée uniquement si la suite de tests automatisés dédiée (`tests/test_video0X_spec.py`) valide 100 % des critères : 0 trou temporel dans `timeline.js`, conformité audio/vidéo stricte `ffprobe`, présence vérifiée de chaque sticker.
+   - La vidéo est acceptée uniquement si la suite de tests automatisés dédiée (`tests/test_video0X_spec.py`) valide 100 % des critères : 0 trou temporel dans `timeline.js`, conformité audio/vidéo stricte `ffprobe`, présence vérifiée de chaque sticker, unicité SHA-256 de chaque avatar.
 
 ---
 
@@ -53,20 +56,21 @@ Tout ajout ou modification de vidéo doit hisser le niveau global du studio sans
 - **Clarté cognitive** : Une seule idée majeure par vidéo, développée en arguments visuels distincts conduisant à un appel à l'action sans ambiguïté.
 
 ### B. Variété et Richesse Visuelle Intraclip (Règle de Non-Répétition)
-- **Interdiction de duplication interne** : Au sein d'une même vidéo, il est formellement interdit d'utiliser deux fois la même illustration, icône, composant ou animation strictement identique, sauf intention narrative explicite (ex: fermeture de boucle finale / *sentence loop*).
+- **Interdiction de duplication interne** : Au sein d'une même vidéo, il est formellement interdit d'utiliser deux fois la même illustration, icône, composant ou animation strictement identique, sauf intention narrative explicite.
 - **Rupture visuelle cadencée** : Le spectateur doit faire face à un événement visuel renouvelé (changement de composant DOM, variation d'angle, zoom progressif, décor dynamique) toutes les 1,8 à 2,6 secondes.
 
 ### C. Singularité des Avatars et Bibliothèque d'Expressions
-- **Proscription du clonage mécanique** : Une vidéo ne doit pas se contenter de réutiliser indéfiniment les 3 mêmes poses historiques (`stop`, `pointing`, `happy`) au risque d'uniformiser toutes les productions du studio.
-- **Incarnation sur-mesure** : Chaque script requiert un casting d'expressions faciales et de postures corporelles spécifiquement adaptées à ses émotions (doute, ironie, démonstration technique, rejet, satisfaction, complicité).
-- **Enrichissement permanent** : Si une émotion nécessaire n'existe pas dans `assets/avatars/`, de nouvelles prises brutes doivent être capturées sur fond neutre et intégrées au moteur via `build_stickers.py`.
+- **Proscription du clonage mécanique & intégrité SHA-256** : Chaque sticker dans `assets/avatars/` doit avoir une empreinte SHA-256 unique. Aucun faux doublon sous des noms différents n'est toléré.
+- **Cadrage buste complet obligatoire** : Bannissement définitif des têtes coupées sans épaules ni buste flottant au milieu du cadre (ex. ancien `mini.png` ou `skeptic.png`). Tout avatar plein écran doit être cadré en buste complet avec épaules, veste et cravate.
+- **Pertinence sémantique & émotionnelle** : L'avatar ne peut être affiché que si son expression et sa gestuelle collent à 100 % au sens de la réplique (ex. `stop` sur refus, `idea` sur solution, `mic` sur vocal, `pointing` sur appel à l'action). En cas d'inadéquation, privilégier une animation UI sur-mesure ou un médaillon PiP.
+- **Enrichissement permanent** : Si une émotion nécessaire n'existe pas dans `assets/avatars/`, de nouvelles prises brutes doivent être générées/capturées sur fond neutre et intégrées au moteur via `build_stickers.py`.
 
 ### D. Cinétique Déterministe et Standards Graphiques
 - **Mouvements physiques vivants** : Toute apparition d'élément doit exploiter une courbe d'amortissement dynamique (spring overshoot) plutôt qu'un déplacement linéaire rigide.
 - **Typographie et Safe-Area 9:16** :
   - Respect strict de la zone de sécurité centrale ($900 \times 1400\text{ px}$).
   - Marge basse de 280 px exempte de tout texte critique ou bouton (réservée aux éléments d'interface des plateformes TikTok, Reels et Shorts).
-  - Lisibilité absolue à l'écran : contrastes élevés (fond sombre `#0D1117`, texte blanc `#FFFFFF` ou vert menthe `#00F5A0`, bordures néo-brutalistes franches).
+  - Lisibilité absolue à l'écran : contrastes élevés (fond sombre `#0D1117`, texte blanc `#FFFFFF` ou vert menthe `#00F5A0`, bordures néo-brutalistes franches, zéro `#FF2A5F`).
 
 ---
 

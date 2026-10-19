@@ -141,7 +141,19 @@
       case "face":
         const isHeadOnly = data.avatar && data.avatar.includes("mini");
         const badgeText = data.badge || data.label || "";
+        let heroTitleHtml = "";
+        if (data.hero_title) {
+          let formattedTitle = data.hero_title;
+          if (data.highlight_word && formattedTitle.includes(data.highlight_word)) {
+            formattedTitle = formattedTitle.replace(
+              data.highlight_word,
+              `<span class="highlight">${data.highlight_word}</span>`
+            );
+          }
+          heroTitleHtml = `<div class="face-hero-title" id="face-hero-title">${formattedTitle}</div>`;
+        }
         return `
+          ${heroTitleHtml}
           <div class="comp-face ${isHeadOnly ? 'face-headonly' : ''}" id="comp-face">
             <img src="${data.avatar}" alt="Avatar" class="avatar-sticker" id="avatar-img" />
             ${badgeText ? `<div class="face-badge" id="face-badge">${badgeText}</div>` : ""}
@@ -508,6 +520,302 @@
             </div>
           </div>
         `;
+      case "loom_player_drop":
+        return `
+          <div class="comp-loom-drop" id="comp-loom-drop">
+            <div class="loom-drop-header">
+              <div class="loom-drop-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <div class="loom-drop-title">${data.title || "loom_demo_prospect.mp4"}</div>
+              <div class="loom-drop-badge">${data.label || "DÉCROCHAGE"}</div>
+            </div>
+            <div class="loom-drop-body">
+              <div class="loom-retention-chart">
+                <svg class="loom-retention-svg" viewBox="0 0 800 180" preserveAspectRatio="none">
+                  <path d="M 0 30 Q 150 40 220 130 T 400 165 L 800 170" fill="none" stroke="#F59E0B" stroke-width="6" stroke-linecap="round" />
+                  <line x1="220" y1="20" x2="220" y2="170" stroke="#F59E0B" stroke-width="2" stroke-dasharray="6,6" />
+                </svg>
+                <div class="retention-marker" id="retention-marker">📉 ${data.stoppedAt || "00:28"} : -88% AUDIENCE</div>
+              </div>
+              <div class="loom-drop-footer">
+                <div class="loom-drop-stat">
+                  <span class="loom-drop-val">${data.retention || "12%"}</span>
+                  <span class="loom-drop-label">DE RÉTENTION FINALE</span>
+                </div>
+                <div class="loom-drop-stat">
+                  <span class="loom-drop-val" style="color: #8B949E;">${data.duration || "10:00"}</span>
+                  <span class="loom-drop-label">DURÉE TOTALE (TROP LONG)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      case "browser_tab_overload":
+        return `
+          <div class="comp-browser-overload" id="comp-browser-overload">
+            <div class="browser-tab-bar">
+              <div class="browser-tab active">${data.tabTitle || "Screen Share — Meeting_Recording_12m.mp4"}</div>
+              <div class="browser-tab">+ Nouvel onglet</div>
+            </div>
+            <div class="browser-clutter-body">
+              <div class="clutter-grid">
+                <div class="clutter-tile">📁 Bureau encombré</div>
+                <div class="clutter-tile">📊 48 onglets ouverts</div>
+                <div class="clutter-tile">💬 Notifications Slack</div>
+                <div class="clutter-tile">⏳ Chargement infini...</div>
+                <div class="clutter-tile">🔇 Micro mal réglé</div>
+                <div class="clutter-tile">🔄 Défilement erratique</div>
+                <div class="clutter-tile">📝 Notes désordonnées</div>
+                <div class="clutter-tile">💤 Fatigue visuelle</div>
+              </div>
+              <div class="overload-warning-bar" id="overload-warning-bar">
+                <div class="overload-timer">⏱️ ${data.timer || "12:00"}</div>
+                <div class="overload-text">${data.tag || "12 MINUTES D'ÉCRAN PARTAGÉ ⏳"}</div>
+              </div>
+            </div>
+          </div>
+        `;
+      case "loom_3_flaws_timeline":
+        return `
+          <div class="comp-flaws-timeline" id="comp-flaws-timeline">
+            <div class="flaws-head">${data.header || "DÉCROCHAGE PROSPECT"}</div>
+            ${(data.flaws || []).map((f, i) => `
+              <div class="flaw-card" id="flaw-card-${i}">
+                <div class="flaw-num">${f.num}</div>
+                <div class="flaw-content">
+                  <div class="flaw-title">${f.title}</div>
+                  <div class="flaw-detail">${f.detail}</div>
+                </div>
+                <div class="flaw-icon">${f.icon}</div>
+              </div>
+            `).join("")}
+          </div>
+        `;
+      case "tab_close_cursor":
+        return `
+          <div class="comp-tab-close" id="comp-tab-close">
+            <div class="tab-close-bar">
+              <div class="tab-close-tab">
+                <span>🌐 ${data.tabName || "Loom — Démo Produit B2B"}</span>
+                <span class="tab-cross-btn" id="tab-cross-btn">✕</span>
+              </div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 16px; color: #8B949E;">Fermeture éclair</div>
+            </div>
+            <div class="tab-close-badge-box" id="tab-close-badge-box">
+              <div class="tab-close-big">${data.badge || "ONGLET FERMÉ EN 30S"}</div>
+              <div class="tab-close-sub">${data.sub || "PERDU AVANT LE MOINDRE BÉNÉFICE"}</div>
+            </div>
+            <div class="virtual-cursor" id="tab-cursor" style="position: absolute; pointer-events: none; z-index: 50;">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                <path d="M4 3L11 21L14 13L22 10L4 3Z" fill="#F59E0B" stroke="#090D16" stroke-width="2.5" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+        `;
+      case "product_vs_perception":
+        if (data.phase === "perception") {
+          return `
+            <div class="comp-product-perception" id="comp-product-perception">
+              <div class="perception-drop-card">
+                <div style="font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 800; color: #8B949E; text-align: center;">
+                  ${data.title || "VALEUR PERÇUE PAR LE PROSPECT"}
+                </div>
+                <div class="drop-gauge-box">
+                  <div class="drop-val-side real">
+                    <div class="lbl">VALEUR RÉELLE DU PRODUIT</div>
+                    <div class="num">${data.dropFrom || "100%"}</div>
+                  </div>
+                  <div class="drop-arrow">➔ 📉</div>
+                  <div class="drop-val-side perceived">
+                    <div class="lbl">PERÇUE APRÈS LE LOOM</div>
+                    <div class="num">${data.dropTo || "18%"}</div>
+                  </div>
+                </div>
+                <div class="drop-warning-badge">${data.badge || "0 APPEL BOOKÉ"}</div>
+                <div style="text-align: center; font-size: 20px; font-weight: 700; color: #8B949E;">
+                  ${data.sub || "DÉMO AMATEUR = CONTRATS PERDUS"}
+                </div>
+              </div>
+            </div>
+          `;
+        }
+        return `
+          <div class="comp-product-perception" id="comp-product-perception">
+            <div class="product-card-solid">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="prod-title">${data.title || "TON PRODUIT SAAS"}</div>
+                <div class="prod-rating">${data.rating || "★★★★★"}</div>
+              </div>
+              <div class="prod-sub">${data.subtitle || "ARCHITECTURE SOLIDE • VALEUR RÉELLE"}</div>
+              <div class="prod-bullets">
+                ${(data.points || []).map(p => `
+                  <div class="bullet-item">
+                    <span style="color: #00F5A0; font-size: 24px;">✓</span>
+                    <span>${p}</span>
+                  </div>
+                `).join("")}
+              </div>
+            </div>
+            ${data.avatar_pip ? `
+              <div class="avatar-pip" id="avatar-pip">
+                <img src="${data.avatar_pip}" alt="Avatar PiP" />
+              </div>
+            ` : ""}
+          </div>
+        `;
+      case "interface_labyrinth_cut":
+        return `
+          <div class="comp-labyrinth-cut" id="comp-labyrinth-cut">
+            <div class="labyrinth-head">${data.header || "VISITE DE L'INTERFACE SAAS"}</div>
+            <div class="labyrinth-grid">
+              ${(data.menus || []).map((m, i) => `
+                <div class="menu-card" id="menu-card-${i}">${m}</div>
+              `).join("")}
+            </div>
+            <div class="strike-line" id="strike-line"></div>
+            <div class="labyrinth-cut-badge" id="labyrinth-cut-badge">${data.badge || "VISITE GUIDÉE DE 12 MENUS : IGNORÉE ✕"}</div>
+          </div>
+        `;
+      case "sixty_sec_value_bridge":
+        return `
+          <div class="comp-sixty-bridge" id="comp-sixty-bridge">
+            <div class="bridge-flow">
+              <div class="bridge-box">
+                <div class="title">${data.leftBox || "PROBLÈME DÉCIDEUR"}</div>
+                <div class="desc">Douleur identifiée & blocage business</div>
+              </div>
+              <div class="bridge-chrono" id="bridge-chrono">
+                <div class="num">${data.chrono || "60s"}</div>
+                <div class="unit">CHRONO</div>
+              </div>
+              <div class="bridge-box sol">
+                <div class="title">${data.rightBox || "SOLUTION + ROI IMMÉDIAT"}</div>
+                <div class="desc" style="color: #00F5A0;">Bénéfice prouvé sans friction</div>
+              </div>
+            </div>
+            <div class="bridge-tag-bar">${data.tag || "COMPRÉHENSION EN 60 SECONDES"}</div>
+          </div>
+        `;
+      case "code_to_ui_live":
+        return `
+          <div class="comp-code-live" id="comp-code-live">
+            <div class="code-window-col">
+              <div class="code-window-bar">
+                <div class="window-dots">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                </div>
+                <span>${data.filename || "pipeline_render.js"}</span>
+              </div>
+              <div class="code-window-body" id="code-live-body"><span id="code-live-text"></span><span class="cursor">▋</span></div>
+            </div>
+            <div class="code-badges-col">
+              <div class="code-pop-badge" id="code-badge-1">${data.badge1 || "📷 ZÉRO CAMÉRA"}</div>
+              <div class="code-pop-badge" id="code-badge-2">${data.badge2 || "🎯 ZÉRO PRISE RATÉE"}</div>
+            </div>
+          </div>
+        `;
+      case "voice_to_word_grid":
+        return `
+          <div class="comp-word-grid" id="comp-word-grid">
+            <div class="wave-clean-box">
+              <div class="wave-clean-title">🎙️ ${data.audioFile || "memo_vocal_fondateur.m4a"} — DÉCOUPE DES SILENCES</div>
+              <div class="wave-clean-bars" id="wave-clean-bars">
+                ${Array.from({ length: 32 }, (_, i) => `<div class="wbar-clean" id="cwbar-${i}"></div>`).join("")}
+              </div>
+            </div>
+            <div class="grid-sync-box">
+              <div class="grid-sync-title">⚡ SYNCHRONISATION MOT-À-MOT DÉTERMINISTE (30 FPS)</div>
+              <div class="grid-sync-cells">
+                <div class="sync-cell"><div class="ts">00:00.01</div><div class="wd">[COUPE HÉSITATIONS]</div></div>
+                <div class="sync-cell"><div class="ts">00:00.02</div><div class="wd">[ALIGNEMENT WHISPER]</div></div>
+                <div class="sync-cell"><div class="ts">00:00.03</div><div class="wd">[CALIBRAGE FPS]</div></div>
+              </div>
+            </div>
+          </div>
+        `;
+      case "saas_showcase_3steps":
+        return `
+          <div class="comp-saas-showcase" id="comp-saas-showcase">
+            <div class="saas-app-bar">
+              <div class="saas-app-logo">⚡ ${data.appName || "CloudMetrics — Intelligence B2B"}</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 15px; color: #8B949E;">ENV: PRODUCTION</div>
+            </div>
+            <div class="saas-metrics-row">
+              <div class="saas-metric-tile highlighted" id="saas-tile-1">
+                <div class="lbl">KPI PRINCIPAL</div>
+                <div class="val">+312% ROI</div>
+              </div>
+              <div class="saas-metric-tile" id="saas-tile-2">
+                <div class="lbl">TEMPS GAGNÉ</div>
+                <div class="val">14h / sem</div>
+              </div>
+              <div class="saas-metric-tile" id="saas-tile-3">
+                <div class="lbl">CONVERSION</div>
+                <div class="val">4.8x</div>
+              </div>
+            </div>
+            <div class="saas-stage-tag" id="saas-stage-tag">${data.steps && data.steps[0] ? data.steps[0].label : "FONCTIONNALITÉ CLÉ ISOLÉE"}</div>
+          </div>
+        `;
+      case "delivery_48h_3channels":
+        return `
+          <div class="comp-delivery-channels" id="comp-delivery-channels">
+            <div class="delivery-head-badge">${data.header || "⚡ LIVRAISON CLÉ EN MAIN EN 48H"}</div>
+            <div class="delivery-cards-grid">
+              ${(data.cards || []).map((c, i) => `
+                <div class="delivery-card-v" id="delivery-card-${i}">
+                  <div class="chan-icon">${c.icon}</div>
+                  <div class="chan-name">${c.channel}</div>
+                  <div class="chan-tag">${c.tag}</div>
+                  <div class="chan-desc">${c.desc}</div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      case "face_to_dm_cta":
+        return `
+          <div class="comp-face-dm" id="comp-face-dm">
+            <div class="face-dm-avatar-stage" id="face-dm-avatar-stage">
+              <div class="face-hero-title" style="top: 220px;">
+                <span>TRANSFORME TES DÉMOS EN </span><span class="highlight">RDV</span>
+              </div>
+              <div class="comp-face">
+                <img src="${data.avatar || 'assets/avatars/pointing.png'}" alt="Avatar" class="avatar-sticker" id="avatar-img" />
+              </div>
+            </div>
+            <div class="face-dm-chat-stage" id="face-dm-chat-stage">
+              <div class="comp-dm-cta" style="margin: 0 auto;">
+                <div class="dm-head">
+                  <div class="dm-avatar-circle">🤖</div>
+                  <div class="dm-meta">
+                    <div class="dm-recipient">${data.targetUser || "@AGENT404"}</div>
+                    <div class="dm-online-badge">● EN LIGNE</div>
+                  </div>
+                </div>
+                <div class="dm-chat-zone">
+                  <div class="dm-bubble user-msg" id="dm-user-bubble">
+                    <span class="bubble-tag">TOI</span>
+                    <span class="bubble-content" id="dm-typewriter">${data.keyword || "DEMO"}</span>
+                  </div>
+                  <div class="dm-bubble bot-msg" id="dm-bot-bubble">
+                    <span class="bubble-tag">AGENT404</span>
+                    <span class="bubble-content">${data.responseText || "✓ Message reçu. Démo envoyée en 2 min."}</span>
+                  </div>
+                </div>
+                <div class="dm-bar">
+                  <div class="dm-text-field">Message privé...</div>
+                  <div class="dm-action-send">➔</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
       default:
         return `<div>Scène non définie</div>`;
     }
@@ -534,7 +842,12 @@
     if (type === "face") {
       const avatar = document.getElementById("avatar-img");
       const badge = document.getElementById("face-badge");
+      const heroTitle = document.getElementById("face-hero-title");
       const isHeadOnly = data.avatar && data.avatar.includes("mini");
+
+      if (heroTitle) {
+        heroTitle.style.transform = `translateX(-50%) translateY(${spring.ty}px) scale(${spring.scale})`;
+      }
 
       // Dynamisme continu : flottement, inclinaison et zoom caméra progressif
       const floatY = Math.sin(t * 5) * 10;
@@ -871,6 +1184,236 @@
         const bp = Math.max(0, Math.min(1, (elapsed - 0.4) / 0.25));
         botBubble.style.opacity = `${bp}`;
         botBubble.style.transform = `scale(${0.8 + 0.2 * bp})`;
+      }
+    } else if (type === "loom_player_drop") {
+      const el = document.getElementById("comp-loom-drop");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+      const marker = document.getElementById("retention-marker");
+      if (marker) {
+        const mp = Math.min(1, Math.max(0, (elapsed - 0.15) / 0.25));
+        const mscale = mp < 1 ? (0.6 + 0.4 * mp + 0.12 * Math.sin(mp * Math.PI)) : 1.0;
+        marker.style.transform = `scale(${mscale})`;
+        marker.style.opacity = `${mp}`;
+      }
+    } else if (type === "browser_tab_overload") {
+      const el = document.getElementById("comp-browser-overload");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+      const warning = document.getElementById("overload-warning-bar");
+      if (warning) {
+        const wp = Math.min(1, Math.max(0, (elapsed - 0.2) / 0.25));
+        warning.style.opacity = `${wp}`;
+        warning.style.transform = `scale(${0.85 + 0.15 * wp})`;
+      }
+    } else if (type === "loom_3_flaws_timeline") {
+      const el = document.getElementById("comp-flaws-timeline");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+      for (let i = 0; i < 3; i++) {
+        const card = document.getElementById(`flaw-card-${i}`);
+        if (!card) continue;
+        const delay = i * 0.25;
+        const cElapsed = Math.max(0, elapsed - delay);
+        if (cElapsed === 0) {
+          card.style.opacity = "0";
+          card.style.transform = "translateY(30px) scale(0.9)";
+        } else {
+          const cp = Math.min(1, cElapsed / 0.22);
+          const cscale = cp < 1 ? (0.85 + 0.15 * cp + 0.08 * Math.sin(cp * Math.PI)) : 1.0;
+          card.style.opacity = "1";
+          card.style.transform = `translateY(${30 * (1 - cp)}px) scale(${cscale})`;
+        }
+      }
+    } else if (type === "tab_close_cursor") {
+      const el = document.getElementById("comp-tab-close");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+      const cur = document.getElementById("tab-cursor");
+      const btn = document.getElementById("tab-cross-btn");
+      const badge = document.getElementById("tab-close-badge-box");
+
+      const moveP = Math.min(1, elapsed / 0.4);
+      const startX = 260, startY = 180;
+      const targetX = 0, targetY = 0;
+      const curX = startX + (targetX - startX) * moveP;
+      const curY = startY + (targetY - startY) * moveP;
+      const isClicked = elapsed >= 0.4;
+
+      if (cur) {
+        cur.style.transform = `translate(${curX}px, ${curY}px) scale(${isClicked ? 0.88 : 1.0})`;
+      }
+      if (btn) {
+        if (isClicked) {
+          btn.style.background = "#F59E0B";
+          btn.style.color = "#090D16";
+          btn.style.transform = "scale(0.92)";
+        } else {
+          btn.style.background = "#30363D";
+          btn.style.color = "#F59E0B";
+          btn.style.transform = "scale(1.0)";
+        }
+      }
+      if (badge) {
+        const bp = Math.max(0, Math.min(1, (elapsed - 0.35) / 0.25));
+        badge.style.opacity = `${bp}`;
+        badge.style.transform = `rotate(-2deg) scale(${0.8 + 0.2 * bp})`;
+      }
+    } else if (type === "product_vs_perception") {
+      const el = document.getElementById("comp-product-perception");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+      const pip = document.getElementById("avatar-pip");
+      if (pip) {
+        const floatY = Math.sin(t * 4) * 6;
+        pip.style.transform = `translateY(${floatY}px)`;
+      }
+    } else if (type === "interface_labyrinth_cut") {
+      const el = document.getElementById("comp-labyrinth-cut");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+      const strike = document.getElementById("strike-line");
+      const badge = document.getElementById("labyrinth-cut-badge");
+      const isCut = progress >= 0.4;
+      if (strike) {
+        if (isCut) {
+          const cutP = Math.min(1, (progress - 0.4) / 0.15);
+          strike.style.opacity = `${cutP}`;
+          strike.style.transform = `rotate(-12deg) scaleX(${cutP})`;
+        } else {
+          strike.style.opacity = "0";
+          strike.style.transform = "rotate(-12deg) scaleX(0)";
+        }
+      }
+      if (badge) {
+        if (isCut) {
+          const bp = Math.min(1, (progress - 0.45) / 0.15);
+          badge.style.opacity = `${bp}`;
+          badge.style.transform = `translate(-50%, -50%) rotate(-4deg) scale(${0.7 + 0.3 * bp})`;
+        } else {
+          badge.style.opacity = "0";
+          badge.style.transform = `translate(-50%, -50%) rotate(-4deg) scale(0.7)`;
+        }
+      }
+    } else if (type === "sixty_sec_value_bridge") {
+      const el = document.getElementById("comp-sixty-bridge");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+      const chrono = document.getElementById("bridge-chrono");
+      if (chrono) {
+        const beat = 1.0 + Math.sin(t * 8) * 0.05;
+        chrono.style.transform = `scale(${beat})`;
+      }
+    } else if (type === "code_to_ui_live") {
+      const el = document.getElementById("comp-code-live");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+      const textEl = document.getElementById("code-live-text");
+      if (textEl) {
+        const fullCode = data.code || "";
+        const charCount = Math.floor(Math.min(1, elapsed / 0.8) * fullCode.length);
+        textEl.textContent = fullCode.substring(0, charCount);
+      }
+      const b1 = document.getElementById("code-badge-1");
+      const b2 = document.getElementById("code-badge-2");
+      if (b1) {
+        const p1 = Math.max(0, Math.min(1, (elapsed - 0.25) / 0.22));
+        b1.style.opacity = `${p1}`;
+        b1.style.transform = `translateX(${40 * (1 - p1)}px) scale(${0.85 + 0.15 * p1})`;
+      }
+      if (b2) {
+        const p2 = Math.max(0, Math.min(1, (elapsed - 0.55) / 0.22));
+        b2.style.opacity = `${p2}`;
+        b2.style.transform = `translateX(${40 * (1 - p2)}px) scale(${0.85 + 0.15 * p2})`;
+      }
+    } else if (type === "voice_to_word_grid") {
+      const el = document.getElementById("comp-word-grid");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+      const barsCount = 32;
+      for (let i = 0; i < barsCount; i++) {
+        const bar = document.getElementById(`cwbar-${i}`);
+        if (!bar) continue;
+        const waveOsc = Math.sin(t * 12 + i * 0.4) * Math.cos(t * 6 - i * 0.25);
+        const distFromCenter = Math.abs(i - barsCount / 2) / (barsCount / 2);
+        const baseH = (1 - distFromCenter * 0.5) * 80;
+        const h = Math.max(12, baseH * Math.abs(waveOsc) + 16);
+        bar.style.height = `${Math.round(h)}px`;
+      }
+    } else if (type === "saas_showcase_3steps") {
+      const el = document.getElementById("comp-saas-showcase");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+      const tag = document.getElementById("saas-stage-tag");
+      const tile1 = document.getElementById("saas-tile-1");
+      const tile2 = document.getElementById("saas-tile-2");
+      const tile3 = document.getElementById("saas-tile-3");
+      const steps = data.steps || [];
+
+      if (progress < 0.33) {
+        if (tag && steps[0]) tag.textContent = `${steps[0].num} ${steps[0].label}`;
+        if (tile1) tile1.classList.add("highlighted");
+        if (tile2) tile2.classList.remove("highlighted");
+        if (tile3) tile3.classList.remove("highlighted");
+      } else if (progress < 0.66) {
+        if (tag && steps[1]) tag.textContent = `${steps[1].num} ${steps[1].label}`;
+        if (tile1) tile1.classList.remove("highlighted");
+        if (tile2) tile2.classList.add("highlighted");
+        if (tile3) tile3.classList.remove("highlighted");
+      } else {
+        if (tag && steps[2]) tag.textContent = `${steps[2].num} ${steps[2].label}`;
+        if (tile1) tile1.classList.remove("highlighted");
+        if (tile2) tile2.classList.remove("highlighted");
+        if (tile3) tile3.classList.add("highlighted");
+      }
+    } else if (type === "delivery_48h_3channels") {
+      const el = document.getElementById("comp-delivery-channels");
+      if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+      const cards = data.cards || [];
+      const activeIdx = Math.min(cards.length - 1, Math.floor(progress * cards.length));
+      for (let i = 0; i < cards.length; i++) {
+        const cEl = document.getElementById(`delivery-card-${i}`);
+        if (!cEl) continue;
+        if (i === activeIdx) {
+          cEl.classList.add("active");
+        } else {
+          cEl.classList.remove("active");
+        }
+      }
+    } else if (type === "face_to_dm_cta") {
+      const avatarStage = document.getElementById("face-dm-avatar-stage");
+      const chatStage = document.getElementById("face-dm-chat-stage");
+      const userBubble = document.getElementById("dm-user-bubble");
+      const botBubble = document.getElementById("dm-bot-bubble");
+      const avatar = document.getElementById("avatar-img");
+
+      const switchTime = 0.42;
+      if (progress < switchTime) {
+        if (avatarStage) {
+          avatarStage.style.opacity = "1";
+          avatarStage.style.pointerEvents = "auto";
+        }
+        if (chatStage) {
+          chatStage.style.opacity = "0";
+          chatStage.style.pointerEvents = "none";
+        }
+        if (avatar) {
+          const floatY = Math.sin(t * 5) * 10;
+          const tiltDeg = Math.sin(t * 2.5) * 1.5;
+          avatar.style.transform = `translateX(-50%) translateY(${spring.ty + floatY}px) rotate(${tiltDeg}deg) scale(${spring.scale})`;
+        }
+      } else {
+        const chatProgress = (progress - switchTime) / (1 - switchTime);
+        if (avatarStage) {
+          avatarStage.style.opacity = "0";
+          avatarStage.style.pointerEvents = "none";
+        }
+        if (chatStage) {
+          const cp = Math.min(1, chatProgress / 0.3);
+          chatStage.style.opacity = `${cp}`;
+          chatStage.style.pointerEvents = "auto";
+          chatStage.style.transform = `translate(-50%, -50%) scale(${0.85 + 0.15 * cp})`;
+        }
+        if (userBubble) {
+          const up = Math.min(1, chatProgress / 0.4);
+          userBubble.style.opacity = `${up}`;
+          userBubble.style.transform = `scale(${0.8 + 0.2 * up})`;
+        }
+        if (botBubble) {
+          const bp = Math.max(0, Math.min(1, (chatProgress - 0.4) / 0.4));
+          botBubble.style.opacity = `${bp}`;
+          botBubble.style.transform = `scale(${0.8 + 0.2 * bp})`;
+        }
       }
     }
   }

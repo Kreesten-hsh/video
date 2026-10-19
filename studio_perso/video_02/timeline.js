@@ -1,4 +1,4 @@
-// TIMELINE VIDÉO PROGRAMMATIQUE SUR-MESURE (35 SCÈNES)
+// TIMELINE VIDÉO PROGRAMMATIQUE SUR-MESURE (16 SCÈNES)
 // Généré automatiquement par build_master_timeline.py
 
 window.PROJECT_CONFIG = {
@@ -6,7 +6,8 @@ window.PROJECT_CONFIG = {
     "mint": "#00F5A0",
     "bg_carbon": "#090D16",
     "bg_dark": "#0B0E14",
-    "border": "#161B22"
+    "border": "#161B22",
+    "amber": "#F59E0B"
   }
 };
 
@@ -1041,186 +1042,225 @@ window.SCENES = [
     "end": 3.24,
     "data": {
       "avatar": "assets/avatars/stop.png",
-      "badge": "STOP AUX LOOM DE 10 MIN 🛑",
-      "bg": "alert"
+      "hero_title": "STOP AUX LOOM DE 10 MIN",
+      "highlight_word": "10 MIN",
+      "bg": "grid"
     }
   },
   {
     "id": "scene_02",
-    "type": "loom_player_fail",
+    "type": "loom_player_drop",
     "start": 3.24,
     "end": 5.58,
     "data": {
-      "title": "demo_produit_v4.mp4",
-      "duration": "11:45",
+      "title": "loom_demo_prospect.mp4",
+      "duration": "10:00",
       "stoppedAt": "00:28",
-      "dropRate": "-88%",
-      "label": "DÉCROCHAGE PROSPECT",
-      "bg": "alert"
+      "retention": "12%",
+      "label": "RÉTENTION EN CHUTE LIBRE",
+      "bg": "grid"
     }
   },
   {
     "id": "scene_03",
-    "type": "face",
+    "type": "browser_tab_overload",
     "start": 5.58,
     "end": 9.14,
     "data": {
-      "avatar": "assets/avatars/watch.png",
-      "badge": "12 MINUTES D'ÉCRAN PARTAGÉ ⏳",
+      "tabTitle": "Screen Share — Meeting_Recording_12m.mp4",
+      "timer": "12:00",
+      "tag": "12 MINUTES D'ÉCRAN PARTAGÉ ⏳",
       "bg": "grid"
     }
   },
   {
     "id": "scene_04",
-    "type": "list",
+    "type": "loom_3_flaws_timeline",
     "start": 9.14,
     "end": 12.32,
     "data": {
-      "header": "POURQUOI TON PROSPECT DÉCROCHE ❌",
-      "items": [
-        "Euh... attends je partage",
-        "Silences & micro mal réglé",
-        "Zéro structure visuelle"
+      "header": "DÉCROCHAGE PROSPECT",
+      "flaws": [
+        {
+          "num": "01",
+          "title": "HÉSITATIONS",
+          "detail": "« Euh... attends je partage... »",
+          "icon": "💬"
+        },
+        {
+          "num": "02",
+          "title": "SILENCES",
+          "detail": "[ 4.2s DE BLANC AUDIO ]",
+          "icon": "🔇"
+        },
+        {
+          "num": "03",
+          "title": "VOIX FATIGUÉE",
+          "detail": "ÉNERGIE : 15% (TON MONOTONE)",
+          "icon": "🥱"
+        }
       ],
-      "bg": "alert"
+      "bg": "grid"
     }
   },
   {
     "id": "scene_05",
-    "type": "big",
+    "type": "tab_close_cursor",
     "start": 12.32,
     "end": 14.5,
     "data": {
-      "text": "ONGLET FERMÉ ❌",
-      "sub": "PERDU EN 30 SECONDES CHRONO",
-      "bg": "alert"
+      "tabName": "Loom — Démo Produit B2B",
+      "timeLabel": "00:30",
+      "badge": "ONGLET FERMÉ EN 30S",
+      "sub": "PERDU AVANT LE MOINDRE BÉNÉFICE",
+      "bg": "grid"
     }
   },
   {
     "id": "scene_06",
-    "type": "face",
+    "type": "product_vs_perception",
     "start": 14.5,
     "end": 17.7,
     "data": {
-      "avatar": "assets/avatars/skeptic.png",
-      "badge": "TON PRODUIT EST EXCELLENT... MAIS 🤨",
+      "phase": "product",
+      "avatar_pip": "assets/avatars/skeptic.png",
+      "title": "TON PRODUIT SAAS",
+      "rating": "★★★★★",
+      "subtitle": "ARCHITECTURE SOLIDE • VALEUR RÉELLE",
+      "points": [
+        "Backend scalable & API performante",
+        "Fonctionnalités innovantes prêtes",
+        "Problème client résolu en théorie"
+      ],
       "bg": "grid"
     }
   },
   {
     "id": "scene_07",
-    "type": "cards",
+    "type": "product_vs_perception",
     "start": 17.7,
-    "end": 19.82,
+    "end": 21.76,
     "data": {
-      "cards": [
-        {
-          "icon": "📉",
-          "title": "VALEUR PERÇUE DÉTRUITE",
-          "sub": "UNE DÉMO AMATEUR COÛTE DES DEALS"
-        }
-      ],
-      "bg": "alert"
+      "phase": "perception",
+      "title": "VALEUR PERÇUE PAR LE PROSPECT",
+      "dropFrom": "100%",
+      "dropTo": "18%",
+      "badge": "0 APPEL BOOKÉ",
+      "sub": "DÉMO AMATEUR = CONTRATS PERDUS",
+      "bg": "grid"
     }
   },
   {
     "id": "scene_08",
-    "type": "phone_mockup_duo",
-    "start": 19.82,
-    "end": 21.76,
+    "type": "interface_labyrinth_cut",
+    "start": 21.76,
+    "end": 25.92,
     "data": {
-      "left": {
-        "title": "LOOM 12 MIN ❌",
-        "badge": "0 RDV BOOKÉ",
-        "items": [
-          "12 min d'écran partagé",
-          "Hésitations & silences",
-          "Zéro structure visuelle"
-        ]
-      },
-      "right": {
-        "title": "PITCH 60S ✅",
-        "badge": "DÉCIDEUR CAPTIVÉ",
-        "items": [
-          "60 secondes chrono",
-          "Bénéfices visibles d'emblée",
-          "Zooms & sous-titres dynamiques"
-        ]
-      },
+      "header": "VISITE DE L'INTERFACE SAAS",
+      "menus": [
+        "Dashboard",
+        "Analytics",
+        "Settings",
+        "Billing",
+        "Team Roles",
+        "API Keys",
+        "Webhooks",
+        "Audit Logs",
+        "Security",
+        "Integrations",
+        "Exports",
+        "Config"
+      ],
+      "badge": "VISITE GUIDÉE DE 12 MENUS : IGNORÉE ✕",
       "bg": "grid"
     }
   },
   {
     "id": "scene_09",
-    "type": "face",
-    "start": 21.76,
-    "end": 25.92,
+    "type": "sixty_sec_value_bridge",
+    "start": 25.92,
+    "end": 28.88,
     "data": {
-      "avatar": "assets/avatars/trash.png",
-      "badge": "ZÉRO VISITE GUIDÉE ENNUYEUSE 🗑️",
+      "leftBox": "PROBLÈME DÉCIDEUR",
+      "rightBox": "SOLUTION + ROI IMMÉDIAT",
+      "chrono": "60s",
+      "tag": "COMPRÉHENSION EN 60 SECONDES",
       "bg": "grid"
     }
   },
   {
     "id": "scene_10",
-    "type": "sync_timer",
-    "start": 25.92,
-    "end": 27.66,
-    "data": {
-      "header": "⏱️ FENÊTRE D'ATTENTION B2B",
-      "digits": "00:60.000 s",
-      "pills": [
-        "[CLARTÉ]",
-        "[IMPACT]",
-        "[ACTION]"
-      ],
-      "bg": "grid"
-    }
-  },
-  {
-    "id": "scene_11",
-    "type": "big",
-    "start": 27.66,
-    "end": 28.88,
-    "data": {
-      "text": "60 SECONDES",
-      "sub": "POUR PROUVER TON ROI IMMÉDIAT ⚡",
-      "bg": "mint"
-    }
-  },
-  {
-    "id": "scene_12",
     "type": "face",
     "start": 28.88,
     "end": 32.02,
     "data": {
       "avatar": "assets/avatars/idea.png",
-      "badge": "LA NOUVELLE MÉTHODE B2B 💡",
+      "hero_title": "FORMAT VIDÉO CHIRURGICAL",
+      "highlight_word": "CHIRURGICAL",
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_11",
+    "type": "code_to_ui_live",
+    "start": 32.02,
+    "end": 35.94,
+    "data": {
+      "filename": "pipeline_render.js",
+      "code": "const demo = new SaaSShowcase();\ndemo.isolateFeature('CoreBenefit');\ndemo.simulateUserPath({ clicks: 3 });\nawait engine.render({ fps: 30, q: '1080p' });",
+      "badge1": "📷 ZÉRO CAMÉRA",
+      "badge2": "🎯 ZÉRO PRISE RATÉE",
+      "bg": "grid"
+    }
+  },
+  {
+    "id": "scene_12",
+    "type": "face",
+    "start": 35.94,
+    "end": 39.44,
+    "data": {
+      "avatar": "assets/avatars/mic.png",
+      "hero_title": "1. NOTE VOCALE (2 MIN)",
+      "highlight_word": "NOTE VOCALE",
       "bg": "grid"
     }
   },
   {
     "id": "scene_13",
-    "type": "window",
-    "start": 32.02,
-    "end": 33.8,
+    "type": "voice_to_word_grid",
+    "start": 39.44,
+    "end": 43.68,
     "data": {
-      "title": "agent404_terminal.sh",
-      "code": "$ ./agent404 --build-saas-demo\n✓ Extraction des bénéfices clés\n✓ Rendu net au pixel près : OK",
+      "header": "PURGE DES SILENCES & ALIGNEMENT",
+      "audioFile": "memo_vocal_fondateur.m4a",
+      "badge1": "✂️ HÉSITATIONS ÉLIMINÉES",
+      "badge2": "⏱️ ALIGNEMENT AU CENTIÈME : 00.01s",
       "bg": "grid"
     }
   },
   {
     "id": "scene_14",
-    "type": "cards",
-    "start": 33.8,
-    "end": 34.84,
+    "type": "saas_showcase_3steps",
+    "start": 43.68,
+    "end": 52.58,
     "data": {
-      "cards": [
+      "header": "DÉMONSTRATION SAAS PROGRAMMATIQUE",
+      "appName": "CloudMetrics — Intelligence B2B",
+      "steps": [
         {
-          "icon": "📱",
-          "title": "ZÉRO CAMÉRA REQUISE",
-          "sub": "AUCUN MATÉRIEL COÛTEUX NI FOND VERT"
+          "num": "①",
+          "label": "FONCTIONNALITÉ CLÉ ISOLÉE",
+          "action": "Zoom x1.08 • Contour #00F5A0"
+        },
+        {
+          "num": "②",
+          "label": "PARCOURS UTILISATEUR SIMULÉ",
+          "action": "Curseur dynamique • 3 clics optimisés"
+        },
+        {
+          "num": "③",
+          "label": "DÉMO HAUTE DÉFINITION AU PIXEL PRÈS",
+          "action": "1080×1920 • 30 FPS • Pixel Perfect"
         }
       ],
       "bg": "grid"
@@ -1228,307 +1268,49 @@ window.SCENES = [
   },
   {
     "id": "scene_15",
-    "type": "face",
-    "start": 34.84,
-    "end": 35.94,
+    "type": "delivery_48h_3channels",
+    "start": 52.58,
+    "end": 59.36,
     "data": {
-      "avatar": "assets/avatars/target.png",
-      "badge": "ZÉRO PRISE RATÉE 🎯",
+      "header": "⚡ LIVRAISON CLÉ EN MAIN EN 48H",
+      "cards": [
+        {
+          "num": "01",
+          "channel": "LINKEDIN FEED",
+          "icon": "💼",
+          "tag": "VIDÉO HOOK 9:16",
+          "desc": "Capte le feed sans son"
+        },
+        {
+          "num": "02",
+          "channel": "PROSPECTION B2B",
+          "icon": "📩",
+          "tag": "COLD EMAIL / DM",
+          "desc": "Remplace les pavés de texte"
+        },
+        {
+          "num": "03",
+          "channel": "HERO LANDING PAGE",
+          "icon": "🚀",
+          "tag": "CONVERSION IMMÉDIATE",
+          "desc": "Au-dessus de la flottaison"
+        }
+      ],
       "bg": "grid"
     }
   },
   {
     "id": "scene_16",
-    "type": "face",
-    "start": 35.94,
-    "end": 37.96,
-    "data": {
-      "avatar": "assets/avatars/mic.png",
-      "badge": "1. TA NOTE VOCALE (2 MIN) 🎙️",
-      "bg": "grid"
-    }
-  },
-  {
-    "id": "scene_17",
-    "type": "cards",
-    "start": 37.96,
-    "end": 39.44,
-    "data": {
-      "cards": [
-        {
-          "icon": "🎙️",
-          "title": "UN SIMPLE MÉMO AUDIO",
-          "sub": "TU PARLES NATURELLEMENT DE TON OFFRE"
-        }
-      ],
-      "bg": "grid"
-    }
-  },
-  {
-    "id": "scene_18",
-    "type": "audio_wave",
-    "start": 39.44,
-    "end": 41.02,
-    "data": {
-      "title": "demo_voice.m4a — PURGE DES SILENCES",
-      "sub": "✂️ HÉSITATIONS SUPPRIMÉES",
-      "bg": "grid"
-    }
-  },
-  {
-    "id": "scene_19",
-    "type": "sync_timer",
-    "start": 41.02,
-    "end": 43.68,
-    "data": {
-      "header": "SYNCHRONISATION ACOUSTIQUE",
-      "digits": "00:00.010 ms",
-      "pills": [
-        "[MOT]",
-        "[PAR]",
-        "[MOT]"
-      ],
-      "bg": "diamonds"
-    }
-  },
-  {
-    "id": "scene_20",
-    "type": "window",
-    "start": 43.68,
-    "end": 46.26,
-    "data": {
-      "title": "saas_interface_builder.sh",
-      "code": "$ ./pipeline --animate-saas-ui\n✓ Détection des boutons d'action\n✓ Zooms dynamiques 60 FPS",
-      "bg": "grid"
-    }
-  },
-  {
-    "id": "scene_21",
-    "type": "cards",
-    "start": 46.26,
-    "end": 48.0,
-    "data": {
-      "cards": [
-        {
-          "icon": "⚡",
-          "title": "PROBLÈME RÉSOLU",
-          "sub": "VISIBLE DÈS LA PREMIÈRE SECONDE"
-        },
-        {
-          "icon": "💰",
-          "title": "ROI CHIFFRÉ",
-          "sub": "ARGUMENTS B2B STRUCTURÉS"
-        }
-      ],
-      "bg": "grid"
-    }
-  },
-  {
-    "id": "scene_22",
-    "type": "workflow_nodes",
-    "start": 48.0,
-    "end": 49.38,
-    "data": {
-      "header": "PARCOURS CLIENT SIMPLIFIÉ",
-      "steps": [
-        {
-          "num": "01",
-          "title": "PROBLÈME CLIENT",
-          "desc": "Douleur identifiée"
-        },
-        {
-          "num": "02",
-          "title": "TON PRODUIT",
-          "desc": "Solution en 1 clic"
-        },
-        {
-          "num": "03",
-          "title": "RÉSULTAT",
-          "desc": "Adoption & conversion"
-        }
-      ],
-      "bg": "grid"
-    }
-  },
-  {
-    "id": "scene_23",
-    "type": "ffmpeg_render",
-    "start": 49.38,
-    "end": 51.62,
-    "data": {
-      "header": "COMPILATION VIDÉO PROGRAMMATIQUE",
-      "bg": "grid"
-    }
-  },
-  {
-    "id": "scene_24",
-    "type": "big",
-    "start": 51.62,
-    "end": 52.58,
-    "data": {
-      "text": "1080x1920",
-      "sub": "30 FPS • QUALITÉ BROADCAST 🔥",
-      "bg": "mint"
-    }
-  },
-  {
-    "id": "scene_25",
-    "type": "speed_counter",
-    "start": 52.58,
-    "end": 53.84,
-    "data": {
-      "bg": "grid"
-    }
-  },
-  {
-    "id": "scene_26",
-    "type": "tier_table",
-    "start": 53.84,
-    "end": 55.42,
-    "data": {
-      "header": "PACK 3 VIDÉOS DÉDIÉES",
-      "tiers": [
-        {
-          "num": "01",
-          "name": "Vidéo Hook & Problème",
-          "desc": "Capte l'attention dans le feed sans le son"
-        },
-        {
-          "num": "02",
-          "name": "Vidéo Démo Produit 60s",
-          "desc": "Prouve la valeur et le gain de temps direct"
-        },
-        {
-          "num": "03",
-          "name": "Vidéo Preuve & Action",
-          "desc": "Convertit le prospect en rendez-vous"
-        }
-      ],
-      "bg": "grid"
-    }
-  },
-  {
-    "id": "scene_27",
-    "type": "cursor_action",
-    "start": 55.42,
-    "end": 56.26,
-    "data": {
-      "windowTitle": "PAGE DE VENTE SAAS",
-      "buttonText": "RÉSERVER UNE DÉMO ⚡",
-      "feedback": "✓ RENDEZ-VOUS CONFIRMÉ",
-      "bg": "grid"
-    }
-  },
-  {
-    "id": "scene_28",
-    "type": "cards",
-    "start": 56.26,
-    "end": 57.2,
-    "data": {
-      "cards": [
-        {
-          "icon": "💼",
-          "title": "LINKEDIN & OUTBOUND",
-          "sub": "CAPTE L'ATTENTION DANS LE FEED SANS LE SON"
-        }
-      ],
-      "bg": "grid"
-    }
-  },
-  {
-    "id": "scene_29",
-    "type": "cards",
-    "start": 57.2,
-    "end": 57.66,
-    "data": {
-      "cards": [
-        {
-          "icon": "💼",
-          "title": "LINKEDIN & OUTBOUND",
-          "sub": "CAPTE LE FEED SANS LE SON"
-        },
-        {
-          "icon": "📩",
-          "title": "COLD EMAIL & RELANCES",
-          "sub": "REMPLACE TES PAVÉS DE TEXTE"
-        }
-      ],
-      "bg": "grid"
-    }
-  },
-  {
-    "id": "scene_30",
-    "type": "split",
-    "start": 57.66,
-    "end": 59.36,
-    "data": {
-      "left": {
-        "tag": "LOOM CLASSIQUE ❌",
-        "badge": "0 RDV BOOKÉ",
-        "text": "12 min d'écran flou\nTaux de clic faible\nZéro montage"
-      },
-      "right": {
-        "tag": "PITCH AGENT404 ✅",
-        "badge": "DÉCIDEUR CONQUIS",
-        "text": "3 vidéos de 60s\nClé en main\nLivrées en 48h"
-      },
-      "bg": "grid"
-    }
-  },
-  {
-    "id": "scene_31",
-    "type": "face",
+    "type": "face_to_dm_cta",
     "start": 59.36,
-    "end": 61.0,
-    "data": {
-      "avatar": "assets/avatars/mindblown.png",
-      "badge": "CHANGE DE DIMENSION VISUELLE 🚀",
-      "bg": "grid"
-    }
-  },
-  {
-    "id": "scene_32",
-    "type": "face",
-    "start": 61.0,
-    "end": 63.28,
-    "data": {
-      "avatar": "assets/avatars/contract.png",
-      "badge": "3 VIDÉOS LIVRÉES CLÉ EN MAIN 📋",
-      "bg": "grid"
-    }
-  },
-  {
-    "id": "scene_33",
-    "type": "face",
-    "start": 63.28,
-    "end": 63.66,
-    "data": {
-      "avatar": "assets/avatars/pointing.png",
-      "badge": "PASSE À L'ACTION MAINTENANT 👇",
-      "bg": "diamonds"
-    }
-  },
-  {
-    "id": "scene_34",
-    "type": "big",
-    "start": 63.66,
-    "end": 64.12,
-    "data": {
-      "text": "ENVOIE « DEMO »",
-      "sub": "POUR CRÉER TES 3 VIDÉOS SUR-MESURE",
-      "bg": "mint"
-    }
-  },
-  {
-    "id": "scene_35",
-    "type": "dm_cta_sim",
-    "start": 64.12,
     "end": 65.149,
     "data": {
+      "avatar": "assets/avatars/pointing.png",
+      "hero_title": "TRANSFORME TES DÉMOS EN RDV",
       "targetUser": "@AGENT404",
       "keyword": "DEMO",
       "responseText": "✓ Message reçu. Démo envoyée en 2 min.",
-      "bg": "circles"
+      "bg": "grid"
     }
   }
 ];

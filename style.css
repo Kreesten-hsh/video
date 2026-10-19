@@ -9,15 +9,18 @@
   --mint: #00F5A0;
   --mint-dark: #047857;
   --mint-deep: #041E16;
-  --alert-red: #FF2A5F;
-  --alert-dark: #180810;
+  --amber: #F59E0B;
+  --slate-border: #30363D;
+  --slate-card: #161B22;
+  --alert-red: #F59E0B;
+  --alert-dark: #1F190D;
   --white: #FFFFFF;
   --text-dark: #090D16;
   --border-color: #090D16;
   --shadow-color: #000000;
 
   /* Rétrocompatibilité */
-  --accent-red: #FF2A5F;
+  --accent-red: #F59E0B;
   --accent-green: #00F5A0;
   --yellow: #00F5A0;
 }
@@ -1077,7 +1080,7 @@ html, body {
 .comp-loom-fail {
   width: 880px;
   background: #0D1117;
-  border: 4px solid #FF2A5F;
+  border: 4px solid #30363D;
   border-radius: 22px;
   box-shadow: 0 16px 0 #000000;
   overflow: hidden;
@@ -1093,7 +1096,7 @@ html, body {
 }
 .loom-dots { display: flex; gap: 8px; }
 .loom-dots .dot { width: 14px; height: 14px; border-radius: 50%; }
-.loom-dots .dot.red { background: #FF2A5F; }
+.loom-dots .dot.red { background: #F59E0B; }
 .loom-dots .dot.yellow { background: #FBBF24; }
 .loom-dots .dot.green { background: #10B981; }
 .loom-file-title {
@@ -1103,8 +1106,8 @@ html, body {
   color: #E6EDF3;
 }
 .loom-status-tag {
-  background: #FF2A5F;
-  color: #FFFFFF;
+  background: #F59E0B;
+  color: #090D16;
   font-size: 15px;
   font-weight: 800;
   padding: 4px 12px;
@@ -1142,9 +1145,9 @@ html, body {
 }
 .loom-alert-card {
   position: absolute;
-  background: #FF2A5F;
+  background: #1F190D;
   color: #FFFFFF;
-  border: 4px solid #000000;
+  border: 4px solid #F59E0B;
   box-shadow: 0 10px 0 #000000;
   border-radius: 16px;
   padding: 24px 36px;
@@ -1153,7 +1156,7 @@ html, body {
   gap: 20px;
 }
 .loom-alert-icon { font-size: 56px; }
-.loom-alert-title { font-size: 40px; font-weight: 900; letter-spacing: -1px; }
+.loom-alert-title { font-size: 40px; font-weight: 900; letter-spacing: -1px; color: #F59E0B; }
 .loom-alert-sub { font-size: 19px; font-weight: 700; opacity: 0.95; margin-top: 4px; }
 .loom-bottom-bar {
   background: #161B22;
@@ -1171,8 +1174,8 @@ html, body {
 .loom-time-fill {
   height: 100%;
   width: 0%;
-  background: #FF2A5F;
-  box-shadow: 0 0 12px #FF2A5F;
+  background: #F59E0B;
+  box-shadow: 0 0 12px #F59E0B;
 }
 .loom-timestamps {
   display: flex;
@@ -1183,16 +1186,17 @@ html, body {
   font-size: 20px;
   font-weight: 800;
 }
-.time-cur { color: #FF2A5F; }
+.time-cur { color: #F59E0B; }
 .time-sep { color: #6E7681; }
 .time-end { color: #8B949E; }
 .time-note {
   margin-left: auto;
-  background: #FF2A5F;
-  color: #FFFFFF;
+  background: #F59E0B;
+  color: #090D16;
   padding: 4px 14px;
   border-radius: 6px;
   font-size: 16px;
+  font-weight: 800;
 }
 
 /* 2. COMPARATEUR DOUBLE ÉCRAN (LOOM 12 MIN vs PITCH 60S) */
@@ -1212,8 +1216,8 @@ html, body {
   gap: 20px;
 }
 .phone-card.fail-card {
-  background: #180810;
-  border: 4px solid #FF2A5F;
+  background: #161B22;
+  border: 4px solid #30363D;
 }
 .phone-card.win-card {
   background: #041E16;
@@ -1229,7 +1233,7 @@ html, body {
   box-shadow: 0 4px 0 #000000;
   text-align: center;
 }
-.phone-badge.fail { background: #FF2A5F; color: #FFFFFF; }
+.phone-badge.fail { background: #F59E0B; color: #090D16; }
 .phone-badge.win { background: #00F5A0; color: #090D16; }
 .phone-result-tag {
   font-family: 'JetBrains Mono', monospace;
@@ -1239,7 +1243,7 @@ html, body {
   border-radius: 6px;
   text-align: center;
 }
-.phone-result-tag.fail { background: rgba(255, 42, 95, 0.2); color: #FF2A5F; border: 1px solid #FF2A5F; }
+.phone-result-tag.fail { background: rgba(245, 158, 11, 0.2); color: #F59E0B; border: 1px solid #F59E0B; }
 .phone-result-tag.win { background: rgba(0, 245, 160, 0.2); color: #00F5A0; border: 1px solid #00F5A0; }
 .phone-items {
   display: flex;
@@ -1592,5 +1596,838 @@ html, body {
   border-radius: 12px;
   border: 3px solid #090D16;
   box-shadow: 0 4px 0 #000000;
+}
+
+/* ==========================================================================
+   NOUVEAUX COMPOSANTS EXCLUSIFS VIDÉO 2 & HERO TITLE / PIP (ZÉRO ROUGE #FF2A5F)
+   ========================================================================== */
+
+/* Hero Title au-dessus de l'Avatar */
+.face-hero-title {
+  position: absolute;
+  top: 230px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 940px;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 56px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  line-height: 1.15;
+  letter-spacing: -1.5px;
+  text-shadow: 0 6px 16px rgba(0, 0, 0, 0.9);
+  z-index: 25;
+}
+.face-hero-title .highlight {
+  color: #00F5A0;
+  background: rgba(0, 245, 160, 0.12);
+  padding: 2px 14px;
+  border-radius: 8px;
+  border: 2px solid rgba(0, 245, 160, 0.4);
+}
+
+/* Avatar Picture-in-Picture (PiP) */
+.avatar-pip {
+  position: absolute;
+  right: 60px;
+  bottom: 220px;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  border: 5px solid #FFFFFF;
+  background: #161B22;
+  box-shadow: 0 12px 0 #000000, 0 0 24px rgba(0, 245, 160, 0.25);
+  overflow: hidden;
+  z-index: 40;
+}
+.avatar-pip img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transform: scale(1.15) translateY(12px);
+}
+
+/* 1. LECTEUR LOOM EN CHUTE LIBRE (loom_player_drop) */
+.comp-loom-drop {
+  width: 900px;
+  background: #161B22;
+  border: 4px solid #30363D;
+  border-radius: 24px;
+  box-shadow: 0 16px 0 #000000;
+  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+}
+.loom-drop-header {
+  background: #0D1117;
+  border-bottom: 2px solid #30363D;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.loom-drop-dots { display: flex; gap: 8px; }
+.loom-drop-dots .dot { width: 14px; height: 14px; border-radius: 50%; }
+.loom-drop-dots .dot.red { background: #F59E0B; }
+.loom-drop-dots .dot.yellow { background: #FBBF24; }
+.loom-drop-dots .dot.green { background: #10B981; }
+.loom-drop-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: #8B949E;
+}
+.loom-drop-badge {
+  background: #F59E0B;
+  color: #090D16;
+  font-size: 15px;
+  font-weight: 900;
+  padding: 6px 14px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+.loom-drop-body {
+  padding: 30px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.loom-retention-chart {
+  position: relative;
+  height: 220px;
+  background: #090D16;
+  border: 2px solid #30363D;
+  border-radius: 16px;
+  padding: 20px;
+  overflow: hidden;
+}
+.loom-retention-svg {
+  width: 100%;
+  height: 100%;
+}
+.retention-marker {
+  position: absolute;
+  top: 70px;
+  left: 180px;
+  background: #1F190D;
+  border: 2px solid #F59E0B;
+  color: #F59E0B;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 8px;
+}
+.loom-drop-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0D1117;
+  padding: 18px 24px;
+  border-radius: 14px;
+  border: 2px solid #30363D;
+}
+.loom-drop-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.loom-drop-val {
+  font-size: 42px;
+  font-weight: 900;
+  color: #F59E0B;
+}
+.loom-drop-label {
+  font-size: 18px;
+  font-weight: 700;
+  color: #8B949E;
+}
+
+/* 2. ONGLET SURCHARGÉ (browser_tab_overload) */
+.comp-browser-overload {
+  width: 900px;
+  background: #161B22;
+  border: 4px solid #30363D;
+  border-radius: 24px;
+  box-shadow: 0 16px 0 #000000;
+  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+}
+.browser-tab-bar {
+  background: #0D1117;
+  border-bottom: 2px solid #30363D;
+  padding: 14px 20px 0 20px;
+  display: flex;
+  gap: 8px;
+}
+.browser-tab {
+  background: #161B22;
+  border: 2px solid #30363D;
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  padding: 10px 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  color: #8B949E;
+}
+.browser-tab.active {
+  background: #21262D;
+  color: #FFFFFF;
+  border-color: #484F58;
+}
+.browser-clutter-body {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.clutter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  height: 240px;
+}
+.clutter-tile {
+  background: #090D16;
+  border: 1px dashed #30363D;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  color: #484F58;
+}
+.overload-warning-bar {
+  background: #1F190D;
+  border: 2px solid #F59E0B;
+  border-radius: 12px;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.overload-timer {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px;
+  font-weight: 900;
+  color: #F59E0B;
+}
+.overload-text {
+  font-size: 20px;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+/* 3. TIMELINE 3 FAILLES (loom_3_flaws_timeline) */
+.comp-flaws-timeline {
+  width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: 'Montserrat', sans-serif;
+}
+.flaws-head {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px;
+  font-weight: 800;
+  color: #8B949E;
+  letter-spacing: 1px;
+  text-align: center;
+}
+.flaw-card {
+  background: #161B22;
+  border: 3px solid #30363D;
+  border-radius: 18px;
+  box-shadow: 0 10px 0 #000000;
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  opacity: 0;
+  transform: translateY(30px);
+}
+.flaw-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 30px;
+  font-weight: 900;
+  color: #F59E0B;
+  background: #1F190D;
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  border: 2px solid #F59E0B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.flaw-content { flex: 1; }
+.flaw-title {
+  font-size: 24px;
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: -0.5px;
+}
+.flaw-detail {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 17px;
+  font-weight: 700;
+  color: #8B949E;
+  margin-top: 6px;
+}
+.flaw-icon { font-size: 34px; }
+
+/* 4. FERMETURE D'ONGLET (tab_close_cursor) */
+.comp-tab-close {
+  width: 900px;
+  background: #161B22;
+  border: 4px solid #30363D;
+  border-radius: 24px;
+  box-shadow: 0 16px 0 #000000;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+}
+.tab-close-bar {
+  width: 100%;
+  background: #0D1117;
+  border: 2px solid #30363D;
+  border-radius: 14px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.tab-close-tab {
+  background: #21262D;
+  border: 2px solid #484F58;
+  padding: 10px 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #FFFFFF;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  font-weight: 700;
+}
+.tab-cross-btn {
+  background: #30363D;
+  color: #F59E0B;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+}
+.tab-close-badge-box {
+  background: #00F5A0;
+  color: #090D16;
+  border: 4px solid #090D16;
+  box-shadow: 0 12px 0 #000000;
+  border-radius: 20px;
+  padding: 32px 48px;
+  text-align: center;
+  transform: rotate(-2deg);
+}
+.tab-close-big {
+  font-size: 46px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+.tab-close-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  margin-top: 8px;
+}
+
+/* 5. PRODUIT VS PERCEPTION (product_vs_perception) */
+.comp-product-perception {
+  width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+}
+.product-card-solid {
+  background: #161B22;
+  border: 4px solid #00F5A0;
+  border-radius: 24px;
+  box-shadow: 0 16px 0 #000000;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.product-card-solid .prod-title {
+  font-size: 32px;
+  font-weight: 900;
+  color: #FFFFFF;
+}
+.product-card-solid .prod-rating {
+  font-size: 32px;
+  color: #00F5A0;
+  letter-spacing: 4px;
+}
+.product-card-solid .prod-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  color: #8B949E;
+  font-weight: 700;
+}
+.product-card-solid .prod-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+.product-card-solid .bullet-item {
+  font-size: 20px;
+  font-weight: 700;
+  color: #E6EDF3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.perception-drop-card {
+  background: #161B22;
+  border: 4px solid #30363D;
+  border-radius: 24px;
+  box-shadow: 0 16px 0 #000000;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.drop-gauge-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0D1117;
+  border: 2px solid #30363D;
+  border-radius: 18px;
+  padding: 24px 32px;
+}
+.drop-val-side { text-align: center; }
+.drop-val-side .lbl { font-size: 16px; font-weight: 700; color: #8B949E; margin-bottom: 6px; }
+.drop-val-side .num { font-size: 48px; font-weight: 900; }
+.drop-val-side.real .num { color: #00F5A0; }
+.drop-val-side.perceived .num { color: #F59E0B; }
+.drop-arrow { font-size: 40px; color: #F59E0B; }
+.drop-warning-badge {
+  background: #1F190D;
+  border: 2px solid #F59E0B;
+  color: #F59E0B;
+  font-size: 26px;
+  font-weight: 900;
+  padding: 16px 24px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+/* 6. LABYRINTHE CUT (interface_labyrinth_cut) */
+.comp-labyrinth-cut {
+  width: 900px;
+  background: #161B22;
+  border: 4px solid #30363D;
+  border-radius: 24px;
+  box-shadow: 0 16px 0 #000000;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+.labyrinth-head {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  color: #8B949E;
+  text-align: center;
+}
+.labyrinth-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.menu-card {
+  background: #0D1117;
+  border: 2px solid #30363D;
+  border-radius: 12px;
+  padding: 16px 12px;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+  font-weight: 700;
+  color: #E6EDF3;
+}
+.strike-line {
+  position: absolute;
+  top: 55%;
+  left: -5%;
+  width: 110%;
+  height: 6px;
+  background: #F59E0B;
+  transform: rotate(-12deg);
+  box-shadow: 0 0 16px #F59E0B;
+  z-index: 10;
+  opacity: 0;
+}
+.labyrinth-cut-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-4deg);
+  background: #000000;
+  border: 3px solid #F59E0B;
+  color: #F59E0B;
+  font-size: 28px;
+  font-weight: 900;
+  padding: 18px 32px;
+  border-radius: 14px;
+  box-shadow: 0 12px 0 #000000;
+  white-space: nowrap;
+  z-index: 15;
+  opacity: 0;
+}
+
+/* 7. PONT 60 SECONDES (sixty_sec_value_bridge) */
+.comp-sixty-bridge {
+  width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  font-family: 'Montserrat', sans-serif;
+}
+.bridge-flow {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.bridge-box {
+  flex: 1;
+  background: #161B22;
+  border: 3px solid #30363D;
+  border-radius: 18px;
+  padding: 28px 20px;
+  text-align: center;
+  box-shadow: 0 10px 0 #000000;
+}
+.bridge-box.sol {
+  border-color: #00F5A0;
+}
+.bridge-box .title {
+  font-size: 22px;
+  font-weight: 900;
+  color: #FFFFFF;
+}
+.bridge-box .desc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  color: #8B949E;
+  margin-top: 8px;
+}
+.bridge-chrono {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: #00F5A0;
+  color: #090D16;
+  border: 5px solid #090D16;
+  box-shadow: 0 8px 0 #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+}
+.bridge-chrono .num { font-size: 44px; font-weight: 900; line-height: 1; }
+.bridge-chrono .unit { font-size: 16px; font-weight: 900; text-transform: uppercase; }
+.bridge-tag-bar {
+  background: #00F5A0;
+  color: #090D16;
+  font-size: 26px;
+  font-weight: 900;
+  padding: 14px 32px;
+  border-radius: 999px;
+  border: 3px solid #090D16;
+  box-shadow: 0 8px 0 #000000;
+}
+
+/* 8. CODE TO UI LIVE (code_to_ui_live) */
+.comp-code-live {
+  width: 900px;
+  display: flex;
+  gap: 24px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.code-window-col {
+  flex: 1.4;
+  background: #0D1117;
+  border: 4px solid #00F5A0;
+  border-radius: 20px;
+  box-shadow: 0 14px 0 #000000;
+  overflow: hidden;
+}
+.code-window-bar {
+  background: #161B22;
+  border-bottom: 2px solid #30363D;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  color: #8B949E;
+}
+.code-window-body {
+  padding: 24px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: #E6EDF3;
+  min-height: 220px;
+  white-space: pre-wrap;
+}
+.code-badges-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+.code-pop-badge {
+  background: #161B22;
+  border: 3px solid #00F5A0;
+  color: #FFFFFF;
+  padding: 20px 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 0 #000000;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  opacity: 0;
+  transform: translateX(40px);
+}
+
+/* 9. GRILLE VOCALE ET TEMPORELLE (voice_to_word_grid) */
+.comp-word-grid {
+  width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: 'JetBrains Mono', monospace;
+}
+.wave-clean-box {
+  background: #161B22;
+  border: 3px solid #30363D;
+  border-radius: 20px;
+  padding: 24px 30px;
+  box-shadow: 0 10px 0 #000000;
+}
+.wave-clean-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #8B949E;
+  margin-bottom: 16px;
+}
+.wave-clean-bars {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 90px;
+  gap: 4px;
+}
+.wbar-clean {
+  flex: 1;
+  background: #00F5A0;
+  border-radius: 4px;
+}
+.grid-sync-box {
+  background: #161B22;
+  border: 3px solid #00F5A0;
+  border-radius: 20px;
+  padding: 24px 30px;
+  box-shadow: 0 12px 0 #000000;
+}
+.grid-sync-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #00F5A0;
+  margin-bottom: 16px;
+}
+.grid-sync-cells {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.sync-cell {
+  background: #0D1117;
+  border: 2px solid #30363D;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+.sync-cell .ts { font-size: 20px; font-weight: 900; color: #00F5A0; }
+.sync-cell .wd { font-size: 15px; color: #8B949E; margin-top: 4px; }
+
+/* 10. SHOWCASE SAAS ÉVOLUTIF (saas_showcase_3steps) */
+.comp-saas-showcase {
+  width: 900px;
+  background: #161B22;
+  border: 4px solid #30363D;
+  border-radius: 24px;
+  box-shadow: 0 16px 0 #000000;
+  padding: 28px;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.saas-app-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #30363D;
+  padding-bottom: 16px;
+}
+.saas-app-logo {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 900;
+  color: #00F5A0;
+}
+.saas-metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.saas-metric-tile {
+  background: #0D1117;
+  border: 2px solid #30363D;
+  border-radius: 14px;
+  padding: 16px 20px;
+}
+.saas-metric-tile.highlighted {
+  border-color: #00F5A0;
+  box-shadow: 0 0 20px rgba(0, 245, 160, 0.2);
+}
+.saas-metric-tile .lbl {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: #8B949E;
+}
+.saas-metric-tile .val {
+  font-size: 32px;
+  font-weight: 900;
+  color: #FFFFFF;
+  margin-top: 4px;
+}
+.saas-stage-tag {
+  background: #00F5A0;
+  color: #090D16;
+  font-size: 20px;
+  font-weight: 900;
+  padding: 12px 24px;
+  border-radius: 10px;
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+/* 11. DISTRIBUTION 3 CANAUX (delivery_48h_3channels) */
+.comp-delivery-channels {
+  width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: 'Montserrat', sans-serif;
+}
+.delivery-head-badge {
+  background: #00F5A0;
+  color: #090D16;
+  font-size: 26px;
+  font-weight: 900;
+  padding: 14px 28px;
+  border-radius: 12px;
+  border: 3px solid #090D16;
+  box-shadow: 0 6px 0 #000000;
+  text-align: center;
+}
+.delivery-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.delivery-card-v {
+  background: #161B22;
+  border: 3px solid #30363D;
+  border-radius: 18px;
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  box-shadow: 0 10px 0 #000000;
+  opacity: 0.35;
+  transform: scale(0.95);
+  transition: all 0.2s;
+}
+.delivery-card-v.active {
+  border-color: #00F5A0;
+  opacity: 1;
+  transform: scale(1.05);
+  box-shadow: 0 12px 0 #000000, 0 0 20px rgba(0, 245, 160, 0.25);
+}
+.delivery-card-v .chan-icon { font-size: 48px; }
+.delivery-card-v .chan-name { font-size: 20px; font-weight: 900; color: #FFFFFF; }
+.delivery-card-v .chan-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 800;
+  background: #0D1117;
+  color: #00F5A0;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+.delivery-card-v .chan-desc { font-size: 15px; color: #8B949E; line-height: 1.3; }
+
+/* 12. FACE TO DM CTA (face_to_dm_cta) */
+.comp-face-dm {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.face-dm-avatar-stage {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.25s;
+}
+.face-dm-chat-stage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 880px;
+  opacity: 0;
+  transition: opacity 0.25s;
 }
 

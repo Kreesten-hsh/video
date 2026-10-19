@@ -36,7 +36,7 @@ class TestVideo02Spec(unittest.TestCase):
         self.assertIn("reference_words", data)
 
     def test_video02_timeline_and_scenes_alignment(self):
-        """Vérifie que les 35 scènes sont parfaitement alignées avec leurs mots de fin et reference_words."""
+        """Vérifie que les 16 scènes sont parfaitement alignées avec leurs mots de fin et reference_words."""
         with open(self.project_path, "r", encoding="utf-8") as f:
             project = json.load(f)
 
@@ -44,8 +44,8 @@ class TestVideo02Spec(unittest.TestCase):
         scene_end_words = project["scene_end_words"]
         scenes = project["scenes"]
 
-        self.assertEqual(len(scenes), 35, "La vidéo 2 doit comporter exactement 35 scènes.")
-        self.assertEqual(len(scene_end_words), 35, "Chaque scène doit avoir son mot de fin.")
+        self.assertEqual(len(scenes), 16, "La vidéo 2 doit comporter exactement 16 scènes narratives.")
+        self.assertEqual(len(scene_end_words), 16, "Chaque scène doit avoir son mot de fin.")
         self.assertEqual(len(ref_words), 204, "Le texte de référence doit comporter 204 mots.")
 
         # Vérification séquentielle de chaque mot terminal dans les mots de référence
@@ -109,7 +109,7 @@ class TestVideo02Spec(unittest.TestCase):
             data = json.load(f)
 
         last_scene = data["scenes"][-1]
-        self.assertEqual(last_scene["type"], "dm_cta_sim")
+        self.assertEqual(last_scene["type"], "face_to_dm_cta")
         self.assertEqual(last_scene["data"].get("keyword"), "DEMO")
 
     def test_video02_all_avatars_exist(self):
@@ -122,6 +122,10 @@ class TestVideo02Spec(unittest.TestCase):
             if avatar:
                 avatar_path = REPO_ROOT / avatar
                 self.assertTrue(avatar_path.exists(), f"Avatar requis manquant : {avatar_path} (scène {sc['id']})")
+            pip = sc.get("data", {}).get("avatar_pip")
+            if pip:
+                pip_path = REPO_ROOT / pip
+                self.assertTrue(pip_path.exists(), f"Avatar PiP manquant : {pip_path} (scène {sc['id']})")
 
     def test_video02_no_duplicate_illustrations(self):
         """Règle qualité : aucune illustration ou avatar ne doit être utilisé deux fois dans la même vidéo."""
@@ -137,6 +141,19 @@ class TestVideo02Spec(unittest.TestCase):
                     f"Répétition interdite : l'illustration '{avatar}' est réutilisée dans la scène {sc['id']}."
                 )
                 seen_avatars.append(avatar)
+
+    def test_avatars_binary_uniqueness(self):
+        """Règle d'or : 100% des stickers avatars dans assets/avatars ont un hash SHA-256 unique (zéro doublon binaire)."""
+        import hashlib
+        avatars_dir = REPO_ROOT / "assets" / "avatars"
+        hashes = {}
+        for p in avatars_dir.glob("*.png"):
+            h = hashlib.sha256(p.read_bytes()).hexdigest()
+            self.assertNotIn(
+                h, hashes,
+                f"Doublon binaire détecté : {p.name} est identique à {hashes.get(h)}"
+            )
+            hashes[h] = p.name
 
 
 if __name__ == "__main__":

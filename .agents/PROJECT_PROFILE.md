@@ -8,8 +8,10 @@
   - Fond Carbone : `#0D1117` & `#090D16`
   - Vert Émeraude (Action / Tech) : `#00F5A0`
   - Vert Foncé (Ombres / Typo) : `#047857`
-  - Rouge Alerte Néon (Points de friction / Douleur) : `#FF2A5F`
+  - Ardoise & Bordures (Neutre / Négatif) : `#161B22` & `#30363D`
+  - Ambre / Attention (Points de friction / Douleur) : `#F59E0B`
   - Blanc Pur (Cartes / Sous-titres) : `#FFFFFF`
+  - Zéro rouge / rose : `#FF2A5F` formellement banni.
 - **Languages**: HTML5, Vanilla CSS, JavaScript (Deterministic frame-by-frame), Python 3.12 (Pipeline, SFX, FFmpeg)
 - **Package Manager**: pip / pure standard libraries
 - **Frameworks**: Vanilla JS (Zero React, Zero node_modules, Zero Remotion)
