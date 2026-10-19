@@ -65,6 +65,20 @@
       initData();
     }
 
+    // 0. HUD AGENT404
+    const totalDuration = (window.SCENES && window.SCENES.length > 0) ? window.SCENES[window.SCENES.length - 1].end : 65.15;
+    const hudFill = document.getElementById("hud-progress-fill");
+    const hudTimer = document.getElementById("hud-timer");
+    if (hudFill && totalDuration > 0) {
+      const pct = Math.min(100, Math.max(0, (t / totalDuration) * 100));
+      hudFill.style.width = `${pct}%`;
+    }
+    if (hudTimer) {
+      const mins = Math.floor(t / 60).toString().padStart(2, "0");
+      const secs = Math.floor(t % 60).toString().padStart(2, "0");
+      hudTimer.textContent = `${mins}:${secs} // 30FPS`;
+    }
+
     // 1. Sous-titres dynamiques (Top)
     updateSubtitles(t);
 
@@ -529,26 +543,45 @@
                 <span class="dot yellow"></span>
                 <span class="dot green"></span>
               </div>
-              <div class="loom-drop-title">${data.title || "loom_demo_prospect.mp4"}</div>
-              <div class="loom-drop-badge">${data.label || "DÉCROCHAGE"}</div>
+              <div class="loom-drop-url">loom.com/share/demo_produit_v4.mp4</div>
+              <div class="loom-drop-badge">LECTEUR B2B BLOQUÉ</div>
             </div>
-            <div class="loom-drop-body">
-              <div class="loom-retention-chart">
-                <svg class="loom-retention-svg" viewBox="0 0 800 180" preserveAspectRatio="none">
-                  <path d="M 0 30 Q 150 40 220 130 T 400 165 L 800 170" fill="none" stroke="#F59E0B" stroke-width="6" stroke-linecap="round" />
-                  <line x1="220" y1="20" x2="220" y2="170" stroke="#F59E0B" stroke-width="2" stroke-dasharray="6,6" />
+            <div class="loom-drop-screen">
+              <div class="loom-drop-chart-zone">
+                <svg class="loom-drop-chart-svg" viewBox="0 0 860 220" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="dropGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.3" />
+                      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0.0" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M 0 30 Q 180 35 240 180 L 860 195 L 860 220 L 0 220 Z" fill="url(#dropGrad)" />
+                  <path d="M 0 30 Q 180 35 240 180 L 860 195" fill="none" stroke="#F59E0B" stroke-width="6" stroke-linecap="round" />
+                  <line x1="240" y1="20" x2="240" y2="200" stroke="#F59E0B" stroke-width="3" stroke-dasharray="6,6" />
                 </svg>
-                <div class="retention-marker" id="retention-marker">📉 ${data.stoppedAt || "00:28"} : -88% AUDIENCE</div>
+                <div class="retention-marker" id="retention-marker">📉 00:28 : CHUTE BRUTALE D'AUDIENCE</div>
               </div>
-              <div class="loom-drop-footer">
-                <div class="loom-drop-stat">
-                  <span class="loom-drop-val">${data.retention || "12%"}</span>
-                  <span class="loom-drop-label">DE RÉTENTION FINALE</span>
+              <div class="loom-webcam-bubble">
+                <div class="webcam-silhouette">👤</div>
+                <div class="webcam-mute-badge">🔇</div>
+              </div>
+              <div class="loom-screen-player-bar">
+                <div class="loom-pause-btn">⏸</div>
+                <div class="loom-time-slider">
+                  <div class="loom-time-fill-active"></div>
+                  <div class="loom-time-cursor"></div>
                 </div>
-                <div class="loom-drop-stat">
-                  <span class="loom-drop-val" style="color: #8B949E;">${data.duration || "10:00"}</span>
-                  <span class="loom-drop-label">DURÉE TOTALE (TROP LONG)</span>
-                </div>
+                <div class="loom-time-digits">00:28 / 10:00</div>
+              </div>
+            </div>
+            <div class="loom-kpi-footer">
+              <div class="loom-kpi-block amber">
+                <div class="kpi-num">12%</div>
+                <div class="kpi-lbl">RÉTENTION FINALE</div>
+              </div>
+              <div class="loom-kpi-block dark">
+                <div class="kpi-num">88%</div>
+                <div class="kpi-lbl">QUITTENT AVANT 1 MIN</div>
               </div>
             </div>
           </div>
@@ -557,60 +590,124 @@
         return `
           <div class="comp-browser-overload" id="comp-browser-overload">
             <div class="browser-tab-bar">
-              <div class="browser-tab active">${data.tabTitle || "Screen Share — Meeting_Recording_12m.mp4"}</div>
-              <div class="browser-tab">+ Nouvel onglet</div>
+              <div class="browser-tab active">
+                <span>🌐 Loom — Meeting_Recording_12m.mp4</span>
+                <span class="tab-close-x">✕</span>
+              </div>
+              <div class="browser-tab-add">+ Nouvel onglet</div>
             </div>
-            <div class="browser-clutter-body">
-              <div class="clutter-grid">
-                <div class="clutter-tile">📁 Bureau encombré</div>
-                <div class="clutter-tile">📊 48 onglets ouverts</div>
-                <div class="clutter-tile">💬 Notifications Slack</div>
-                <div class="clutter-tile">⏳ Chargement infini...</div>
-                <div class="clutter-tile">🔇 Micro mal réglé</div>
-                <div class="clutter-tile">🔄 Défilement erratique</div>
-                <div class="clutter-tile">📝 Notes désordonnées</div>
-                <div class="clutter-tile">💤 Fatigue visuelle</div>
+            <div class="browser-overload-screen">
+              <div class="wireframe-chaos-bg">
+                <div class="wf-window wf-win1">
+                  <div class="wf-bar">📊 Dashboard Ventes Q3</div>
+                  <div class="wf-body-chaos">
+                    <div class="wf-line w70"></div><div class="wf-line w90"></div>
+                  </div>
+                </div>
+                <div class="wf-window wf-win2">
+                  <div class="wf-bar">💬 Slack (18 non lus)</div>
+                  <div class="wf-body-chaos">
+                    <div class="wf-line w50"></div><div class="wf-line w80"></div>
+                  </div>
+                </div>
+                <div class="wf-window wf-win3">
+                  <div class="wf-bar">⚙️ Paramètres / Logs</div>
+                  <div class="wf-body-chaos">
+                    <div class="wf-line w70"></div>
+                  </div>
+                </div>
               </div>
-              <div class="overload-warning-bar" id="overload-warning-bar">
-                <div class="overload-timer">⏱️ ${data.timer || "12:00"}</div>
-                <div class="overload-text">${data.tag || "12 MINUTES D'ÉCRAN PARTAGÉ ⏳"}</div>
+              <div class="overload-shock-alert" id="overload-shock-alert">
+                <div class="shock-timer">⏳ 12:00 MINUTES</div>
+                <div class="shock-title">ÉCRAN PARTAGÉ BRUT • ZÉRO MONTAGE</div>
               </div>
+            </div>
+            <div class="overload-footer-tags">
+              <div class="overload-tag-item" id="otag-0">[ 15 ONGLETS OUVERTS ]</div>
+              <div class="overload-tag-item" id="otag-1">[ MICRO MAL RÉGLÉ ]</div>
+              <div class="overload-tag-item" id="otag-2">[ ZÉRO STRUCTURE ]</div>
             </div>
           </div>
         `;
       case "loom_3_flaws_timeline":
         return `
           <div class="comp-flaws-timeline" id="comp-flaws-timeline">
-            <div class="flaws-head">${data.header || "DÉCROCHAGE PROSPECT"}</div>
-            ${(data.flaws || []).map((f, i) => `
-              <div class="flaw-card" id="flaw-card-${i}">
-                <div class="flaw-num">${f.num}</div>
-                <div class="flaw-content">
-                  <div class="flaw-title">${f.title}</div>
-                  <div class="flaw-detail">${f.detail}</div>
+            <div class="flaw-card" id="flaw-card-0">
+              <div class="flaw-left">
+                <div class="flaw-badge-num">01</div>
+                <div class="flaw-texts">
+                  <div class="flaw-main-title">01. HÉSITATIONS</div>
+                  <div class="flaw-sub-desc">Rythme haché & bafouillages</div>
                 </div>
-                <div class="flaw-icon">${f.icon}</div>
               </div>
-            `).join("")}
+              <div class="flaw-illustration-right">
+                <div class="flaw-bubble-crossed">
+                  <span class="strike-text">« Euh... attends... »</span>
+                  <div class="mini-wave-hashed">
+                    <span class="wave-chunk"></span><span class="wave-chunk"></span><span class="wave-chunk gap"></span><span class="wave-chunk"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flaw-card" id="flaw-card-1">
+              <div class="flaw-left">
+                <div class="flaw-badge-num">02</div>
+                <div class="flaw-texts">
+                  <div class="flaw-main-title">02. SILENCES</div>
+                  <div class="flaw-sub-desc">Temps morts interminables</div>
+                </div>
+              </div>
+              <div class="flaw-illustration-right">
+                <div class="flaw-ecg-flatline">
+                  <div class="ecg-mic">🔇</div>
+                  <div class="ecg-line-flat">────── 4.2s BLANC AUDIO ──────</div>
+                </div>
+              </div>
+            </div>
+            <div class="flaw-card" id="flaw-card-2">
+              <div class="flaw-left">
+                <div class="flaw-badge-num">03</div>
+                <div class="flaw-texts">
+                  <div class="flaw-main-title">03. VOIX FATIGUÉE</div>
+                  <div class="flaw-sub-desc">Ton monotone & lassant</div>
+                </div>
+              </div>
+              <div class="flaw-illustration-right">
+                <div class="flaw-battery-gauge">
+                  <div class="batt-shell">
+                    <div class="batt-fill" style="width: 15%;"></div>
+                  </div>
+                  <div class="batt-label">15% ÉNERGIE</div>
+                </div>
+              </div>
+            </div>
           </div>
         `;
       case "tab_close_cursor":
         return `
           <div class="comp-tab-close" id="comp-tab-close">
-            <div class="tab-close-bar">
-              <div class="tab-close-tab">
-                <span>🌐 ${data.tabName || "Loom — Démo Produit B2B"}</span>
-                <span class="tab-cross-btn" id="tab-cross-btn">✕</span>
+            <div class="tab-close-browser-top">
+              <div class="tab-item-active">
+                <span>🌐 Loom — Démo Produit B2B (12:00)</span>
+                <div class="tab-btn-close-action" id="tab-btn-close-action">✕ FERMER L'ONGLET</div>
               </div>
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 16px; color: #8B949E;">Fermeture éclair</div>
             </div>
-            <div class="tab-close-badge-box" id="tab-close-badge-box">
-              <div class="tab-close-big">${data.badge || "ONGLET FERMÉ EN 30S"}</div>
-              <div class="tab-close-sub">${data.sub || "PERDU AVANT LE MOINDRE BÉNÉFICE"}</div>
+            <div class="tab-close-preview-body" id="tab-close-preview-body">
+              <div class="preview-mini-loom" id="preview-mini-loom">
+                <div class="mini-loom-screen">
+                  <div class="mini-loom-freeze">🥱 Démo figée à 00:30</div>
+                  <div class="mini-progress-bar"><div class="mini-fill" style="width: 4%;"></div></div>
+                </div>
+              </div>
+              <div class="tab-close-stamp" id="tab-close-stamp">
+                <div class="stamp-icon">✕</div>
+                <div class="stamp-main-text">ONGLET FERMÉ EN 30S</div>
+                <div class="stamp-sub-text">PROSPECT PERDU AVANT LE MOINDRE ARGUMENT</div>
+              </div>
             </div>
-            <div class="virtual-cursor" id="tab-cursor" style="position: absolute; pointer-events: none; z-index: 50;">
-              <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
-                <path d="M4 3L11 21L14 13L22 10L4 3Z" fill="#F59E0B" stroke="#090D16" stroke-width="2.5" stroke-linejoin="round"/>
+            <div class="virtual-cursor" id="tab-cursor" style="position: absolute; pointer-events: none; z-index: 60;">
+              <svg width="68" height="68" viewBox="0 0 24 24" fill="none">
+                <path d="M4 3L11 21L14 13L22 10L4 3Z" fill="#F59E0B" stroke="#0D1117" stroke-width="2.5" stroke-linejoin="round"/>
               </svg>
             </div>
           </div>
@@ -618,122 +715,201 @@
       case "product_vs_perception":
         if (data.phase === "perception") {
           return `
-            <div class="comp-product-perception" id="comp-product-perception">
-              <div class="perception-drop-card">
-                <div style="font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 800; color: #8B949E; text-align: center;">
-                  ${data.title || "VALEUR PERÇUE PAR LE PROSPECT"}
-                </div>
-                <div class="drop-gauge-box">
-                  <div class="drop-val-side real">
-                    <div class="lbl">VALEUR RÉELLE DU PRODUIT</div>
-                    <div class="num">${data.dropFrom || "100%"}</div>
+            <div class="comp-product-perception perception-stage" id="comp-product-perception">
+              <div class="perception-header-title">VALEUR PERÇUE PAR LE PROSPECT</div>
+              <div class="bar-chart-giant-compare">
+                <div class="compare-col left-real">
+                  <div class="col-kpi" id="col-kpi-real">100%</div>
+                  <div class="col-bar-track">
+                    <div class="col-bar-fill real-fill"></div>
                   </div>
-                  <div class="drop-arrow">➔ 📉</div>
-                  <div class="drop-val-side perceived">
-                    <div class="lbl">PERÇUE APRÈS LE LOOM</div>
-                    <div class="num">${data.dropTo || "18%"}</div>
+                  <div class="col-label">VALEUR RÉELLE DU PRODUIT</div>
+                </div>
+                <div class="compare-vs-badge">VS</div>
+                <div class="compare-col right-perceived">
+                  <div class="col-kpi amber" id="col-kpi-perceived">18%</div>
+                  <div class="col-bar-track">
+                    <div class="col-bar-fill perceived-fill" id="perceived-fill"></div>
                   </div>
+                  <div class="col-label amber">VALEUR PERÇUE APRÈS TON LOOM</div>
                 </div>
-                <div class="drop-warning-badge">${data.badge || "0 APPEL BOOKÉ"}</div>
-                <div style="text-align: center; font-size: 20px; font-weight: 700; color: #8B949E;">
-                  ${data.sub || "DÉMO AMATEUR = CONTRATS PERDUS"}
-                </div>
+              </div>
+              <div class="perception-banner-impact" id="perception-impact-banner">
+                RÉSULTAT : 0 APPEL BOOKÉ
               </div>
             </div>
           `;
         }
         return `
-          <div class="comp-product-perception" id="comp-product-perception">
-            <div class="product-card-solid">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div class="prod-title">${data.title || "TON PRODUIT SAAS"}</div>
-                <div class="prod-rating">${data.rating || "★★★★★"}</div>
+          <div class="comp-product-perception product-stage" id="comp-product-perception">
+            <div class="product-saas-excellence-card">
+              <div class="saas-card-top-bar">
+                <div class="saas-card-title-group">
+                  <div class="saas-card-title">TON PRODUIT SAAS</div>
+                  <div class="saas-badge-stars">★★★★★ EXCELLENT</div>
+                </div>
               </div>
-              <div class="prod-sub">${data.subtitle || "ARCHITECTURE SOLIDE • VALEUR RÉELLE"}</div>
-              <div class="prod-bullets">
-                ${(data.points || []).map(p => `
-                  <div class="bullet-item">
-                    <span style="color: #00F5A0; font-size: 24px;">✓</span>
-                    <span>${p}</span>
+              <div class="saas-card-grid-widgets">
+                <div class="saas-widget-box">
+                  <div class="widget-metric-num">99.99%</div>
+                  <div class="widget-metric-lbl">UPTIME & FIABILITÉ</div>
+                  <div class="widget-status-dot">● SYSTÈME STABLE</div>
+                </div>
+                <div class="saas-widget-box">
+                  <div class="widget-metric-num">+340%</div>
+                  <div class="widget-metric-lbl">EFFICACITÉ API & CORE</div>
+                  <svg class="widget-trend-svg" viewBox="0 0 160 40">
+                    <path d="M 0 35 Q 40 30 80 18 T 160 5" fill="none" stroke="#00F5A0" stroke-width="4" stroke-linecap="round"/>
+                  </svg>
+                </div>
+                <div class="saas-widget-box full-span">
+                  <div class="widget-row-feature">
+                    <span class="feat-check">✓</span>
+                    <span class="feat-text">ARCHITECTURE ROBUSTE, RAPIDE & SCALABLE</span>
                   </div>
-                `).join("")}
+                </div>
               </div>
             </div>
             ${data.avatar_pip ? `
-              <div class="avatar-pip" id="avatar-pip">
-                <img src="${data.avatar_pip}" alt="Avatar PiP" />
+              <div class="avatar-pip-medallion" id="avatar-pip">
+                <img src="${data.avatar_pip}" alt="Avatar Sceptique" />
               </div>
             ` : ""}
           </div>
         `;
       case "interface_labyrinth_cut":
+        const menusList = [
+          "Dashboard", "Analytics", "Settings", "Billing",
+          "Team Roles", "API Keys", "Webhooks", "Audit Logs",
+          "Security", "Integrations", "Exports", "Config"
+        ];
         return `
           <div class="comp-labyrinth-cut" id="comp-labyrinth-cut">
-            <div class="labyrinth-head">${data.header || "VISITE DE L'INTERFACE SAAS"}</div>
-            <div class="labyrinth-grid">
-              ${(data.menus || []).map((m, i) => `
-                <div class="menu-card" id="menu-card-${i}">${m}</div>
+            <div class="labyrinth-top-header">VISITE GUIDÉE DE L'INTERFACE SAAS</div>
+            <div class="labyrinth-menus-grid" id="labyrinth-grid">
+              ${menusList.map((m, i) => `
+                <div class="menu-pill-card" id="menu-pill-${i}">
+                  <span class="menu-icon">📁</span>
+                  <span class="menu-name">${m}</span>
+                </div>
               `).join("")}
             </div>
-            <div class="strike-line" id="strike-line"></div>
-            <div class="labyrinth-cut-badge" id="labyrinth-cut-badge">${data.badge || "VISITE GUIDÉE DE 12 MENUS : IGNORÉE ✕"}</div>
+            <div class="strike-cross-line line-1" id="strike-line-1"></div>
+            <div class="strike-cross-line line-2" id="strike-line-2"></div>
+            <div class="labyrinth-central-banner" id="labyrinth-central-banner">
+              <div class="banner-big-reject">✕ VISITE GUIDÉE DE 12 MENUS : IGNORÉE</div>
+              <div class="banner-sub-reject">L'ACHETEUR B2B N'A PAS 12 MINUTES</div>
+            </div>
           </div>
         `;
       case "sixty_sec_value_bridge":
         return `
           <div class="comp-sixty-bridge" id="comp-sixty-bridge">
-            <div class="bridge-flow">
-              <div class="bridge-box">
-                <div class="title">${data.leftBox || "PROBLÈME DÉCIDEUR"}</div>
-                <div class="desc">Douleur identifiée & blocage business</div>
-              </div>
-              <div class="bridge-chrono" id="bridge-chrono">
-                <div class="num">${data.chrono || "60s"}</div>
-                <div class="unit">CHRONO</div>
-              </div>
-              <div class="bridge-box sol">
-                <div class="title">${data.rightBox || "SOLUTION + ROI IMMÉDIAT"}</div>
-                <div class="desc" style="color: #00F5A0;">Bénéfice prouvé sans friction</div>
+            <div class="bridge-top-circle-chrono">
+              <svg class="chrono-svg-ring" viewBox="0 0 240 240">
+                <circle cx="120" cy="120" r="102" fill="#0D1117" stroke="#30363D" stroke-width="12" />
+                <circle cx="120" cy="120" r="102" fill="none" stroke="#00F5A0" stroke-width="12"
+                  stroke-dasharray="640" stroke-dashoffset="0" stroke-linecap="round" id="chrono-progress-ring"
+                  transform="rotate(-90 120 120)" />
+              </svg>
+              <div class="chrono-inner-content">
+                <div class="chrono-digits" id="chrono-digits">60s</div>
+                <div class="chrono-unit">CHRONO</div>
               </div>
             </div>
-            <div class="bridge-tag-bar">${data.tag || "COMPRÉHENSION EN 60 SECONDES"}</div>
+            <div class="bridge-two-cards-row">
+              <div class="bridge-card problem">
+                <div class="bcard-num">1.</div>
+                <div class="bcard-title">SON PROBLÈME</div>
+                <div class="bcard-desc">Identifié dès la 1re seconde</div>
+              </div>
+              <div class="bridge-arrow-animated">━━━▶</div>
+              <div class="bridge-card solution">
+                <div class="bcard-num green">2.</div>
+                <div class="bcard-title green">TA SOLUTION</div>
+                <div class="bcard-desc">ROI prouvé sans friction</div>
+              </div>
+            </div>
+            <div class="bridge-bottom-pill">
+              ✓ COMPRÉHENSION IMMÉDIATE DU DÉCIDEUR
+            </div>
           </div>
         `;
       case "code_to_ui_live":
         return `
           <div class="comp-code-live" id="comp-code-live">
-            <div class="code-window-col">
-              <div class="code-window-bar">
-                <div class="window-dots">
+            <div class="code-editor-top-half">
+              <div class="code-editor-bar">
+                <div class="editor-dots">
                   <span class="dot red"></span>
                   <span class="dot yellow"></span>
                   <span class="dot green"></span>
                 </div>
-                <span>${data.filename || "pipeline_render.js"}</span>
+                <div class="editor-tab-title">demo_generator.js</div>
+                <div class="editor-lang-tag">JAVASCRIPT</div>
               </div>
-              <div class="code-window-body" id="code-live-body"><span id="code-live-text"></span><span class="cursor">▋</span></div>
+              <div class="code-editor-content">
+                <pre id="code-live-code" class="code-pre"><span class="c-kw">const</span> <span class="c-var">demo</span> = <span class="c-obj">Agent404</span>.<span class="c-fn">create</span>({
+  <span class="c-prop">format</span>: <span class="c-str">"1080x1920"</span>,
+  <span class="c-prop">camera</span>: <span class="c-bool">false</span>,
+  <span class="c-prop">retakes</span>: <span class="c-num">0</span>
+});
+<span class="c-var">demo</span>.<span class="c-fn">renderPerfectCut</span>();</pre>
+              </div>
             </div>
-            <div class="code-badges-col">
-              <div class="code-pop-badge" id="code-badge-1">${data.badge1 || "📷 ZÉRO CAMÉRA"}</div>
-              <div class="code-pop-badge" id="code-badge-2">${data.badge2 || "🎯 ZÉRO PRISE RATÉE"}</div>
+            <div class="code-bottom-cards-row">
+              <div class="code-proof-card left" id="code-card-camera">
+                <div class="proof-icon">🚫📷</div>
+                <div class="proof-texts">
+                  <div class="proof-title">ZÉRO CAMÉRA</div>
+                  <div class="proof-sub">Aucun tournage requis</div>
+                </div>
+              </div>
+              <div class="code-proof-card right" id="code-card-retakes">
+                <div class="proof-icon green">🎯</div>
+                <div class="proof-texts">
+                  <div class="proof-title green">ZÉRO PRISE RATÉE</div>
+                  <div class="proof-sub">100% déterministe du 1er coup</div>
+                </div>
+              </div>
             </div>
           </div>
         `;
       case "voice_to_word_grid":
         return `
           <div class="comp-word-grid" id="comp-word-grid">
-            <div class="wave-clean-box">
-              <div class="wave-clean-title">🎙️ ${data.audioFile || "memo_vocal_fondateur.m4a"} — DÉCOUPE DES SILENCES</div>
-              <div class="wave-clean-bars" id="wave-clean-bars">
-                ${Array.from({ length: 32 }, (_, i) => `<div class="wbar-clean" id="cwbar-${i}"></div>`).join("")}
+            <div class="audio-clean-tier">
+              <div class="tier-top-label">
+                <span>🎙️ NOTE VOCALE : PURGE AUTOMATIQUE</span>
+                <span class="tier-tag-clean" id="tier-tag-clean">✂️ HÉSITATIONS PURGÉES</span>
+              </div>
+              <div class="audio-track-simulation">
+                <div class="audio-silence-block s1" id="silence-block-1">
+                  <div class="silence-label">« Euh... »</div>
+                </div>
+                <div class="audio-wave-bars-active" id="audio-wave-active">
+                  ${Array.from({ length: 28 }, (_, i) => `<div class="awave-bar" id="awbar-${i}"></div>`).join("")}
+                </div>
+                <div class="audio-silence-block s2" id="silence-block-2">
+                  <div class="silence-label">[ Silence 3.8s ]</div>
+                </div>
               </div>
             </div>
-            <div class="grid-sync-box">
-              <div class="grid-sync-title">⚡ SYNCHRONISATION MOT-À-MOT DÉTERMINISTE (30 FPS)</div>
-              <div class="grid-sync-cells">
-                <div class="sync-cell"><div class="ts">00:00.01</div><div class="wd">[COUPE HÉSITATIONS]</div></div>
-                <div class="sync-cell"><div class="ts">00:00.02</div><div class="wd">[ALIGNEMENT WHISPER]</div></div>
-                <div class="sync-cell"><div class="ts">00:00.03</div><div class="wd">[CALIBRAGE FPS]</div></div>
+            <div class="word-sync-tier">
+              <div class="word-sync-header">✓ SYNCHRONISATION AU CENTIÈME DE SECONDE (0.01s)</div>
+              <div class="word-magnetic-cards">
+                <div class="word-mag-card" id="word-card-0">
+                  <div class="word-timer">00.12s</div>
+                  <div class="word-box">[ TON ]</div>
+                </div>
+                <div class="word-mag-card" id="word-card-1">
+                  <div class="word-timer">00.48s</div>
+                  <div class="word-box">[ OUTIL ]</div>
+                </div>
+                <div class="word-mag-card" id="word-card-2">
+                  <div class="word-timer">00.85s</div>
+                  <div class="word-box">[ B2B ]</div>
+                </div>
               </div>
             </div>
           </div>
@@ -741,40 +917,132 @@
       case "saas_showcase_3steps":
         return `
           <div class="comp-saas-showcase" id="comp-saas-showcase">
-            <div class="saas-app-bar">
-              <div class="saas-app-logo">⚡ ${data.appName || "CloudMetrics — Intelligence B2B"}</div>
-              <div style="font-family: 'JetBrains Mono', monospace; font-size: 15px; color: #8B949E;">ENV: PRODUCTION</div>
-            </div>
-            <div class="saas-metrics-row">
-              <div class="saas-metric-tile highlighted" id="saas-tile-1">
-                <div class="lbl">KPI PRINCIPAL</div>
-                <div class="val">+312% ROI</div>
-              </div>
-              <div class="saas-metric-tile" id="saas-tile-2">
-                <div class="lbl">TEMPS GAGNÉ</div>
-                <div class="val">14h / sem</div>
-              </div>
-              <div class="saas-metric-tile" id="saas-tile-3">
-                <div class="lbl">CONVERSION</div>
-                <div class="val">4.8x</div>
+            <div class="saas-theater-header">
+              <div class="saas-theater-logo">⚡ CloudMetrics B2B</div>
+              <div class="saas-step-progress">
+                <span class="step-pill-indicator active" id="st-pill-1">① ISOLEMENT CLÉ</span>
+                <span class="step-pill-indicator" id="st-pill-2">② PARCOURS UTILISATEUR</span>
+                <span class="step-pill-indicator" id="st-pill-3">③ HAUTE DÉFINITION</span>
               </div>
             </div>
-            <div class="saas-stage-tag" id="saas-stage-tag">${data.steps && data.steps[0] ? data.steps[0].label : "FONCTIONNALITÉ CLÉ ISOLÉE"}</div>
+            <div class="saas-theater-stage">
+              <!-- Phase 1: Isolation de la fonctionnalité clé -->
+              <div class="theater-phase phase-1" id="theater-phase-1">
+                <div class="dashboard-grid-mini">
+                  <div class="mini-widget blur" id="d-wid-1">📁 Imports Leads</div>
+                  <div class="mini-widget hero-focus" id="d-wid-hero">
+                    <div class="wid-kpi-badge">① FONCTIONNALITÉ CLÉ ISOLÉE</div>
+                    <div class="wid-hero-num">+312% CONVERSION B2B</div>
+                    <div class="wid-hero-sub">Pipeline généré en 1 clic</div>
+                    <svg class="wid-chart-svg" viewBox="0 0 280 60">
+                      <path d="M 0 50 Q 70 45 140 25 T 280 8" fill="none" stroke="#00F5A0" stroke-width="5" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="mini-widget blur" id="d-wid-2">⚙️ Webhooks</div>
+                  <div class="mini-widget blur" id="d-wid-3">📊 Logs</div>
+                </div>
+              </div>
+              <!-- Phase 2: Parcours utilisateur simulé -->
+              <div class="theater-phase phase-2" id="theater-phase-2" style="display: none;">
+                <div class="user-journey-path">
+                  <div class="journey-badge-top">② PARCOURS UTILISATEUR SIMULÉ</div>
+                  <div class="journey-steps-row">
+                    <div class="journey-step-box" id="j-step-1">
+                      <div class="j-step-num">1</div>
+                      <div class="j-step-name">Import Leads</div>
+                      <div class="j-step-check">✓</div>
+                    </div>
+                    <div class="j-step-arrow">━━━▶</div>
+                    <div class="journey-step-box" id="j-step-2">
+                      <div class="j-step-num">2</div>
+                      <div class="j-step-name">Qualification Auto</div>
+                      <div class="j-step-check">✓</div>
+                    </div>
+                    <div class="j-step-arrow">━━━▶</div>
+                    <div class="journey-step-box" id="j-step-3">
+                      <div class="j-step-num">3</div>
+                      <div class="j-step-name">RDV Booké</div>
+                      <div class="j-step-check">✓</div>
+                    </div>
+                  </div>
+                  <div class="journey-cta-btn" id="journey-cta-btn">
+                    [ GÉNÉRER LE PIPELINE AUTOMATIQUE ]
+                  </div>
+                </div>
+                <div class="virtual-cursor" id="journey-cursor" style="position: absolute; pointer-events: none; z-index: 50;">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 3L11 21L14 13L22 10L4 3Z" fill="#00F5A0" stroke="#0D1117" stroke-width="2.5" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+              <!-- Phase 3: Rendu HD au pixel près -->
+              <div class="theater-phase phase-3" id="theater-phase-3" style="display: none;">
+                <div class="hd-master-frame">
+                  <div class="hd-corner top-left"></div>
+                  <div class="hd-corner top-right"></div>
+                  <div class="hd-corner bottom-left"></div>
+                  <div class="hd-corner bottom-right"></div>
+                  <div class="hd-giant-res">1080 × 1920 PX</div>
+                  <div class="hd-sub-badge">HAUTE DÉFINITION • AU PIXEL PRÈS ✓</div>
+                  <div class="hd-tags-row">
+                    <span class="hd-tag">[ NETTETÉ VECTORIELLE 100% ]</span>
+                    <span class="hd-tag">[ 60 SECONDES ]</span>
+                    <span class="hd-tag">[ PRÊT À PUBLIER ]</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         `;
       case "delivery_48h_3channels":
         return `
           <div class="comp-delivery-channels" id="comp-delivery-channels">
-            <div class="delivery-head-badge">${data.header || "⚡ LIVRAISON CLÉ EN MAIN EN 48H"}</div>
-            <div class="delivery-cards-grid">
-              ${(data.cards || []).map((c, i) => `
-                <div class="delivery-card-v" id="delivery-card-${i}">
-                  <div class="chan-icon">${c.icon}</div>
-                  <div class="chan-name">${c.channel}</div>
-                  <div class="chan-tag">${c.tag}</div>
-                  <div class="chan-desc">${c.desc}</div>
+            <div class="delivery-master-header">
+              ⚡ LIVRAISON EN 48H : PACK 3 VIDÉOS VERTICALES
+            </div>
+            <div class="delivery-channels-vertical-stack">
+              <div class="delivery-channel-row" id="channel-row-0">
+                <div class="chan-thumb linkedin">
+                  <div class="thumb-mini-tag">LINKEDIN FEED</div>
+                  <div class="thumb-play">▶</div>
                 </div>
-              `).join("")}
+                <div class="chan-info-side">
+                  <div class="chan-title-line">
+                    <span class="chan-num">01.</span>
+                    <span class="chan-name">SUR LINKEDIN</span>
+                    <span class="chan-badge">✓ FORMAT HOOK 9:16</span>
+                  </div>
+                  <div class="chan-pitch">Capte l'attention dans le feed sans le son</div>
+                </div>
+              </div>
+              <div class="delivery-channel-row" id="channel-row-1">
+                <div class="chan-thumb outreach">
+                  <div class="thumb-mini-tag">EMAIL / DM</div>
+                  <div class="thumb-play">▶</div>
+                </div>
+                <div class="chan-info-side">
+                  <div class="chan-title-line">
+                    <span class="chan-num">02.</span>
+                    <span class="chan-name">EN PROSPECTION B2B</span>
+                    <span class="chan-badge">✓ 60S CHRONO</span>
+                  </div>
+                  <div class="chan-pitch">Remplace tes pavés de texte et Loom de 10 min</div>
+                </div>
+              </div>
+              <div class="delivery-channel-row" id="channel-row-2">
+                <div class="chan-thumb landing">
+                  <div class="thumb-mini-tag">HERO BANNER</div>
+                  <div class="thumb-play">▶</div>
+                </div>
+                <div class="chan-info-side">
+                  <div class="chan-title-line">
+                    <span class="chan-num">03.</span>
+                    <span class="chan-name">EN HAUT DE TA LANDING PAGE</span>
+                    <span class="chan-badge">✓ CONVERSION</span>
+                  </div>
+                  <div class="chan-pitch">Explique ton produit en 60s et convertit</div>
+                </div>
+              </div>
             </div>
           </div>
         `;
@@ -789,28 +1057,24 @@
                 <img src="${data.avatar || 'assets/avatars/pointing.png'}" alt="Avatar" class="avatar-sticker" id="avatar-img" />
               </div>
             </div>
-            <div class="face-dm-chat-stage" id="face-dm-chat-stage">
-              <div class="comp-dm-cta" style="margin: 0 auto;">
-                <div class="dm-head">
-                  <div class="dm-avatar-circle">🤖</div>
-                  <div class="dm-meta">
-                    <div class="dm-recipient">${data.targetUser || "@AGENT404"}</div>
-                    <div class="dm-online-badge">● EN LIGNE</div>
+            <div class="face-dm-cta-stage" id="face-dm-cta-stage" style="opacity: 0; pointer-events: none;">
+              <div class="cta-direct-box">
+                <div class="cta-hero-center">
+                  <div class="cta-instruction-label">ENVOIE CE MOT-CLÉ EN MESSAGE PRIVÉ :</div>
+                  <div class="cta-giant-keyword-box" id="cta-giant-box">
+                    <span class="keyword-letter" id="letter-D">D</span>
+                    <span class="keyword-letter" id="letter-E">E</span>
+                    <span class="keyword-letter" id="letter-M">M</span>
+                    <span class="keyword-letter" id="letter-O">O</span>
+                  </div>
+                  <div class="cta-send-button-massive" id="cta-send-button">
+                    [ ENVOYER « DEMO » EN MESSAGE PRIVÉ ↗ ]
                   </div>
                 </div>
-                <div class="dm-chat-zone">
-                  <div class="dm-bubble user-msg" id="dm-user-bubble">
-                    <span class="bubble-tag">TOI</span>
-                    <span class="bubble-content" id="dm-typewriter">${data.keyword || "DEMO"}</span>
-                  </div>
-                  <div class="dm-bubble bot-msg" id="dm-bot-bubble">
-                    <span class="bubble-tag">AGENT404</span>
-                    <span class="bubble-content">${data.responseText || "✓ Message reçu. Démo envoyée en 2 min."}</span>
-                  </div>
-                </div>
-                <div class="dm-bar">
-                  <div class="dm-text-field">Message privé...</div>
-                  <div class="dm-action-send">➔</div>
+                <div class="virtual-cursor" id="cta-cursor" style="position: absolute; pointer-events: none; z-index: 70;">
+                  <svg width="68" height="68" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 3L11 21L14 13L22 10L4 3Z" fill="#F59E0B" stroke="#0D1117" stroke-width="2.5" stroke-linejoin="round"/>
+                  </svg>
                 </div>
               </div>
             </div>
@@ -1190,70 +1454,124 @@
       if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
       const marker = document.getElementById("retention-marker");
       if (marker) {
-        const mp = Math.min(1, Math.max(0, (elapsed - 0.15) / 0.25));
-        const mscale = mp < 1 ? (0.6 + 0.4 * mp + 0.12 * Math.sin(mp * Math.PI)) : 1.0;
+        const mp = Math.min(1, elapsed / 0.3);
+        const mscale = mp < 1 ? (0.85 + 0.15 * mp + 0.1 * Math.sin(mp * Math.PI)) : 1.0;
         marker.style.transform = `scale(${mscale})`;
         marker.style.opacity = `${mp}`;
       }
     } else if (type === "browser_tab_overload") {
       const el = document.getElementById("comp-browser-overload");
       if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
-      const warning = document.getElementById("overload-warning-bar");
-      if (warning) {
-        const wp = Math.min(1, Math.max(0, (elapsed - 0.2) / 0.25));
-        warning.style.opacity = `${wp}`;
-        warning.style.transform = `scale(${0.85 + 0.15 * wp})`;
+      const alert = document.getElementById("overload-shock-alert");
+      if (alert) {
+        const ap = Math.min(1, elapsed / 0.3);
+        const ascale = ap < 1 ? (0.88 + 0.12 * ap + 0.08 * Math.sin(ap * Math.PI)) : 1.0;
+        alert.style.transform = `scale(${ascale})`;
+        alert.style.opacity = `${ap}`;
+      }
+      for (let i = 0; i < 3; i++) {
+        const tag = document.getElementById(`otag-${i}`);
+        if (!tag) continue;
+        const tagElapsed = Math.max(0, elapsed - 0.2 - i * 0.15);
+        const tp = Math.min(1, tagElapsed / 0.2);
+        tag.style.opacity = `${tp}`;
+        tag.style.transform = `scale(${0.9 + 0.1 * tp})`;
       }
     } else if (type === "loom_3_flaws_timeline") {
       const el = document.getElementById("comp-flaws-timeline");
       if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
-      for (let i = 0; i < 3; i++) {
-        const card = document.getElementById(`flaw-card-${i}`);
-        if (!card) continue;
-        const delay = i * 0.25;
-        const cElapsed = Math.max(0, elapsed - delay);
-        if (cElapsed === 0) {
-          card.style.opacity = "0";
-          card.style.transform = "translateY(30px) scale(0.9)";
+      const card0 = document.getElementById("flaw-card-0");
+      const card1 = document.getElementById("flaw-card-1");
+      const card2 = document.getElementById("flaw-card-2");
+      // Timing d'activation basé sur les mots prononcés :
+      // 00:08.5 "des hésitations" | 00:09.6 "des silences" | 00:10.5 "et une voix fatiguée"
+      const isCard0Active = t >= 8.5 || elapsed >= 0.1;
+      const isCard1Active = t >= 9.6 || elapsed >= 1.0;
+      const isCard2Active = t >= 10.5 || elapsed >= 1.9;
+
+      if (card0) {
+        if (isCard0Active) {
+          card0.style.borderColor = "#F59E0B";
+          card0.style.transform = "scale(1.03)";
+          card0.style.background = "#1F190D";
         } else {
-          const cp = Math.min(1, cElapsed / 0.22);
-          const cscale = cp < 1 ? (0.85 + 0.15 * cp + 0.08 * Math.sin(cp * Math.PI)) : 1.0;
-          card.style.opacity = "1";
-          card.style.transform = `translateY(${30 * (1 - cp)}px) scale(${cscale})`;
+          card0.style.borderColor = "#30363D";
+          card0.style.transform = "scale(1.0)";
+          card0.style.background = "#161B22";
+        }
+      }
+      if (card1) {
+        if (isCard1Active) {
+          card1.style.borderColor = "#F59E0B";
+          card1.style.transform = "scale(1.03)";
+          card1.style.background = "#1F190D";
+        } else {
+          card1.style.borderColor = "#30363D";
+          card1.style.transform = "scale(1.0)";
+          card1.style.background = "#161B22";
+        }
+      }
+      if (card2) {
+        if (isCard2Active) {
+          card2.style.borderColor = "#F59E0B";
+          card2.style.transform = "scale(1.03)";
+          card2.style.background = "#1F190D";
+        } else {
+          card2.style.borderColor = "#30363D";
+          card2.style.transform = "scale(1.0)";
+          card2.style.background = "#161B22";
         }
       }
     } else if (type === "tab_close_cursor") {
       const el = document.getElementById("comp-tab-close");
       if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
       const cur = document.getElementById("tab-cursor");
-      const btn = document.getElementById("tab-cross-btn");
-      const badge = document.getElementById("tab-close-badge-box");
+      const btn = document.getElementById("tab-btn-close-action");
+      const preview = document.getElementById("preview-mini-loom");
+      const stamp = document.getElementById("tab-close-stamp");
 
-      const moveP = Math.min(1, elapsed / 0.4);
-      const startX = 260, startY = 180;
-      const targetX = 0, targetY = 0;
+      // Clic à t = 12.4s ou elapsed >= 0.4s
+      const isClicked = t >= 12.4 || elapsed >= 0.45;
+      const moveP = Math.min(1, elapsed / 0.45);
+      const startX = 320, startY = 260;
+      const targetX = 260, targetY = -230;
       const curX = startX + (targetX - startX) * moveP;
       const curY = startY + (targetY - startY) * moveP;
-      const isClicked = elapsed >= 0.4;
 
       if (cur) {
-        cur.style.transform = `translate(${curX}px, ${curY}px) scale(${isClicked ? 0.88 : 1.0})`;
+        cur.style.transform = `translate(${curX}px, ${curY}px) scale(${isClicked ? 0.9 : 1.0})`;
       }
       if (btn) {
         if (isClicked) {
           btn.style.background = "#F59E0B";
-          btn.style.color = "#090D16";
-          btn.style.transform = "scale(0.92)";
+          btn.style.color = "#0D1117";
+          btn.style.transform = "scale(0.94)";
         } else {
           btn.style.background = "#30363D";
           btn.style.color = "#F59E0B";
           btn.style.transform = "scale(1.0)";
         }
       }
-      if (badge) {
-        const bp = Math.max(0, Math.min(1, (elapsed - 0.35) / 0.25));
-        badge.style.opacity = `${bp}`;
-        badge.style.transform = `rotate(-2deg) scale(${0.8 + 0.2 * bp})`;
+      if (preview) {
+        if (isClicked) {
+          preview.style.transform = "scale(0.92)";
+          preview.style.opacity = "0.2";
+          preview.style.filter = "grayscale(1)";
+        } else {
+          preview.style.transform = "scale(1.0)";
+          preview.style.opacity = "1.0";
+          preview.style.filter = "none";
+        }
+      }
+      if (stamp) {
+        if (isClicked) {
+          const sp = Math.min(1, (elapsed - 0.45) / 0.2);
+          stamp.style.opacity = "1";
+          stamp.style.transform = `translate(-50%, -50%) rotate(-3deg) scale(${0.9 + 0.1 * sp})`;
+        } else {
+          stamp.style.opacity = "0";
+          stamp.style.transform = "translate(-50%, -50%) rotate(-3deg) scale(0.85)";
+        }
       }
     } else if (type === "product_vs_perception") {
       const el = document.getElementById("comp-product-perception");
@@ -1263,129 +1581,255 @@
         const floatY = Math.sin(t * 4) * 6;
         pip.style.transform = `translateY(${floatY}px)`;
       }
+      // Effondrement de la colonne valeur perçue (phase perception)
+      if (data.phase === "perception") {
+        const fillPerceived = document.getElementById("perceived-fill");
+        const kpiPerceived = document.getElementById("col-kpi-perceived");
+        const impactBanner = document.getElementById("perception-impact-banner");
+
+        // De 100% à 18% au cours de la scène
+        const dropProgress = Math.min(1, Math.max(0, elapsed / 0.8));
+        const currentVal = Math.round(100 - (100 - 18) * dropProgress);
+        if (fillPerceived) {
+          fillPerceived.style.height = `${currentVal}%`;
+        }
+        if (kpiPerceived) {
+          kpiPerceived.textContent = `${currentVal}%`;
+        }
+        if (impactBanner) {
+          const bp = Math.max(0, Math.min(1, (elapsed - 0.5) / 0.25));
+          impactBanner.style.opacity = `${bp}`;
+          impactBanner.style.transform = `scale(${0.94 + 0.06 * bp})`;
+        }
+      }
     } else if (type === "interface_labyrinth_cut") {
       const el = document.getElementById("comp-labyrinth-cut");
       if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
-      const strike = document.getElementById("strike-line");
-      const badge = document.getElementById("labyrinth-cut-badge");
-      const isCut = progress >= 0.4;
-      if (strike) {
+      const isCut = t >= 23.0 || progress >= 0.35;
+      const grid = document.getElementById("labyrinth-grid");
+      const line1 = document.getElementById("strike-line-1");
+      const line2 = document.getElementById("strike-line-2");
+      const banner = document.getElementById("labyrinth-central-banner");
+
+      if (grid) {
         if (isCut) {
-          const cutP = Math.min(1, (progress - 0.4) / 0.15);
-          strike.style.opacity = `${cutP}`;
-          strike.style.transform = `rotate(-12deg) scaleX(${cutP})`;
+          grid.style.opacity = "0.2";
+          grid.style.filter = "grayscale(1)";
         } else {
-          strike.style.opacity = "0";
-          strike.style.transform = "rotate(-12deg) scaleX(0)";
+          grid.style.opacity = "1";
+          grid.style.filter = "none";
         }
       }
-      if (badge) {
+      if (line1) line1.style.opacity = isCut ? "1" : "0";
+      if (line2) line2.style.opacity = isCut ? "1" : "0";
+      if (banner) {
         if (isCut) {
-          const bp = Math.min(1, (progress - 0.45) / 0.15);
-          badge.style.opacity = `${bp}`;
-          badge.style.transform = `translate(-50%, -50%) rotate(-4deg) scale(${0.7 + 0.3 * bp})`;
+          banner.style.opacity = "1";
+          banner.style.transform = "translate(-50%, -50%) scale(1.0)";
         } else {
-          badge.style.opacity = "0";
-          badge.style.transform = `translate(-50%, -50%) rotate(-4deg) scale(0.7)`;
+          banner.style.opacity = "0";
+          banner.style.transform = "translate(-50%, -50%) scale(0.92)";
         }
       }
     } else if (type === "sixty_sec_value_bridge") {
       const el = document.getElementById("comp-sixty-bridge");
       if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
-      const chrono = document.getElementById("bridge-chrono");
-      if (chrono) {
-        const beat = 1.0 + Math.sin(t * 8) * 0.05;
-        chrono.style.transform = `scale(${beat})`;
+      const digits = document.getElementById("chrono-digits");
+      const ring = document.getElementById("chrono-progress-ring");
+      if (digits) {
+        const beat = 1.0 + Math.sin(t * 8) * 0.04;
+        digits.style.transform = `scale(${beat})`;
+      }
+      if (ring) {
+        const ringP = Math.min(1, progress * 1.2);
+        const dashoffset = 640 * (1 - ringP);
+        ring.style.strokeDashoffset = `${dashoffset}`;
       }
     } else if (type === "code_to_ui_live") {
       const el = document.getElementById("comp-code-live");
       if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
-      const textEl = document.getElementById("code-live-text");
-      if (textEl) {
-        const fullCode = data.code || "";
-        const charCount = Math.floor(Math.min(1, elapsed / 0.8) * fullCode.length);
-        textEl.textContent = fullCode.substring(0, charCount);
+      const cardCam = document.getElementById("code-card-camera");
+      const cardRetakes = document.getElementById("code-card-retakes");
+
+      // 00:33.3 "Zéro caméra" | 00:34.3 "zéro prise ratée"
+      const isCamActive = t >= 33.3 || elapsed >= 1.2;
+      const isRetakesActive = t >= 34.3 || elapsed >= 2.2;
+
+      if (cardCam) {
+        if (isCamActive) {
+          cardCam.style.borderColor = "#FFFFFF";
+          cardCam.style.transform = "scale(1.04)";
+          cardCam.style.boxShadow = "0 14px 0 #000000, 0 0 20px rgba(255, 255, 255, 0.2)";
+        } else {
+          cardCam.style.borderColor = "#30363D";
+          cardCam.style.transform = "scale(1.0)";
+          cardCam.style.boxShadow = "0 12px 0 #000000";
+        }
       }
-      const b1 = document.getElementById("code-badge-1");
-      const b2 = document.getElementById("code-badge-2");
-      if (b1) {
-        const p1 = Math.max(0, Math.min(1, (elapsed - 0.25) / 0.22));
-        b1.style.opacity = `${p1}`;
-        b1.style.transform = `translateX(${40 * (1 - p1)}px) scale(${0.85 + 0.15 * p1})`;
-      }
-      if (b2) {
-        const p2 = Math.max(0, Math.min(1, (elapsed - 0.55) / 0.22));
-        b2.style.opacity = `${p2}`;
-        b2.style.transform = `translateX(${40 * (1 - p2)}px) scale(${0.85 + 0.15 * p2})`;
+      if (cardRetakes) {
+        if (isRetakesActive) {
+          cardRetakes.style.borderColor = "#00F5A0";
+          cardRetakes.style.transform = "scale(1.04)";
+          cardRetakes.style.boxShadow = "0 14px 0 #000000, 0 0 24px rgba(0, 245, 160, 0.4)";
+        } else {
+          cardRetakes.style.borderColor = "#30363D";
+          cardRetakes.style.transform = "scale(1.0)";
+          cardRetakes.style.boxShadow = "0 12px 0 #000000";
+        }
       }
     } else if (type === "voice_to_word_grid") {
       const el = document.getElementById("comp-word-grid");
       if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
-      const barsCount = 32;
+
+      // Compression visuelle des silences lors de la phase 1 (00:38.5 - 00:40.8)
+      const isCutPhase = t >= 40.5 || progress >= 0.4;
+      const s1 = document.getElementById("silence-block-1");
+      const s2 = document.getElementById("silence-block-2");
+      const cleanTag = document.getElementById("tier-tag-clean");
+
+      if (isCutPhase) {
+        if (s1) { s1.style.width = "0px"; s1.style.opacity = "0"; s1.style.padding = "0"; s1.style.border = "none"; }
+        if (s2) { s2.style.width = "0px"; s2.style.opacity = "0"; s2.style.padding = "0"; s2.style.border = "none"; }
+        if (cleanTag) { cleanTag.style.background = "#00F5A0"; cleanTag.style.color = "#0D1117"; }
+      } else {
+        if (s1) { s1.style.width = "180px"; s1.style.opacity = "1"; }
+        if (s2) { s2.style.width = "220px"; s2.style.opacity = "1"; }
+      }
+
+      // Ondes actives dynamiques
+      const barsCount = 28;
       for (let i = 0; i < barsCount; i++) {
-        const bar = document.getElementById(`cwbar-${i}`);
+        const bar = document.getElementById(`awbar-${i}`);
         if (!bar) continue;
-        const waveOsc = Math.sin(t * 12 + i * 0.4) * Math.cos(t * 6 - i * 0.25);
-        const distFromCenter = Math.abs(i - barsCount / 2) / (barsCount / 2);
-        const baseH = (1 - distFromCenter * 0.5) * 80;
-        const h = Math.max(12, baseH * Math.abs(waveOsc) + 16);
+        const waveOsc = Math.sin(t * 14 + i * 0.45) * Math.cos(t * 7 - i * 0.2);
+        const dist = Math.abs(i - barsCount / 2) / (barsCount / 2);
+        const baseH = (1 - dist * 0.5) * 140;
+        const h = Math.max(18, baseH * Math.abs(waveOsc) + 24);
         bar.style.height = `${Math.round(h)}px`;
+      }
+
+      // Synchronisation mot-à-mot (00:40.8 - 00:43.5)
+      const w0 = document.getElementById("word-card-0");
+      const w1 = document.getElementById("word-card-1");
+      const w2 = document.getElementById("word-card-2");
+      const isW0 = t >= 40.8 || progress >= 0.50;
+      const isW1 = t >= 41.6 || progress >= 0.68;
+      const isW2 = t >= 42.4 || progress >= 0.82;
+
+      if (w0) {
+        if (isW0) w0.classList.add("active");
+        else w0.classList.remove("active");
+      }
+      if (w1) {
+        if (isW1) w1.classList.add("active");
+        else w1.classList.remove("active");
+      }
+      if (w2) {
+        if (isW2) w2.classList.add("active");
+        else w2.classList.remove("active");
       }
     } else if (type === "saas_showcase_3steps") {
       const el = document.getElementById("comp-saas-showcase");
       if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
-      const tag = document.getElementById("saas-stage-tag");
-      const tile1 = document.getElementById("saas-tile-1");
-      const tile2 = document.getElementById("saas-tile-2");
-      const tile3 = document.getElementById("saas-tile-3");
-      const steps = data.steps || [];
 
-      if (progress < 0.33) {
-        if (tag && steps[0]) tag.textContent = `${steps[0].num} ${steps[0].label}`;
-        if (tile1) tile1.classList.add("highlighted");
-        if (tile2) tile2.classList.remove("highlighted");
-        if (tile3) tile3.classList.remove("highlighted");
-      } else if (progress < 0.66) {
-        if (tag && steps[1]) tag.textContent = `${steps[1].num} ${steps[1].label}`;
-        if (tile1) tile1.classList.remove("highlighted");
-        if (tile2) tile2.classList.add("highlighted");
-        if (tile3) tile3.classList.remove("highlighted");
+      const p1 = document.getElementById("theater-phase-1");
+      const p2 = document.getElementById("theater-phase-2");
+      const p3 = document.getElementById("theater-phase-3");
+      const pill1 = document.getElementById("st-pill-1");
+      const pill2 = document.getElementById("st-pill-2");
+      const pill3 = document.getElementById("st-pill-3");
+
+      // 3 PHASES VISUELLES DYNAMIQUES :
+      // Phase 1 : 00:43.5 - 00:47.3 (Isolation de la fonctionnalité clé)
+      // Phase 2 : 00:47.3 - 00:49.2 (Parcours utilisateur simulé avec curseur)
+      // Phase 3 : 00:49.2 - 00:52.2 (Rendu Master HD 1080x1920)
+      if (t < 47.3 || progress < 0.41) {
+        if (p1) p1.style.display = "block";
+        if (p2) p2.style.display = "none";
+        if (p3) p3.style.display = "none";
+        if (pill1) pill1.classList.add("active");
+        if (pill2) pill2.classList.remove("active");
+        if (pill3) pill3.classList.remove("active");
+      } else if (t < 49.2 || progress < 0.65) {
+        if (p1) p1.style.display = "none";
+        if (p2) p2.style.display = "block";
+        if (p3) p3.style.display = "none";
+        if (pill1) pill1.classList.remove("active");
+        if (pill2) pill2.classList.add("active");
+        if (pill3) pill3.classList.remove("active");
+
+        // Curseur sur bouton pipeline
+        const cur = document.getElementById("journey-cursor");
+        const ctaBtn = document.getElementById("journey-cta-btn");
+        const step2 = document.getElementById("j-step-2");
+        const step3 = document.getElementById("j-step-3");
+        const phase2Elapsed = Math.max(0, elapsed - 3.8);
+        const curP = Math.min(1, phase2Elapsed / 0.8);
+
+        if (cur) {
+          const cx = -180 + curP * 360;
+          const cy = 60 + Math.sin(curP * Math.PI) * -30;
+          cur.style.transform = `translate(${cx}px, ${cy}px) scale(${curP >= 0.8 ? 0.9 : 1.0})`;
+        }
+        if (ctaBtn && curP >= 0.8) {
+          ctaBtn.style.transform = "scale(0.96)";
+          ctaBtn.style.background = "#FFFFFF";
+        }
+        if (step2 && curP >= 0.4) step2.classList.add("checked");
+        if (step3 && curP >= 0.8) step3.classList.add("checked");
       } else {
-        if (tag && steps[2]) tag.textContent = `${steps[2].num} ${steps[2].label}`;
-        if (tile1) tile1.classList.remove("highlighted");
-        if (tile2) tile2.classList.remove("highlighted");
-        if (tile3) tile3.classList.add("highlighted");
+        if (p1) p1.style.display = "none";
+        if (p2) p2.style.display = "none";
+        if (p3) p3.style.display = "flex";
+        if (pill1) pill1.classList.remove("active");
+        if (pill2) pill2.classList.remove("active");
+        if (pill3) pill3.classList.add("active");
       }
     } else if (type === "delivery_48h_3channels") {
       const el = document.getElementById("comp-delivery-channels");
       if (el) el.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
-      const cards = data.cards || [];
-      const activeIdx = Math.min(cards.length - 1, Math.floor(progress * cards.length));
-      for (let i = 0; i < cards.length; i++) {
-        const cEl = document.getElementById(`delivery-card-${i}`);
-        if (!cEl) continue;
-        if (i === activeIdx) {
-          cEl.classList.add("active");
-        } else {
-          cEl.classList.remove("active");
-        }
+
+      // Synchronisation précise avec les mots prononcés :
+      // 00:55.4 "sur LinkedIn" | 00:56.5 "en prospection" | 00:57.4 "ou en haut de ta landing page"
+      const r0 = document.getElementById("channel-row-0");
+      const r1 = document.getElementById("channel-row-1");
+      const r2 = document.getElementById("channel-row-2");
+
+      const isR0 = t >= 55.4 || progress >= 0.41;
+      const isR1 = t >= 56.5 || progress >= 0.58;
+      const isR2 = t >= 57.4 || progress >= 0.72;
+
+      if (r0) {
+        if (isR0) r0.classList.add("active");
+        else r0.classList.remove("active");
+      }
+      if (r1) {
+        if (isR1) r1.classList.add("active");
+        else r1.classList.remove("active");
+      }
+      if (r2) {
+        if (isR2) r2.classList.add("active");
+        else r2.classList.remove("active");
       }
     } else if (type === "face_to_dm_cta") {
       const avatarStage = document.getElementById("face-dm-avatar-stage");
-      const chatStage = document.getElementById("face-dm-chat-stage");
-      const userBubble = document.getElementById("dm-user-bubble");
-      const botBubble = document.getElementById("dm-bot-bubble");
+      const ctaStage = document.getElementById("face-dm-cta-stage");
       const avatar = document.getElementById("avatar-img");
+      const giantBox = document.getElementById("cta-giant-box");
+      const sendBtn = document.getElementById("cta-send-button");
+      const cursor = document.getElementById("cta-cursor");
 
-      const switchTime = 0.42;
-      if (progress < switchTime) {
+      // Bascule vers le CTA final monumental dès que l'avatar finit sa réplique (t >= 63.0 ou progress >= 0.63)
+      const isCtaActive = t >= 63.0 || progress >= 0.63;
+
+      if (!isCtaActive) {
         if (avatarStage) {
           avatarStage.style.opacity = "1";
           avatarStage.style.pointerEvents = "auto";
         }
-        if (chatStage) {
-          chatStage.style.opacity = "0";
-          chatStage.style.pointerEvents = "none";
+        if (ctaStage) {
+          ctaStage.style.opacity = "0";
+          ctaStage.style.pointerEvents = "none";
         }
         if (avatar) {
           const floatY = Math.sin(t * 5) * 10;
@@ -1393,26 +1837,64 @@
           avatar.style.transform = `translateX(-50%) translateY(${spring.ty + floatY}px) rotate(${tiltDeg}deg) scale(${spring.scale})`;
         }
       } else {
-        const chatProgress = (progress - switchTime) / (1 - switchTime);
         if (avatarStage) {
           avatarStage.style.opacity = "0";
           avatarStage.style.pointerEvents = "none";
         }
-        if (chatStage) {
-          const cp = Math.min(1, chatProgress / 0.3);
-          chatStage.style.opacity = `${cp}`;
-          chatStage.style.pointerEvents = "auto";
-          chatStage.style.transform = `translate(-50%, -50%) scale(${0.85 + 0.15 * cp})`;
+        if (ctaStage) {
+          ctaStage.style.opacity = "1";
+          ctaStage.style.pointerEvents = "auto";
         }
-        if (userBubble) {
-          const up = Math.min(1, chatProgress / 0.4);
-          userBubble.style.opacity = `${up}`;
-          userBubble.style.transform = `scale(${0.8 + 0.2 * up})`;
+
+        // Animation des lettres D - E - M - O :
+        // Mot "DEMO" prononcé à 01:03.66 (ou t >= 63.66)
+        const lD = document.getElementById("letter-D");
+        const lE = document.getElementById("letter-E");
+        const lM = document.getElementById("letter-M");
+        const lO = document.getElementById("letter-O");
+
+        const ctaElapsed = Math.max(0, t - 63.0);
+        if (lD) {
+          const pD = Math.min(1, ctaElapsed / 0.15);
+          lD.style.opacity = `${pD}`;
+          lD.style.transform = `scale(${0.7 + 0.3 * pD})`;
         }
-        if (botBubble) {
-          const bp = Math.max(0, Math.min(1, (chatProgress - 0.4) / 0.4));
-          botBubble.style.opacity = `${bp}`;
-          botBubble.style.transform = `scale(${0.8 + 0.2 * bp})`;
+        if (lE) {
+          const pE = Math.max(0, Math.min(1, (ctaElapsed - 0.15) / 0.15));
+          lE.style.opacity = `${pE}`;
+          lE.style.transform = `scale(${0.7 + 0.3 * pE})`;
+        }
+        if (lM) {
+          const pM = Math.max(0, Math.min(1, (ctaElapsed - 0.30) / 0.15));
+          lM.style.opacity = `${pM}`;
+          lM.style.transform = `scale(${0.7 + 0.3 * pM})`;
+        }
+        if (lO) {
+          const pO = Math.max(0, Math.min(1, (ctaElapsed - 0.45) / 0.15));
+          lO.style.opacity = `${pO}`;
+          lO.style.transform = `scale(${0.7 + 0.3 * pO})`;
+        }
+
+        // Punch-in monumental sur le mot DEMO à t >= 63.66
+        const isSpoken = t >= 63.66 || ctaElapsed >= 0.65;
+        if (giantBox) {
+          if (isSpoken) {
+            giantBox.style.transform = "scale(1.08)";
+            giantBox.style.boxShadow = "18px 18px 0px #FFFFFF, 0 0 60px rgba(0, 245, 160, 0.6)";
+          } else {
+            giantBox.style.transform = "scale(1.0)";
+            giantBox.style.boxShadow = "14px 14px 0px #FFFFFF, 0 0 40px rgba(0, 245, 160, 0.4)";
+          }
+        }
+        if (cursor) {
+          const moveCurP = Math.min(1, Math.max(0, (ctaElapsed - 0.5) / 0.4));
+          const cx = 200 * (1 - moveCurP);
+          const cy = 180 * (1 - moveCurP) + 145;
+          cursor.style.transform = `translate(${cx}px, ${cy}px) scale(${isSpoken ? 0.9 : 1.0})`;
+        }
+        if (sendBtn && isSpoken) {
+          sendBtn.style.transform = "translateY(4px) scale(0.97)";
+          sendBtn.style.boxShadow = "2px 2px 0px #00F5A0";
         }
       }
     }
