@@ -179,6 +179,36 @@ class TestPreflightAndRatchet(unittest.TestCase):
             self.assertIn("TARIF", vjs_content)
             self.assertIn("loom_player_dropoff", vjs_content)  # Illustration passée rappelée en commentaire
 
+    def test_production_playbook_and_workflow_integrity(self):
+        """Vérifie l'existence et la conformité intégrale du workflow produce_video.md et du playbook officiel."""
+        workflow_path = REPO_ROOT / ".agents" / "workflows" / "produce_video.md"
+        self.assertTrue(workflow_path.exists(), "Fichier .agents/workflows/produce_video.md introuvable")
+        wf_content = workflow_path.read_text(encoding="utf-8")
+
+        self.assertIn("name: produce-video", wf_content)
+        self.assertIn("PHASE 1", wf_content)
+        self.assertIn("PHASE 7", wf_content)
+        self.assertIn("init_video.py", wf_content)
+        self.assertIn("preflight_check.py", wf_content)
+        self.assertIn("video_memory.json", wf_content)
+
+        playbook_path = REPO_ROOT / "VIDEO_PRODUCTION_PLAYBOOK.md"
+        self.assertTrue(playbook_path.exists(), "Fichier VIDEO_PRODUCTION_PLAYBOOK.md introuvable")
+        pb_content = playbook_path.read_text(encoding="utf-8")
+
+        # Vérification des 7 phases
+        for phase_num in range(1, 8):
+            self.assertIn(f"PHASE {phase_num}", pb_content, f"Phase {phase_num} manquante dans le playbook")
+
+        # Vérification des piliers de gouvernance
+        self.assertIn("Effet Cliquet", pb_content)
+        self.assertIn("preflight_check.py", pb_content)
+        self.assertIn("init_video.py", pb_content)
+        self.assertIn("#FF2A5F", pb_content)
+        self.assertIn("#agent-hud", pb_content)
+        self.assertIn("Matrice d'Audit Rapide", pb_content)
+
 
 if __name__ == "__main__":
     unittest.main()
+
