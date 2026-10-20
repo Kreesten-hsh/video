@@ -20,3 +20,4 @@ output.*.mp4
 # Données privées de prospection et CRM
 /output/
 inspect_frames/
+prospecting/
