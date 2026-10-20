@@ -1066,6 +1066,236 @@
             </div>
           </div>
         `;
+      case "call_toll_gate":
+        return `
+          <div class="comp-call-toll-gate" id="comp-call-toll-gate">
+            <div class="toll-header-bar">
+              <div class="toll-badge">${data.header || "[ PÉAGE DÉCOUVERTE B2B ]"}</div>
+              <div class="toll-status-tag waiting" id="toll-status-tag">[ ATTENTE EXIGÉE ]</div>
+            </div>
+            <div class="toll-title">${data.title || "TARIF & MÉTHODE : MASQUÉS"}</div>
+            <div class="toll-barrier-zone" id="toll-barrier-zone">
+              <div class="toll-striped-bar" id="toll-striped-bar"></div>
+              <div class="toll-counter-display">
+                <span class="toll-digits" id="toll-digits">${data.timer || "45:00"}</span>
+                <span class="toll-digits-label">MINUTES</span>
+              </div>
+              <div class="toll-status-desc" id="toll-status-desc">${data.label || "TEMPS EXIGÉ AVANT LA MOINDRE RÉPONSE"}</div>
+            </div>
+            <div class="toll-status-box" id="toll-status-box">
+              <div class="toll-status-tag waiting" id="toll-prospect-state">[ PROSPECT : EN ATTENTE ]</div>
+              <div class="toll-status-desc" id="toll-decision-label">Patience du dirigeant : 18%</div>
+            </div>
+          </div>
+        `;
+      case "activation_energy_gauge":
+        return `
+          <div class="comp-activation-energy-gauge" id="comp-activation-energy-gauge">
+            <div class="gauge-header-bar">
+              <div class="gauge-badge">${data.header || "[ ÉQUATION DE DÉCISION B2B ]"}</div>
+              <div class="gauge-badge" style="color: var(--accent-warning);">${data.tag || "[ FRICTION COGNITIVE ]"}</div>
+            </div>
+            <div class="gauge-title">${data.title || "BARRIÈRE D'EFFORT MENTAL"}</div>
+            <div class="gauge-comparison-stack">
+              <div class="gauge-row">
+                <div class="gauge-row-top">
+                  <span class="gauge-row-label">VALEUR RÉELLE DU SERVICE</span>
+                  <span class="gauge-row-value locked">100% (ÉLEVÉE)</span>
+                </div>
+                <div class="gauge-track">
+                  <div class="gauge-fill primary" style="width: 100%;"></div>
+                </div>
+                <div class="gauge-lock-note">🔒 Cadenassée derrière l'appel découverte</div>
+              </div>
+              <div class="gauge-row">
+                <div class="gauge-row-top">
+                  <span class="gauge-row-label">EFFORT MENTAL EXIGÉ DU PROSPECT</span>
+                  <span class="gauge-row-value critical" id="gauge-effort-val">94%</span>
+                </div>
+                <div class="gauge-track">
+                  <div class="gauge-fill warning" id="gauge-effort-fill" style="width: 94%;"></div>
+                </div>
+                <div class="gauge-lock-note" style="color: var(--accent-warning);">⚠️ Seuil d'abandon immédiat dépassé</div>
+              </div>
+            </div>
+            <div class="gauge-footer-tag">
+              <span class="gauge-tag-highlight">[ RÉSULTAT : FUITE ]</span>
+              <span class="gauge-tag-sub">Trop d'effort avant de voir la solution</span>
+            </div>
+          </div>
+        `;
+      case "three_b2b_blockers_grid":
+        return `
+          <div class="comp-three-b2b-blockers-grid" id="comp-three-b2b-blockers-grid">
+            <div class="blockers-header-bar">
+              <div class="blockers-badge">${data.header || "[ 3 FREINS QUI TUENT LE DEAL ]"}</div>
+              <div class="blockers-title">${data.title || "LES 3 BLOCAGES MAJEURS B2B"}</div>
+            </div>
+            <div class="blockers-stack steps-list" id="blockers-stack">
+              <div class="blocker-card flaw-card step-card" id="blocker-card-0">
+                <div class="blocker-card-header">
+                  <span class="blocker-num-badge">[ 01. FORMULAIRE ]</span>
+                  <span class="blocker-status-tag">[ FRICTION MAX ]</span>
+                </div>
+                <div class="blocker-main-title">14 Champs Obligatoires</div>
+                <div class="blocker-detail">Siret, budget estimé, taille d'équipe...</div>
+              </div>
+              <div class="blocker-card flaw-card step-card" id="blocker-card-1">
+                <div class="blocker-card-header">
+                  <span class="blocker-num-badge">[ 02. ATTENTE ]</span>
+                  <span class="blocker-status-tag">[ PROSPECT FROID ]</span>
+                </div>
+                <div class="blocker-main-title">+72h Avant 1er Appel</div>
+                <div class="blocker-detail">Créneau Calendly à J+3, l'élan est mort</div>
+              </div>
+              <div class="blocker-card flaw-card step-card" id="blocker-card-2">
+                <div class="blocker-card-header">
+                  <span class="blocker-num-badge">[ 03. DEVIS PAVÉ ]</span>
+                  <span class="blocker-status-tag">[ NON LU ]</span>
+                </div>
+                <div class="blocker-main-title">12 Pages de Blabla</div>
+                <div class="blocker-detail">PDF indigeste que personne ne lira</div>
+              </div>
+            </div>
+          </div>
+        `;
+      case "competitor_fast_lane":
+        return `
+          <div class="comp-competitor-fast-lane" id="comp-competitor-fast-lane">
+            <div class="lane-header-bar">
+              <div class="lane-badge">${data.header || "[ BIFURCATION DU PROSPECT ]"}</div>
+              <div class="lane-title">${data.title || "FUITE VERS LE CONCURRENT"}</div>
+            </div>
+            <div class="lane-dual-tracks">
+              <div class="lane-track-box blocked">
+                <div class="lane-track-top">
+                  <span class="lane-name">TON TUNNEL : FLOU + LENT</span>
+                  <span class="lane-tag-pill blocked">[ BLOCAGE ]</span>
+                </div>
+                <div class="lane-visual-path">
+                  <div class="lane-path-line blocked"></div>
+                  <span class="lane-path-result blocked">✕ PROSPECT DÉCOURAGÉ</span>
+                </div>
+              </div>
+              <div class="lane-track-box fast">
+                <div class="lane-track-top">
+                  <span class="lane-name">CONCURRENT : CLAIR EN 60S</span>
+                  <span class="lane-tag-pill fast">[ DEAL CAPTURÉ ]</span>
+                </div>
+                <div class="lane-visual-path">
+                  <div class="lane-path-line fast" id="fast-lane-line"></div>
+                  <span class="lane-path-result fast">✓ CONVERSION IMMÉDIATE</span>
+                </div>
+              </div>
+            </div>
+            <div class="gauge-footer-tag">
+              <span class="gauge-tag-highlight">[ RÈGLE COMMERCIALE ]</span>
+              <span class="gauge-tag-sub">Le dirigeant choisit celui qui va droit au but</span>
+            </div>
+          </div>
+        `;
+      case "hero_video_wireframe":
+        return `
+          <div class="comp-hero-video-wireframe" id="comp-hero-video-wireframe">
+            <div class="wireframe-browser-bar">
+              <div class="wireframe-dots">
+                <span class="wireframe-dot active"></span>
+                <span class="wireframe-dot"></span>
+                <span class="wireframe-dot"></span>
+              </div>
+              <div class="wireframe-url">agence-b2b.com/offre</div>
+              <div class="wireframe-badge">[ 00:60 SEC ]</div>
+            </div>
+            <div class="wireframe-player-box">
+              <div class="wireframe-player-title">${data.title || "LECTEUR VIDÉO AU SOMMET"}</div>
+              <div class="wireframe-soundwave" id="wireframe-soundwave">
+                <div class="soundwave-bar"></div>
+                <div class="soundwave-bar"></div>
+                <div class="soundwave-bar"></div>
+                <div class="soundwave-bar"></div>
+                <div class="soundwave-bar"></div>
+                <div class="soundwave-bar"></div>
+              </div>
+              <div class="wireframe-progress-bar">
+                <div class="wireframe-progress-fill" id="wireframe-progress-fill" style="width: 50%;"></div>
+              </div>
+              <div class="wireframe-timer-row">
+                <span class="wireframe-chrono" id="wireframe-chrono">00:30 / 01:00</span>
+                <span class="wireframe-tag-clarity">[ CLARTÉ EN 60S ]</span>
+              </div>
+            </div>
+            <div class="wireframe-footer-note">Placée au-dessus de la ligne de flottaison</div>
+          </div>
+        `;
+      case "sixty_sec_clarity_timeline":
+        return `
+          <div class="comp-sixty-sec-clarity-timeline" id="comp-sixty-sec-clarity-timeline">
+            <div class="clarity-header-bar">
+              <div class="clarity-badge">${data.header || "[ TIMELINE DE CLARTÉ TOTALE ]"}</div>
+              <div class="clarity-title">${data.title || "3 PALIERS DÉCISIFS EN 60S"}</div>
+            </div>
+            <div class="clarity-timeline-stack steps-list" id="clarity-timeline-stack">
+              <div class="clarity-step-card step-card saas-step" id="clarity-step-0">
+                <div class="clarity-step-top">
+                  <span class="clarity-time-badge">[ 00:10 SEC ]</span>
+                  <span class="clarity-step-tag">[ DIAGNOSTIC CLAIR ]</span>
+                </div>
+                <div class="clarity-step-name">Problème Exact Ciblé</div>
+                <div class="clarity-step-detail">Le décideur voit immédiatement ce que tu règles</div>
+              </div>
+              <div class="clarity-step-card step-card saas-step" id="clarity-step-1">
+                <div class="clarity-step-top">
+                  <span class="clarity-time-badge">[ 00:30 SEC ]</span>
+                  <span class="clarity-step-tag">[ ZÉRO FLOU ]</span>
+                </div>
+                <div class="clarity-step-name">Méthode en 3 Étapes & Délais</div>
+                <div class="clarity-step-detail">Processus visuel limpide et calendrier concret</div>
+              </div>
+              <div class="clarity-step-card step-card saas-step" id="clarity-step-2">
+                <div class="clarity-step-top">
+                  <span class="clarity-time-badge">[ 01:00 MIN ]</span>
+                  <span class="clarity-step-tag">[ PRÉ-QUALIFIÉ ]</span>
+                </div>
+                <div class="clarity-step-name">Livrables & Conditions</div>
+                <div class="clarity-step-detail">Ce que tu livres, comment et à quel tarif</div>
+              </div>
+            </div>
+          </div>
+        `;
+      case "closing_ready_ticket":
+        return `
+          <div class="comp-closing-ready-ticket" id="comp-closing-ready-ticket">
+            <div class="closing-header-bar">
+              <div class="closing-badge">${data.header || "[ CRÉNEAU AGENDA CONFIRMÉ ]"}</div>
+              <div class="closing-badge" style="color: var(--accent-warning);">[ GAIN DE TEMPS ]</div>
+            </div>
+            <div class="closing-title">${data.title || "APPEL CONVERTI EN SIGNATURE"}</div>
+            <div class="closing-card-center">
+              <div class="closing-strike-line">~~40 MIN DE JUSTIFICATION ET DE DÉBAT~~</div>
+              <div class="closing-signature-target">➔ OBJECTIF UNIQUE : SIGNER</div>
+              <div class="closing-status-pill">[ PROSPECT DÉJÀ PRÉ-CONVAINCU ]</div>
+            </div>
+            <div class="closing-footer-note">Quand il réserve un appel, il ne vient plus pour tester. Il vient pour signer.</div>
+          </div>
+        `;
+      case "cta_clarte_monumental":
+        const kw = data.keyword || "CLARTÉ";
+        return `
+          <div class="comp-cta-clarte-monumental" id="comp-cta-clarte-monumental">
+            <div class="cta-clarte-header-tag">${data.header || "[ MESSAGE PRIVÉ ]"}</div>
+            <div class="cta-clarte-center-block">
+              <div class="cta-clarte-instruction">Envoie-moi le mot-clé</div>
+              <div class="cta-clarte-giant-box" id="cta-giant-box">
+                <span class="cta-clarte-keyword">${kw}</span>
+              </div>
+              <div class="cta-clarte-subtitle">${data.subtitle || "3 vidéos pour filtrer et pré-qualifier tes clients"}</div>
+            </div>
+            <div class="cta-clarte-pip-card">
+              <img src="${data.avatar_pip || 'assets/avatars/mic.png'}" alt="Avatar AGENT404" class="cta-clarte-avatar-img" />
+              <div class="cta-clarte-dm-action">✓ Message privé pour remplacer tes démos</div>
+            </div>
+          </div>
+        `;
       default:
         return `<div>Scène non définie</div>`;
     }
@@ -1897,6 +2127,157 @@
         }
       }
     }
+
+    if (type === "call_toll_gate") {
+      const tollEl = document.getElementById("comp-call-toll-gate");
+      const statusTag = document.getElementById("toll-status-tag");
+      const prospectState = document.getElementById("toll-prospect-state");
+      const decisionLbl = document.getElementById("toll-decision-label");
+      const digits = document.getElementById("toll-digits");
+      const isLost = t >= (data.lost_at || 6.8);
+      if (tollEl) {
+        tollEl.style.transform = `scale(${spring.scale}) translateY(${spring.ty}px)`;
+      }
+      if (isLost) {
+        if (statusTag) {
+          statusTag.className = "toll-status-tag lost";
+          statusTag.textContent = "[ DEAL PERDU ]";
+        }
+        if (prospectState) {
+          prospectState.className = "toll-status-tag lost";
+          prospectState.textContent = "[ PROSPECT : QUITTER LA PAGE ]";
+        }
+        if (decisionLbl) {
+          decisionLbl.textContent = "45 min exigées = Prospect chez le concurrent";
+        }
+        if (digits) {
+          digits.style.color = "var(--accent-warning)";
+        }
+      } else {
+        if (statusTag) {
+          statusTag.className = "toll-status-tag waiting";
+          statusTag.textContent = "[ ATTENTE EXIGÉE ]";
+        }
+        if (prospectState) {
+          prospectState.className = "toll-status-tag waiting";
+          prospectState.textContent = "[ PROSPECT : EN ATTENTE ]";
+        }
+        if (decisionLbl) {
+          const remPatience = Math.max(10, Math.round(100 - progress * 80));
+          decisionLbl.textContent = `Patience du dirigeant : ${remPatience}%`;
+        }
+      }
+    }
+    if (type === "activation_energy_gauge") {
+      const gaugeEl = document.getElementById("comp-activation-energy-gauge");
+      const effortFill = document.getElementById("gauge-effort-fill");
+      const effortVal = document.getElementById("gauge-effort-val");
+      if (gaugeEl) {
+        gaugeEl.style.transform = `scale(${spring.scale}) translateY(${spring.ty}px)`;
+      }
+      const curEffort = Math.min(94, Math.round(progress * 130));
+      if (effortFill) {
+        effortFill.style.width = `${curEffort}%`;
+      }
+      if (effortVal) {
+        effortVal.textContent = `${curEffort}% (CRITIQUE)`;
+      }
+    }
+    if (type === "three_b2b_blockers_grid") {
+      const gridEl = document.getElementById("comp-three-b2b-blockers-grid");
+      if (gridEl) {
+        gridEl.style.transform = `scale(${spring.scale}) translateY(${spring.ty}px)`;
+      }
+      const t1 = data.t1 || 18.40;
+      const t2 = data.t2 || 20.18;
+      const t3 = data.t3 || 22.52;
+
+      const isCard0 = (t >= t1 && t < t2);
+      const isCard1 = (t >= t2 && t < t3);
+      const isCard2 = (t >= t3);
+
+      const card0 = document.getElementById("blocker-card-0");
+      const card1 = document.getElementById("blocker-card-1");
+      const card2 = document.getElementById("blocker-card-2");
+
+      if (card0) card0.classList.toggle("is-active", isCard0);
+      if (card1) card1.classList.toggle("is-active", isCard1);
+      if (card2) card2.classList.toggle("is-active", isCard2);
+    }
+    if (type === "competitor_fast_lane") {
+      const compEl = document.getElementById("comp-competitor-fast-lane");
+      const fastLine = document.getElementById("fast-lane-line");
+      if (compEl) {
+        compEl.style.transform = `scale(${spring.scale}) translateY(${spring.ty}px)`;
+      }
+      if (fastLine) {
+        const glowIntensity = 12 + Math.sin(t * 8) * 8;
+        fastLine.style.boxShadow = `0 0 ${glowIntensity}px var(--accent-primary-glow)`;
+      }
+    }
+    if (type === "hero_video_wireframe") {
+      const wireEl = document.getElementById("comp-hero-video-wireframe");
+      const progFill = document.getElementById("wireframe-progress-fill");
+      const chrono = document.getElementById("wireframe-chrono");
+      const soundwave = document.getElementById("wireframe-soundwave");
+
+      if (wireEl) {
+        wireEl.style.transform = `scale(${spring.scale}) translateY(${spring.ty}px)`;
+      }
+      if (progFill) {
+        progFill.style.width = `${Math.min(100, Math.round(progress * 100))}%`;
+      }
+      if (chrono) {
+        const sec = Math.min(60, Math.floor(progress * 60));
+        chrono.textContent = `00:${String(sec).padStart(2, '0')} / 01:00`;
+      }
+      if (soundwave) {
+        const bars = soundwave.querySelectorAll(".soundwave-bar");
+        bars.forEach((b, i) => {
+          const h = 14 + Math.abs(Math.sin(elapsed * 8 + i * 1.2)) * 26;
+          b.style.height = `${h}px`;
+        });
+      }
+    }
+    if (type === "sixty_sec_clarity_timeline") {
+      const timeEl = document.getElementById("comp-sixty-sec-clarity-timeline");
+      if (timeEl) {
+        timeEl.style.transform = `scale(${spring.scale}) translateY(${spring.ty}px)`;
+      }
+      const t1 = data.t1 || 38.46;
+      const t2 = data.t2 || 40.50;
+      const t3 = data.t3 || 43.40;
+
+      const isStep0 = (t >= t1 && t < t2);
+      const isStep1 = (t >= t2 && t < t3);
+      const isStep2 = (t >= t3);
+
+      const step0 = document.getElementById("clarity-step-0");
+      const step1 = document.getElementById("clarity-step-1");
+      const step2 = document.getElementById("clarity-step-2");
+
+      if (step0) step0.classList.toggle("is-active", isStep0);
+      if (step1) step1.classList.toggle("is-active", isStep1);
+      if (step2) step2.classList.toggle("is-active", isStep2);
+    }
+    if (type === "closing_ready_ticket") {
+      const closeEl = document.getElementById("comp-closing-ready-ticket");
+      if (closeEl) {
+        closeEl.style.transform = `scale(${spring.scale}) translateY(${spring.ty}px)`;
+      }
+    }
+    if (type === "cta_clarte_monumental") {
+      const ctaEl = document.getElementById("comp-cta-clarte-monumental");
+      const giantBadge = document.getElementById("cta-giant-box");
+      if (ctaEl) {
+        ctaEl.style.transform = `scale(${spring.scale}) translateY(${spring.ty}px)`;
+      }
+      if (giantBadge) {
+        const pPulse = 1.0 + Math.sin(t * 6) * 0.04;
+        giantBadge.style.transform = `scale(${pPulse})`;
+      }
+    }
+
   }
 
   // Initialisation à l'évaluation du script

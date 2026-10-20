@@ -3413,3 +3413,897 @@ html, body {
 }
 
 
+
+
+/* ==========================================================================
+   COMPOSANTS OFFICIELS VIDÉO 3 (studio_perso/video_03)
+   100% Néo-Brutalisme AGENT404 • Zéro #hex hors :root • Zéro HUD
+   ========================================================================== */
+
+/* 1. CALL TOLL GATE (Scène 2) : 920px x 740px */
+.comp-call-toll-gate {
+  width: 920px;
+  height: 740px;
+  margin: 0 auto;
+  background: var(--surface-card);
+  border: 4px solid var(--border-subtle);
+  border-radius: 24px;
+  box-shadow: 0 16px 0 var(--surface-black);
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+.toll-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.toll-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  padding: 8px 18px;
+  border-radius: 8px;
+  background: var(--surface-elevated);
+  border: 2px solid var(--slate-border);
+  color: var(--accent-warning);
+  white-space: nowrap;
+}
+.toll-title {
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  margin-top: 14px;
+  line-height: 1.25;
+}
+.toll-barrier-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  background: var(--surface-elevated);
+  border: 3px solid var(--border-subtle);
+  border-radius: 18px;
+  padding: 28px 24px;
+  position: relative;
+}
+.toll-striped-bar {
+  width: 100%;
+  height: 28px;
+  border-radius: 8px;
+  border: 2px solid var(--border-strong);
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--accent-warning),
+    var(--accent-warning) 20px,
+    var(--surface-black) 20px,
+    var(--surface-black) 40px
+  );
+  box-shadow: 0 4px 0 var(--surface-black);
+}
+.toll-counter-display {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.toll-digits {
+  font-family: 'Syne', 'Montserrat', sans-serif;
+  font-size: 84px;
+  font-weight: 900;
+  color: var(--accent-warning);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+.toll-digits-label {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.toll-status-box {
+  background: var(--surface-card);
+  border: 2px solid var(--slate-border);
+  border-radius: 12px;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.toll-status-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.toll-status-tag.waiting {
+  background: var(--surface-elevated);
+  border: 1px solid var(--slate-border);
+  color: var(--text-secondary);
+}
+.toll-status-tag.lost {
+  background: var(--accent-warning);
+  color: var(--bg-dark);
+  border: 1px solid var(--white);
+  box-shadow: 0 4px 0 var(--surface-black);
+}
+.toll-status-desc {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-light-muted);
+}
+
+/* 2. ACTIVATION ENERGY GAUGE (Scène 4) : 920px x 720px */
+.comp-activation-energy-gauge {
+  width: 920px;
+  height: 720px;
+  margin: 0 auto;
+  background: var(--surface-card);
+  border: 4px solid var(--border-subtle);
+  border-radius: 24px;
+  box-shadow: 0 16px 0 var(--surface-black);
+  padding: 38px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+}
+.gauge-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.gauge-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  padding: 8px 18px;
+  border-radius: 8px;
+  background: var(--surface-elevated);
+  border: 2px solid var(--slate-border);
+  color: var(--accent-primary);
+  white-space: nowrap;
+}
+.gauge-title {
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  margin-top: 12px;
+}
+.gauge-comparison-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.gauge-row {
+  background: var(--surface-elevated);
+  border: 2px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.gauge-row-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.gauge-row-label {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -0.01em;
+}
+.gauge-row-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.gauge-row-value.locked {
+  color: var(--accent-primary);
+}
+.gauge-row-value.critical {
+  color: var(--accent-warning);
+}
+.gauge-track {
+  width: 100%;
+  height: 24px;
+  background: var(--surface-card);
+  border: 2px solid var(--slate-border);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+.gauge-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.1s linear;
+}
+.gauge-fill.primary {
+  background: var(--accent-primary);
+  box-shadow: 0 0 16px var(--accent-primary-glow);
+}
+.gauge-fill.warning {
+  background: var(--accent-warning);
+  box-shadow: 0 0 16px var(--accent-warning-glow);
+}
+.gauge-lock-note {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gauge-footer-tag {
+  background: var(--surface-elevated);
+  border: 2px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.gauge-tag-highlight {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--accent-warning);
+  white-space: nowrap;
+}
+.gauge-tag-sub {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-light-muted);
+}
+
+/* 3. THREE B2B BLOCKERS GRID (Scène 6 - Multi-Étapes Axe 4) : 920px x 800px */
+.comp-three-b2b-blockers-grid {
+  width: 920px;
+  height: 800px;
+  margin: 0 auto;
+  background: var(--surface-card);
+  border: 4px solid var(--border-subtle);
+  border-radius: 24px;
+  box-shadow: 0 16px 0 var(--surface-black);
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+}
+.blockers-header-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.blockers-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  align-self: flex-start;
+  padding: 6px 16px;
+  border-radius: 8px;
+  background: var(--surface-elevated);
+  border: 2px solid var(--slate-border);
+  color: var(--accent-warning);
+  white-space: nowrap;
+}
+.blockers-title {
+  font-size: 30px;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+.blockers-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.blocker-card {
+  background: var(--surface-elevated);
+  border: 3px solid var(--border-subtle);
+  border-radius: 18px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0.45;
+  transform: translateY(0);
+  transition: opacity 0.2s ease, transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.blocker-card.is-active {
+  opacity: 1;
+  border-color: var(--accent-warning);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 0 var(--surface-black), 0 0 20px var(--accent-warning-glow);
+  background: var(--surface-hover);
+}
+.blocker-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.blocker-num-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 6px;
+  background: var(--surface-card);
+  border: 1px solid var(--slate-border);
+  color: var(--white);
+  white-space: nowrap;
+}
+.blocker-card.is-active .blocker-num-badge {
+  background: var(--accent-warning);
+  color: var(--bg-dark);
+  border-color: var(--white);
+}
+.blocker-status-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 6px;
+  color: var(--accent-warning);
+  white-space: nowrap;
+}
+.blocker-main-title {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.01em;
+}
+.blocker-detail {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-light-muted);
+}
+
+/* 4. COMPETITOR FAST LANE (Scène 7) : 920px x 720px */
+.comp-competitor-fast-lane {
+  width: 920px;
+  height: 720px;
+  margin: 0 auto;
+  background: var(--surface-card);
+  border: 4px solid var(--border-subtle);
+  border-radius: 24px;
+  box-shadow: 0 16px 0 var(--surface-black);
+  padding: 38px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+}
+.lane-header-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.lane-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  align-self: flex-start;
+  padding: 6px 16px;
+  border-radius: 8px;
+  background: var(--surface-elevated);
+  border: 2px solid var(--slate-border);
+  color: var(--white);
+  white-space: nowrap;
+}
+.lane-title {
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+.lane-dual-tracks {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.lane-track-box {
+  background: var(--surface-elevated);
+  border: 3px solid var(--border-subtle);
+  border-radius: 18px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+}
+.lane-track-box.blocked {
+  border-color: var(--border-muted);
+}
+.lane-track-box.fast {
+  border-color: var(--accent-primary);
+  box-shadow: 0 8px 0 var(--surface-black), 0 0 24px var(--accent-primary-glow);
+}
+.lane-track-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.lane-name {
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--white);
+}
+.lane-tag-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.lane-tag-pill.blocked {
+  background: var(--problem-bg-dark);
+  color: var(--accent-warning);
+  border: 1px solid var(--accent-warning);
+}
+.lane-tag-pill.fast {
+  background: var(--accent-primary);
+  color: var(--bg-dark);
+  border: 1px solid var(--white);
+}
+.lane-visual-path {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.lane-path-line {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+}
+.lane-path-line.blocked {
+  background: repeating-linear-gradient(90deg, var(--accent-warning), var(--accent-warning) 12px, var(--surface-card) 12px, var(--surface-card) 24px);
+}
+.lane-path-line.fast {
+  background: var(--accent-primary);
+  box-shadow: 0 0 12px var(--accent-primary-glow);
+}
+.lane-path-result {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.lane-path-result.blocked {
+  color: var(--accent-warning);
+}
+.lane-path-result.fast {
+  color: var(--accent-primary);
+}
+
+/* 5. HERO VIDEO WIREFRAME (Scène 9) : 920px x 760px */
+.comp-hero-video-wireframe {
+  width: 920px;
+  height: 760px;
+  margin: 0 auto;
+  background: var(--surface-card);
+  border: 4px solid var(--border-subtle);
+  border-radius: 24px;
+  box-shadow: 0 16px 0 var(--surface-black);
+  padding: 32px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+}
+.wireframe-browser-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface-elevated);
+  border: 2px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 10px 18px;
+}
+.wireframe-dots {
+  display: flex;
+  gap: 8px;
+}
+.wireframe-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--slate-border);
+}
+.wireframe-dot.active {
+  background: var(--accent-primary);
+}
+.wireframe-url {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-light-muted);
+  white-space: nowrap;
+}
+.wireframe-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--accent-primary);
+  white-space: nowrap;
+}
+.wireframe-player-box {
+  background: var(--surface-elevated);
+  border: 3px solid var(--accent-primary);
+  border-radius: 18px;
+  box-shadow: 0 8px 0 var(--surface-black), 0 0 28px var(--accent-primary-glow);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+}
+.wireframe-player-title {
+  font-size: 30px;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+.wireframe-soundwave {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+}
+.soundwave-bar {
+  width: 8px;
+  height: 24px;
+  background: var(--accent-primary);
+  border-radius: 4px;
+}
+.wireframe-progress-bar {
+  width: 100%;
+  height: 12px;
+  background: var(--surface-card);
+  border: 2px solid var(--slate-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.wireframe-progress-fill {
+  height: 100%;
+  background: var(--accent-primary);
+  border-radius: 4px;
+}
+.wireframe-timer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.wireframe-chrono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--white);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.wireframe-tag-clarity {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  background: var(--accent-primary);
+  color: var(--bg-dark);
+  padding: 4px 14px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.wireframe-footer-note {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* 6. SIXTY SEC CLARITY TIMELINE (Scène 10 - Multi-Étapes Axe 4) : 920px x 800px */
+.comp-sixty-sec-clarity-timeline {
+  width: 920px;
+  height: 800px;
+  margin: 0 auto;
+  background: var(--surface-card);
+  border: 4px solid var(--border-subtle);
+  border-radius: 24px;
+  box-shadow: 0 16px 0 var(--surface-black);
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+}
+.clarity-header-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.clarity-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  align-self: flex-start;
+  padding: 6px 16px;
+  border-radius: 8px;
+  background: var(--surface-elevated);
+  border: 2px solid var(--slate-border);
+  color: var(--accent-primary);
+  white-space: nowrap;
+}
+.clarity-title {
+  font-size: 30px;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+.clarity-timeline-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+}
+.clarity-step-card {
+  background: var(--surface-elevated);
+  border: 3px solid var(--border-subtle);
+  border-radius: 18px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0.45;
+  transform: translateY(0);
+  transition: opacity 0.2s ease, transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.clarity-step-card.is-active {
+  opacity: 1;
+  border-color: var(--accent-primary);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 0 var(--surface-black), 0 0 24px var(--accent-primary-glow);
+  background: var(--surface-hover);
+}
+.clarity-step-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.clarity-time-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 6px;
+  background: var(--surface-card);
+  border: 1px solid var(--slate-border);
+  color: var(--white);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.clarity-step-card.is-active .clarity-time-badge {
+  background: var(--accent-primary);
+  color: var(--bg-dark);
+  border-color: var(--white);
+}
+.clarity-step-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 6px;
+  color: var(--accent-primary);
+  white-space: nowrap;
+}
+.clarity-step-name {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.01em;
+}
+.clarity-step-detail {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-light-muted);
+}
+
+/* 7. CLOSING READY TICKET (Scène 11) : 920px x 700px */
+.comp-closing-ready-ticket {
+  width: 920px;
+  height: 700px;
+  margin: 0 auto;
+  background: var(--surface-card);
+  border: 4px solid var(--border-subtle);
+  border-radius: 24px;
+  box-shadow: 0 16px 0 var(--surface-black);
+  padding: 38px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+}
+.closing-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.closing-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  padding: 8px 18px;
+  border-radius: 8px;
+  background: var(--surface-elevated);
+  border: 2px solid var(--slate-border);
+  color: var(--accent-primary);
+  white-space: nowrap;
+}
+.closing-title {
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  margin-top: 12px;
+}
+.closing-card-center {
+  background: var(--surface-elevated);
+  border: 3px solid var(--accent-primary);
+  border-radius: 18px;
+  box-shadow: 0 8px 0 var(--surface-black), 0 0 24px var(--accent-primary-glow);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.closing-strike-line {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-decoration: line-through;
+  text-decoration-color: var(--accent-warning);
+  text-decoration-thickness: 3px;
+  white-space: nowrap;
+}
+.closing-signature-target {
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--accent-primary);
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.closing-status-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  background: var(--surface-card);
+  border: 2px solid var(--slate-border);
+  color: var(--white);
+  padding: 12px 20px;
+  border-radius: 10px;
+  align-self: flex-start;
+  white-space: nowrap;
+}
+.closing-footer-note {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-light-muted);
+  text-align: center;
+}
+
+/* 8. CTA CLARTÉ MONUMENTAL (Scène 12) : 920px x 820px */
+.comp-cta-clarte-monumental {
+  width: 920px;
+  height: 820px;
+  margin: 0 auto;
+  background: var(--surface-card);
+  border: 4px solid var(--accent-primary);
+  border-radius: 28px;
+  box-shadow: 0 16px 0 var(--surface-black), 0 0 40px var(--accent-primary-glow);
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+  position: relative;
+  text-align: center;
+}
+.cta-clarte-header-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 800;
+  padding: 8px 20px;
+  border-radius: 8px;
+  background: var(--surface-elevated);
+  border: 2px solid var(--slate-border);
+  color: var(--accent-primary);
+  white-space: nowrap;
+}
+.cta-clarte-center-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.cta-clarte-instruction {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+.cta-clarte-giant-box {
+  background: var(--accent-primary);
+  border: 4px solid var(--white);
+  border-radius: 22px;
+  box-shadow: 10px 10px 0 var(--surface-black);
+  padding: 16px 56px;
+  display: inline-block;
+  font-size: 72px;
+  line-height: 1;
+  white-space: nowrap;
+}
+.cta-clarte-keyword {
+  font-family: 'Syne', 'Montserrat', sans-serif;
+  font-size: 72px;
+  font-weight: 900;
+  color: var(--bg-dark);
+  letter-spacing: 0.06em;
+  line-height: 1;
+  white-space: nowrap;
+}
+.cta-clarte-subtitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-light-muted);
+  max-width: 760px;
+}
+.cta-clarte-pip-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: var(--surface-elevated);
+  border: 2px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 14px 24px;
+}
+.cta-clarte-avatar-img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid var(--accent-primary);
+  background: var(--surface-card);
+}
+.cta-clarte-dm-action {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--white);
+  white-space: nowrap;
+}
+

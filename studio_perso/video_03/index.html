@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1920, initial-scale=1.0">
+  <title>La Clarté en 60 Secondes</title>
+  <link rel="stylesheet" href="../../assets/fonts/fonts.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="video-canvas" class="bg-grid">
+
+    <!-- Zone Sous-titres (Top 96px, Safe Zone 9:16) -->
+    <header id="subtitles-zone">
+      <div id="subtitles-container">
+        <div id="subtitles-box" class="sub-line"></div>
+      </div>
+    </header>
+
+    <!-- Zone centrale & inférieure : Rendu des composants (Safe Zone 9:16) -->
+    <main id="scene-zone">
+      <div id="scene-container"></div>
+    </main>
+  </div>
+
+  <script src="timeline.js"></script>
+  <script src="video.js"></script>
+</body>
+</html>
