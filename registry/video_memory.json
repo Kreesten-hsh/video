@@ -71,30 +71,6 @@
         "mic",
         "pointing"
       ]
-    },
-    {
-      "video_id": "video_03",
-      "target": "studio_perso",
-      "title": "La Clarté en 60 Secondes",
-      "topic": "Le piège de l'attente et de l'effort mental B2B vs La Clarté en 60 secondes",
-      "cta_keyword": "CLARTÉ",
-      "used_illustrations": [
-        "call_toll_gate",
-        "activation_energy_gauge",
-        "three_b2b_blockers_grid",
-        "competitor_fast_lane",
-        "hero_video_wireframe",
-        "sixty_sec_clarity_timeline",
-        "closing_ready_ticket",
-        "cta_clarte_monumental"
-      ],
-      "avatar_sequence": [
-        "shrug",
-        "facepalm",
-        "watch",
-        "pointing",
-        "mic"
-      ]
     }
   ]
 }

@@ -36,8 +36,7 @@ class TestPreflightAndRatchet(unittest.TestCase):
         """Garantit que 100% des couleurs hors :root dans tous les fichiers style.css utilisent des variables CSS sémantiques."""
         style_files = [
             REPO_ROOT / "style.css",
-            REPO_ROOT / "studio_perso" / "video_02" / "style.css",
-            REPO_ROOT / "studio_perso" / "video_03" / "style.css"
+            REPO_ROOT / "studio_perso" / "video_02" / "style.css"
         ]
 
         for style_path in style_files:
@@ -60,8 +59,7 @@ class TestPreflightAndRatchet(unittest.TestCase):
         """Règle d'or : bannissement absolu et perpétuel de #FF2A5F dans l'ensemble du projet."""
         style_files = [
             REPO_ROOT / "style.css",
-            REPO_ROOT / "studio_perso" / "video_02" / "style.css",
-            REPO_ROOT / "studio_perso" / "video_03" / "style.css"
+            REPO_ROOT / "studio_perso" / "video_02" / "style.css"
         ]
         for style_path in style_files:
             if style_path.exists():
@@ -106,16 +104,6 @@ class TestPreflightAndRatchet(unittest.TestCase):
         res = verify_rendered_avatars(str(video2_path), str(REPO_ROOT / "studio_perso" / "video_02"))
         self.assertTrue(res, "La vérification dynamique des avatars sur video_02 a échoué.")
 
-    def test_verify_rendered_avatars_dynamic_detection_video03(self):
-        """Vérifie que verify_rendered_avatars valide avec succès la présence des avatars sur video_03."""
-        from render import verify_rendered_avatars
-        video3_path = REPO_ROOT / "studio_perso" / "video_03" / "video3.mp4"
-        if not video3_path.exists():
-            self.skipTest("video3.mp4 introuvable pour test de vérification dynamique.")
-
-        res = verify_rendered_avatars(str(video3_path), str(REPO_ROOT / "studio_perso" / "video_03"))
-        self.assertTrue(res, "La vérification dynamique des avatars sur video_03 a échoué.")
-
     def test_registry_video_memory_integrity(self):
         """Vérifie la conformité et la validité du registre anti-répétition registry/video_memory.json."""
         reg_path = REPO_ROOT / "registry" / "video_memory.json"
@@ -139,18 +127,11 @@ class TestPreflightAndRatchet(unittest.TestCase):
         self.assertIsNotNone(v2, "video_02 absente du registre")
         self.assertEqual(v2.get("cta_keyword"), "DEMO", "Le mot-clé CTA de la vidéo 2 doit être 'DEMO'")
 
-        # Vérification vidéo 3
-        v3 = next((v for v in data["videos"] if v["video_id"] == "video_03"), None)
-        self.assertIsNotNone(v3, "video_03 absente du registre")
-        self.assertEqual(v3.get("cta_keyword"), "CLARTÉ", "Le mot-clé CTA de la vidéo 3 doit être 'CLARTÉ'")
-
-        # Non-chevauchement des illustrations entre v1, v2 et v3
+        # Non-chevauchement des illustrations entre v1 et v2
         v1_ills = set(v1.get("used_illustrations", []))
         v2_ills = set(v2.get("used_illustrations", []))
-        v3_ills = set(v3.get("used_illustrations", []))
-        self.assertEqual(v1_ills.intersection(v2_ills), set(), "Recyclage d'illustrations entre video_01 et video_02")
-        self.assertEqual(v1_ills.intersection(v3_ills), set(), "Recyclage d'illustrations entre video_01 et video_03")
-        self.assertEqual(v2_ills.intersection(v3_ills), set(), "Recyclage d'illustrations entre video_02 et video_03")
+        overlap = v1_ills.intersection(v2_ills)
+        self.assertEqual(overlap, set(), f"Recyclage d'illustrations détecté entre video_01 et video_02 : {overlap}")
 
     def test_preflight_check_passes_on_video02(self):
         """Exécute run_preflight_check sur video_02 et valide le succès complet à 100% sur les 5 axes."""
@@ -162,23 +143,13 @@ class TestPreflightAndRatchet(unittest.TestCase):
         )
         self.assertEqual(report.get("checks_passed"), 5, "Les 5 axes de contrôle doivent être validés.")
 
-    def test_preflight_check_passes_on_video03(self):
-        """Exécute run_preflight_check sur video_03 et valide le succès complet à 100% sur les 5 axes."""
-        from preflight_check import run_preflight_check
-        report = run_preflight_check(project_dir="studio_perso/video_03")
-        self.assertTrue(
-            report.get("success", False),
-            f"Le contrôle preflight a échoué sur video_03 : {report.get('errors')}"
-        )
-        self.assertEqual(report.get("checks_passed"), 5, "Les 5 axes de contrôle doivent être validés.")
-
     def test_init_video_scaffolding(self):
         """Valide le bon fonctionnement de init_video.py dans un dossier temporaire."""
         from init_video import init_video_project
 
         with tempfile.TemporaryDirectory() as tmpdir:
-            target = Path(tmpdir) / "studio_perso" / "video_03"
-            res = init_video_project(target=str(target), cta="TARIF", title="Vidéo 3 Test")
+            target = Path(tmpdir) / "studio_perso" / "video_test"
+            res = init_video_project(target=str(target), cta="TARIF", title="Vidéo Test Scaffolding")
 
             self.assertTrue(res.get("success"), "L'initialisation du projet a échoué.")
             self.assertEqual(res.get("cta_keyword"), "TARIF")
