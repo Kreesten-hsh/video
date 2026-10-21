@@ -14,11 +14,14 @@ Consulter le guide complet dans [`VIDEO_PRODUCTION_PLAYBOOK.md`](file:///home/ha
 
 ## Les 7 Phases Obligatoires
 
-### PHASE 1 — Lecture du Script Tagué & Audit Éditorial
-1. **Script source** : Lire le texte fourni avec ses balises d'acting ElevenLabs v3 (`[sighs]`, `[pause]`, `[confident]`, `[whispers]`, etc.).
-2. **Nettoyage sous-titres** : Extraire une version épurée sans balises entre crochets `[...]` pour l'affichage textuel à l'écran (uniquement les mots prononcés).
-3. **Audit Jargon** : Vérifier dans `registry/video_memory.json` qu'aucun terme de `banned_global_jargon` (`python`, `javascript`, `ffmpeg`, `whisper`, etc.) n'apparaît dans le script parlé ou les sous-titres.
-4. **Mot-clé CTA** : Confirmer le mot-clé d'appel à l'action unique en message privé (ex. `"DEMO"`, `"CODE"`, `"TARIF"`, `"AUDIT"`).
+### PHASE 1 — Ingestion Agnostique, Extraction de Joyau & Audit Éditorial
+1. **Entrée Agnostique (Input Agnostic)** : Ingestion de n'importe quel matériau brut (note vocale WhatsApp 2 min, post LinkedIn écrit, documentation technique, schéma Make/n8n, cas client, ou Loom trop long).
+2. **Extraction de Joyau & Scripting** : Extraire la pépite et formuler un script d'acting captivant au format étalon de ~60s (amplitude 45s–90s) avec balises d'acting ElevenLabs v3 (`[sighs]`, `[pause]`, `[confident]`, `[whispers]`, etc.).
+3. **Nettoyage sous-titres** : Extraire une version épurée sans balises entre crochets `[...]` pour l'affichage textuel à l'écran (uniquement les mots prononcés).
+4. **Audit Jargon & Prix** :
+   - Vérifier dans `registry/video_memory.json` qu'aucun terme de `banned_global_jargon` (`python`, `javascript`, `ffmpeg`, `whisper`, etc.) n'apparaît dans le script parlé ou les sous-titres.
+   - Vérifier qu'aucun chiffre tarifaire (150, 200, 250, 500, 750, euro, €) ne figure dans le script (tarifs strictement réservés aux DM et contrats).
+5. **Mot-clé CTA** : Confirmer le mot-clé d'appel à l'action unique en message privé (ex. `"DEMO"`, `"CODE"`, `"TARIF"`, `"AUDIT"`).
 
 ### PHASE 2 — Récupération de l'Audio ElevenLabs & Alignement Millimétré
 1. **Fichier audio** : Déposer le fichier master dans le dossier projet (`voiceover.mp3` ou `voix.wav`).

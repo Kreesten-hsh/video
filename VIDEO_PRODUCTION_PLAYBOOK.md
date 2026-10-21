@@ -28,23 +28,25 @@ Tout agent ou développeur intervenant sur la chaîne de production **doit exéc
    - `#FF2A5F` (rose banni) : interdit sur 100% du projet.
    - `#agent-hud` : bandeau supérieur HUD définitivement banni.
    - Jargon technique d'ingénierie dans les scripts (Python, FFmpeg, Whisper, JavaScript, etc.).
+   - Prix chiffrés et symboles monétaires dans les scripts et sous-titres publics (150 €, 200 €, 250 €, 500 €, 750 €, etc.).
 
 ---
 
-### PHASE 1 — Lecture du Script Tagué & Audit Éditorial
+### PHASE 1 — Ingestion Agnostique, Extraction de Joyau & Audit Éditorial
 
 #### 1. Objectifs
-Transformer le script brut fourni par l'utilisateur en un texte d'acting précis et un flux de sous-titres épuré, tout en vérifiant l'absence totale de jargon banni.
+Opérer en **Entrée Agnostique (Input Agnostic)** : recevoir n'importe quel matériau brut fourni par le client (note vocale WhatsApp de 2 min, post LinkedIn écrit, documentation technique, schéma Make/n8n, cas client, ou Loom trop long), en extraire la pépite / le joyau intellectuel, et le structurer en un script d'acting captivant au format étalon de ~60 secondes (amplitude 45s à 90s) avec flux de sous-titres épuré.
 
 #### 2. Procédure Technique
-1. **Extraction du texte d'acting** : Le script fourni contient des balises comportementales ElevenLabs v3 (`[sighs]`, `[pause]`, `[confident]`, `[whispers]`, `[deep breath]`, etc.). Ces balises sont transmises au modèle vocal pour générer l'inflexion dramatique.
+1. **Ingestion & Extraction du narratif** : Identifier l'argument massue ou la douleur résolue dans le matériau brut et rédiger un script calibré (~60s) enrichi des balises comportementales ElevenLabs v3 (`[sighs]`, `[pause]`, `[confident]`, `[whispers]`, `[deep breath]`, etc.). Ces balises sont transmises au modèle vocal pour générer l'inflexion dramatique.
 2. **Nettoyage des sous-titres** : Extraire une version débarrassée des balises entre crochets `[...]`. Les sous-titres affichés dans la Safe Zone haute (`#subtitles-box`) ne doivent afficher que les mots réellement articulés.
-3. **Audit du jargon** :
+3. **Audit du jargon et des prix** :
    * Consulter `banned_global_jargon` dans `registry/video_memory.json` :
      ```json
      ["whisper", "faster-whisper", "ffmpeg", "playwright", "chromium", "codebase", "python", "javascript"]
      ```
    * Vérifier que ni le script parlé, ni les sous-titres, ni les overlays textuels ne contiennent ces termes.
+   * Vérifier qu'aucun chiffre tarifaire (150, 200, 250, 500, 750, euro, €) ne figure dans le script (les tarifs sont strictement réservés aux DM et contrats).
 4. **Définition du mot-clé CTA** : Confirmer le mot-clé unique pour l'appel à l'action final (ex. `"DEMO"`, `"CODE"`, `"TARIF"`, `"AUDIT"`). Il doit être unique et différer des vidéos précédentes.
 
 ---

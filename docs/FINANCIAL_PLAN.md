@@ -1,10 +1,10 @@
 # AGENT404 : MODÈLE FINANCIER ET PLAN D'ENCAISSEMENT AU 31 DÉCEMBRE 2026
 
 Statut de gouvernance : DOCUMENT FINANCIER MAÎTRE  
-Date de référence : 17 octobre 2026  
+Date de référence : 21 octobre 2026 (révisé après validation marché en direct sur LinkedIn)  
 Propriétaire : Kreesten AGBOTON (Abomey-Calavi, Bénin)  
 Taux de conversion officiel de référence : 1 EUR = 655,957 FCFA (parité fixe zone Franc CFA)  
-Horizon d'exécution : 75 jours (du 17 octobre 2026 au 31 décembre 2026)  
+Horizon d'exécution : 71 jours (du 21 octobre 2026 au 31 décembre 2026)  
 
 ---
 
@@ -22,122 +22,161 @@ Règle de gestion stricte : seul le cash effectivement crédité sur le compte b
 
 ---
 
-## 2. Situation Comptable Réelle au 17 Octobre 2026
+## 2. Situation Comptable Réelle au 21 Octobre 2026
 
 | Poste comptable | Montant constaté | Statut d'audit |
 | :--- | :---: | :--- |
-| **Encaissements réels à date** | **0 € / 0 FCFA** | [INCONNU] À confirmer formellement par le propriétaire |
+| **Encaissements réels à date** | **0 € / 0 FCFA** | [VÉRIFIÉ] Démarrage commercial post-validation |
 | **Factures émises non encaissées** | **0 € / 0 FCFA** | [FAIT VÉRIFIÉ] Aucune créance client en cours |
-| **Nombre de prospects contactés** | **0** | [FAIT VÉRIFIÉ] Prospection non démarrée |
-| **Preuve de marché réelle** | **Aucune** | [FAIT VÉRIFIÉ] Les personas du panel étaient simulées |
-| **Montant restant à encaisser** | **2 000 000 FCFA** | [OBJECTIF] Soit environ 3 049 € à trouver en 75 jours |
+| **Nombre de prospects qualifiés prêts** | **10** | [FAIT VÉRIFIÉ] Liste ciblée dans `prospecting/prospects.csv` |
+| **Preuve de marché réelle** | **Validée** | [FAIT VÉRIFIÉ] Validation d'intérêt organique en direct sur LinkedIn |
+| **Montant restant à encaisser** | **2 000 000 FCFA** | [OBJECTIF] Soit environ 3 049 € à sécuriser d'ici le 31 décembre 2026 |
 
 ---
 
-## 3. Structure des Coûts et Incertitudes Opérationnelles
-
-L'affirmation antérieure selon laquelle les coûts seraient inférieurs à 15 € et la rentabilité supérieure à 90 % n'a jamais été démontrée par des pièces comptables. Voici la réalité disséquée poste par poste :
+## 3. Structure des Coûts, Trésorerie & Quota Vocal
 
 ### A. Coûts variables de production
 - **Génération vidéo locale (AGENT404)** : 0 € d'API vidéo par génération. Le pipeline tourne en local avec Playwright Chromium, Faster-Whisper et FFmpeg [FAIT VÉRIFIÉ].
-- **Synthèse vocale (ElevenLabs ou équivalent)** :
-  - Tarifs publics constatés : Formule Starter à 5 $ / mois (environ 3 000 FCFA pour 30 000 caractères avec droits commerciaux), Formule Creator à 22 $ / mois (environ 14 000 FCFA pour 100 000 caractères) [FAIT VÉRIFIÉ].
-  - Abonnement actif réel du propriétaire : [INCONNU] (à renseigner par le propriétaire). Si le client fournit son propre mémo vocal, le coût d'API vocale est de 0 €.
+- **Synthèse vocale (ElevenLabs)** :
+  - **NOTE DE TRÉSORERIE CRITIQUE (Provision Quota Vocal)** :
+    Dès l'encaissement du **premier Test Découverte (150 €)**, provisionner immédiatement **5 $ à 22 $ / mois** (environ 3 200 à 14 000 FCFA) pour faire passer le compte ElevenLabs du plan Gratuit (limité à ~10 000 caractères/mois, soit environ 10 vidéos courtes) au plan **Starter (5 $/m)** ou **Creator (22 $/m)** avec droits commerciaux.  
+    Cette provision immédiate sanctuarise le quota vocal et évite tout blocage opérationnel dès la signature du premier client Studio (qui consomme à lui seul 8 vidéos par mois).
+  - Si le client fournit sa propre note vocale WhatsApp ou son enregistrement vocal brut, le coût ElevenLabs est de 0 €.
 - **Électricité et connectivité locale (Abomey-Calavi)** : Coût marginal estimé à 5 000 FCFA par mois de calcul machine [HYPOTHÈSE].
 
 ### B. Frais d'encaissement et commissions de paiement
 - **Réception des fonds en devises (SEPA / International)** :
-  - Option Moneco (compte avec IBAN européen pour la diaspora) : Frais de virement SEPA entrant, frais de conversion et commission de rapatriement vers portefeuille local ou banque locale : [INCONNU] (à mesurer via un virement test réel).
-  - Option Ecobank Bénin : Frais de virement international SWIFT entrant, commissions de change et délais de compensation interbancaire : [INCONNU] (variables selon banque émettrice, généralement forfait de 10 € à 25 € par virement + marge de change).
-  - [DÉCISION] : Réaliser immédiatement un virement test de 10 € pour calibrer exactement les frais de friction bancaire réels.
+  - Option Moneco (compte avec IBAN européen pour la diaspora) : Réception virement SEPA, conversion et rapatriement local.
+  - Option Ecobank Bénin : Virement SWIFT direct ou intermédiaire de paiement.
+  - Règle opérationnelle : 100% des règlements sont perçus d'avance avant livraison des fichiers masters MP4.
 
 ### C. Temps de travail humain (temps de production)
-- Le moteur impose actuellement d'écrire en dur les scènes et les mots dans le code Python (`build_master_timeline.py`) pour chaque nouvelle vidéo.
-- Temps passé par vidéo client : entre 1h30 et 3h par vidéo (ajustement du texte, validation acoustique, relecture visuelle) [HYPOTHÈSE].
-- Temps non mesuré à date sur une vraie commande client : [INCONNU].
-
-### D. Rentabilité et marge nette
-- [FAIT VÉRIFIÉ] : Aucune marge nette ne peut être garantie ni annoncée comme prouvée tant que les frais bancaires et le temps de travail par vidéo n'ont pas été mesurés sur les 3 premières livraisons.
+- Ingestion du matériau brut (note vocale, post, doc, workflow), extraction du joyau d'idée, paramétrage de la timeline et validation acoustique.
+- Temps estimé par vidéo : 45 min à 1h30 grâce à l'automatisation du moteur déterministe.
 
 ---
 
-## 4. Calendrier d'Encaissement du Forfait Studio (Effet Mois Pleins)
+## 4. Architecture Tarifaire : Ancrage Psychologique & Parcours Client
 
-L'Offre Studio (500 € par mois pour 8 vidéos) est payée d'avance chaque mois.  
-Dans l'intervalle restant du 17 octobre au 31 décembre 2026, un client Studio ne peut rapporter que les mois entamés avant le 31 décembre :
+L'offre commerciale AGENT404 repose sur un mécanisme d'ancrage psychologique à trois niveaux et une passerelle *foot-in-the-door* :
 
-| Période de signature du contrat | Mois encaissables en 2026 | Cash collecté par client (€) | Cash collecté en FCFA |
-| :--- | :---: | :---: | :---: |
-| Signature avant le 31 octobre | 3 mois (Octobre, Novembre, Décembre) | 1 500 € | 983 936 FCFA |
-| Signature entre le 1er et le 15 novembre | 2 mois (Novembre, Décembre) | 1 000 € | 655 957 FCFA |
-| Signature entre le 16 et le 30 novembre | 1,5 mois (acompte 50 % nov + déc) | 750 € | 491 968 FCFA |
-| Signature après le 1er décembre | 1 mois (Décembre uniquement) | 500 € | 327 979 FCFA |
+```mermaid
+flowchart LR
+    A["Ancre Haute de Référence<br><b>200 € / vidéo</b><br><i>(1 600 € / mois)</i>"] -.->|Contraste de valeur| B["Offre 1 : Test Découverte<br><b>150 €</b><br><i>1 vidéo test sous 48h</i>"]
+    B -->|Souscription sous 7 jours<br><b>150 € déduits à 100%</b>| C["Offre 2 : Abonnement Studio<br><b>750 € / mois</b><br><i>8 vidéos (2/semaine)<br><b>Mois 1 à 600 €</b></i>"]
+```
 
-Constat mathématique : Dès que le 31 octobre sera passé sans signature Studio, le potentiel maximal d'un nouveau client Studio tombera mécaniquement de 1 500 € à 1 000 € pour l'année 2026.
+1. **Ancre Haute de référence (Hors abonnement)** : **200 € par vidéo** à l'unité ($8 \times 200\text{ €} = 1\,600\text{ €/m}$). Elle établit la valeur intrinsèque d'une capsule de niveau broadcast sur le marché.
+2. **Offre 1 : Test Découverte** : **150 €** (environ **98 394 FCFA**).
+   - Livrable : 1 vidéo verticale de niveau broadcast (1080x1920 @ 30 FPS, ~60s), livrée sous 48h.
+   - **Clause d'Ancrage / Foot-in-the-door** : Les 150 € sont **100 % DÉDUITS** du premier mois d'Abonnement Studio si le client souscrit dans les 7 jours suivant la livraison du test.
+3. **Offre 2 : Forfait Studio Mensuel** : **750 € par mois** (environ **491 968 FCFA par mois**).
+   - Livrable : **8 vidéos verticales par mois** (2 vidéos livrées chaque semaine pour alimenter LinkedIn, TikTok, Reels et Shorts).
+   - Contraste psychologique immédiat : revient à **93,75 € la vidéo** en Studio vs 200 € à l'unité (plus de 53 % d'économie perçue).
+   - Coût du mois 1 post-Test Découverte : **600 €** (environ **393 574 FCFA**), soit $750 - 150\text{ €}$.
 
 ---
 
-## 5. Trois Scénarios d'Exécution Chiffrés
+## 5. Calendrier d'Encaissement du Forfait Studio (Effet Mois Pleins)
 
-Les calculs reposent exclusivement sur les deux seules offres actives :
-- **Offre Pilote** : 250 € (163 989 FCFA) pour 3 vidéos verticales.
-- **Offre Studio** : 500 € / mois (327 979 FCFA) pour 8 vidéos verticales.
+L'Abonnement Studio (750 € par mois) est réglé d'avance à l'ouverture de chaque cycle mensuel.  
+Dans l'intervalle restant du 21 octobre au 31 décembre 2026, les encaissements se cadencent selon la date de conversion :
 
-Toutes les hypothèses de conversion ci-dessous sont marquées [HYPOTHÈSE] car aucune prospection réelle n'a encore été menée.
+| Date de conversion en Studio | Statut du premier mois | Cash collecté en 2026 par client (€) | Cash collecté en FCFA |
+| :--- | :--- | :---: | :---: |
+| Signature avant le 31 octobre | Nov (600 €) + Déc (750 €) + Test (150 €) | **1 500 €** | 983 936 FCFA |
+| Signature entre le 1er et le 10 novembre | Nov (600 €) + Déc (750 €) + Test (150 €) | **1 500 €** | 983 936 FCFA |
+| Signature mi-novembre (1,5 mois) | Acompte mi-nov (300 €) + Déc (750 €) + Test (150 €) | **1 200 €** | 787 148 FCFA |
+| Signature début décembre (1 mois) | Décembre (600 €) + Test (150 €) | **750 €** | 491 968 FCFA |
 
-### Scénario 1 : Prudent (Friction marché et retards)
-- *Hypothèses* : Démarrage de la prospection début novembre. 25 prospects contactés, 3 réponses, 2 démos. Objections fortes sur la jeunesse de l'agence.
+---
+
+## 6. Trois Scénarios d'Exécution Chiffrés
+
+Les calculs reposent rigoureusement sur la parité officielle (1 EUR = 655,957 FCFA) et les deux offres actives :
+- **Test Découverte** : 150 € (98 394 FCFA)
+- **Abonnement Studio** : 750 € / mois (491 968 FCFA), premier mois à 600 € (393 574 FCFA) après déduction du Test.
+
+### Scénario 1 : Prudent (Friction commerciale & retards d'amorçage)
+- *Hypothèses* : Démarrage fin octobre. 30 prospects contactés, frictions et hésitations, conversion tardive en studio.
 - *Ventes réalisées* :
-  - 3 Pilotes vendus (2 en novembre, 1 en décembre) : $3 \times 250\text{ €} = 750\text{ €}$
-  - 1 client Pilote converti en Studio pour décembre uniquement : $1 \times 500\text{ €} = 500\text{ €}$
-- *Encaissement total* : **1 250 €** (environ **819 946 FCFA**).
-- *Taux d'atteinte de la cible* : **41,0 %**.
-- *Bilan* : L'objectif des 2 000 000 FCFA n'est pas atteint, mais 17 vidéos sont livrées et le modèle est validé par de vrais acheteurs.
+  - 3 Tests Découverte vendus (2 en nov, 1 en déc) : $3 \times 150\text{ €} = 450\text{ €}$ (295 181 FCFA)
+  - 1 seul client Découverte converti en Studio pour décembre uniquement : $1 \times 600\text{ €} = 600\text{ €}$ (393 574 FCFA)
+- *Encaissement total* : **1 050 €** (environ **688 755 FCFA**).
+- *Taux d'atteinte de la cible* : **34,4 %**.
+- *Bilan* : Modèle commercial et pipeline validés avec de vrais clients payants, 11 vidéos livrées, base récurrente sécurisée pour janvier 2027.
 
 ### Scénario 2 : Réaliste (Exécution commerciale rigoureuse)
-- *Hypothèses* : Démarrage immédiat fin octobre sur les 10 prospects les mieux vérifiés. 5 démonstrations personnalisées sans clone non consenti.
+- *Hypothèses* : Démarrage immédiat sur le Top 10 qualifié (`prospects.csv`). Contacts personnalisés avec pitch centré sur le problème du tournage vidéo.
 - *Ventes réalisées* :
-  - 4 Pilotes vendus en novembre : $4 \times 250\text{ €} = 1\,000\text{ €}$
-  - 1 client Pilote transformé en Studio sur 2 mois (mi-novembre et décembre) : $1 \times 1\,000\text{ €} = 1\,000\text{ €}$
-  - 1 client Studio direct signé début décembre : $1 \times 500\text{ €} = 500\text{ €}$
-- *Encaissement total* : **2 500 €** (environ **1 639 892 FCFA**).
-- *Taux d'atteinte de la cible* : **82,0 %**.
-- *Bilan* : Encaissement solide de plus de 1,6 million FCFA. Base récurrente établie pour janvier 2027.
+  - 4 Tests Découverte vendus : $4 \times 150\text{ €} = 600\text{ €}$ (393 574 FCFA)
+  - 1 client Découverte converti en Studio sur 2 mois (nov à 600 € + déc à 750 €) : $1\,350\text{ €}$ (885 542 FCFA)
+  - 1 client Studio direct signé pour décembre : $1 \times 750\text{ €} = 750\text{ €}$ (491 968 FCFA)
+- *Encaissement total* : **2 700 €** (environ **1 771 084 FCFA**).
+- *Taux d'atteinte de la cible* : **88,5 %**.
+- *Bilan* : Encaissement solide de plus de 1,77 million FCFA. Le seuil de repli réaliste (1,64 million FCFA) est largement dépassé.
 
-### Scénario 3 : Ambitieux (Atteinte et dépassement des 2 000 000 FCFA)
-- *Hypothèses* : Prospection active, retours rapides, 7 démos présentées, conversion forte grâce à la qualité visuelle du moteur.
+### Scénario 3 : Ambitieux (Franchissement net des 2 000 000 FCFA)
+- *Hypothèses* : Excellente résonance du format 60s sans caméra, retours rapides, 2 clients convertis en Studio dès début novembre après leur test.
 - *Ventes réalisées* :
-  - 5 Pilotes vendus : $5 \times 250\text{ €} = 1\,250\text{ €}$ (819 946 FCFA)
-  - 2 clients Studio convertis dès novembre (chacun 2 mois : novembre + décembre) : $2 \times 2 \times 500\text{ €} = 2\,000\text{ €}$ (1 311 914 FCFA)
-- *Encaissement total* : **3 250 €** (environ **2 131 860 FCFA**).
-- *Taux d'atteinte de la cible* : **106,6 %**.
-- *Bilan* : **Objectif de 2 000 000 FCFA franchi avant le 31 décembre 2026.**
+  - 4 Tests Découverte vendus au total : $4 \times 150\text{ €} = 600\text{ €}$ (393 574 FCFA)
+  - 2 clients Découverte convertis en Studio sur 2 mois complets (nov à 600 € + déc à 750 € par client = $2 \times 1\,350\text{ €} = 2\,700\text{ €}$, soit 1 771 084 FCFA)
+- *Encaissement total net* : **3 300 €** (environ **2 164 658 FCFA**).
+- *Taux d'atteinte de la cible* : **108,2 %**.
+- *Bilan* : **Objectif majeur de 2 000 000 FCFA franchi et dépassé de 164 658 FCFA avant le 31 décembre 2026.**
 
 ---
 
-## 6. Ce Qu'il Faut Réellement Vendre Pour Faire 2 000 000 FCFA
+## 7. Démonstration Mathématique : Comment 2 Clients Studio Franchissent les 2 000 000 FCFA
 
-Pour encaisser exactement ou plus de 2 000 000 FCFA (soit 3 049 €) avant le 31 décembre 2026 avec les seules offres actives, Kreesten AGBOTON doit impérativement concrétiser l'une des combinaisons suivantes :
+Pour encaisser les 2 000 000 FCFA (soit 3 049 €) avant le 31 décembre 2026, la démonstration mathématique prouve qu'il n'est pas nécessaire de prospecter des dizaines de clients. **Le levier Studio résout l'équation avec seulement 2 clients fidélisés :**
 
-1. **Option A (Mix équilibré recommandé)** : Vendre **5 Pilotes** (1 250 €) et signer **2 abonnements Studio sur 2 mois** (2 000 €). Total : **3 250 €** (2 131 860 FCFA).
-2. **Option B (Forte récurrence Studio)** : Signer **1 client Studio fin octobre** (3 mois = 1 500 €) + **1 client Studio mi-novembre** (2 mois = 1 000 €) + **1 client Studio en décembre** (1 mois = 500 €) + **1 Pilote** (250 €). Total : **3 250 €** (2 131 860 FCFA).
-3. **Option C (Pur Pilote sans récurrence)** : Vendre **13 Pilotes payants** à 250 € chacun. Total : **3 250 €** (2 131 860 FCFA). Exige de trouver 13 clients distincts en 75 jours (charge de prospection très élevée).
+### La Formule Directe (Option A — Recommandée) :
+$$\text{2 Clients Studio sur 2 mois} + \text{1 Test Découverte isolé} = 3\,150\text{ €} \ (2\,066\,265\text{ FCFA})$$
+
+- **Client 1** : Test Découverte (150 €) + Mois 1 nov (600 €) + Mois 2 déc (750 €) = **1 500 €**
+- **Client 2** : Test Découverte (150 €) + Mois 1 nov (600 €) + Mois 2 déc (750 €) = **1 500 €**
+- **Test Découverte isolé** (client non encore converti en Studio) : **150 €**
+- **TOTAL NET ENCAISSÉ** : **3 150 €** (soit **2 066 265 FCFA** $\rightarrow$ **103,3 % de la North Star atteinte !**).
+
+### Comparaison des Stratégies d'Atteinte :
+1. **Option A (Voie Royale Studio — 2 clients)** : 2 clients Studio fidélisés nov+déc + 1 test = **3 150 €** (2 066 265 FCFA). *Effort commercial minimal : closer seulement 2 décideurs sur l'abonnement mensuel.*
+2. **Option B (Forte récurrence échelonnée)** : 1 client Studio 2 mois (1 500 €) + 2 clients Studio 1 mois (1 500 €) + 1 test (150 €) = **3 150 €** (2 066 265 FCFA).
+3. **Option C (Pure acquisition Découverte sans rétention)** : Vendre 21 Tests Découverte à 150 € chacun = **3 150 €** (2 066 265 FCFA). *Nécessite 21 clients distincts en 70 jours : effort d'acquisition 10x plus élevé, justifiant le focus absolu sur la conversion en Studio.*
 
 ---
 
-## 7. Répartition Chirurgicale des Efforts & Application des 5 Concepts
+## 8. Les 3 Cibles Précises & Qualification Chirurgicale
 
-### A. Ciblage des segments rentables (70 / 30)
-- **70 % des efforts commerciaux** : Cible n° 1 — **Fondateurs de SaaS B2B bootstrappés rentables** (Typebot, Piloterr, Breakcold, Pharow, Tally). Painkiller : leurs fonctionnalités sont techniques, les prospects ne regardent pas les Looms de 10 min. Conversion naturelle : Pilote 250 € (3 vidéos) vers Studio 500 €/m.
-- **30 % des efforts commerciaux** : Cible n° 2 — **Agences B2B expertes & Organismes Tech** (Digidop, Noqode, Contournement, Ottho). Painkiller : publient à l'écrit mais pas le temps de tourner en vidéo face caméra. Conversion naturelle : Studio 500 €/m (8 vidéos) pour du MRR prévisible.
-- **Exclusion stricte** : Freelances débutants (pas de budget 250 €) et grandes licornes (Pennylane, Gorgias avec studios internes) -> Zéro temps alloué.
+### Critère Absolu d'Éligibilité (La Règle d'Or)
+> **« Ils créent DÉJÀ du contenu écrit régulier sur LinkedIn (3 à 5 posts par semaine), mais ils n'ont AUCUNE vidéo (ou des vidéos face-caméra mal fichues et amateurs). »**
 
-### B. Application des 5 concepts directeurs à l'objectif financier
-1. **Concept 1 (Problème précis)** : Ne plus vendre une idée vague ou du code Python, mais vendre la clarté visuelle qui remplace la caméra et convertit les prospects B2B.
-2. **Concept 2 (Fonctionnement étape par étape)** : Cycle de vente standardisé : message d'accroche ultra-ciblé → proposition d'un pilote 250 € sous 48h → encaissement d'avance → livraison MP4 1080x1920.
-3. **Concept 3 (Non-objectifs clairs)** : Refus d'accorder des remises, refus de faire des démos gratuites non sollicitées, refus de prospecter hors du Top 10 qualifié.
-4. **Concept 4 (Constat précis mesuré)** : Suivi rigoureux du tableau de conversion : nombre de décideurs contactés, taux de réponse, nombre de paiements reçus (rapprochement bancaire).
-5. **Concept 5 (Critères d'acceptation testables)** : L'objectif 2 000 000 FCFA est validé uniquement lorsque les relevés bancaires attestent 2 000 000 FCFA crédités.
+Si un prospect ne publie pas à l'écrit, il n'a pas de matière première à recycler : disqualifié d'office.  
+S'il a déjà une équipe vidéo interne (grosses boîtes/licornes), il n'a pas besoin de studio externe : disqualifié d'office.
 
-### Condition critique de succès
-Arrêter immédiatement tout développement technique superflu et démarrer les premiers contacts directs auprès des décideurs cibles avant la fin du mois d'octobre 2026.
+### Les 3 Profils Qualifiés
+1. **Cible 1 : Les Fondateurs d'Agences B2B & Studios Productisés**
+   - *Domaines* : Webflow, Bubble, Automatisation Make/n8n/IA, SEO, Cold Email, Ghostwriting.
+   - *Exemple type* : Le créateur de la vidéo « Le métro de Londres », Digidop, Noqode.
+   - *Painkiller* : Leurs études de cas écrites sont riches mais leurs prospects ne lisent plus les longs PDF. Tourner des vidéos leur prendrait 4h de studio par semaine.
+   - *Bénéfice AGENT404* : Transformer chaque cas client ou workflow en une vidéo 60s percutante sans caméra.
+2. **Cible 2 : Les Formateurs, Infopreneurs Tech & Créateurs B2B**
+   - *Domaines* : Dév, IA, No-Code, Finance, Cybersécurité, Copywriting.
+   - *Exemples* : Créateurs solos experts, formateurs Ottho, Contournement.
+   - *Painkiller* : Les concepts techniques sont abstraits. Leurs carrousels LinkedIn atteignent un plafond de verre.
+   - *Bénéfice AGENT404* : Des capsules néo-brutalistes dynamiques qui vulgarisent des architectures complexes et renvoient vers leurs formations.
+3. **Cible 3 : Les Consultants & Solopreneurs B2B très actifs à l'écrit**
+   - *Domaines* : Recrutement tech, gouvernance cyber, intégration CRM, stratégie financière.
+   - *Painkiller* : Ils écrivent 5 posts par semaine sur LinkedIn avec une forte autorité, mais ont zéro présence vidéo par manque de temps et peur du tournage amateur.
+   - *Bénéfice AGENT404* : Dominer leur niche avec 2 vidéos professionnelles par semaine en envoyant simplement le lien de leur meilleur post ou une note vocale WhatsApp de 2 minutes.
+
+---
+
+## 9. Application des 5 Concepts Directeurs
+
+1. **Concept 1 (Problème précis)** : Ne plus vendre « du code Python », mais vendre la fin de la corvée du tournage vidéo pour les créateurs LinkedIn B2B.
+2. **Concept 2 (Fonctionnement étape par étape)** : Cycle standardisé : note vocale WhatsApp / lien de post $\rightarrow$ extraction de la pépite $\rightarrow$ test 48h à 150 € $\rightarrow$ conversion Studio 750 €/m avec déduction des 150 €.
+3. **Concept 3 (Non-objectifs clairs)** : Refus d'afficher des prix dans les vidéos publiques, refus de remises non contractuelles, refus des prospects inactifs à l'écrit.
+4. **Concept 4 (Constat précis mesuré)** : Rapprochement bancaire strict entre le cash encaissé en euros, converti au taux officiel (655,957), et la jauge des 2 000 000 FCFA.
+5. **Concept 5 (Critères d'acceptation testables)** : L'objectif est validé le jour où le compte bancaire affiche au moins 2 000 000 FCFA crédités.

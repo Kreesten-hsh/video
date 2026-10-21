@@ -93,13 +93,16 @@ class TestVideo02Spec(unittest.TestCase):
         )
 
     def test_video02_no_prices_in_script(self):
-        """Règle 'Zéro Prix dans la vidéo' : aucun prix (250, 500, €) dans le script."""
+        """Règle 'Zéro Prix dans la vidéo' : aucun prix (150, 200, 250, 500, 750, €) dans le script."""
         with open(self.project_path, "r", encoding="utf-8") as f:
             data = json.load(f)
 
         script_text = " ".join(data.get("reference_words", [])).lower()
+        self.assertNotIn("150", script_text, "Aucun prix chiffré ne doit figurer dans le script.")
+        self.assertNotIn("200", script_text, "Aucun prix chiffré ne doit figurer dans le script.")
         self.assertNotIn("250", script_text, "Aucun prix chiffré ne doit figurer dans le script.")
         self.assertNotIn("500", script_text, "Aucun prix chiffré ne doit figurer dans le script.")
+        self.assertNotIn("750", script_text, "Aucun prix chiffré ne doit figurer dans le script.")
         self.assertNotIn("€", script_text, "Le symbole euro est interdit dans le script.")
         self.assertNotIn("euro", script_text, "Le mot euro est interdit dans le script.")
 

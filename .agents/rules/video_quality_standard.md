@@ -1,11 +1,11 @@
 # RÈGLE ABSOLUE : PROGRESSION CONTINUE ET NON-RÉGRESSION DE LA QUALITÉ VIDÉO
 # STANDARD DE CRAFT ET D'EXCELLENCE AGENT404
 
-Date d'effet : Octobre 2026 (révisé le 19 octobre 2026)  
+Date d'effet : Octobre 2026 (révisé le 21 octobre 2026)  
 Portée : Tous les projets vidéo (vidéos personnelles studio_perso/ et vidéos clients studio_clients/)  
 Gouvernance : Kreesten AGBOTON  
-Positionnement : Clarté visuelle B2B qui remplace la caméra et fait signer des clients (Arrêter de vendre « du code Python »).  
-Ciblage chirurgical : 70 % des efforts sur les fondateurs de SaaS B2B bootstrappés rentables ; 30 % sur les agences B2B expertes ; exclusion stricte des freelances débutants et des licornes internalisées.
+Positionnement : Studio de production vidéo court-format néo-brutaliste « Zero-Camera, Zero-Studio & Zero-Montage ». Résoudre définitivement la corvée du tournage pour les professionnels B2B qui écrivent déjà sur LinkedIn.  
+Ciblage chirurgical : Les 3 cibles prioritaires publiant déjà du contenu écrit régulier sur LinkedIn (Agences & Studios productisés, Formateurs & Créateurs Tech, Consultants & Solopreneurs) ; exclusion stricte des inactifs à l'écrit, des freelances sans budget et des licornes internalisées.
 
 ---
 
@@ -15,7 +15,7 @@ Toute capsule vidéo créée pour AGENT404 ou pour un client applique obligatoir
 
 1. **Concept 1 : Définir le problème précis plutôt qu'une idée vague**  
    *« Tu ne décris plus une idée. Tu définis le problème à résoudre. »*  
-   - Le script ne part jamais d'une idée floue (« parlons de notre produit »), mais attaque frontalement la douleur aiguë du prospect : l'abandon des Looms de 10 minutes, la documentation que personne ne lit, ou la perte de leads qualifiés.
+   - Le script ne part jamais d'une idée floue (« parlons de notre produit »), mais attaque frontalement la douleur aiguë du prospect : la corvée épuisante du tournage vidéo, l'abandon des Looms trop longs, ou la saturation de l'écrit seul. Il extrait le joyau narratif de n'importe quel matériau brut (note vocale WhatsApp, post LinkedIn, doc, schéma Make/n8n, cas client).
 2. **Concept 2 : Décrire les gestes et le fonctionnement étape par étape (Show, Don't Tell)**  
    *« Tu passes d'un concept à un fonctionnement que tu peux vérifier, étape par étape. »*  
    - Chaque argument est séquencé en étapes visuelles vérifiables : 1 proposition = 1 scène avec une simulation concrète de l'objet métier (lecteur Loom qui décroche, interface SaaS vivante, grille de distribution 3 canaux).
@@ -23,7 +23,7 @@ Toute capsule vidéo créée pour AGENT404 ou pour un client applique obligatoir
 3. **Concept 3 : Définir explicitement ce qu'on refuse (Les non-objectifs & Zéro Recyclage)**  
    *« Dis aussi ce que tu ne veux pas. La clarté, c'est aussi décider ce qui peut attendre. »*  
    - **Refus absolu du jargon technique** : Proscription totale de mots comme Python, FFmpeg, Whisper, codebase dans les scripts et sous-titres vidéos.
-   - **Refus absolu des prix** : Zéro montant (250 €, 500 €) ni symbole tarifaire dans les vidéos publiques.
+   - **Refus absolu des prix** : Zéro montant (150 €, 200 €, 250 €, 500 €, 750 €) ni symbole tarifaire dans les vidéos publiques.
    - **Refus absolu du HUD** : Le bandeau supérieur (#agent-hud) est banni définitivement de l'interface graphique.
    - **Refus absolu du rouge/rose (#FF2A5F)** : Zéro `bg: "alert"` et zéro `bg: "mint"`. Pour les états négatifs ou erreurs, utiliser l'ardoise `#161B22`, bordures `#30363D`, texte `#8B949E` et accents ambre `#F59E0B`.
    - **Refus absolu de l'inter-recyclage** : Interdiction totale de réutiliser dans une nouvelle vidéo un composant visuel, une carte, un texte d'écran ou un terminal provenant d'une vidéo précédente (ex. interdiction de reprendre la carte `00:21.466 ms`, le spectre `vocal1.m4a` ou la barre `COMPILATION FFmpeg` de la Vidéo 1 dans la Vidéo 2).

@@ -1,9 +1,10 @@
 # AGENT404 : SPÉCIFICATIONS TECHNIQUES DE L'ARCHITECTURE DU MOTEUR
 
 Statut de gouvernance : DOCUMENTATION TECHNIQUE DE RÉFÉRENCE  
-Dernière mise à jour : 19 octobre 2026  
+Date de référence : 21 octobre 2026 (révisé après validation marché en direct sur LinkedIn)  
 Type de système : Moteur vidéo programmatique déterministe (1080x1920 @ 30 FPS, vertical 9:16)  
-Positionnement stratégique : Clarté visuelle B2B programmatique qui remplace la caméra et fait signer des clients. Ne pas vendre « du code Python », mais un pipeline de transformation transformant des Looms inefficaces ou des notes vocales en vidéos de 45-60s percutantes pour SaaS B2B (70%) et agences tech (30%).
+Positionnement stratégique : Studio de production vidéo court-format néo-brutaliste **« Zero-Camera, Zero-Studio & Zero-Montage »**.  
+Mission : Résoudre définitivement la corvée du tournage vidéo pour les professionnels B2B qui écrivent déjà sur LinkedIn. Transformer n'importe quel matériau brut en une capsule vidéo chirurgicale (~60s) avec avatar incarné, voix studio et sous-titres karaoké au mot près, diffusée simultanément sur 4 plateformes (LinkedIn, TikTok, Instagram Reels, YouTube Shorts).
 
 ---
 
@@ -13,10 +14,11 @@ L'ensemble de l'architecture logicielle est rigoureusement aligné sur 5 concept
 
 1. **Concept 1 : Définir le problème précis plutôt qu'une idée vague**  
    *« Tu ne décris plus une idée. Tu définis le problème à résoudre. »*  
-   - L'architecture résout un problème précis : l'abandon précoce des prospects B2B face à des démos d'écran partagé trop longues (Looms de 10 min). Chaque module logiciel vise la clarté immédiate et la densification du message en moins de 60 secondes.
+   - L'architecture résout un problème précis : l'abandon et la friction du tournage vidéo (peur de la caméra, 3h d'installation, 4h de montage Premiere Pro pour un résultat amateur). Chaque brique logicielle vise à éliminer l'effort humain en convertissant automatiquement des idées brutes en capsules visuelles captivantes de 60 secondes.
 2. **Concept 2 : Décrire les gestes et le fonctionnement étape par étape**  
    *« Tu passes d'un concept à un fonctionnement que tu peux vérifier, étape par étape. »*  
-   - Zéro effet boîte noire : le pipeline est décomposé en 4 étapes modulaires, traçables et vérifiables individuellement :
+   - Zéro effet boîte noire : le pipeline est décomposé en phases modulaires, traçables et vérifiables individuellement :
+     - Étape 0 : Ingestion agnostique du matériau brut et extraction du joyau narratif.
      - Étape 1 : Conversion PCM et alignement acoustique forcé mot-à-mot via Whisper (`build_master_timeline.py`).
      - Étape 2 : Synthèse mathématique de sound design procédural sans banque d'échantillons (`sfx.py`).
      - Étape 3 : Pilotage temporel analytique déterministe du DOM sans horloge asynchrone (`video.js`).
@@ -26,7 +28,7 @@ L'ensemble de l'architecture logicielle est rigoureusement aligné sur 5 concept
    - **Refus des frameworks lourds** : Aucun runtime React, Node.js, Next.js ou Remotion dans le moteur de rendu.
    - **Refus du non-déterminisme** : Proscription de toute animation CSS temps réel ou interpolation asynchrone (`Date.now()`, `requestAnimationFrame`).
    - **Refus du HUD** : Suppression définitive et irrévocable de tout bandeau HUD (`#agent-hud`) dans le DOM.
-   - **Refus du jargon technique et des prix dans les vidéos** : Aucun terme technique ou chiffre tarifaire n'apparaît dans les sous-titres ou éléments visuels publics.
+   - **Refus du jargon technique et des prix dans les vidéos** : Aucun terme technique d'ingénierie (Python, FFmpeg, Whisper) ni montant commercial (150 €, 200 €, 250 €, 500 €, 750 €) n'apparaît dans les scripts, sous-titres ou éléments visuels publics.
 4. **Concept 4 : Remplacer « ça ne marche pas » par un constat précis mesuré**  
    *« Identifie l'écart entre le résultat attendu et le résultat obtenu. »*  
    - Les écarts sont systématiquement quantifiés par des sondes techniques :
@@ -36,47 +38,76 @@ L'ensemble de l'architecture logicielle est rigoureusement aligné sur 5 concept
      - Vérification de conformité de flux par `ffprobe` (1080x1920, 30.0 fps, yuv420p, aac).
 5. **Concept 5 : Des décisions claires avec critères d'acceptation testables**  
    *« Je saurai que ça fonctionne si... Un brief précis ne garantit pas un code fiable : il faut encore le tester. »*  
-   - Aucun commit ni rendu n'est considéré valide sans le passage à 100 % de la suite de tests automatisés (`pytest tests/`). Les critères d'acceptation couvrent l'intégrité temporelle, la continuité des scènes et l'intégrité bit-à-bit.
+   - Aucun commit ni rendu n'est considéré valide sans le passage à 100 % de la suite de tests automatisés (`python3 -m unittest discover -s tests -v`). Les critères d'acceptation couvrent l'intégrité temporelle, la continuité des scènes et l'intégrité bit-à-bit.
 
 ---
 
-## 2. VUE D'ENSEMBLE DU PIPELINE DE PRODUCTION
+## 2. VUE D'ENSEMBLE DU PIPELINE & ENTRÉE AGNOSTIQUE (INPUT AGNOSTIC)
 
-Le moteur AGENT404 convertit une piste audio vocale et un texte en un fichier MP4 finalisé sans recours à un logiciel de montage conventionnel (Premiere Pro, DaVinci) ni à un framework vidéo lourd (Remotion, React, Node.js).  
-Le pipeline repose sur un découpage en 4 phases strictement séquentielles :
+Le studio AGENT404 intègre un mécanisme d'**Entrée Agnostique**. Le client n'a pas à se conformer à un gabarit textuel rigide :
+
+### A. Matériaux bruts acceptés en entrée :
+- **Note vocale WhatsApp** (1 à 2 minutes) enregistrée au micro de smartphone.
+- **Post LinkedIn écrit existant** (statut performant, étude de cas, retour d'expérience).
+- **Documentation technique ou script brut** (spécification de fonctionnalité, README, note interne).
+- **Schéma de workflow technique** (flux Make, diagramme n8n, architecture cloud, code).
+- **Cas client ou vidéo longue existante** (Loom de 10 minutes, démo d'écran, webinaire).
+
+### B. Extraction du Joyau Narratif & Calibrage Temporel :
+- Le cœur de valeur d'AGENT404 est d'**extraire la pépite / le joyau intellectuel** de ce matériau pour concevoir un copywriting captivant axé sur la rétention.
+- **Format étalon de référence** : **60 secondes** (rythme d'attention optimal pour les réseaux sociaux).
+- **Amplitude dynamique tolérée** : **45s à 90s** selon la densité du sujet.
+
+### C. Architecture du Flux de Production :
 
 ```mermaid
 flowchart TD
-    subgraph INPUT["Entrée Projet : studio_perso/ ou studio_clients/"]
-        P["project.json (texte, scènes, audio, audio_path)"]
-        A["Fichier audio source (MP3 / WAV)"]
+    subgraph INPUT_AGNOSTIC["Entrée Agnostique (Tout Matériau Brut)"]
+        W["Note Vocale WhatsApp (2 min)"]
+        L["Post LinkedIn Écrit"]
+        D["Doc Technique / Code / README"]
+        S["Schéma Workflow Make / n8n"]
+        V["Vidéo Longue / Loom (10 min)"]
+    end
+
+    subgraph EXTRACTION["Cœur de Valeur : Extraction du Joyau Narratif"]
+        W & L & D & S & V --> EX["Extraction de la Pépite & Copywriting"]
+        EX --> P["project.json (texte scénarisé ~60s, scènes, décors)"]
+        EX --> A["voiceover.mp3 (Voix off studio ElevenLabs ou voix client)"]
     end
 
     subgraph PHASE_1["Phase 1 : Traitement Audio & Alignement Acoustique"]
         P --> B["build_master_timeline.py --projet <chemin>"]
         A --> B
-        B -->|FFmpeg PCM s16le 44.1kHz mono| D["<projet>/voix.wav"]
-        B -->|Faster-Whisper small int8 CPU| E["<projet>/words.json"]
-        B -->|Génération synchronisée| F["<projet>/timeline.js"]
+        B -->|FFmpeg PCM s16le 44.1kHz mono| VOIX["<projet>/voix.wav"]
+        B -->|Faster-Whisper small int8 CPU| WORDS["<projet>/words.json"]
+        B -->|Génération synchronisée| TL["<projet>/timeline.js"]
     end
 
     subgraph PHASE_2["Phase 2 : Design Sonore Procédural (SFX)"]
-        D --> G["sfx.py --projet <chemin>"]
-        F --> G
-        G -->|Synthèse NumPy 44.1kHz : Whoosh, Pop, Micro-clics| H["<projet>/audio_final.wav"]
+        VOIX --> G["sfx.py --projet <chemin>"]
+        TL --> G
+        G -->|Synthèse NumPy 44.1kHz : Whoosh, Pop, Micro-clics| SFX_OUT["<projet>/audio_final.wav"]
     end
 
     subgraph PHASE_3["Phase 3 : Moteur Graphique DOM Déterministe"]
-        F --> I["index.html + style.css + video.js"]
-        J["assets/avatars/*.png (12 stickers)"] --> I
-        K["Pilote temporel externe : window.setTime(t)"] --> I
+        TL --> DOM["index.html + style.css + video.js"]
+        STK["assets/avatars/*.png (Stickers néo-brutalistes)"] --> DOM
+        CLK["Pilote temporel externe : window.setTime(t)"] --> DOM
     end
 
     subgraph PHASE_4["Phase 4 : Rendu Frame-par-Frame & Encodage"]
-        I --> L["render.py --projet <chemin> : Playwright Headless"]
-        H --> L
-        L -->|Capture JPEG q90 via stdin pipe:0| M["ffmpeg (libx264 CRF 18 @ 30 FPS)"]
-        M --> N["<projet>/video<N>.mp4"]
+        DOM --> RND["render.py --projet <chemin> : Playwright Headless"]
+        SFX_OUT --> RND
+        RND -->|Capture JPEG q90 via stdin pipe:0| ENC["ffmpeg (libx264 CRF 18 @ 30 FPS)"]
+        ENC --> OUT["<projet>/video<N>.mp4 (1080x1920 9:16 vertical)"]
+    end
+
+    subgraph DISTRIBUTION["Multi-Plateformes (1 Vidéo = 4 Canaux)"]
+        OUT --> LI["LinkedIn"]
+        OUT --> TT["TikTok"]
+        OUT --> IG["Instagram Reels"]
+        OUT --> YT["YouTube Shorts"]
     end
 ```
 
@@ -89,8 +120,8 @@ flowchart TD
 - **Fonctionnement interne** :
   1. *Conversion audio* : Appelle FFmpeg pour convertir le MP3 source en `voix.wav` (PCM 16-bit mono à 44 100 Hz).
   2. *Inférence Whisper* : Exécute `faster-whisper` (modèle `small`, CPU, calcul quantifié `int8`, 2 threads) pour extraire les timestamps bruts de chaque token audio.
-  3. *Alignement forcé sans interpolation* : Mappe les tokens bruts sur la liste `REFERENCE_WORDS` (220 mots) via normalisation NFD (suppression d'accents) et dictionnaire de variantes phonétiques.
-  4. *Découpage des 35 scènes* : Recherche les timestamps exacts des `scene_end_words` et assigne les intervalles $[start, end]$ de chaque scène.
+  3. *Alignement forcé sans interpolation* : Mappe les tokens bruts sur la liste `REFERENCE_WORDS` via normalisation NFD (suppression d'accents) et dictionnaire de variantes phonétiques.
+  4. *Découpage des scènes* : Recherche les timestamps exacts des `scene_end_words` et assigne les intervalles $[start, end]$ de chaque scène.
   5. *Validation automatique bloquante* :
      - Vérifie que chaque mot respecte $start < end$.
      - Vérifie qu'aucun mot n'est inventé ou omis.
@@ -115,7 +146,7 @@ flowchart TD
   3. `cards` : 1 ou 2 cartes néo-brutalistes avec icône, titre et sous-titre, apparaissant en cascade cadencée (stagger delay de $0{,}15\text{ s}$).
   4. `list` : Liste ordonnée néo-brutaliste avec numérotation 01, 02... et surbrillance progressive synchronisée sur le temps de scène.
   5. `window` : Fenêtre terminal style OS avec barre de titre et frappe au clavier progressive caractère par caractère (`typewriter`) avec curseur clignotant.
-  6. `split` : Écran scindé comparatif (Mauvaise pratique en rouge vs Bonne pratique en vert menthe).
+  6. `split` : Écran scindé comparatif (Mauvaise pratique vs Bonne pratique).
   7. `engine_arch` : Schéma d'architecture dynamique avec engrenage en rotation continue ($120^\circ/s$).
   8. `sync_timer` : Compteur de millisecondes dynamique avec verrouillage successif de pilules temporelles.
   9. `emotion_morph` : Changement d'expression de l'avatar en cours de scène (Enthousiaste -> Choqué -> Sceptique).

@@ -1,90 +1,92 @@
 # AGENT404 : GRILLE DES OFFRES COMMERCIALES ACTIVES
 
-Date de référence : 17 octobre 2026 (révisé le 19 octobre 2026).  
-Propriétaire : Kreesten AGBOTON (Abomey-Calavi, Bénin).  
-Positionnement : Clarté visuelle B2B qui remplace la caméra et fait signer des clients. Arrêter de vendre « du code Python » : vendre des démos produit de 45 à 60 secondes ultra-claires qui remplacent les Looms inefficaces de 10 minutes et convertissent sur LinkedIn et les sites web.
+Date de référence : 21 octobre 2026 (révisé après validation marché en direct sur LinkedIn)  
+Propriétaire : Kreesten AGBOTON (Abomey-Calavi, Bénin)  
+Positionnement : Studio de production vidéo court-format néo-brutaliste **« Zero-Camera, Zero-Studio & Zero-Montage »**.  
+Promesse : Dominer son marché B2B avec des vidéos verticales percutantes (1080x1920 @ 30 FPS) sans matériel, sans tournage et sans compétences de montage. **1 seule vidéo produite = 4 plateformes arrosées simultanément** (LinkedIn, TikTok, Instagram Reels, YouTube Shorts).
 
 ---
 
-## 1. Ciblage Chirurgical B2B & Répartition des Efforts (70 / 30)
+## 1. Les 3 Cibles Précises & Critère de Qualification
 
-Le ciblage est strictement recentré sur deux segments qualifiés et solvables issus de la base de prospects réparée, en écartant les profils non pertinents :
+### Le Critère Absolu de Qualification (Règle Éliminatoire)
+> **« Ils créent DÉJÀ du contenu écrit régulier sur LinkedIn (3 à 5 posts par semaine), mais ils n'ont AUCUNE vidéo (ou des vidéos face-caméra amateurs mal fichues). »**
 
-| Segment | Qui exactement ? (Exemples qualifiés) | Leur VRAI problème douloureux (Painkiller) | Offre naturelle | Verdict opérationnel |
+| Segment | Profil type & Domaines | Leur VRAI problème douloureux (Painkiller) | Bénéfice AGENT404 | Verdict opérationnel |
 | :--- | :--- | :--- | :--- | :--- |
-| **Cible n° 1 (Priorité absolue — 70 % des efforts)** | **Fondateurs de SaaS B2B & Outils Tech bootstrappés rentables** (Typebot, Piloterr, Breakcold, Pharow, Tally) | Leurs fonctionnalités sont puissantes mais techniques. Leurs prospects ne lisent pas la doc et ne regardent pas leurs Looms de 10 min. Ils ont besoin de démos produit de 45s ultra-claires pour convertir sur leur site et sur LinkedIn. | **Pilote 250 €** (3 vidéos) → puis **Studio 500 €/mois** pour chaque nouvelle feature. | **EXCELLENTE CIBLE** (Solvables, comprennent la valeur du design système, décision rapide en direct avec le fondateur). |
-| **Cible n° 2 (30 % des efforts)** | **Agences B2B expertes & Organismes Tech** (Digidop, Noqode, Contournement, Ottho) | Ils publient beaucoup à l'écrit (études de cas, méthodes) mais n'ont pas le temps de tourner des vidéos face caméra chaque semaine. | **Studio 500 €/mois** (8 vidéos) à partir de leurs posts écrits ou vocaux WhatsApp. | **TRÈS BONNE CIBLE** pour le revenu récurrent (MRR). |
-| **À ÉCARTER (Exclusion stricte)** | **Freelances débutants, créateurs IA sans produit, grosses licornes** (Pennylane, Gorgias, Strapi) | Les petits n'ont pas 250 € ; les licornes ont déjà une équipe motion design interne. | Aucune offre | **PERTE DE TEMPS.** |
+| **Cible 1 : Agences B2B & Studios Productisés** | Webflow, Bubble, Automatisation Make/n8n/IA, SEO, Cold Email, Ghostwriting (ex: Digidop, Noqode) | Leurs études de cas écrites sont riches mais leurs prospects ne lisent plus les longs PDF. Tourner des vidéos leur prendrait 4h par semaine. | Conversion d'un cas client ou workflow en une capsule 60s percutante sans caméra. | **CIBLE N° 1** (Comptes solvables, forte culture produit). |
+| **Cible 2 : Formateurs & Infopreneurs Tech** | Dév, IA, No-Code, Finance, Cyber, Copywriting (ex: Ottho, Contournement, créateurs solos) | Les concepts techniques sont abstraits. Les carrousels textuels plafonnent. | Vulgarisation visuelle néo-brutaliste qui génère du lead vers les formations. | **CIBLE N° 2** (Compréhension immédiate de la valeur). |
+| **Cible 3 : Consultants & Solopreneurs Actifs** | Recrutement tech, CRM, Cybersécurité, Finance d'entreprise | Écrivent 5 posts par semaine avec une forte autorité mais 0 présence vidéo par manque de temps. | 2 vidéos par semaine pour dominer leur niche en envoyant juste un vocal de 2 min. | **CIBLE N° 3** (Cycle de décision ultra-court en direct avec le dirigeant). |
+| **À ÉCARTER (Exclusion stricte)** | Freelances débutants sans budget, créateurs IA sans produit, grandes licornes (équipes vidéo internes) | Les freelances n'ont pas le budget ; les licornes ont déjà un studio motion design interne. | Aucune offre | **PERTE DE TEMPS.** |
 
 ---
 
-## 2. Les 5 Concepts Directeurs Appliqués aux Offres Commerciales
+## 2. Entrée Agnostique & Extraction de Joyau
 
-Chaque offre et interaction commerciale respecte en permanence les cinq principes directeurs :
-
-1. **Concept 1 : Définir le problème précis plutôt qu'une idée vague**  
-   *« Tu ne décris plus une idée. Tu définis le problème à résoudre. »*  
-   - Nous ne vendons pas une « vidéo sympa » ou « du code ». Nous résolvons la perte d'attention des décideurs B2B qui quittent les Looms de 10 minutes après 30 secondes.
-2. **Concept 2 : Décrire les gestes et le fonctionnement étape par étape**  
-   *« Tu passes d'un concept à un fonctionnement que tu peux vérifier, étape par étape. »*  
-   - Processus client transparent et sans friction : (1) Envoi d'une note vocale de 2 minutes ou d'un post écrit par le client → (2) Découpage en arguments visuels cadencés (1 scène toutes les 2s) → (3) Synchronisation acoustique mot-à-mot sans coupure → (4) Livraison sous 48-72h des masters MP4 prêts à diffuser.
-3. **Concept 3 : Définir explicitement ce qu'on refuse (Les non-objectifs)**  
-   *« Dis aussi ce que tu ne veux pas. La clarté, c'est aussi décider ce qui peut attendre. »*  
-   - **Refus du jargon technique** : Pas de mention de Python, FFmpeg ou Whisper face au client. Seul le résultat compte.  
-   - **Refus des prix dans les vidéos publiques** : Les tarifs (250 €, 500 €) sont réservés aux échanges privés et contrats.  
-   - **Refus des clients hors-cible** : Ne pas perdre d'énergie avec les freelances sans budget ou les licornes internalisées.  
-   - **Refus des formats longs et du face-caméra amateur** : Zéro vidéo de plus de 90 secondes, zéro vidéo non déterministe.
-4. **Concept 4 : Remplacer « ça ne marche pas » par un constat précis mesuré**  
-   *« Identifie l'écart entre le résultat attendu et le résultat obtenu. »*  
-   - Évaluer la performance commerciale par des indicateurs objectifs : taux de rétention de la démo (> 85 % à 30 secondes vs < 15 % sur un Loom classique), nombre de vues complètes sur LinkedIn, clics vers la page produit.
-5. **Concept 5 : Des décisions claires avec critères d'acceptation testables**  
-   *« Je saurai que ça fonctionne si... Un brief précis ne garantit pas un code fiable : il faut encore le tester. »*  
-   - Critères d'acceptation d'une livraison client : 3 vidéos (Pilote) ou 8 vidéos (Studio) livrées en MP4 1080x1920 @ 30 FPS, charte visuelle client respectée, absence totale de désynchronisation audio/vidéo, testées et validées par ffprobe.
+Le client n'a pas besoin de fournir un script vidéo calibré. Le studio AGENT404 opère selon le principe d'**Entrée Agnostique (Input Agnostic)** :
+- **Matériaux bruts acceptés** :
+  - Une note vocale WhatsApp de 2 minutes
+  - Un post LinkedIn écrit existant
+  - Une documentation technique ou un script brut
+  - Un schéma de workflow technique (Make, n8n, architecture, code)
+  - Une étude de cas client ou une vidéo existante trop longue (ex. Loom de 10 min).
+- **Le cœur de valeur d'AGENT404** :  
+  Extraire le **joyau narratif** et la pépite cachée dans ce matériau brut, structurer un copywriting de rétention et générer la capsule vidéo finale prête à diffuser.
 
 ---
 
-## 3. Offres Actives
+## 3. Durée du Format : Référence Étalon ~60s
 
-Seules deux offres commerciales sont actives et commercialisables. L'offre d'appel à 49 €, le palier intermédiaire à 290 €, ainsi que l'offre de déploiement du moteur (Engine Deployment à 750 €) sont formellement retirés des offres actives.
+- **Standard de rétention maximale** : Le format **60 secondes** constitue la référence étalon du studio (densité optimale d'attention sur les fils d'actualité mobiles).
+- **Amplitude dynamique** : La durée s'adapte à la nature du message client, typiquement entre **45 secondes et 90 secondes**.
 
-### Offre 1 : Pilote Payant
-*Validation concrète du format avec un nouveau client*
+---
 
-- **Tarif** : **250 €** (environ **163 989 FCFA** au taux fixe 1 EUR = 655,957 FCFA).
-- **Format** : **3 vidéos verticales** (format 9:16, 1080x1920, durée 30 à 60 secondes).
-- **Délai annoncé** : **48 h ouvrées** [à confirmer par le propriétaire].
+## 4. Grille Tarifaire : Ancrage Psychologique & Offres Actives
+
+L'architecture tarifaire repose sur l'effet d'ancrage psychologique haute valeur et le mécanisme *foot-in-the-door* :
+
+### Ancre Haute de Référence (Hors Abonnement)
+- **Tarif unitaire** : **200 € par vidéo** ($8 \times 200\text{ €} = 1\,600\text{ €/m}$).
+- Établit la valeur perçue du travail sur-mesure (copywriting, design système, synthèse vocale studio, synchronisation mot-à-mot, sound design procédural).
+
+### Offre 1 : Test Découverte
+*Pour valider la puissance du format sans risque avant l'abonnement*
+
+- **Tarif** : **150 €** (environ **98 394 FCFA** au taux fixe 1 EUR = 655,957 FCFA).
+- **Format** : **1 vidéo verticale de niveau broadcast** (1080x1920 @ 30 FPS, format 9:16, durée étalon ~60s).
+- **Délai garanti** : **48 h ouvrées**.
+- **Clause d'Ancrage / Foot-in-the-door (Non négociable)** :  
+  Les **150 € sont 100 % DÉDUITS** du premier mois d'Abonnement Studio si le client souscrit dans les **7 jours** suivant la livraison du Test Découverte (le mois 1 d'Abonnement passe ainsi de 750 € à **600 €**).
 - **Contenu inclus** :
-  - Découpage et synchronisation acoustique Whisper.
-  - Animations néo-brutalistes, titrage, sous-titres dynamiques et habillage sticker.
-  - Sound design procédural (mixage SFX réels normalisés).
-  - Une passe d'ajustement raisonnable par vidéo.
-  - Livraison des fichiers vidéo MP4 prêts à la diffusion (TikTok, Reels, YouTube Shorts, LinkedIn).
+  - Extraction du narratif à partir du matériau brut envoyé (vocal, post, schéma).
+  - Avatar sticker incarné détouré avec animation néo-brutaliste.
+  - Voix off studio haute fidélité (ElevenLabs).
+  - Sous-titres dynamiques mot-à-mot (karaoke / pop-in).
+  - Sound design procédural (NumPy SFX).
+  - 1 passe de retouche incluse.
+  - Fichier MP4 master optimisé pour diffusion multi-plateformes (LinkedIn, TikTok, Reels, Shorts).
 
-### Offre 2 : Forfait Studio Mensuel
-*Abonnement récurrent pour production régulière*
+### Offre 2 : Abonnement Studio Mensuel
+*Le moteur de visibilité continue pour dominer son marché B2B*
 
-- **Tarif** : **500 € par mois** (environ **327 979 FCFA par mois** au taux fixe 1 EUR = 655,957 FCFA).
-- **Format** : **8 vidéos verticales par mois** (format 9:16, 1080x1920, durée 30 à 60 secondes).
-- **Délai annoncé** : **72 h ouvrées** par lot de vidéos [à confirmer par le propriétaire].
+- **Tarif** : **750 € par mois** (environ **491 968 FCFA par mois**).  
+  *Premier mois à **600 €** (393 574 FCFA) en cas de déduction immédiate du Test Découverte.*
+- **Format** : **8 vidéos verticales par mois** (cadence régulière de **2 vidéos livrées chaque semaine**).
+- **Contraste psychologique immédiat** :  
+  Revient à **93,75 € la vidéo** en Studio vs 200 € à l'unité (plus de **53 % d'économie perçue**).
 - **Contenu inclus** :
-  - Traitement complet de 8 notes vocales brutes fournies par le client.
-  - Adaptation narrative, découpage en scènes et mise en valeur des points clés.
-  - Intégration de la charte visuelle du client.
-  - Sound design et mixage broadcast.
-  - Une passe d'ajustement par vidéo.
-  - Livraison échelonnée des masters MP4 au fil du mois.
-
----
-
-## 4. Avertissement Opérationnel sur les Délais
-
-[FAIT VÉRIFIÉ] : Aucun délai de production n'a encore été mesuré sur une vraie commande client.  
-Actuellement, le moteur vidéo requiert des interventions manuelles dans le code source pour chaque nouvelle vidéo (`build_master_timeline.py` impose des scènes et un alignement en dur). Les délais affichés (48 h ouvrées pour le Pilote, 72 h ouvrées pour le Studio) sont des objectifs cibles opérationnels proposés, marqués [à confirmer par le propriétaire] après les premières livraisons réelles.
+  - Ingestion continue de vos notes vocales, posts ou schémas au fil du mois.
+  - Découpage et scénarisation de 8 capsules narratives complètes.
+  - Bibliothèque d'avatars et chartes graphiques client dédiées.
+  - Priorité absolue dans le pipeline de production (livraison continue sous 48-72h par lot).
+  - Sound design broadcast complet sur chaque capsule.
+  - 1 passe de retouche par vidéo.
 
 ---
 
 ## 5. Conditions de Règlement
 
-- **Pilote (250 €)** : 100 % à la commande avant démarrage de la production.
-- **Studio (500 €/m)** : Paiement d'avance à l'ouverture de chaque période mensuelle.
-- Moyens de paiement acceptés : Virement bancaire SEPA, virement direct vers compte professionnel ou plateforme sécurisée convenue.
+- **Test Découverte (150 €)** : 100 % à la commande avant démarrage de la production.
+- **Abonnement Studio (750 €/m)** : Paiement d'avance à l'ouverture de chaque période mensuelle.
+- **Moyens de paiement acceptés** : Virement bancaire SEPA direct vers compte professionnel ou intermédiaire sécurisé.

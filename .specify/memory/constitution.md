@@ -17,25 +17,27 @@ Chaque nouvelle vidéo (personnelle ou client) doit égaler ou surpasser la pré
 ### V. Standard Vertical 9:16 et Conformité Safe-Area
 Toute vidéo est encodée au format vertical 1080x1920 à 30.0 FPS (vidéo H.264 / audio AAC). Les éléments graphiques critiques, textes, sous-titres et appels à l'action sont impérativement restreints à la zone centrale de sécurité ($900 \times 1400\text{ px}$), en préservant une marge basse de 280 px pour les éléments d'interface des plateformes (TikTok, Reels, Shorts) et une marge droite de 80 px pour les boutons d'interaction.
 
+---
+
 ## Les 5 Principes Directeurs de Conception (Obligatoires & Transversaux)
 
 Le projet AGENT404 applique rigoureusement à tous ses développements, scripts vidéo et choix d'architecture les cinq concepts fondamentaux suivants :
 
 1. **Concept 1 : Définir le problème précis plutôt qu'une idée vague**  
    *« Tu ne décris plus une idée. Tu définis le problème à résoudre. »*  
-   - *Application AGENT404* : Résoudre la douleur exacte (painkiller) des fondateurs de SaaS B2B : leurs fonctionnalités sont puissantes mais techniques, leurs prospects ne lisent pas la documentation et ne regardent pas leurs Looms de 10 minutes. La vidéo programmatique remplace l'écran partagé amateur par une démonstration chirurgicale de 45 à 60 secondes.
+   - *Application AGENT404* : Résoudre la douleur exacte des professionnels B2B qui écrivent déjà sur LinkedIn : la corvée épuisante du tournage vidéo (peur de l'objectif, matériel, heures de montage amateur). La vidéo programmatique 60s « Zero-Camera, Zero-Studio & Zero-Montage » transforme n'importe quel matériau brut en capsule de niveau broadcast diffusée sur 4 plateformes (LinkedIn, TikTok, Reels, Shorts).
 
 2. **Concept 2 : Décrire les gestes et le fonctionnement étape par étape**  
    *« Tu passes d'un concept à un fonctionnement que tu peux vérifier, étape par étape. »*  
-   - *Application AGENT404* : Le pipeline est une chaîne séquentielle vérifiable sans effet boîte noire : ingestion audio -> alignement acoustique mot-à-mot Whisper -> mixage sonore procédural NumPy -> rendu DOM frame-par-frame Playwright -> encodage FFmpeg. Chaque scène déclarée dans `project.json` est mesurée et vérifiée à la milliseconde.
+   - *Application AGENT404* : Le pipeline est une chaîne séquentielle vérifiable sans effet boîte noire : ingestion agnostique -> extraction de joyau -> alignement acoustique mot-à-mot Whisper -> mixage sonore procédural NumPy -> rendu DOM frame-par-frame Playwright -> encodage FFmpeg. Chaque scène déclarée dans `project.json` est mesurée et vérifiée à la milliseconde.
 
 3. **Concept 3 : Définir explicitement ce qu'on refuse (Les non-objectifs)**  
    *« Dis aussi ce que tu ne veux pas. La clarté, c'est aussi décider ce qui peut attendre. »*  
    - *Application AGENT404* :
      - **Zéro jargon technique dans les vidéos** : proscription formelle des termes techniques (Python, JavaScript, FFmpeg, Whisper, Faster-Whisper, codebase). La technologie s'exprime uniquement par le résultat (clarté, netteté, rapidité).
-     - **Zéro prix dans les vidéos** : aucun chiffre (250 €, 500 €) ni symbole tarifaire à l'oral comme à l'écrit dans les vidéos. Le prix est un levier de clôture réservé aux échanges privés (DM).
+     - **Zéro prix dans les vidéos** : aucun chiffre (150 €, 200 €, 250 €, 500 €, 750 €) ni symbole tarifaire à l'oral comme à l'écrit dans les vidéos. Le prix est un levier de clôture réservé aux échanges privés (DM).
      - **Zéro HUD** : suppression définitive et irrévocable de tout bandeau HUD (`#agent-hud`) du projet.
-     - **Exclusion commerciale stricte** : refus de prospecter les freelances sans budget, les créateurs IA sans produit et les grosses licornes (Pennylane, Gorgias, Strapi) disposant d'équipes internes.
+     - **Exclusion commerciale stricte** : refus de prospecter les créateurs inactifs à l'écrit, les freelances sans budget, les créateurs IA sans produit et les grosses licornes (Pennylane, Gorgias, Strapi) disposant d'équipes internes.
 
 4. **Concept 4 : Remplacer « ça ne marche pas » par un constat précis mesuré**  
    *« Identifie l'écart entre le résultat attendu et le résultat obtenu. »*  
@@ -43,19 +45,21 @@ Le projet AGENT404 applique rigoureusement à tous ses développements, scripts 
 
 5. **Concept 5 : Des décisions claires avec critères d'acceptation testables**  
    *« Je saurai que ça fonctionne si... Un brief précis ne garantit pas un code fiable : il faut encore le tester. »*  
-   - *Application AGENT404* : Toute fonctionnalité ou vidéo est validée par des tests automatisés (`pytest tests/`) obligatoires : 100% au vert avant livraison. Critères techniques d'acceptation : conformité ffprobe (1080x1920, 30 FPS, H.264/AAC), zéro trou ni chevauchement de scène dans `timeline.js`, et zéro doublon d'illustration.
+   - *Application AGENT404* : Toute fonctionnalité ou vidéo est validée par des tests automatisés (`python3 -m unittest discover -s tests -v`) obligatoires : 100% au vert avant livraison. Critères techniques d'acceptation : conformité ffprobe (1080x1920, 30 FPS, H.264/AAC), zéro trou ni chevauchement de scène dans `timeline.js`, et zéro doublon d'illustration.
 
 ---
 
 ## Ciblage Commercial & Positionnement Stratégique Réajusté
 
-Le positionnement d'AGENT404 est clarifié : **Ne pas vendre « du code Python », mais vendre de la clarté visuelle B2B qui remplace la caméra et fait signer des clients.**
+Le positionnement d'AGENT404 est clarifié : **Studio vidéo court-format B2B « Zero-Camera, Zero-Studio & Zero-Montage ».**  
+Critère absolu : « Ils créent déjà du contenu écrit régulier sur LinkedIn (3–5 posts/semaine), mais n'ont aucune vidéo (ou des vidéos mal fichues). »
 
 | Segment | Qui exactement ? (Exemples qualifiés) | Leur VRAI problème douloureux (Painkiller) | Offre naturelle | Verdict opérationnel |
 | :--- | :--- | :--- | :--- | :--- |
-| **Cible n° 1 (70 % des efforts)** | **Fondateurs de SaaS B2B & Outils Tech bootstrappés rentables** (Typebot, Piloterr, Breakcold, Pharow, Tally) | Leurs fonctionnalités sont puissantes mais techniques. Leurs prospects ne lisent pas la doc et ne regardent pas leurs Looms de 10 min. Besoin de démos produit de 45s ultra-claires pour convertir sur leur site et sur LinkedIn. | **Pilote 250 €** (3 vidéos) → puis **Studio 500 €/mois** pour chaque nouvelle feature. | **EXCELLENTE CIBLE** (Solvables, comprennent la valeur du design système, décision rapide en direct avec le fondateur). |
-| **Cible n° 2 (30 % des efforts)** | **Agences B2B expertes & Organismes Tech** (Digidop, Noqode, Contournement, Ottho) | Ils publient beaucoup à l'écrit (études de cas, méthodes) mais n'ont pas le temps de tourner des vidéos face caméra chaque semaine. | **Studio 500 €/mois** (8 vidéos) à partir de leurs posts écrits ou vocaux WhatsApp. | **TRÈS BONNE CIBLE** pour le revenu récurrent (MRR). |
-| **À ÉCARTER (Exclusion stricte)** | **Freelances débutants, créateurs IA sans produit, grosses licornes** (Pennylane, Gorgias, Strapi) | Les petits n'ont pas 250 € ; les licornes ont déjà une équipe motion design interne. | Aucune offre | **PERTE DE TEMPS.** |
+| **Cible n° 1** | **Fondateurs d'Agences B2B & Studios Productisés** (Webflow, Bubble, Automatisation Make/n8n/IA, SEO, Cold Email, Ghostwriting) | Leurs études de cas écrites sont riches mais leurs prospects ne lisent plus les longs PDF. Tourner des vidéos leur prendrait 4h par semaine. | **Test Découverte 150 €** (1 vidéo sous 48h, 100% déductible sous 7j) $\rightarrow$ puis **Abonnement Studio 750 €/mois** (8 vidéos). | **CIBLE N° 1** (Solvables, comprennent la valeur du design système, décision rapide en direct). |
+| **Cible n° 2** | **Formateurs, Infopreneurs Tech & Créateurs B2B** (Dév, IA, No-Code, Finance, Cyber, Copywriting) | Les concepts techniques sont abstraits. Les carrousels textuels plafonnent. | **Test Découverte 150 €** $\rightarrow$ **Abonnement Studio 750 €/mois** pour un flux régulier de capsules de vente. | **CIBLE N° 2** (Compréhension immédiate de la valeur). |
+| **Cible n° 3** | **Consultants & Solopreneurs B2B très actifs à l'écrit** (Recrutement, CRM, Cyber, Finance) | Écrivent 5 posts par semaine avec une forte autorité mais 0 présence vidéo par manque de temps. | **Abonnement Studio 750 €/mois** (2 vidéos par semaine pour dominer leur niche en 5 min par vocal). | **CIBLE N° 3** (Cycle de décision ultra-court avec le dirigeant). |
+| **À ÉCARTER (Exclusion stricte)** | **Freelances débutants, créateurs IA sans produit, grosses licornes** (Pennylane, Gorgias, Strapi) | Les petits n'ont pas de budget ; les licornes ont déjà une équipe motion design interne. | Aucune offre | **PERTE DE TEMPS.** |
 
 ---
 
@@ -69,7 +73,7 @@ Le positionnement d'AGENT404 est clarifié : **Ne pas vendre « du code Python �
 ## Governance & Contrôles Qualité
 
 1. **Branche unique** : Branche locale `main` synchronisée avec `origin/main`. Aucune branche parallèle. Poussée normale sans force-push.
-2. **Portails de test** : Tous les tests unitaires et d'intégrité (`pytest tests/`) doivent passer à 100% avant toute mise en production.
+2. **Portails de test** : Tous les tests unitaires et d'intégrité (`python3 -m unittest discover -s tests -v`) doivent passer à 100% avant toute mise en production.
 3. **Propriété exclusive** : Projet détenu et gouverné par Kreesten AGBOTON.
 
-**Version**: 1.2.0 | **Ratified**: 2026-10-17 | **Last Amended**: 2026-10-19
+**Version**: 1.3.0 | **Ratified**: 2026-10-17 | **Last Amended**: 2026-10-21

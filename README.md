@@ -1,67 +1,93 @@
-# AGENT404 : Clarté Visuelle B2B Programmatique
+# AGENT404 : Studio Vidéo Court-Format B2B « Zero-Camera, Zero-Studio & Zero-Montage »
 
 Projet détenu et opéré par Kreesten AGBOTON (Abomey-Calavi, Bénin).  
-Objectif directeur : commercialiser les premières productions vidéo et encaisser 2 000 000 FCFA (environ 3 049 € au taux fixe 1 EUR = 655,957 FCFA) avant le 31 décembre 2026.
+Objectif directeur : Commercialiser les productions vidéo et encaisser 2 000 000 FCFA (environ 3 049 € au taux fixe 1 EUR = 655,957 FCFA) avant le 31 décembre 2026.
 
 ---
 
-## 1. Positionnement Stratégique & Ciblage Chirurgical
+## 1. Positionnement Stratégique & Promesse de Valeur
 
-> **Règle d'or de positionnement** : Arrêter de vendre « du code Python ». Vendre de la **clarté visuelle B2B qui remplace la caméra et fait signer des clients**.
+> **Règle d'or de positionnement** : Arrêter de vendre « du code Python ». Vendre la **fin définitive de la corvée du tournage vidéo** pour les professionnels B2B qui écrivent déjà sur LinkedIn.
 
-AGENT404 résout la douleur exacte des entreprises technologiques : leurs fonctionnalités sont puissantes mais complexes, leurs prospects ne lisent pas la documentation et abandonnent les Looms de 10 minutes après 30 secondes. AGENT404 les remplace par des capsules vidéo chirurgicales de 45 à 60 secondes au format 9:16, rythmées et sans face-caméra amateur.
+Le studio AGENT404 produit des capsules vidéo verticales percutantes (1080x1920 @ 30 FPS, format 9:16) au style néo-brutaliste avec avatar incarné, voix off de qualité studio et sous-titres animés au mot près (karaoké / pop-in).
 
-### Répartition des efforts de prospection :
-1. **Cible n° 1 (Priorité absolue — 70 % des efforts)** : **Fondateurs de SaaS B2B & Outils Tech bootstrappés rentables** (ex: Typebot, Piloterr, Breakcold, Pharow, Tally).
-   - *Painkiller* : Fonctionnalités techniques puissantes, Looms ignorés. Besoin de démos produit de 45s ultra-claires pour convertir sur leur site et sur LinkedIn.
-   - *Offre naturelle* : Pilote 250 € (3 vidéos) → Forfait Studio 500 €/mois pour chaque release/feature.
-2. **Cible n° 2 (30 % des efforts)** : **Agences B2B expertes & Organismes Tech** (ex: Digidop, Noqode, Contournement, Ottho).
-   - *Painkiller* : Beaucoup de publications écrites de valeur mais pas le temps de tourner en vidéo face caméra chaque semaine.
-   - *Offre naturelle* : Forfait Studio 500 €/mois (8 vidéos) à partir de leurs posts écrits ou notes vocales.
-3. **À ÉCARTER (Exclusion stricte)** : Freelances débutants (pas de budget 250 €), créateurs IA sans produit, grosses licornes (Pennylane, Gorgias, Strapi qui disposent d'équipes internes).
+- **Zero-Camera & Zero-Montage** : Le client n'a besoin d'aucun matériel, aucune caméra, aucun studio et aucune compétence en montage.
+- **Multi-plateformes (1 = 4)** : **1 seule vidéo produite = 4 plateformes arrosées simultanément** (LinkedIn, TikTok, Instagram Reels, YouTube Shorts).
+- **Entrée Agnostique (Input Agnostic)** : Le client envoie son matériau brut sous n'importe quel format (note vocale WhatsApp de 2 min, lien d'un post LinkedIn écrit, doc technique, schéma de workflow Make/n8n, cas client ou Loom de 10 min). Le studio extrait le joyau narratif et conçoit la capsule.
+- **Format Étalon** : Durée de référence standard à **~60 secondes** (amplitude adaptable de 45s à 90s).
 
 ---
 
-## 2. Les 5 Concepts Directeurs du Projet
+## 2. Les 3 Cibles Précises & Critère de Qualification
+
+### Le Critère Absolu de Qualification (Règle Éliminatoire)
+> **« Ils créent DÉJÀ du contenu écrit régulier sur LinkedIn (3 à 5 posts par semaine), mais ils n'ont AUCUNE vidéo (ou des vidéos face-caméra amateurs mal fichues). »**
+
+1. **Cible n° 1 : Fondateurs d'Agences B2B & Studios Productisés**  
+   - *Domaines* : Webflow, Bubble, Automatisation Make/n8n/IA, SEO, Cold Email, Ghostwriting (ex: Digidop, Noqode).  
+   - *Painkiller* : Leurs études de cas écrites sont riches mais leurs prospects ne lisent plus les longs PDF. Tourner des vidéos leur prendrait 4h par semaine.  
+   - *Bénéfice* : Conversion d'un cas client ou workflow en une capsule 60s percutante sans caméra.
+2. **Cible n° 2 : Formateurs & Infopreneurs Tech**  
+   - *Domaines* : Dév, IA, No-Code, Finance, Cybersécurité, Copywriting (ex: Ottho, Contournement, créateurs solos).  
+   - *Painkiller* : Les concepts techniques sont abstraits. Les carrousels textuels plafonnent.  
+   - *Bénéfice* : Vulgarisation visuelle néo-brutaliste qui génère du lead qualifié vers leurs formations.
+3. **Cible n° 3 : Consultants & Solopreneurs B2B très actifs à l'écrit**  
+   - *Domaines* : Recrutement tech, CRM, cybersécurité, finance d'entreprise.  
+   - *Painkiller* : Écrivent 5 posts par semaine avec une forte autorité mais 0 présence vidéo par manque de temps.  
+   - *Bénéfice* : Dominer leur niche avec 2 vidéos par semaine en envoyant juste une note vocale de 2 minutes.
+4. **À ÉCARTER (Exclusion stricte)** : Freelances débutants sans budget, créateurs IA sans produit, grandes licornes (Pennylane, Gorgias, Strapi qui disposent déjà d'équipes internes).
+
+---
+
+## 3. Offres Commerciales Actives & Ancrage Psychologique
+
+Le modèle commercial repose sur un ancrage haute valeur et un mécanisme *foot-in-the-door* :
+
+- **Ancre Haute de Référence (Hors Abonnement)** : **200 € par vidéo** à l'unité ($8 \times 200 = 1\,600\text{ €/m}$).
+- **Offre 1 : Test Découverte** : **150 €** (environ 98 394 FCFA).
+  - 1 vidéo verticale de niveau broadcast (~60s, 1080x1920 @ 30 FPS).
+  - Livraison garantie sous **48 h ouvrées**.
+  - **Clause Foot-in-the-door** : Les 150 € sont **100 % DÉDUITS** du premier mois d'Abonnement Studio si le client souscrit dans les 7 jours suivant la livraison (mois 1 à 600 €).
+- **Offre 2 : Forfait Studio Mensuel** : **750 € par mois** (environ 491 968 FCFA par mois).
+  - **8 vidéos verticales par mois** (cadence régulière de **2 vidéos livrées chaque semaine**).
+  - Revient à **93,75 € la vidéo** en Studio vs 200 € à l'unité (plus de **53 % d'économie perçue**).
+
+Consulter [OFFRES.md](OFFRES.md) pour le détail contractuel et [docs/FINANCIAL_PLAN.md](docs/FINANCIAL_PLAN.md) pour la trajectoire d'encaissement.
+
+---
+
+## 4. Les 5 Concepts Directeurs du Projet
 
 L'ensemble de l'ingénierie logicielle, des scripts de vente et des vidéos produites est régi par ces 5 concepts obligatoires :
 
 1. **Concept 1 : Définir le problème précis plutôt qu'une idée vague**  
    *« Tu ne décris plus une idée. Tu définis le problème à résoudre. »*  
-   - Nous ciblons le problème chirurgical du prospect (décideurs qui ferment les vidéos trop longues) plutôt qu'un concept abstrait d'animation.
+   - Résoudre la douleur du créateur B2B saturé par l'écrit qui n'a ni le temps ni l'envie de tourner face caméra.
 2. **Concept 2 : Décrire les gestes et le fonctionnement étape par étape**  
    *« Tu passes d'un concept à un fonctionnement que tu peux vérifier, étape par étape. »*  
-   - Pipeline transparent et sans effet boîte noire : ingestion audio → alignement forcé Whisper mot-à-mot → sound design procédural → rendu frame-par-frame Playwright → encodage FFmpeg.
+   - Pipeline transparent et sans effet boîte noire : ingestion agnostique $\rightarrow$ extraction de joyau $\rightarrow$ alignement forcé Whisper $\rightarrow$ sound design procédural NumPy $\rightarrow$ rendu DOM Playwright $\rightarrow$ encodage FFmpeg.
 3. **Concept 3 : Définir explicitement ce qu'on refuse (Les non-objectifs)**  
    *« Dis aussi ce que tu ne veux pas. La clarté, c'est aussi décider ce qui peut attendre. »*  
-   - Zéro jargon technique dans les vidéos commerciales. Zéro prix affiché dans les vidéos publiques. Zéro HUD à l'écran. Refus des cibles non rentables ou hors-sujet.
+   - Zéro jargon technique dans les vidéos commerciales. Zéro prix affiché dans les vidéos publiques. Zéro HUD à l'écran. Refus des cibles non rentables ou inactives à l'écrit.
 4. **Concept 4 : Remplacer « ça ne marche pas » par un constat précis mesuré**  
    *« Identifie l'écart entre le résultat attendu et le résultat obtenu. »*  
-   - Diagnostics basés exclusivement sur des métriques : PSNR infini, framemd5, durée millimétrique ffprobe, analyse de contraste et de surface avatar OpenCV.
+   - Diagnostics basés exclusivement sur des métriques : PSNR infini, framemd5, durée millimétrique ffprobe, analyse de luminance sticker OpenCV.
 5. **Concept 5 : Des décisions claires avec critères d'acceptation testables**  
    *« Je saurai que ça fonctionne si... Un brief précis ne garantit pas un code fiable : il faut encore le tester. »*  
-   - 100 % des tests unitaires et de spécification (`pytest tests/`) doivent être au vert avant validation d'une vidéo ou mise en production.
+   - 100 % des tests unitaires et de spécification (`python3 -m unittest discover -s tests -v`) doivent être au vert avant validation d'une vidéo ou mise en production.
 
 ---
 
-## 3. Offres Commerciales Actives
-
-Le modèle commercial repose exclusivement sur deux offres :
-1. **Pilote Payant** : **250 €** (environ 163 989 FCFA) pour 3 vidéos verticales (délai cible : 48 h ouvrées).
-2. **Forfait Studio Mensuel** : **500 € par mois** (environ 327 979 FCFA par mois) pour 8 vidéos verticales (délai cible : 72 h ouvrées).
-
-Consulter [OFFRES.md](OFFRES.md) pour le détail des prestations et les conditions.
-
----
-
-## 4. Pipeline Technique & Architecture
+## 5. Pipeline Technique & Architecture
 
 AGENT404 est un pipeline de production vidéo vertical (1080x1920, 30 FPS, format 9:16) entièrement piloté par le code (Python, FFmpeg, Playwright/Chromium, Vanilla HTML5/CSS/JavaScript).  
-Il transforme une note vocale ou un texte en une vidéo rythmée : avatar sticker découpé, sous-titres dynamiques synchronisés au mot près, animations néo-brutalistes et sound design procédural.
+Il transforme une note vocale ou un texte en une capsule rythmée : avatar sticker découpé, sous-titres dynamiques synchronisés au mot près, animations néo-brutalistes et sound design procédural.
+
+Consulter [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) pour les spécifications complètes.
 
 ---
 
-## 5. Installation et Prérequis
+## 6. Installation et Prérequis
 
 ### Prérequis système
 - Linux x86_64 (ou environnement compatible)
@@ -80,11 +106,11 @@ playwright install chromium
 
 ---
 
-## 6. Utilisation et Commandes
+## 7. Utilisation et Commandes
 
 ### Exécution des tests de non-régression (Golden Master)
 ```bash
-python3 -m unittest -v
+python3 -m unittest discover -s tests -v
 ```
 La suite valide l'intégrité temporelle des mots, la continuité des scènes, la conformité de la vidéo master et la tolérance visuelle des captures de référence.
 
@@ -102,33 +128,13 @@ python3 make_video.py studio_perso/video_01 --forcer
 
 Les projets marqués `"gele": true` dans `project.json` refusent toute écriture dans leur propre dossier sans `--forcer` ou `--sortie`. Le mode `"rendu_deterministe": true` (actif par défaut pour tout nouveau projet) neutralise les transitions CSS et dérive une graine stable (CRC32) pour les bruitages afin de garantir des rendus rigoureusement reproductibles bit-à-bit.
 
-### Création d'un projet client (studio_clients)
-Pour initialiser un nouveau projet client dans `studio_clients/` :
-1. Créer le dossier du client : `mkdir -p studio_clients/<nom_client>/video_01`.
-2. Copier le modèle de configuration :
-   ```bash
-   cp studio_perso/video_01/project.json studio_clients/<nom_client>/video_01/project.json
-   ```
-3. Adapter `project.json` :
-   - `video_number` : numéro de la vidéo (ex: 1).
-   - `title` : titre du projet.
-   - `audio_path` : chemin du fichier audio source (WAV ou MP3).
-   - `reference_words` : liste ordonnée des mots du texte de référence.
-   - `scenes` : liste des scènes avec leurs types (`face`, `big`, `cards`, `window`, etc.) et décors (`grid`, `mint`, `diamonds`, `circles`, `alert`).
-   - `scene_end_words` : liste des mots terminaux marquant la coupure de chaque scène (même longueur que `scenes`).
-   - `phonetic_map` : dictionnaire des équivalences phonétiques de transcription Whisper éventuelles.
-4. Lancer la production :
-   ```bash
-   python3 make_video.py studio_clients/<nom_client>/video_01
-   ```
-La vidéo finale sera générée directement dans `studio_clients/<nom_client>/video_01/video1.mp4`.
-
 ---
 
-## 7. Documentation de Référence
+## 8. Documentation de Référence
 
 - Grille tarifaire et conditions : [OFFRES.md](OFFRES.md)
 - Architecture technique du moteur : [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 - Modèle et planification financière : [docs/FINANCIAL_PLAN.md](docs/FINANCIAL_PLAN.md)
 - Standard de qualité et non-régression : [.agents/rules/video_quality_standard.md](.agents/rules/video_quality_standard.md)
 - Constitution et principes directeurs : [.specify/memory/constitution.md](.specify/memory/constitution.md)
+- Playbook officiel de production : [VIDEO_PRODUCTION_PLAYBOOK.md](VIDEO_PRODUCTION_PLAYBOOK.md)
