@@ -8,19 +8,33 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="video-canvas" class="bg-grid">
+  <div id="video-canvas" class="bg-grid" data-theme="cyber-mint">
 
-    <!-- Zone Sous-titres (Top 96px) -->
-    <header id="subtitles-zone">
+    <!-- Calque d'Arrière-Plan Vivant (Parallaxe 30%) -->
+    <div id="bg-layer" class="layer-bg">
+      <div id="ambient-glow" class="ambient-glow"></div>
+      <div id="watermark-text" class="watermark-text"></div>
+    </div>
+
+    <!-- Caméra Virtuelle Dynamique -->
+    <div id="camera-rig">
+      <!-- Zone centrale & inférieure : Rendu des composants -->
+      <main id="scene-zone">
+        <div id="scene-container"></div>
+      </main>
+    </div>
+
+    <!-- Avatar Global Chorégraphié (hero, inset, hidden) -->
+    <div id="global-avatar-wrapper" class="avatar-hidden">
+      <img id="global-avatar-img" src="" alt="Avatar" />
+    </div>
+
+    <!-- Zone Sous-titres Multi-Zones Dynamique -->
+    <header id="subtitles-zone" class="mode-center-slam">
       <div id="subtitles-container">
         <div id="subtitles-box" class="sub-line"></div>
       </div>
     </header>
-
-    <!-- Zone centrale & inférieure : Rendu des composants -->
-    <main id="scene-zone">
-      <div id="scene-container"></div>
-    </main>
   </div>
 
   <script>

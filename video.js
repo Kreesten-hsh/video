@@ -13,33 +13,69 @@
   let activeSceneIndex = -1;
   let currentBg = "";
 
+  function easeOutExpo(x) {
+    return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
+  }
+
+  function easeInOutCubic(x) {
+    return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  }
+
   /**
-   * Découpe la liste linéaire de mots en paquets continus de 3 à 5 mots (défaut 4).
+   * Découpe la liste de mots Whisper en paquets dynamiques selon le mode :
+   * - center_slam (88px) : 2 à 3 mots max pour ne jamais déborder
+   * - dynamic_band (52px) : 3 mots
+   * - single_line_top (38px) / legacy : 4 mots
    */
   function buildSubtitleChunks(words) {
     if (!words || words.length === 0) return [];
     const chunks = [];
-    const chunkSize = 4;
+    let i = 0;
+    while (i < words.length) {
+      const wStart = words[i].start;
+      const sc = (window.SCENES || []).find(s => wStart >= s.start && wStart < s.end);
+      const mode = (sc && sc.caption_mode) || "legacy";
 
-    for (let i = 0; i < words.length; i += chunkSize) {
+      let chunkSize = 4;
+      if (mode === "center_slam") {
+        const firstLen = words[i].word.length;
+        const secondLen = words[i + 1] ? words[i + 1].word.length : 0;
+        chunkSize = (firstLen + secondLen > 13) ? 2 : 3;
+      } else if (mode === "dynamic_band") {
+        chunkSize = 3;
+      } else if (mode === "single_line_top") {
+        chunkSize = 4;
+      }
+      chunkSize = Math.min(chunkSize, words.length - i);
+
       const slice = words.slice(i, i + chunkSize);
       chunks.push({
         start: slice[0].start,
         end: slice[slice.length - 1].end,
-        words: slice
+        words: slice,
+        mode: mode
       });
+      i += chunkSize;
     }
     return chunks;
   }
 
   function initData() {
-    subtitleChunks = buildSubtitleChunks(window.WORDS || []);
-    if (window.PROJECT_CONFIG && window.PROJECT_CONFIG.theme) {
-      const root = document.documentElement;
-      for (const [key, val] of Object.entries(window.PROJECT_CONFIG.theme)) {
-        root.style.setProperty(`--${key}`, val);
+    // 1. Initialisation des Thèmes (Preset ou Variables personnalisées)
+    if (window.PROJECT_CONFIG) {
+      if (window.PROJECT_CONFIG.theme_preset) {
+        document.documentElement.setAttribute("data-theme", window.PROJECT_CONFIG.theme_preset);
+        if (canvas) canvas.setAttribute("data-theme", window.PROJECT_CONFIG.theme_preset);
+      }
+      if (window.PROJECT_CONFIG.theme) {
+        const root = document.documentElement;
+        for (const [key, val] of Object.entries(window.PROJECT_CONFIG.theme)) {
+          root.style.setProperty(`--${key}`, val);
+        }
       }
     }
+
+    subtitleChunks = buildSubtitleChunks(window.WORDS || []);
 
     try {
       const urlParams = new URLSearchParams(window.location.search);
@@ -77,6 +113,104 @@
   }
 
   /**
+   * Pilote la Caméra Virtuelle Non-Linéaire, les Keyframes et la Parallaxe à 30% sur #bg-layer
+   */
+  function updateCamera(t, scene, progress) {
+    const rig = document.getElementById("camera-rig");
+    if (!rig) return;
+
+    let currentZoom = 1.0;
+    let currentPanX = 0;
+    let currentPanY = 0;
+    const drift = 0.03 * progress;
+
+    if (scene && scene.camera && Array.isArray(scene.camera.keyframes) && scene.camera.keyframes.length > 0) {
+      const kfs = scene.camera.keyframes;
+      let k1 = kfs[0];
+      let k2 = kfs[kfs.length - 1];
+      for (let i = 0; i < kfs.length - 1; i++) {
+        if (t >= kfs[i].at && t <= kfs[i + 1].at) {
+          k1 = kfs[i];
+          k2 = kfs[i + 1];
+          break;
+        }
+      }
+      const dt = Math.max(0.001, k2.at - k1.at);
+      const rawP = Math.min(1, Math.max(0, (t - k1.at) / dt));
+      const pEased = dt <= 0.8 ? easeOutExpo(rawP) : easeInOutCubic(rawP);
+      currentZoom = (k1.zoom || 1.0) + ((k2.zoom || 1.0) - (k1.zoom || 1.0)) * pEased + drift;
+      currentPanX = (k1.panX || 0) + ((k2.panX || 0) - (k1.panX || 0)) * pEased;
+      currentPanY = (k1.panY || 0) + ((k2.panY || 0) - (k1.panY || 0)) * pEased;
+    } else if (scene && scene.camera) {
+      const cam = scene.camera;
+      const pEased = easeInOutCubic(progress);
+      const zFrom = cam.zoomFrom || 1.0;
+      const zTo = cam.zoomTo || (zFrom + 0.04);
+      currentZoom = zFrom + (zTo - zFrom) * pEased + drift;
+      currentPanX = (cam.panX || 0) * pEased;
+      currentPanY = (cam.panY || 0) * pEased;
+    } else {
+      currentZoom = 1.0;
+      currentPanX = 0;
+      currentPanY = 0;
+    }
+
+    rig.style.transform = `scale(${currentZoom}) translate(${currentPanX}px, ${currentPanY}px)`;
+
+    // Parallaxe 30% sur le fond et dérive vivante du filigrane
+    const bgLayer = document.getElementById("bg-layer");
+    if (bgLayer) {
+      const bgZoom = 1 + (currentZoom - 1) * 0.3;
+      const bgPanX = currentPanX * 0.3;
+      const bgPanY = currentPanY * 0.3;
+      bgLayer.style.transform = `scale(${bgZoom}) translate(${bgPanX}px, ${bgPanY}px)`;
+    }
+    const watermark = document.getElementById("watermark-text");
+    if (watermark) {
+      const driftX = (t * 10) % 400 - 200;
+      const driftY = Math.sin(t * 0.35) * 12;
+      watermark.style.transform = `translate(${driftX}px, ${driftY}px)`;
+      if (scene && scene.watermark && watermark.textContent !== scene.watermark) {
+        watermark.textContent = scene.watermark;
+      }
+    }
+  }
+
+  /**
+   * Chorégraphie de l'Avatar Global selon scene.avatar_mode ("hero", "inset", "hidden")
+   */
+  function updateAvatar(t, scene, progress) {
+    const wrapper = document.getElementById("global-avatar-wrapper");
+    const img = document.getElementById("global-avatar-img");
+    if (!wrapper || !img) return;
+
+    const mode = scene.avatar_mode || (
+      scene.type === "face" ? "hero" : (
+        scene.caption_mode === "center_slam" ? "hidden" : (
+          scene.data && scene.data.avatar ? "inset" : "hidden"
+        )
+      )
+    );
+
+    wrapper.className = "avatar-" + mode;
+
+    if (scene.data && scene.data.avatar) {
+      if (img.getAttribute("src") !== scene.data.avatar) {
+        img.setAttribute("src", scene.data.avatar);
+      }
+    }
+
+    if (mode === "hero") {
+      const floatY = Math.sin(t * 4.5) * 8;
+      const tilt = Math.sin(t * 2.2) * 1.2;
+      img.style.transform = `translateY(${floatY}px) rotate(${tilt}deg)`;
+    } else if (mode === "inset") {
+      const pulse = 1.0 + Math.sin(t * 3) * 0.03;
+      wrapper.style.transform = `scale(${pulse})`;
+    }
+  }
+
+  /**
    * Fonction globale de rendu instantané à l'instant t (en secondes)
    */
   window.setTime = function (t) {
@@ -84,14 +218,46 @@
       initData();
     }
 
-    // 1. Sous-titres dynamiques (Top)
-    updateSubtitles(t);
+    const sceneIdx = (window.SCENES || []).findIndex(s => t >= s.start && t < s.end);
+    const activeScene = sceneIdx !== -1 ? window.SCENES[sceneIdx] : null;
+
+    // 1. Sous-titres dynamiques multi-zones avec anti-collision
+    updateSubtitles(t, activeScene);
 
     // 2. Scène centrale & inférieure
     updateScenes(t);
   };
 
-  function updateSubtitles(t) {
+  function updateSubtitles(t, activeScene) {
+    const subtitlesZone = document.getElementById("subtitles-zone");
+    if (!subtitlesZone) return;
+
+    const mode = (activeScene && activeScene.caption_mode) || "legacy";
+
+    if (mode === "center_slam") {
+      subtitlesZone.className = "mode-center-slam";
+    } else if (mode === "dynamic_band") {
+      subtitlesZone.className = "mode-dynamic-band";
+    } else if (mode === "single_line_top") {
+      subtitlesZone.className = "mode-single-line-top";
+    } else if (mode === "hidden" || mode === "ui_embedded") {
+      subtitlesZone.className = "mode-hidden";
+    } else {
+      subtitlesZone.className = ""; // legacy mode
+    }
+
+    // Anti-collision : si center_slam et que la scène n'est pas kinetic_type,
+    // on masque ou abaisse la carte centrale de #scene-container
+    if (sceneContainer) {
+      if (mode === "center_slam" && activeScene && activeScene.type !== "blueprint_kinetic_type") {
+        sceneContainer.style.opacity = "0.15";
+        sceneContainer.style.transform = "scale(0.88)";
+      } else {
+        sceneContainer.style.opacity = "";
+        sceneContainer.style.transform = "";
+      }
+    }
+
     if (subtitleChunks.length === 0) return;
 
     let chunkIdx = subtitleChunks.findIndex(c => t >= c.start && t <= c.end);
@@ -142,17 +308,157 @@
     const progress = Math.min(1, Math.max(0, (t - scene.start) / Math.max(0.001, duration)));
     const elapsed = t - scene.start;
 
+    // Caméra virtuelle non-linéaire & parallaxe
+    updateCamera(t, scene, progress);
+
+    // Chorégraphie de l'avatar
+    updateAvatar(t, scene, progress);
+
     // Décor dynamique piloté par t et progress
     updateBackground(scene.data && scene.data.bg, t, progress);
 
-    // Injection DOM au changement de scène
-    if (sceneIdx !== activeSceneIndex) {
-      activeSceneIndex = sceneIdx;
-      sceneContainer.innerHTML = renderComponent(scene.type, scene.data);
+    // Changement dynamique de thème à la volée (effet caméléon)
+    if (scene.switch_theme) {
+      document.documentElement.setAttribute("data-theme", scene.switch_theme);
+      if (canvas) canvas.setAttribute("data-theme", scene.switch_theme);
     }
 
-    // Animation continue déterministe avec physique d'overshoot
-    animateComponent(scene.type, scene.data, progress, elapsed, t);
+    // Injection DOM au changement de scène (support des 6 blueprints ou des scènes legacy)
+    if (sceneIdx !== activeSceneIndex) {
+      activeSceneIndex = sceneIdx;
+      if (scene.type && scene.type.startsWith("blueprint_")) {
+        sceneContainer.innerHTML = renderBlueprint(scene.type, scene.data || {});
+      } else {
+        sceneContainer.innerHTML = renderComponent(scene.type, scene.data);
+      }
+    }
+
+    // Animation continue déterministe avec physique d'overshoot et beats sémantiques
+    if (scene.type && scene.type.startsWith("blueprint_")) {
+      animateBlueprint(scene.type, scene.data || {}, progress, elapsed, t, scene);
+    } else {
+      animateComponent(scene.type, scene.data, progress, elapsed, t);
+    }
+  }
+
+  /**
+   * ==========================================================================
+   * LES 6 BLUEPRINTS SIGNATURES DU STUDIO AGENT404
+   * ==========================================================================
+   */
+  function renderBlueprint(type, data) {
+    switch (type) {
+      case "blueprint_kinetic_type":
+        const highlight = data.highlight || "";
+        let textHtml = data.text || "";
+        if (highlight && textHtml.includes(highlight)) {
+          textHtml = textHtml.replace(highlight, `<span class="highlight">${highlight}</span>`);
+        }
+        return `
+          <div class="blueprint-kinetic-type" id="blueprint-kinetic-type">
+            ${data.tag ? `<div class="bkt-tag">${data.tag}</div>` : ""}
+            <div class="bkt-main-text">${textHtml}</div>
+          </div>
+        `;
+
+      case "blueprint_cursor_ui":
+        const btnLeft = data.btn_left || "Option A";
+        const btnRight = data.btn_right || "Option B";
+        return `
+          <div class="blueprint-cursor-ui" id="blueprint-cursor-ui">
+            <div class="bcui-header">
+              <div class="bcui-title">${data.title || "Interface Système"}</div>
+              <div class="bcui-status" id="bcui-status">${data.status_initial || "En attente"}</div>
+            </div>
+            <div class="bcui-actions">
+              <div class="bcui-btn" id="bcui-btn-left">${btnLeft}</div>
+              <div class="bcui-btn" id="bcui-btn-right">${btnRight}</div>
+            </div>
+            <svg class="bcui-cursor" id="bcui-cursor" viewBox="0 0 24 24" fill="none">
+              <path d="M5.5 3.2L18.8 12.4C19.7 13 19.3 14.5 18.2 14.6L12.5 15.1L9.6 20.3C9.1 21.2 7.7 21 7.5 19.9L5.5 3.2Z" fill="var(--mint)" stroke="var(--bg-carbon)" stroke-width="2"/>
+            </svg>
+            <div class="cursor-click-ripple" id="bcui-ripple"></div>
+          </div>
+        `;
+
+      case "blueprint_terminal_scene":
+        return `
+          <div class="blueprint-terminal-scene" id="blueprint-terminal-scene">
+            <div class="bts-titlebar">
+              <div class="bts-dot bts-dot-close"></div>
+              <div class="bts-dot bts-dot-min"></div>
+              <div class="bts-dot bts-dot-max"></div>
+              <div class="bts-title">${data.window_title || "agent404-terminal"}</div>
+            </div>
+            <div class="bts-body">
+              <div><span class="bts-prompt">&gt;</span><span id="bts-command-text"></span><span class="bts-cursor-block" id="bts-cursor"></span></div>
+              <div class="bts-output" id="bts-output" style="display: none;">${data.output_text || "✓ Traitement terminé avec succès."}</div>
+            </div>
+          </div>
+        `;
+
+      case "blueprint_compare_split":
+        return `
+          <div class="blueprint-compare-split" id="blueprint-compare-split">
+            <div class="bcs-card bcs-card-avant" id="bcs-card-avant">
+              <div class="bcs-badge bcs-badge-avant">${data.badge_avant || "Erreur"}</div>
+              <div class="bcs-card-title">${data.title_avant || "Process Manuel"}</div>
+              <div class="bcs-card-desc">${data.desc_avant || "15h perdues par semaine"}</div>
+            </div>
+            <div class="bcs-card bcs-card-apres" id="bcs-card-apres">
+              <div class="bcs-badge bcs-badge-apres">${data.badge_apres || "Solution"}</div>
+              <div class="bcs-card-title">${data.title_apres || "Système Automatisé"}</div>
+              <div class="bcs-card-desc">${data.desc_apres || "60s chrono de production"}</div>
+            </div>
+          </div>
+        `;
+
+      case "blueprint_spatial_pan":
+        const s1 = data.stations && data.stations[0] ? data.stations[0] : { title: "Station 1", desc: "Input" };
+        const s2 = data.stations && data.stations[1] ? data.stations[1] : { title: "Station 2", desc: "Traitement" };
+        const s3 = data.stations && data.stations[2] ? data.stations[2] : { title: "Station 3", desc: "Livraison" };
+        return `
+          <div class="blueprint-spatial-pan" id="blueprint-spatial-pan">
+            <div class="bsp-station" id="bsp-st-1">
+              <div class="bcs-badge bcs-badge-avant">Étape 01</div>
+              <div class="bcs-card-title">${s1.title}</div>
+              <div class="bcs-card-desc">${s1.desc}</div>
+            </div>
+            <div class="bsp-connector">➔</div>
+            <div class="bsp-station" id="bsp-st-2">
+              <div class="bcs-badge bcs-badge-apres">Étape 02</div>
+              <div class="bcs-card-title">${s2.title}</div>
+              <div class="bcs-card-desc">${s2.desc}</div>
+            </div>
+            <div class="bsp-connector">➔</div>
+            <div class="bsp-station" id="bsp-st-3">
+              <div class="bcs-badge bcs-badge-apres">Étape 03</div>
+              <div class="bcs-card-title">${s3.title}</div>
+              <div class="bcs-card-desc">${s3.desc}</div>
+            </div>
+          </div>
+        `;
+
+      case "blueprint_overwhelm":
+        const c1 = data.cards && data.cards[0] ? data.cards[0] : "Loom 12 min";
+        const c2 = data.cards && data.cards[1] ? data.cards[1] : "Silence 4s";
+        const c3 = data.cards && data.cards[2] ? data.cards[2] : "Voix fatiguée";
+        const c4 = data.cards && data.cards[3] ? data.cards[3] : "Décrochage";
+        return `
+          <div class="blueprint-overwhelm" id="blueprint-overwhelm">
+            <div class="bow-center">
+              <img src="${data.avatar || 'assets/avatars/facepalm.png'}" alt="Avatar" class="bow-avatar" />
+            </div>
+            <div class="bow-fly-card" id="bow-c1" style="top: 80px; left: 60px;">⚠️ ${c1}</div>
+            <div class="bow-fly-card" id="bow-c2" style="top: 100px; right: 60px;">🔇 ${c2}</div>
+            <div class="bow-fly-card" id="bow-c3" style="bottom: 120px; left: 80px;">🥱 ${c3}</div>
+            <div class="bow-fly-card" id="bow-c4" style="bottom: 100px; right: 80px;">❌ ${c4}</div>
+          </div>
+        `;
+
+      default:
+        return `<div class="comp-box">Blueprint ${type}</div>`;
+    }
   }
 
   function renderComponent(type, data) {
@@ -1103,6 +1409,113 @@
     const scale = 0.85 + 0.15 * p + 0.08 * Math.sin(p * Math.PI);
     const ty = 60 * (1.0 - p);
     return { scale, ty };
+  }
+
+  function animateBlueprint(type, data, progress, elapsed, t, scene) {
+    const spring = calcSpringOvershoot(elapsed);
+
+    if (type === "blueprint_kinetic_type") {
+      const el = document.getElementById("blueprint-kinetic-type");
+      if (el) {
+        el.style.transform = `translate(-50%, -50%) scale(${spring.scale})`;
+      }
+    } else if (type === "blueprint_cursor_ui") {
+      const cursor = document.getElementById("bcui-cursor");
+      const btnRight = document.getElementById("bcui-btn-right");
+      const statusEl = document.getElementById("bcui-status");
+      const ripple = document.getElementById("bcui-ripple");
+      const clickAt = (data && data.click_at) || (scene.start + 1.2);
+
+      if (cursor && btnRight) {
+        const pMove = Math.min(1, Math.max(0, (t - scene.start) / Math.max(0.001, clickAt - scene.start)));
+        const easedMove = easeInOutCubic(pMove);
+        const curX = 100 + (620 - 100) * easedMove;
+        const curY = 400 + (220 - 400) * easedMove;
+        cursor.style.transform = `translate(${curX}px, ${curY}px)`;
+
+        if (t >= clickAt) {
+          btnRight.classList.add("is-active");
+          if (statusEl && data.status_active) {
+            statusEl.textContent = data.status_active;
+          }
+          if (ripple) {
+            const ripP = Math.min(1, (t - clickAt) / 0.4);
+            ripple.style.transform = `translate(${curX}px, ${curY}px) scale(${ripP * 2.5})`;
+            ripple.style.opacity = String(1.0 - ripP);
+          }
+        } else {
+          btnRight.classList.remove("is-active");
+          if (ripple) ripple.style.opacity = "0";
+        }
+      }
+    } else if (type === "blueprint_terminal_scene") {
+      const cmdEl = document.getElementById("bts-command-text");
+      const outEl = document.getElementById("bts-output");
+      const curBlock = document.getElementById("bts-cursor");
+      const fullCmd = data.command || "agent404 compile --auto";
+      const execAt = (data && data.execute_at) || (scene.start + 1.5);
+
+      if (cmdEl) {
+        const pType = Math.min(1, Math.max(0, (t - scene.start) / Math.max(0.001, execAt - scene.start)));
+        const charCount = Math.floor(fullCmd.length * pType);
+        cmdEl.textContent = fullCmd.slice(0, charCount);
+      }
+      if (curBlock) {
+        curBlock.style.opacity = (Math.floor(t * 3.5) % 2 === 0) ? "1" : "0.2";
+      }
+      if (outEl) {
+        if (t >= execAt) {
+          outEl.style.display = "block";
+          outEl.className = "bts-output bts-output-success";
+        } else {
+          outEl.style.display = "none";
+        }
+      }
+    } else if (type === "blueprint_compare_split") {
+      const cardAvant = document.getElementById("bcs-card-avant");
+      const cardApres = document.getElementById("bcs-card-apres");
+      const revealAt = (data && data.reveal_at) || (scene.start + 1.0);
+
+      if (cardAvant) {
+        cardAvant.style.transform = `scale(${spring.scale}) rotate(-1.5deg)`;
+      }
+      if (cardApres) {
+        if (t >= revealAt) {
+          const apresElapsed = t - revealAt;
+          const apresSpring = calcSpringOvershoot(apresElapsed);
+          cardApres.style.transform = `scale(${apresSpring.scale}) rotate(1.5deg)`;
+          cardApres.style.opacity = "1";
+        } else {
+          cardApres.style.transform = "scale(0.8) rotate(5deg)";
+          cardApres.style.opacity = "0.3";
+        }
+      }
+    } else if (type === "blueprint_spatial_pan") {
+      const st1 = document.getElementById("bsp-st-1");
+      const st2 = document.getElementById("bsp-st-2");
+      const st3 = document.getElementById("bsp-st-3");
+      const dur = scene.end - scene.start;
+      const b1 = scene.start + dur * 0.33;
+      const b2 = scene.start + dur * 0.66;
+
+      if (st1 && st2 && st3) {
+        st1.classList.toggle("is-active", t < b1);
+        st2.classList.toggle("is-active", t >= b1 && t < b2);
+        st3.classList.toggle("is-active", t >= b2);
+      }
+    } else if (type === "blueprint_overwhelm") {
+      const c1 = document.getElementById("bow-c1");
+      const c2 = document.getElementById("bow-c2");
+      const c3 = document.getElementById("bow-c3");
+      const c4 = document.getElementById("bow-c4");
+      const convergeP = easeInOutCubic(progress);
+      const wobble = Math.sin(t * 8) * 6;
+
+      if (c1) c1.style.transform = `translate(${convergeP * 80 + wobble}px, ${convergeP * 80}px)`;
+      if (c2) c2.style.transform = `translate(${-convergeP * 80 + wobble}px, ${convergeP * 80}px)`;
+      if (c3) c3.style.transform = `translate(${convergeP * 80 + wobble}px, ${-convergeP * 80}px)`;
+      if (c4) c4.style.transform = `translate(${-convergeP * 80 + wobble}px, ${-convergeP * 80}px)`;
+    }
   }
 
   function animateComponent(type, data, progress, elapsed, t) {

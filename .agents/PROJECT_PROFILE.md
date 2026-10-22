@@ -22,15 +22,32 @@
 - **Frameworks**: Vanilla JS (Zero React, Zero node_modules, Zero Remotion)
 - **Rendering Engine**: Playwright Headless (Chromium) piped into static FFmpeg (`libx264`, `yuv420p`)
 - **Audio Engine**: FFmpeg broadcast filters (`loudnorm`, `afftdn`, `acompressor`), `faster-whisper` (modèle `small`), banques de bruitages réels CC0 normalisées 44.1kHz mono dans `assets/sfx/`
-- **Testing**: Deterministic playback testing via `window.setTime(t)`, audio verification via `ffprobe`
+- **Testing**: Deterministic playback testing via `window.setTime(t)`, audio verification via `ffprobe`, suite complète `test_preflight_and_ratchet.py`
 
 ## 2. Resource Affinity (Auto-Routed)
-- **Core Video Skills**:
+- **Direction Artistique & Production Vidéo**:
+  - `hypit`: Direction artistique, déconstruction de vidéos de référence virales, découpage SVML, ancrage sémantique mot-à-mot, A/B testing de hooks.
+  - `watch`: Téléchargement et inspection vidéo via yt-dlp, extraction d'images par ffmpeg et transcription WhisperX.
   - `short-form-video`: Règles de rétention, pacing, hooks 0–3s, pattern interrupts toutes les 2.5s, safe-zones 9:16 (TikTok / Reels / Shorts).
   - `caption-animation`: Découpage et synchronisation des sous-titres mot-à-mot (clusters de 3–5 mots), surbrillance et contrastes Néo-brutalistes.
-  - `animate`: Philosophie d'animation rigoureuse (Emil Kowalski), courbes et timings stricts, physics spring overshoot, zéro approximation ni effets superflus.
+  - `animate`: Philosophie d'animation rigoureuse (Emil Kowalski), courbes et timings stricts, physics spring overshoot, zéro approximation.
   - `lower-thirds`: Badges de statut, tags d'avatar et tiers inférieurs positionnés sans collision visuelle.
   - `countdown-video`: Compteurs chiffrés, métriques dynamiques incrémentales et timers sans dérive temporelle.
+- **Acquisition & Distribution Sociale**:
+  - **Instagram & Reels Agent** (`ig-*`):
+    - `ig-reel`: Scripting Reels, hooks sur 26 formules, timing et beat sheet sans temps mort (`beats.py`, `hookscore.py`).
+    - `ig-caption`: Linter de légende Instagram, simulation de la boîte des 125 caractères avant clic, cap officiel des 5 hashtags (`caption.py`).
+    - `ig-human`: Nettoyage local du jargon IA et tics de langage Instagram (`humanize.py`, `detect.py`).
+    - `ig-viral`: Détection et classement des outliers viraux dans la niche (`swipe.py`).
+    - `ig-dm` & `ig-reply`: Funnel et automatisation de la conversion privée sur mot-clé CTA (« CLARTÉ », « DÉMO »).
+    - `ig-carousel`, `ig-story`, `ig-profile`, `ig-plan`, `ig-audit`.
+  - **LinkedIn Agent** (`li-*`):
+    - `li-post`: Rédaction de posts d'autorité sur 21 formules de hooks viraux.
+    - `li-dm`: Notes d'invitations chirurgicales (< 200 caractères) et 2 relances respectueuses.
+    - `li-comment`: Comment-marketing de haute valeur pour engager les cibles B2B avant démarchage.
+    - `li-profile`: Audit et optimisation du profil sur 100 points pour convertir les visiteurs.
+    - `li-human`, `li-reply`, `li-plan`, `li-carousel`, `li-repurpose`, `li-inbox`, `li-audit`.
+  - **Psychologie de Vente**: `marketing-psychology` (Foot-in-the-door, ancrage, réciprocité).
 - **UI & Engineering Skills**: `frontend-ui-engineering`, `antislop-ui`, `taste-skill`, `ui-ux-pro-max`, `frontend-a11y`
 - **Minimalisme & Efficience**: `ponytail` (Zéro framework lourd, solution la plus concise, standard library prioritaire)
 - **Backend & Audio Skills**: `python-patterns`, `python-testing`, `codebase-design`, `performance-optimization`
@@ -39,7 +56,7 @@
 ## 3. Local Constraints & Conventions
 - **Deterministic Rendering**: Toute animation doit être une fonction pure de `t` (en secondes) et `progress` [0, 1]. Jamais de `setInterval`, de `Date.now()` ou d'aléatoire non seedé dans `video.js`.
 - **Zéro dépendance lourde**: Pas de runtime externe, de player Lottie ni de node_modules dans le frontend.
-- **Respect des Safe Areas 9:16**: Respecter scrupuleusement les marges de sécurité TikTok/Reels/Shorts (HUD en top: 28px, sous-titres en top: 96px, avatar ancré au bord bas, badges décalés des icônes d'interaction droite).
+- **Respect des Safe Areas 9:16**: Respecter scrupuleusement les marges de sécurité TikTok/Reels/Shorts (marge basse 280-380px, marge droite 130px, haut 220px).
 - **Audio Studio First**: Toujours appliquer le filtrage studio avant le découpage des silences et l'alignement Whisper.
 - **Motion bar Emil Kowalski**: Ne jamais animer ce qui ne doit pas l'être. Si un élément s'anime, la courbe et la durée doivent avoir une justification physique ou narrative claire.
 - **AVAILABLE ≠ REQUIRED**: N'activer que le sous-ensemble minimal de compétences nécessaire à chaque étape.

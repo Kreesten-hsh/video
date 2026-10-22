@@ -97,6 +97,45 @@
   --safe-right: 130px;
   --safe-width: 900px;
   --safe-height: 1320px;
+
+  /* ==========================================================================
+     THEME PRESET TOKENS (Multi-Identités Studio & Clients)
+     ========================================================================== */
+  /* Preset: Claude (Warm Editorial / Anthracite / Terracotta / Crème) */
+  --theme-claude-bg: #1F1E1D;
+  --theme-claude-surface: #2B2A27;
+  --theme-claude-text: #FAF8F5;
+  --theme-claude-accent: #D97757;
+  --theme-claude-accent-glow: rgba(217, 119, 87, 0.25);
+  --theme-claude-border: #3D3B36;
+  --theme-claude-amber: #E09F3E;
+
+  /* Preset: Cobalt Grid (Dark Tech SaaS / Nuit / Cyan) */
+  --theme-cobalt-bg: #0B0F19;
+  --theme-cobalt-surface: #111827;
+  --theme-cobalt-text: #F9FAFB;
+  --theme-cobalt-accent: #3B82F6;
+  --theme-cobalt-accent-glow: rgba(59, 130, 246, 0.3);
+  --theme-cobalt-border: #1E293B;
+  --theme-cobalt-amber: #F59E0B;
+
+  /* Preset: Editorial Forest (B2B Consulting / Finance / Vert Forêt / Or) */
+  --theme-forest-bg: #081711;
+  --theme-forest-surface: #0E241B;
+  --theme-forest-text: #F7FBF9;
+  --theme-forest-accent: #10B981;
+  --theme-forest-accent-glow: rgba(16, 185, 129, 0.25);
+  --theme-forest-border: #1B382B;
+  --theme-forest-amber: #EAB308;
+
+  /* Preset: Bold Poster (Créateur / Jaune Biennale / Noir Pur) */
+  --theme-poster-bg: #FACC15;
+  --theme-poster-surface: #090D16;
+  --theme-poster-text: #090D16;
+  --theme-poster-accent: #000000;
+  --theme-poster-accent-glow: rgba(0, 0, 0, 0.2);
+  --theme-poster-border: #090D16;
+  --theme-poster-amber: #EA580C;
 }
 
 * {
@@ -158,7 +197,171 @@ html, body {
 
 
 /* ==========================================================================
-   ZONE SOUS-TITRES (TOP 220px - SAFE ZONE 9:16) - BOÎTE CYBER-MINT UNIQUE
+/* ==========================================================================
+   MULTI-THÈMES PRESETS (Zéro Hex Hors :root)
+   ========================================================================== */
+[data-theme="claude"] {
+  --bg-dark: var(--theme-claude-bg);
+  --bg-canvas: var(--theme-claude-bg);
+  --surface-card: var(--theme-claude-surface);
+  --text-primary: var(--theme-claude-text);
+  --mint: var(--theme-claude-accent);
+  --accent-primary: var(--theme-claude-accent);
+  --accent-primary-border: var(--theme-claude-accent);
+  --accent-primary-glow: var(--theme-claude-accent-glow);
+  --border-subtle: var(--theme-claude-border);
+  --slate-border: var(--theme-claude-border);
+  --amber: var(--theme-claude-amber);
+}
+
+[data-theme="cobalt-grid"] {
+  --bg-dark: var(--theme-cobalt-bg);
+  --bg-canvas: var(--theme-cobalt-bg);
+  --surface-card: var(--theme-cobalt-surface);
+  --text-primary: var(--theme-cobalt-text);
+  --mint: var(--theme-cobalt-accent);
+  --accent-primary: var(--theme-cobalt-accent);
+  --accent-primary-border: var(--theme-cobalt-accent);
+  --accent-primary-glow: var(--theme-cobalt-accent-glow);
+  --border-subtle: var(--theme-cobalt-border);
+  --slate-border: var(--theme-cobalt-border);
+  --amber: var(--theme-cobalt-amber);
+}
+
+[data-theme="editorial-forest"] {
+  --bg-dark: var(--theme-forest-bg);
+  --bg-canvas: var(--theme-forest-bg);
+  --surface-card: var(--theme-forest-surface);
+  --text-primary: var(--theme-forest-text);
+  --mint: var(--theme-forest-accent);
+  --accent-primary: var(--theme-forest-accent);
+  --accent-primary-border: var(--theme-forest-accent);
+  --accent-primary-glow: var(--theme-forest-accent-glow);
+  --border-subtle: var(--theme-forest-border);
+  --slate-border: var(--theme-forest-border);
+  --amber: var(--theme-forest-amber);
+}
+
+[data-theme="bold-poster"] {
+  --bg-dark: var(--theme-poster-bg);
+  --bg-canvas: var(--theme-poster-bg);
+  --surface-card: var(--theme-poster-surface);
+  --text-primary: var(--theme-poster-text);
+  --mint: var(--theme-poster-accent);
+  --accent-primary: var(--theme-poster-accent);
+  --accent-primary-border: var(--theme-poster-accent);
+  --accent-primary-glow: var(--theme-poster-accent-glow);
+  --border-subtle: var(--theme-poster-border);
+  --slate-border: var(--theme-poster-border);
+  --amber: var(--theme-poster-amber);
+}
+
+/* ==========================================================================
+   CAMÉRA VIRTUELLE & PROFONDEUR 3 PLANS
+   ========================================================================== */
+#camera-rig {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1080px;
+  height: 1920px;
+  transform-origin: center center;
+  will-change: transform;
+  pointer-events: none;
+  z-index: 10;
+}
+#camera-rig > * {
+  pointer-events: auto;
+}
+
+.layer-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1080px;
+  height: 1920px;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+  will-change: transform;
+}
+.ambient-glow {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-primary-glow) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.5;
+}
+.watermark-text {
+  position: absolute;
+  top: 48%;
+  left: -20%;
+  width: 140%;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 150px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: 0.035;
+  white-space: nowrap;
+  letter-spacing: 14px;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ==========================================================================
+   AVATAR GLOBAL CHORÉGRAPHIÉ (hero, inset, hidden)
+   ========================================================================== */
+#global-avatar-wrapper {
+  position: absolute;
+  z-index: 85;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+#global-avatar-wrapper.avatar-hero {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 1;
+}
+#global-avatar-wrapper.avatar-hero img {
+  height: 480px;
+  display: block;
+  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.8));
+}
+#global-avatar-wrapper.avatar-inset {
+  bottom: 120px;
+  left: 60px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 4px solid var(--mint);
+  background: var(--surface-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-brutal-sm), 0 0 25px var(--accent-primary-glow);
+  opacity: 1;
+}
+#global-avatar-wrapper.avatar-inset img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+#global-avatar-wrapper.avatar-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.6);
+}
+
+/* ==========================================================================
+   ZONE SOUS-TITRES MULTI-ZONES (CENTER_SLAM, DYNAMIC_BAND, SINGLE_LINE_TOP)
    ========================================================================== */
 #subtitles-zone {
   position: absolute;
@@ -172,6 +375,410 @@ html, body {
   padding: 0 60px;
   box-sizing: border-box;
   z-index: 25;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Mode 1 : CENTER_SLAM (Plein Centre Y: 50%, 88px, Slam In) */
+#subtitles-zone.mode-center-slam {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  height: auto !important;
+  padding: 0 40px !important;
+  z-index: 100 !important;
+}
+#subtitles-zone.mode-center-slam .sub-line {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  max-width: 1000px !important;
+}
+#subtitles-zone.mode-center-slam .sub-word {
+  font-size: 88px !important;
+  color: var(--text-primary) !important;
+  text-transform: uppercase !important;
+  text-shadow: 0 8px 30px rgba(0, 0, 0, 0.9) !important;
+  letter-spacing: -2px !important;
+  padding: 4px 14px !important;
+}
+#subtitles-zone.mode-center-slam .sub-word.active {
+  color: var(--mint) !important;
+  transform: scale(1.12) !important;
+  text-shadow: 0 0 40px var(--accent-primary-glow), 0 6px 15px rgba(0, 0, 0, 0.9) !important;
+  display: inline-block !important;
+}
+
+/* Mode 2 : DYNAMIC_BAND (Bande centrale-basse Y: 66%, 52px, Karaoké) */
+#subtitles-zone.mode-dynamic-band {
+  top: 66% !important;
+  transform: translateY(-50%) !important;
+  height: auto !important;
+  z-index: 100 !important;
+}
+#subtitles-zone.mode-dynamic-band .sub-line {
+  background: var(--surface-card) !important;
+  border: 3px solid var(--border-subtle) !important;
+  box-shadow: var(--shadow-brutal-sm) !important;
+  border-radius: 18px !important;
+  padding: 14px 28px !important;
+}
+#subtitles-zone.mode-dynamic-band .sub-word {
+  font-size: 50px !important;
+  color: var(--text-primary) !important;
+}
+#subtitles-zone.mode-dynamic-band .sub-word.active {
+  color: var(--mint) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 6px !important;
+}
+
+/* Mode 3 : SINGLE_LINE_TOP (Haut compact Y: 220px, 38px) */
+#subtitles-zone.mode-single-line-top {
+  top: var(--safe-top) !important;
+  transform: none !important;
+  height: 120px !important;
+  z-index: 50 !important;
+}
+#subtitles-zone.mode-single-line-top .sub-line {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+#subtitles-zone.mode-single-line-top .sub-word {
+  font-size: 38px !important;
+  color: var(--text-light-muted) !important;
+}
+#subtitles-zone.mode-single-line-top .sub-word.active {
+  color: var(--mint) !important;
+  font-weight: 800 !important;
+}
+
+/* Mode 4 : HIDDEN / UI_EMBEDDED */
+#subtitles-zone.mode-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* ==========================================================================
+   LES 6 BLUEPRINTS SIGNATURES DU STUDIO
+   ========================================================================== */
+/* Blueprint 1 : KINETIC TYPE */
+.blueprint-kinetic-type {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+.bkt-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--mint);
+  background: var(--surface-card);
+  padding: 8px 24px;
+  border-radius: 999px;
+  border: 2px solid var(--mint);
+  box-shadow: var(--shadow-brutal-sm);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.bkt-main-text {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 84px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: -2px;
+}
+.bkt-main-text .highlight {
+  color: var(--mint);
+  text-shadow: 0 0 30px var(--accent-primary-glow);
+}
+
+/* Blueprint 2 : CURSOR UI */
+.blueprint-cursor-ui {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 920px;
+  background: var(--surface-card);
+  border: 3px solid var(--border-subtle);
+  border-radius: 24px;
+  box-shadow: var(--shadow-brutal);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.bcui-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--border-subtle);
+  padding-bottom: 20px;
+}
+.bcui-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+.bcui-status {
+  font-size: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--mint);
+  background: var(--surface-hover);
+  padding: 6px 16px;
+  border-radius: 8px;
+}
+.bcui-actions {
+  display: flex;
+  gap: 20px;
+}
+.bcui-btn {
+  flex: 1;
+  padding: 24px;
+  border-radius: 16px;
+  font-size: 26px;
+  font-weight: 800;
+  text-align: center;
+  border: 3px solid var(--border-subtle);
+  background: var(--surface-elevated);
+  color: var(--text-primary);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+.bcui-btn.is-active {
+  border-color: var(--mint);
+  background: var(--surface-hover);
+  color: var(--mint);
+  box-shadow: 0 0 25px var(--accent-primary-glow);
+}
+.bcui-cursor {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  z-index: 120;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6));
+  transition: transform 0.05s linear;
+}
+.cursor-click-ripple {
+  position: absolute;
+  border-radius: 50%;
+  border: 3px solid var(--mint);
+  transform: scale(0);
+  opacity: 1;
+  pointer-events: none;
+  width: 60px;
+  height: 60px;
+  margin-top: -30px;
+  margin-left: -30px;
+}
+
+/* Blueprint 3 : TERMINAL SCENE */
+.blueprint-terminal-scene {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 940px;
+  background: var(--bg-carbon);
+  border: 3px solid var(--slate-border);
+  border-radius: 20px;
+  box-shadow: var(--shadow-brutal);
+  overflow: hidden;
+  font-family: 'JetBrains Mono', monospace;
+}
+.bts-titlebar {
+  background: var(--surface-elevated);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 2px solid var(--slate-border);
+}
+.bts-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+.bts-dot-close { background: var(--window-dot-close); }
+.bts-dot-min { background: var(--window-dot-min); }
+.bts-dot-max { background: var(--window-dot-max); }
+.bts-title {
+  margin-left: auto;
+  font-size: 18px;
+  color: var(--text-muted);
+}
+.bts-body {
+  padding: 32px;
+  min-height: 440px;
+  font-size: 28px;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+.bts-prompt {
+  color: var(--mint);
+  margin-right: 12px;
+}
+.bts-cursor-block {
+  display: inline-block;
+  width: 14px;
+  height: 28px;
+  background: var(--mint);
+  vertical-align: middle;
+  margin-left: 4px;
+}
+.bts-output {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--slate-border);
+  color: var(--text-light-muted);
+}
+.bts-output-success {
+  color: var(--mint);
+  font-weight: 800;
+}
+
+/* Blueprint 4 : COMPARE SPLIT */
+.blueprint-compare-split {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 940px;
+  display: flex;
+  gap: 28px;
+}
+.bcs-card {
+  flex: 1;
+  background: var(--surface-card);
+  border-radius: 20px;
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  box-shadow: var(--shadow-brutal-sm);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bcs-card-avant {
+  border: 3px solid var(--amber);
+}
+.bcs-card-apres {
+  border: 3px solid var(--mint);
+  box-shadow: 0 0 30px var(--accent-primary-glow);
+}
+.bcs-badge {
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 800;
+  padding: 6px 16px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  width: fit-content;
+}
+.bcs-badge-avant {
+  background: var(--alert-dark);
+  color: var(--amber);
+  border: 1px solid var(--amber);
+}
+.bcs-badge-apres {
+  background: var(--mint-deep);
+  color: var(--mint);
+  border: 1px solid var(--mint);
+}
+.bcs-card-title {
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+.bcs-card-desc {
+  font-size: 24px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Blueprint 5 : SPATIAL PAN (3 Stations) */
+.blueprint-spatial-pan {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2600px;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 100px;
+}
+.bsp-station {
+  width: 650px;
+  background: var(--surface-card);
+  border: 3px solid var(--border-subtle);
+  border-radius: 24px;
+  box-shadow: var(--shadow-brutal);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.bsp-station.is-active {
+  border-color: var(--mint);
+  box-shadow: 0 0 35px var(--accent-primary-glow);
+}
+.bsp-connector {
+  font-size: 60px;
+  color: var(--mint);
+  opacity: 0.6;
+}
+
+/* Blueprint 6 : OVERWHELM SURROUND */
+.blueprint-overwhelm {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 920px;
+  height: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.bow-center {
+  position: absolute;
+  z-index: 10;
+  text-align: center;
+}
+.bow-avatar {
+  height: 380px;
+  display: block;
+}
+.bow-fly-card {
+  position: absolute;
+  background: var(--surface-card);
+  border: 3px solid var(--amber);
+  border-radius: 16px;
+  padding: 18px 24px;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text-primary);
+  box-shadow: var(--shadow-brutal-sm);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 #subtitles-container {
