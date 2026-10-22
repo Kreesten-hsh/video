@@ -215,12 +215,11 @@
   ],
   "scene_end_words": [
     "vidéo.",
+    "méthodes.",
     "abandonnes.",
     "secondes.",
     "texte.",
     "l'écran.",
-    "identité.",
-    "financier",
     "percutant.",
     "Shorts.",
     "privés."
@@ -239,278 +238,198 @@
   "scenes": [
     {
       "id": "scene_01",
-      "title": "Hook Choc LinkedIn",
+      "title": "Hook Kinetic Slam",
       "start": 0.0,
-      "end": 4.86,
+      "end": 4.42,
       "type": "blueprint_kinetic_type",
       "caption_mode": "center_slam",
       "switch_theme": "default",
       "avatar_mode": "hidden",
       "camera": {
-        "initial": {
-          "zoom": 1.22,
-          "panX": 0,
-          "panY": 0
-        },
-        "target": {
-          "zoom": 1.0,
-          "panX": 0,
-          "panY": 0
-        },
-        "easing": "easeOutExpo",
-        "duration": 0.6
+        "keyframes": [
+          { "at": 0.0, "zoom": 1.15, "panX": 0, "panY": 0 },
+          { "at": 0.6, "zoom": 1.0, "panX": 0, "panY": 0 },
+          { "at": 3.2, "zoom": 1.12, "panX": 0, "panY": 0 }
+        ]
       },
       "data": {
-        "tag": "AUDIT LINKEDIN B2B",
-        "text": "Tu publies quatre posts écrits par semaine sur LinkedIn mais tu as toujours zéro vidéo",
-        "highlight": "zéro vidéo"
+        "tag": "[ DIAGNOSTIC LINKEDIN B2B ]",
+        "text": ""
       }
     },
     {
-      "id": "scene_02",
-      "title": "Corvée Tournage & Friction",
-      "start": 4.86,
-      "end": 13.96,
+      "id": "scene_02a",
+      "title": "Tes 3 Actifs Prêts",
+      "start": 4.42,
+      "end": 7.86,
+      "type": "list",
+      "caption_mode": "single_line_top",
+      "switch_theme": "default",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": { "zoom": 1.05, "panX": 0, "panY": 0 }
+      },
+      "data": {
+        "header": "TES 3 ACTIFS DÉJÀ PRÊTS",
+        "items": [
+          "TON EXPERTISE MÉTIER",
+          "TES CAS CLIENTS PROUVÉS",
+          "TES MÉTHODES ÉCRITES"
+        ],
+        "beats": [5.58, 6.78, 7.50]
+      }
+    },
+    {
+      "id": "scene_02b",
+      "title": "Le Mur du Tournage Manuel",
+      "start": 7.86,
+      "end": 13.54,
       "type": "blueprint_overwhelm",
       "caption_mode": "single_line_top",
       "switch_theme": "default",
       "avatar_mode": "hidden",
       "camera": {
-        "target": {
-          "zoom": 1.12,
-          "panX": 0,
-          "panY": 15
-        }
+        "target": { "zoom": 1.08, "panX": 0, "panY": 15 }
       },
       "data": {
+        "title": "LE MUR DU TOURNAGE MANUEL",
+        "avatar": "assets/avatars/facepalm.png",
         "cards": [
-          "Caméra 4K",
-          "Lumière & Décor",
-          "Retakes & Hésitations",
-          "4h de Montage"
+          "Allumer la Caméra",
+          "Régler la Lumière",
+          "4h de Montage",
+          "Abandon du Post"
         ],
-        "avatar": "assets/avatars/facepalm.png"
+        "beats": [9.84, 10.88, 11.78, 13.06]
       }
     },
     {
       "id": "scene_03",
-      "title": "Refus des Clones IA Génériques",
-      "start": 13.96,
-      "end": 22.06,
+      "title": "Rejet des Clones IA Génériques",
+      "start": 13.54,
+      "end": 21.66,
       "type": "blueprint_compare_split",
-      "caption_mode": "dynamic_band",
+      "caption_mode": "single_line_top",
       "switch_theme": "default",
-      "avatar_mode": "inset",
+      "avatar_mode": "hidden",
       "camera": {
         "keyframes": [
-          {
-            "at": 11.2,
-            "zoom": 1.0,
-            "panX": -35,
-            "panY": 0
-          },
-          {
-            "at": 15.2,
-            "zoom": 1.04,
-            "panX": 35,
-            "panY": 0
-          }
+          { "at": 13.54, "zoom": 1.02, "panX": -25, "panY": 0 },
+          { "at": 17.5, "zoom": 1.06, "panX": 25, "panY": 0 }
         ]
       },
       "data": {
-        "title_left": "CLONES IA GÉNÉRIQUES",
-        "desc_left": "Avatar robotique rigide, voix métallique et modèle cloné partagé par tout le monde",
-        "title_right": "STUDIO SUR-MESURE AGENT404",
-        "desc_right": "Direction artistique humaine, motion design haute précision et 100% aligné sur ta charte",
-        "reveal_at": 15.2,
-        "avatar": "assets/avatars/skeptic.png"
+        "badge_avant": "❌ CLONE IA GÉNÉRIQUE",
+        "title_avant": "Visage Robotique",
+        "desc_avant": "Même template que tout le monde = Crédibilité détruite en 3s",
+        "badge_apres": "✓ STUDIO SUR-MESURE",
+        "title_apres": "Direction Artistique B2B",
+        "desc_apres": "Ton identité visuelle codée au centième de seconde",
+        "reveal_at": 17.5
       }
     },
     {
       "id": "scene_04",
-      "title": "Pivot Narratif - Le Vrai Blocage",
-      "start": 22.06,
-      "end": 27.4,
+      "title": "Le Vrai Blocage",
+      "start": 21.66,
+      "end": 27.14,
       "type": "blueprint_kinetic_type",
       "caption_mode": "center_slam",
       "switch_theme": "default",
       "avatar_mode": "hero",
       "camera": {
-        "initial": {
-          "zoom": 1.35,
-          "panX": 0,
-          "panY": 0
-        },
-        "target": {
-          "zoom": 1.0,
-          "panX": 0,
-          "panY": 0
-        },
+        "initial": { "zoom": 1.25, "panX": 0, "panY": 0 },
+        "target": { "zoom": 1.0, "panX": 0, "panY": 0 },
         "easing": "easeOutExpo",
         "duration": 0.55
       },
       "data": {
-        "tag": "LE VRAI BLOCAGE",
-        "text": "TES MEILLEURS ARGUMENTS RESTENT ENFERMÉS DANS DU TEXTE",
-        "highlight": "ENFERMÉS",
+        "tag": "[ LE VRAI BLOCAGE ]",
+        "text": "",
         "avatar": "assets/avatars/stop.png"
       }
     },
     {
       "id": "scene_05",
-      "title": "Workflow 3 Stations Agnostique",
-      "start": 27.4,
-      "end": 41.72,
+      "title": "Workflow 3 Étapes Synchronisées",
+      "start": 27.14,
+      "end": 41.36,
       "type": "blueprint_spatial_pan",
       "caption_mode": "single_line_top",
       "switch_theme": "default",
-      "avatar_mode": "inset",
+      "avatar_mode": "hidden",
       "camera": {
         "keyframes": [
-          {
-            "at": 27.4,
-            "zoom": 1.04,
-            "panX": 0,
-            "panY": 0
-          },
-          {
-            "at": 33.68,
-            "zoom": 1.06,
-            "panX": -260,
-            "panY": 0
-          },
-          {
-            "at": 37.84,
-            "zoom": 1.08,
-            "panX": -540,
-            "panY": 0
-          }
+          { "at": 27.14, "zoom": 1.05, "panX": 0, "panY": 120 },
+          { "at": 33.68, "zoom": 1.05, "panX": 0, "panY": 0 },
+          { "at": 37.84, "zoom": 1.05, "panX": 0, "panY": -120 }
         ]
       },
       "data": {
-        "avatar": "assets/avatars/mic.png"
+        "stations": [
+          { "title": "1. Note Vocale 2 min ou Post Écrit", "desc": "Tu envoies ta matière brute sans tourner" },
+          { "title": "2. Extraction & Structure Rythmique", "desc": "Découpage chirurgical calé sur ta voix" },
+          { "title": "3. Preuve Visuelle Mot-à-Mot", "desc": "Chaque argument déclenche son animation" }
+        ],
+        "beats": [29.0, 33.68, 37.84]
       }
     },
     {
-      "id": "scene_06a",
-      "title": "Charte Sur-Mesure Éditorial",
-      "start": 41.72,
-      "end": 46.84,
+      "id": "scene_06",
+      "title": "L'Effet Caméléon - 4 Chartes en Direct",
+      "start": 41.36,
+      "end": 50.80,
       "type": "blueprint_cursor_ui",
-      "caption_mode": "dynamic_band",
+      "caption_mode": "single_line_top",
       "switch_theme": "claude",
-      "avatar_mode": "inset",
+      "avatar_mode": "hidden",
       "camera": {
-        "target": {
-          "zoom": 1.08,
-          "panX": 25,
-          "panY": 0
-        }
+        "target": { "zoom": 1.04, "panX": 0, "panY": 0 }
       },
       "data": {
-        "title": "Direction Artistique Personnalisée",
-        "status_initial": "Charte Client Active",
-        "btn_left": "Éditorial Chaud",
-        "btn_right": "Appliquer Charte",
-        "click_at": 44.0,
-        "status_active": "Charte Terracotta Validée",
-        "avatar": "assets/avatars/laptop.png"
-      }
-    },
-    {
-      "id": "scene_06b",
-      "title": "Switch Chartes Tech & Conseil",
-      "start": 46.84,
-      "end": 49.62,
-      "type": "blueprint_cursor_ui",
-      "caption_mode": "dynamic_band",
-      "switch_theme": "cobalt-grid",
-      "avatar_mode": "inset",
-      "camera": {
-        "target": {
-          "zoom": 1.0,
-          "panX": 0,
-          "panY": 0
-        }
-      },
-      "data": {
-        "title": "Adaptation Dynamique de Marque",
-        "status_initial": "Palette Tech & Finance",
-        "btn_left": "Tech Sombre",
-        "btn_right": "Conseil Vert",
-        "click_at": 48.0,
-        "status_active": "Palette Verte Active",
-        "avatar": "assets/avatars/happy.png"
-      }
-    },
-    {
-      "id": "scene_06c",
-      "title": "Switch Bold Poster",
-      "start": 49.62,
-      "end": 51.1,
-      "type": "blueprint_cursor_ui",
-      "caption_mode": "dynamic_band",
-      "switch_theme": "bold-poster",
-      "avatar_mode": "inset",
-      "camera": {
-        "target": {
-          "zoom": 1.0,
-          "panX": 0,
-          "panY": 0
-        }
-      },
-      "data": {
-        "title": "Identité Créateur Haute Énergie",
-        "status_initial": "Impact Maximal",
-        "btn_left": "Standard",
-        "btn_right": "Bold Poster",
-        "click_at": 50.2,
-        "status_active": "Mode Poster Validé",
-        "avatar": "assets/avatars/happy.png"
+        "title": "EFFET CAMÉLÉON : 4 CHARTES",
+        "theme_beats": [47.0, 48.0, 49.0, 50.1]
       }
     },
     {
       "id": "scene_07",
-      "title": "Terminal Export 4 Canaux",
-      "start": 51.1,
-      "end": 57.68,
-      "type": "blueprint_terminal_scene",
+      "title": "1 Idée = 4 Plateformes en 48h",
+      "start": 50.80,
+      "end": 57.24,
+      "type": "blueprint_delivery_grid",
       "caption_mode": "single_line_top",
-      "switch_theme": "default",
-      "avatar_mode": "inset",
+      "switch_theme": "cyber-mint",
+      "avatar_mode": "hidden",
       "camera": {
-        "target": {
-          "zoom": 1.06,
-          "panX": 0,
-          "panY": 10
-        }
+        "target": { "zoom": 1.05, "panX": 0, "panY": 0 }
       },
       "data": {
-        "command": "agent404 export --dest=linkedin,tiktok,reels,shorts --safe-zones",
-        "execute_at": 53.5,
-        "output_text": "✓ EXPORT 4 CANAUX TERMINÉ (48H LIVRAISON GARANTIE)",
-        "avatar": "assets/avatars/prof.png"
+        "header": "LIVRAISON 48H : 1 VIDÉO = 4 RÉSEAUX",
+        "channels": [
+          "01. LINKEDIN B2B",
+          "02. TIKTOK",
+          "03. INSTAGRAM REELS",
+          "04. YOUTUBE SHORTS"
+        ],
+        "beats": [55.04, 55.82, 56.46, 56.90]
       }
     },
     {
       "id": "scene_08",
-      "title": "CTA Final CLARTÉ",
-      "start": 57.68,
+      "title": "CTA Final Clarté",
+      "start": 57.24,
       "end": 62.746,
       "type": "face_to_dm_cta",
       "caption_mode": "single_line_top",
       "switch_theme": "default",
       "avatar_mode": "hidden",
       "camera": {
-        "target": {
-          "zoom": 1.0,
-          "panX": 0,
-          "panY": 0
-        }
+        "target": { "zoom": 1.0, "panX": 0, "panY": 0 }
       },
       "data": {
         "keyword": "CLARTÉ",
-        "hero_title": "TRANSFORME UN POST EN <span class=\"highlight\">VIDÉO</span>",
+        "hero_title": "TON POST ÉCRIT EN VIDÉO",
+        "highlight_word": "VIDÉO",
         "instruction_label": "ENVOIE CE MOT-CLÉ EN MESSAGE PRIVÉ :",
         "button_label": "[ ENVOYER « CLARTÉ » EN MESSAGE PRIVÉ ↗ ]",
         "cta_at": 59.5,

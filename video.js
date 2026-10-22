@@ -184,17 +184,10 @@
     const img = document.getElementById("global-avatar-img");
     if (!wrapper || !img) return;
 
-    // Forcer le masquage de l'avatar global si la scène intègre déjà son propre avatar
+    // L'avatar n'apparaît que s'il est explicitement 'hero' (ou face sans masquage)
     const isSelfContainedAvatar = (scene.type === "blueprint_overwhelm" || scene.type === "face_to_dm_cta");
-
     const mode = isSelfContainedAvatar ? "hidden" : (
-      scene.avatar_mode || (
-        scene.type === "face" ? "hero" : (
-          scene.caption_mode === "center_slam" ? "hidden" : (
-            scene.data && scene.data.avatar ? "inset" : "hidden"
-          )
-        )
-      )
+      scene.avatar_mode === "hero" || (scene.type === "face" && scene.avatar_mode !== "hidden") ? "hero" : "hidden"
     );
 
     wrapper.className = "avatar-" + mode;
@@ -298,6 +291,14 @@
         el.classList.remove("active");
       }
     });
+
+    if (mode === "center_slam") {
+      const chunkElapsed = Math.max(0, t - chunk.start);
+      const slamSpring = calcSpringOvershoot(chunkElapsed);
+      subtitlesBox.style.transform = `scale(${slamSpring.scale})`;
+    } else {
+      subtitlesBox.style.transform = "";
+    }
   }
 
   function updateScenes(t) {
@@ -367,25 +368,33 @@
           <div class="blueprint-kinetic-type ${isCenterSlam ? "has-center-slam" : ""}" id="blueprint-kinetic-type">
             ${data.tag ? `<div class="bkt-tag">${data.tag}</div>` : ""}
             ${!isCenterSlam ? `<div class="bkt-main-text">${textHtml}</div>` : ""}
+            ${data.impact_number ? `<div class="bkt-impact-number">${data.impact_number}</div>` : ""}
           </div>
         `;
 
       case "blueprint_cursor_ui":
-        const btnLeft = data.btn_left || "Option A";
-        const btnRight = data.btn_right || "Option B";
+        const themes = data.themes || [
+          { name: "01. Éditorial Chaud", id: "claude" },
+          { name: "02. Tech Sombre", id: "cobalt-grid" },
+          { name: "03. Conseil Financier", id: "editorial-forest" },
+          { name: "04. Créateur Percutant", id: "bold-poster" }
+        ];
         return `
           <div class="blueprint-cursor-ui" id="blueprint-cursor-ui">
             <div class="bcui-header">
-              <div class="bcui-title">${data.title || "Interface Système"}</div>
-              <div class="bcui-status" id="bcui-status">${data.status_initial || "En attente"}</div>
+              <div class="bcui-title">${data.title || "EFFET CAMÉLÉON : 4 CHARTES"}</div>
+              <div class="bcui-status" id="bcui-status">${data.status_initial || "SUR-MESURE B2B"}</div>
             </div>
             <div class="bcui-preview" id="bcui-preview">
-              <div class="bcui-preview-badge">DIRECTION ARTISTIQUE</div>
-              <div class="bcui-preview-title">${data.preview_title || "SYSTÈME SUR-MESURE B2B"}</div>
+              <div class="bcui-preview-badge">DIRECTION ARTISTIQUE ACTIVE</div>
+              <div class="bcui-preview-title" id="bcui-preview-title">${data.preview_title || "01. ÉDITORIAL CHAUD"}</div>
             </div>
-            <div class="bcui-actions">
-              <div class="bcui-btn" id="bcui-btn-left">${btnLeft}</div>
-              <div class="bcui-btn" id="bcui-btn-right">${btnRight}</div>
+            <div class="bcui-actions-grid" id="bcui-actions-grid">
+              ${themes.map((th, idx) => `
+                <div class="bcui-btn ${idx === 0 ? 'is-active' : ''}" id="bcui-btn-${idx}">
+                  ${th.name}
+                </div>
+              `).join("")}
             </div>
             <svg class="bcui-cursor" id="bcui-cursor" viewBox="0 0 24 24" fill="none">
               <path d="M5.5 3.2L18.8 12.4C19.7 13 19.3 14.5 18.2 14.6L12.5 15.1L9.6 20.3C9.1 21.2 7.7 21 7.5 19.9L5.5 3.2Z" fill="var(--mint)" stroke="var(--bg-carbon)" stroke-width="2"/>
@@ -414,59 +423,91 @@
         return `
           <div class="blueprint-compare-split" id="blueprint-compare-split">
             <div class="bcs-card bcs-card-avant" id="bcs-card-avant">
-              <div class="bcs-badge bcs-badge-avant">${data.badge_avant || "Erreur"}</div>
-              <div class="bcs-card-title">${data.title_avant || "Process Manuel"}</div>
-              <div class="bcs-card-desc">${data.desc_avant || "15h perdues par semaine"}</div>
+              <div class="bcs-badge bcs-badge-avant">${data.badge_avant || "❌ CLONE IA GÉNÉRIQUE"}</div>
+              <div class="bcs-card-title">${data.title_avant || "Visage Robotique"}</div>
+              <div class="bcs-card-desc">${data.desc_avant || "Même template que tout le monde = Crédibilité détruite en 3s"}</div>
             </div>
             <div class="bcs-card bcs-card-apres" id="bcs-card-apres">
-              <div class="bcs-badge bcs-badge-apres">${data.badge_apres || "Solution"}</div>
-              <div class="bcs-card-title">${data.title_apres || "Système Automatisé"}</div>
-              <div class="bcs-card-desc">${data.desc_apres || "60s chrono de production"}</div>
+              <div class="bcs-badge bcs-badge-apres">${data.badge_apres || "✓ STUDIO SUR-MESURE"}</div>
+              <div class="bcs-card-title">${data.title_apres || "Direction Artistique B2B"}</div>
+              <div class="bcs-card-desc">${data.desc_apres || "Ton identité visuelle codée au centième de seconde"}</div>
             </div>
           </div>
         `;
 
       case "blueprint_spatial_pan":
-        const s1 = data.stations && data.stations[0] ? data.stations[0] : { title: "Station 1", desc: "Input" };
-        const s2 = data.stations && data.stations[1] ? data.stations[1] : { title: "Station 2", desc: "Traitement" };
-        const s3 = data.stations && data.stations[2] ? data.stations[2] : { title: "Station 3", desc: "Livraison" };
+        const stations = data.stations || [
+          { title: "1. Note Vocale 2 min ou Post Écrit", desc: "Tu envoies ta matière brute sans tourner" },
+          { title: "2. Extraction & Structure Rythmique", desc: "Découpage chirurgical calé sur ta voix" },
+          { title: "3. Preuve Visuelle Mot-à-Mot", desc: "Chaque argument déclenche son animation" }
+        ];
+        const s1 = stations[0] || { title: "Étape 1", desc: "" };
+        const s2 = stations[1] || { title: "Étape 2", desc: "" };
+        const s3 = stations[2] || { title: "Étape 3", desc: "" };
         return `
           <div class="blueprint-spatial-pan" id="blueprint-spatial-pan">
-            <div class="bsp-station" id="bsp-st-1">
+            <div class="bsp-station is-active" id="bsp-st-1">
               <div class="bcs-badge bcs-badge-avant">Étape 01</div>
-              <div class="bcs-card-title">${s1.title}</div>
-              <div class="bcs-card-desc">${s1.desc}</div>
+              <div class="bsp-content" style="display: flex; flex-direction: column; gap: 6px; flex: 1; margin-left: 24px;">
+                <div class="bcs-card-title">${s1.title}</div>
+                <div class="bcs-card-desc">${s1.desc}</div>
+              </div>
             </div>
-            <div class="bsp-connector">➔</div>
+            <div class="bsp-connector">↓</div>
             <div class="bsp-station" id="bsp-st-2">
               <div class="bcs-badge bcs-badge-apres">Étape 02</div>
-              <div class="bcs-card-title">${s2.title}</div>
-              <div class="bcs-card-desc">${s2.desc}</div>
+              <div class="bsp-content" style="display: flex; flex-direction: column; gap: 6px; flex: 1; margin-left: 24px;">
+                <div class="bcs-card-title">${s2.title}</div>
+                <div class="bcs-card-desc">${s2.desc}</div>
+              </div>
             </div>
-            <div class="bsp-connector">➔</div>
+            <div class="bsp-connector">↓</div>
             <div class="bsp-station" id="bsp-st-3">
               <div class="bcs-badge bcs-badge-apres">Étape 03</div>
-              <div class="bcs-card-title">${s3.title}</div>
-              <div class="bcs-card-desc">${s3.desc}</div>
+              <div class="bsp-content" style="display: flex; flex-direction: column; gap: 6px; flex: 1; margin-left: 24px;">
+                <div class="bcs-card-title">${s3.title}</div>
+                <div class="bcs-card-desc">${s3.desc}</div>
+              </div>
             </div>
           </div>
         `;
 
       case "blueprint_overwhelm":
-        const c1 = data.cards && data.cards[0] ? data.cards[0] : "Loom 12 min";
-        const c2 = data.cards && data.cards[1] ? data.cards[1] : "Silence 4s";
-        const c3 = data.cards && data.cards[2] ? data.cards[2] : "Voix fatiguée";
-        const c4 = data.cards && data.cards[3] ? data.cards[3] : "Décrochage";
+        const cards = data.cards || ["Allumer la Caméra", "Régler la Lumière", "4h de Montage", "Abandon du Post"];
+        const avatarSrc = data.avatar || "assets/avatars/facepalm.png";
         return `
           <div class="blueprint-overwhelm" id="blueprint-overwhelm">
-            <div class="bow-title">${data.title || "SURCHARGE DE TOURNAGE"}</div>
-            <div class="bow-center">
-              <img src="${data.avatar || 'assets/avatars/facepalm.png'}" alt="Avatar" class="bow-avatar" />
+            ${data.title ? `<div class="bow-title">${data.title}</div>` : ""}
+            <div class="bow-grid">
+              ${cards.map((c, idx) => `
+                <div class="bow-badge" id="bow-badge-${idx}">
+                  ${c}
+                </div>
+              `).join("")}
             </div>
-            <div class="bow-fly-card" id="bow-c1" style="top: 100px; left: 60px;">⚠️ ${c1}</div>
-            <div class="bow-fly-card" id="bow-c2" style="top: 120px; right: 60px;">🔇 ${c2}</div>
-            <div class="bow-fly-card" id="bow-c3" style="bottom: 120px; left: 80px;">🥱 ${c3}</div>
-            <div class="bow-fly-card" id="bow-c4" style="bottom: 100px; right: 80px;">❌ ${c4}</div>
+            <div class="bow-avatar-box">
+              <img src="${avatarSrc}" alt="Avatar" class="bow-avatar" id="bow-avatar" />
+            </div>
+          </div>
+        `;
+
+      case "blueprint_delivery_grid":
+        const deliveryChannels = data.channels || [
+          "01. LINKEDIN B2B",
+          "02. TIKTOK",
+          "03. INSTAGRAM REELS",
+          "04. YOUTUBE SHORTS"
+        ];
+        return `
+          <div class="blueprint-delivery-grid" id="blueprint-delivery-grid">
+            <div class="bdg-header">${data.header || "LIVRAISON 48H : 1 VIDÉO = 4 RÉSEAUX"}</div>
+            <div class="bdg-grid">
+              ${deliveryChannels.map((ch, idx) => `
+                <div class="bdg-card" id="bdg-card-${idx}">
+                  ${ch}
+                </div>
+              `).join("")}
+            </div>
           </div>
         `;
 
@@ -1439,31 +1480,68 @@
       }
     } else if (type === "blueprint_cursor_ui") {
       const cursor = document.getElementById("bcui-cursor");
-      const btnRight = document.getElementById("bcui-btn-right");
-      const statusEl = document.getElementById("bcui-status");
+      const previewTitleEl = document.getElementById("bcui-preview-title");
       const ripple = document.getElementById("bcui-ripple");
       const clickAt = (data && data.click_at) || (scene.start + 1.2);
+      const themeBeats = (data && data.theme_beats) || (data && data.beats) || [
+        clickAt,
+        scene.start + 2.4,
+        scene.start + 3.6,
+        scene.start + 4.8
+      ];
+      const themeList = [
+        { id: "claude", name: "01. ÉDITORIAL CHAUD", cx: 220, cy: 460 },
+        { id: "cobalt-grid", name: "02. TECH SOMBRE", cx: 640, cy: 460 },
+        { id: "editorial-forest", name: "03. CONSEIL FINANCIER", cx: 220, cy: 535 },
+        { id: "bold-poster", name: "04. CRÉATEUR PERCUTANT", cx: 640, cy: 535 }
+      ];
 
-      if (cursor && btnRight) {
-        const pMove = Math.min(1, Math.max(0, (t - scene.start) / Math.max(0.001, clickAt - scene.start)));
-        const easedMove = easeInOutCubic(pMove);
-        const curX = 100 + (620 - 100) * easedMove;
-        const curY = 400 + (220 - 400) * easedMove;
+      let activeThemeIdx = 0;
+      for (let i = 0; i < themeBeats.length; i++) {
+        if (t >= themeBeats[i]) {
+          activeThemeIdx = i;
+        }
+      }
+
+      const currentTarget = themeList[activeThemeIdx];
+      const prevTarget = activeThemeIdx > 0 ? themeList[activeThemeIdx - 1] : { cx: 120, cy: 300 };
+      const currentBeatT = themeBeats[activeThemeIdx];
+      const moveDuration = 0.45;
+      const moveP = Math.min(1, Math.max(0, (t - (currentBeatT - moveDuration)) / moveDuration));
+      const easedMove = easeInOutCubic(moveP);
+
+      const curX = prevTarget.cx + (currentTarget.cx - prevTarget.cx) * easedMove;
+      const curY = prevTarget.cy + (currentTarget.cy - prevTarget.cy) * easedMove;
+
+      if (cursor) {
         cursor.style.transform = `translate(${curX}px, ${curY}px)`;
+      }
 
-        if (t >= clickAt) {
-          btnRight.classList.add("is-active");
-          if (statusEl && data.status_active) {
-            statusEl.textContent = data.status_active;
-          }
-          if (ripple) {
-            const ripP = Math.min(1, (t - clickAt) / 0.4);
-            ripple.style.transform = `translate(${curX}px, ${curY}px) scale(${ripP * 2.5})`;
-            ripple.style.opacity = String(1.0 - ripP);
-          }
+      for (let i = 0; i < 4; i++) {
+        const btn = document.getElementById(`bcui-btn-${i}`);
+        if (btn) {
+          btn.classList.toggle("is-active", i === activeThemeIdx);
+        }
+      }
+
+      if (previewTitleEl) {
+        previewTitleEl.textContent = currentTarget.name;
+      }
+
+      // Application dynamique immédiate du thème sur DOM et canvas
+      const activeThemeId = currentTarget.id;
+      document.documentElement.setAttribute("data-theme", activeThemeId);
+      if (canvas) canvas.setAttribute("data-theme", activeThemeId);
+
+      // Ripple d'impact au clic
+      if (ripple) {
+        const rippleElapsed = t - currentBeatT;
+        if (rippleElapsed >= 0 && rippleElapsed <= 0.45) {
+          const ripP = rippleElapsed / 0.45;
+          ripple.style.transform = `translate(${currentTarget.cx}px, ${currentTarget.cy}px) scale(${ripP * 2.8})`;
+          ripple.style.opacity = String(1.0 - ripP);
         } else {
-          btnRight.classList.remove("is-active");
-          if (ripple) ripple.style.opacity = "0";
+          ripple.style.opacity = "0";
         }
       }
     } else if (type === "blueprint_terminal_scene") {
@@ -1512,9 +1590,14 @@
       const st1 = document.getElementById("bsp-st-1");
       const st2 = document.getElementById("bsp-st-2");
       const st3 = document.getElementById("bsp-st-3");
-      const dur = scene.end - scene.start;
-      const b1 = scene.start + dur * 0.33;
-      const b2 = scene.start + dur * 0.66;
+      const beats = (data && data.beats) || [
+        scene.start + (scene.end - scene.start) * 0.15,
+        scene.start + (scene.end - scene.start) * 0.45,
+        scene.start + (scene.end - scene.start) * 0.75
+      ];
+      const b0 = beats[0] !== undefined ? beats[0] : scene.start;
+      const b1 = beats[1] !== undefined ? beats[1] : (scene.start + 3.0);
+      const b2 = beats[2] !== undefined ? beats[2] : (scene.start + 6.0);
 
       if (st1 && st2 && st3) {
         st1.classList.toggle("is-active", t < b1);
@@ -1522,17 +1605,44 @@
         st3.classList.toggle("is-active", t >= b2);
       }
     } else if (type === "blueprint_overwhelm") {
-      const c1 = document.getElementById("bow-c1");
-      const c2 = document.getElementById("bow-c2");
-      const c3 = document.getElementById("bow-c3");
-      const c4 = document.getElementById("bow-c4");
-      const convergeP = easeInOutCubic(progress);
-      const wobble = Math.sin(t * 8) * 6;
-
-      if (c1) c1.style.transform = `translate(${convergeP * 80 + wobble}px, ${convergeP * 80}px)`;
-      if (c2) c2.style.transform = `translate(${-convergeP * 80 + wobble}px, ${convergeP * 80}px)`;
-      if (c3) c3.style.transform = `translate(${convergeP * 80 + wobble}px, ${-convergeP * 80}px)`;
-      if (c4) c4.style.transform = `translate(${-convergeP * 80 + wobble}px, ${-convergeP * 80}px)`;
+      const beats = (data && data.beats) || [scene.start + 0.8, scene.start + 1.8, scene.start + 2.8, scene.start + 3.8];
+      const avatar = document.getElementById("bow-avatar");
+      if (avatar) {
+        const floatY = Math.sin(t * 4.5) * 6;
+        avatar.style.transform = `translateY(${floatY}px)`;
+      }
+      for (let i = 0; i < 4; i++) {
+        const badge = document.getElementById(`bow-badge-${i}`);
+        if (!badge) continue;
+        const beatT = beats[i] !== undefined ? beats[i] : (scene.start + i * 1.0);
+        if (t >= beatT) {
+          badge.classList.add("is-active");
+          const popElapsed = Math.min(0.35, t - beatT);
+          const p = popElapsed / 0.35;
+          const scale = 0.88 + 0.16 * p + (p < 1 ? 0.12 * Math.sin(p * Math.PI) : 0);
+          badge.style.transform = `scale(${scale})`;
+        } else {
+          badge.classList.remove("is-active");
+          badge.style.transform = "scale(0.92)";
+        }
+      }
+    } else if (type === "blueprint_delivery_grid") {
+      const beats = (data && data.beats) || [scene.start + 1.0, scene.start + 2.0, scene.start + 3.0, scene.start + 4.0];
+      for (let i = 0; i < 4; i++) {
+        const card = document.getElementById(`bdg-card-${i}`);
+        if (!card) continue;
+        const beatT = beats[i] !== undefined ? beats[i] : (scene.start + i * 1.0);
+        if (t >= beatT) {
+          card.classList.add("is-active");
+          const popElapsed = Math.min(0.35, t - beatT);
+          const p = popElapsed / 0.35;
+          const scale = 0.95 + 0.09 * p + (p < 1 ? 0.08 * Math.sin(p * Math.PI) : 0);
+          card.style.transform = `scale(${scale})`;
+        } else {
+          card.classList.remove("is-active");
+          card.style.transform = "scale(0.95)";
+        }
+      }
     }
   }
 
@@ -1596,26 +1706,34 @@
       }
     } else if (type === "list") {
       const total = (data.items || []).length;
-      const activeIdx = Math.min(total - 1, Math.floor(progress * total));
+      const beats = (data && data.beats) || null;
+      let activeIdx = -1;
+      if (beats && Array.isArray(beats)) {
+        for (let b = 0; b < beats.length; b++) {
+          if (t >= beats[b]) activeIdx = b;
+        }
+      } else {
+        activeIdx = Math.min(total - 1, Math.floor(progress * total));
+      }
       for (let i = 0; i < total; i++) {
         const itemEl = document.getElementById(`list-item-${i}`);
         if (!itemEl) continue;
-        const itemDelay = i * 0.15;
+        const itemDelay = beats ? (beats[i] !== undefined ? Math.max(0, beats[i] - scene.start) : i * 0.15) : i * 0.15;
         const itemElapsed = Math.max(0, elapsed - itemDelay);
-        if (itemElapsed === 0) {
-          itemEl.style.opacity = "0";
-          itemEl.style.transform = "translateY(40px) scale(0.8)";
+        if (itemElapsed === 0 && (beats ? t < beats[i] : elapsed < itemDelay)) {
+          itemEl.style.opacity = "0.2";
+          itemEl.style.transform = "translateY(20px) scale(0.92)";
+          itemEl.classList.remove("active");
         } else {
           const itemP = Math.min(1, itemElapsed / 0.2);
-          const itemScale = 0.8 + 0.2 * itemP + (itemP < 1 ? 0.1 * Math.sin(itemP * Math.PI) : 0);
-          const itemTy = 40 * (1 - itemP);
+          const itemScale = 0.92 + 0.08 * itemP + (itemP < 1 ? 0.08 * Math.sin(itemP * Math.PI) : 0);
           itemEl.style.opacity = "1";
           if (i === activeIdx) {
             itemEl.classList.add("active");
-            itemEl.style.transform = `translateY(${itemTy}px) scale(${itemScale * 1.03}) translateX(20px)`;
+            itemEl.style.transform = `scale(${itemScale * 1.04}) translateX(14px)`;
           } else {
             itemEl.classList.remove("active");
-            itemEl.style.transform = `translateY(${itemTy}px) scale(${itemScale})`;
+            itemEl.style.transform = `scale(${itemScale})`;
           }
         }
       }
@@ -2338,8 +2456,8 @@
         }
         if (cursor) {
           const moveCurP = Math.min(1, Math.max(0, (ctaElapsed - 0.4) / 0.4));
-          const cx = 200 * (1 - moveCurP);
-          const cy = 180 * (1 - moveCurP) + 145;
+          const cx = 200 * (1 - moveCurP) + 120;
+          const cy = 180 * (1 - moveCurP) + 195;
           cursor.style.transform = `translate(${cx}px, ${cy}px) scale(${isSpoken ? 0.9 : 1.0})`;
         }
         if (sendBtn && isSpoken) {

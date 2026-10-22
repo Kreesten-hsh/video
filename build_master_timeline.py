@@ -257,13 +257,17 @@ def step3_build_timeline(words, scenes_configs, scene_end_words, reference_words
             next_s_idx = scene_slices[i + 1][0]
             sc_end = words[next_s_idx]["start"]
 
-        scenes.append({
+        scene_dict = {
             "id": f"scene_{i + 1:02d}",
             "type": cfg["type"],
             "start": round(sc_start, 3),
             "end": round(sc_end, 3),
-            "data": cfg["data"]
-        })
+            "data": cfg.get("data", {})
+        }
+        for extra_key in ["caption_mode", "avatar_mode", "camera", "switch_theme", "title"]:
+            if extra_key in cfg:
+                scene_dict[extra_key] = cfg[extra_key]
+        scenes.append(scene_dict)
 
     # Contrôles automatiques obligatoires avant écriture
     validate_timeline(words, scenes, total_audio_dur, reference_words, scene_end_words)

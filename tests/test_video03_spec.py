@@ -116,7 +116,7 @@ class TestVideo03Spec(unittest.TestCase):
                 )
 
     def test_video03_six_blueprints_and_theme_switches_present(self):
-        """Vérifie la présence des 6 blueprints et des changements de thèmes."""
+        """Vérifie la présence des blueprints clés et des changements de thèmes."""
         scenes = self.project_data.get("scenes", [])
         types = set(s.get("type") for s in scenes)
         expected_types = {
@@ -125,7 +125,7 @@ class TestVideo03Spec(unittest.TestCase):
             "blueprint_compare_split",
             "blueprint_spatial_pan",
             "blueprint_cursor_ui",
-            "blueprint_terminal_scene",
+            "blueprint_delivery_grid",
             "face_to_dm_cta"
         }
         for exp in expected_types:
@@ -133,8 +133,7 @@ class TestVideo03Spec(unittest.TestCase):
 
         themes = [s.get("switch_theme") for s in scenes if s.get("switch_theme")]
         self.assertIn("claude", themes)
-        self.assertIn("cobalt-grid", themes)
-        self.assertIn("bold-poster", themes)
+        self.assertIn("cyber-mint", themes)
 
 
 if __name__ == "__main__":
