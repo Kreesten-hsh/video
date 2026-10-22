@@ -184,17 +184,22 @@
     const img = document.getElementById("global-avatar-img");
     if (!wrapper || !img) return;
 
-    const mode = scene.avatar_mode || (
-      scene.type === "face" ? "hero" : (
-        scene.caption_mode === "center_slam" ? "hidden" : (
-          scene.data && scene.data.avatar ? "inset" : "hidden"
+    // Forcer le masquage de l'avatar global si la scène intègre déjà son propre avatar
+    const isSelfContainedAvatar = (scene.type === "blueprint_overwhelm" || scene.type === "face_to_dm_cta");
+
+    const mode = isSelfContainedAvatar ? "hidden" : (
+      scene.avatar_mode || (
+        scene.type === "face" ? "hero" : (
+          scene.caption_mode === "center_slam" ? "hidden" : (
+            scene.data && scene.data.avatar ? "inset" : "hidden"
+          )
         )
       )
     );
 
     wrapper.className = "avatar-" + mode;
 
-    if (scene.data && scene.data.avatar) {
+    if (scene.data && scene.data.avatar && !isSelfContainedAvatar) {
       if (img.getAttribute("src") !== scene.data.avatar) {
         img.setAttribute("src", scene.data.avatar);
       }
@@ -232,7 +237,10 @@
     const subtitlesZone = document.getElementById("subtitles-zone");
     if (!subtitlesZone) return;
 
-    const mode = (activeScene && activeScene.caption_mode) || "legacy";
+    let mode = (activeScene && activeScene.caption_mode) || "legacy";
+    if (activeScene && activeScene.type === "blueprint_kinetic_type" && mode !== "center_slam" && mode !== "hidden") {
+      mode = "single_line_top";
+    }
 
     if (mode === "center_slam") {
       subtitlesZone.className = "mode-center-slam";
@@ -327,7 +335,7 @@
     if (sceneIdx !== activeSceneIndex) {
       activeSceneIndex = sceneIdx;
       if (scene.type && scene.type.startsWith("blueprint_")) {
-        sceneContainer.innerHTML = renderBlueprint(scene.type, scene.data || {});
+        sceneContainer.innerHTML = renderBlueprint(scene.type, scene.data || {}, scene);
       } else {
         sceneContainer.innerHTML = renderComponent(scene.type, scene.data);
       }
@@ -346,7 +354,7 @@
    * LES 6 BLUEPRINTS SIGNATURES DU STUDIO AGENT404
    * ==========================================================================
    */
-  function renderBlueprint(type, data) {
+  function renderBlueprint(type, data, scene) {
     switch (type) {
       case "blueprint_kinetic_type":
         const highlight = data.highlight || "";
@@ -354,10 +362,11 @@
         if (highlight && textHtml.includes(highlight)) {
           textHtml = textHtml.replace(highlight, `<span class="highlight">${highlight}</span>`);
         }
+        const isCenterSlam = (scene && scene.caption_mode === "center_slam");
         return `
-          <div class="blueprint-kinetic-type" id="blueprint-kinetic-type">
+          <div class="blueprint-kinetic-type ${isCenterSlam ? "has-center-slam" : ""}" id="blueprint-kinetic-type">
             ${data.tag ? `<div class="bkt-tag">${data.tag}</div>` : ""}
-            <div class="bkt-main-text">${textHtml}</div>
+            ${!isCenterSlam ? `<div class="bkt-main-text">${textHtml}</div>` : ""}
           </div>
         `;
 

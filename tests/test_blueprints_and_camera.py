@@ -92,6 +92,23 @@ class TestBlueprintsAndCamera(unittest.TestCase):
         self.assertIn("execute_at", self.video_js)
         self.assertIn("reveal_at", self.video_js)
 
+    def test_three_micro_fixes_anti_collision_and_safe_zones(self):
+        """Vérifie les 3 micro-correctifs d'anti-collision et de Safe-Zones."""
+        # 1. Avatar inset au-dessus de --safe-bottom: 380px (bottom: 400px)
+        self.assertIn("bottom: 400px;", self.style_css)
+        self.assertIn("#global-avatar-wrapper.avatar-inset", self.style_css)
+
+        # 2. Anti-collision blueprint_kinetic_type avec center_slam
+        self.assertIn(".blueprint-kinetic-type.has-center-slam", self.style_css)
+        self.assertIn("top: 34%;", self.style_css)
+        self.assertIn("isCenterSlam", self.video_js)
+        self.assertIn("mode = \"single_line_top\"", self.video_js)
+
+        # 3. Avatar hidden forcé sur blueprint_overwhelm et face_to_dm_cta
+        self.assertIn("isSelfContainedAvatar", self.video_js)
+        self.assertIn('scene.type === "blueprint_overwhelm"', self.video_js)
+        self.assertIn('scene.type === "face_to_dm_cta"', self.video_js)
+
 
 if __name__ == "__main__":
     unittest.main()

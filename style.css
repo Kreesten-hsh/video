@@ -336,7 +336,7 @@ html, body {
   filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.8));
 }
 #global-avatar-wrapper.avatar-inset {
-  bottom: 120px;
+  bottom: 400px;
   left: 60px;
   width: 160px;
   height: 160px;
@@ -475,6 +475,12 @@ html, body {
   align-items: center;
   justify-content: center;
   gap: 24px;
+}
+.blueprint-kinetic-type.has-center-slam {
+  top: 34%;
+}
+.blueprint-kinetic-type.has-center-slam .bkt-main-text {
+  display: none;
 }
 .bkt-tag {
   font-family: 'JetBrains Mono', monospace;
