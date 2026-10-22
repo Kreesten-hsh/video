@@ -40,6 +40,25 @@
         root.style.setProperty(`--${key}`, val);
       }
     }
+
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("safe_zones") === "1" || urlParams.get("safezones") === "1") {
+        let overlay = document.getElementById("safe-zones-overlay");
+        if (!overlay && canvas) {
+          overlay = document.createElement("div");
+          overlay.id = "safe-zones-overlay";
+          overlay.innerHTML = `
+            <div class="sz-zone-top">UI APPS DANGER (0 - 220px)</div>
+            <div class="sz-crop-insta-4-5"></div>
+            <div class="sz-crop-insta-1-1"></div>
+            <div class="sz-zone-right">UI BOUTONS (950 - 1080px)</div>
+            <div class="sz-zone-bottom">UI NOM & TICKER DANGER (1540 - 1920px)</div>
+          `;
+          canvas.appendChild(overlay);
+        }
+      }
+    } catch (e) {}
   }
 
   /**

@@ -15,7 +15,8 @@ Tout agent ou développeur intervenant sur la chaîne de production **doit exéc
 6. [PHASE 5 — Scaffolding CLI & Implémentation CSS/JS Propre](#phase-5--scaffolding-cli--impl%C3%A9mentation-cssjs-propre)
 7. [PHASE 6 — Validation Pre-Flight Bloquante (< 3s) AVANT Rendu](#phase-6--validation-pre-flight-bloquante--3s-avant-rendu)
 8. [PHASE 7 — Rendu Final 30 FPS, Inspection Visuelle & Clôture Registre](#phase-7--rendu-final-30-fps-inspection-visuelle--cl%C3%B4ture-registre)
-9. [Matrice d'Audit Rapide (Checklist de Clôture)](#matrice-daudit-rapide-checklist-de-cl%C3%B4ture)
+9. [PHASE 8 — Distribution Ciblée (LinkedIn & Instagram) & Golden Hour](#phase-8--distribution-cibl%C3%A9e-linkedin--instagram--golden-hour)
+10. [Matrice d'Audit Rapide (Checklist de Clôture)](#matrice-daudit-rapide-checklist-de-cl%C3%B4ture)
 
 ---
 
@@ -224,6 +225,28 @@ Produire le master vidéo MP4 (H.264 / AAC 30 FPS), vérifier la conformité vis
 
 ---
 
+### PHASE 8 — Distribution Ciblée (LinkedIn & Instagram) & Golden Hour
+
+#### 1. Objectifs
+Transformer le master vidéo en vues qualifiées et en leads B2B en publiant exclusivement sur les deux canaux rentables (**LinkedIn** en priorité de vente et **Instagram Reels** avec recommandation Facebook en vitrine), tout en éliminant la dispersion sur les réseaux secondaires.
+
+#### 2. Procédure Technique
+1. **Génération automatique du Kit de Distribution** :
+   ```bash
+   python3 generate_social_pack.py --projet <chemin_projet>
+   ```
+   *Ce script génère `DISTRIBUTION_KIT.md` directement dans le dossier du projet avec post LinkedIn calibré, légende Instagram, premier commentaire et teaser story.*
+2. **Vérification Pre-Upload Smartphone** :
+   - Instagram : Option `Importer avec la meilleure qualité` active + Recadrage couverture dans l'onglet `Grille du profil` (centré dans la zone 1:1 `Y: 420-1500px`) + Option `Recommander sur Facebook` active.
+   - LinkedIn : Texte avec accroche visible en moins de 140 caractères + Zéro lien externe dans le corps du post.
+3. **Exécution de la Golden Hour (Minutes 0 à 60)** :
+   - *Minute 01* : Poster le premier commentaire amorce et l'épingler (`Pin comment`).
+   - *Minute 05* : Partager le Reel en Story Instagram avec sticker masquant le bas pour forcer le clic vers le post original.
+   - *Minutes 05 à 45* : Répondre à 100% des commentaires reçus avec une phrase de plus de 5 mots et une question de relance.
+   - *Interdictions absolues* : Ne jamais regarder la vidéo 50 fois en boucle depuis le même compte, ne jamais supprimer/re-publier dans les 24h, ne jamais éditer le texte dans les 20 premières minutes.
+
+---
+
 ### Matrice d'Audit Rapide (Checklist de Clôture)
 
 | Phase | Critère Validé | Statut Obligatoire |
@@ -234,6 +257,7 @@ Produire le master vidéo MP4 (H.264 / AAC 30 FPS), vérifier la conformité vis
 | **P4** | Zéro illustration recyclée + Tailles $\ge 20\text{px}$/$\ge 28\text{px}$ + Allumage individuel de chaque carte | **REQUIS** |
 | **P5** | Scaffolding `init_video.py` + 100% variables `:root` + Zéro hex hors `:root` + Zéro `#FF2A5F` | **REQUIS** |
 | **P6** | `preflight_check.py` exécuté et validé à 100% (5/5 axes au vert) | **REQUIS** |
-| **P7** | Master MP4 30 FPS conforme + `video_memory.json` mis à jour + 100% tests unitaires au vert | **REQUIS** |
+| **P7** | Master MP4 30 FPS conforme (`H.264`, `yuv420p`, `-maxrate 15M`, `aac 44.1kHz`, `-movflags +faststart`) + `video_memory.json` scellé | **REQUIS** |
+| **P8** | `DISTRIBUTION_KIT.md` généré + Checklist smartphone & Golden Hour prêtes pour LinkedIn & Instagram | **REQUIS** |
 
 *Ce protocole garantit un niveau de qualité constant, prévisible et reproductible sans aucune retouche manuelle.*

@@ -238,7 +238,8 @@ def render_video(
     verify_avatars: bool = True,
     scenes: list = None,
     rendu_deterministe: bool = None,
-    preflight: bool = True
+    preflight: bool = True,
+    preset: str = None
 ):
     check_dependencies()
 
@@ -308,6 +309,10 @@ def render_video(
     print(f"[Render] Durée audio : {duration:.2f}s | {total_frames} frames à générer ({fps} FPS).")
     print(f"[Render] Cible de sortie : {output_path}")
 
+    preset = preset or os.environ.get("FFMPEG_PRESET")
+    if not preset:
+        preset = "veryfast" if (os.environ.get("FAST_RENDER") or "unittest" in sys.modules) else "slow"
+
     ffmpeg_cmd = [
         "ffmpeg", "-y",
         "-f", "image2pipe",
@@ -317,11 +322,14 @@ def render_video(
         "-i", audio_path,
         "-c:v", "libx264",
         "-pix_fmt", "yuv420p",
-        "-preset", "veryfast",
-        "-threads", "2",
+        "-preset", preset,
         "-crf", "18",
+        "-maxrate", "15M",
+        "-bufsize", "30M",
         "-c:a", "aac",
         "-b:a", "192k",
+        "-ar", "44100",
+        "-movflags", "+faststart",
         "-shortest",
         output_path
     ]
@@ -397,11 +405,15 @@ if __name__ == "__main__":
     parser.add_argument("--no-preflight", action="store_true", help="Désactive le contrôle pré-vol Gatekeeper")
     parser.add_argument("--rendu-deterministe", dest="rendu_deterministe", action="store_true", default=None, help="Active le rendu déterministe (par défaut)")
     parser.add_argument("--no-rendu-deterministe", dest="rendu_deterministe", action="store_false", help="Désactive le rendu déterministe")
+    parser.add_argument("--preset", default=None, help="Preset FFmpeg (slow, medium, veryfast). Par défaut : slow.")
+    parser.add_argument("--fast", action="store_true", help="Active le mode rapide (force preset veryfast)")
     args = parser.parse_args()
 
     default_proj = args.projet
     if default_proj is None and not args.output and os.path.exists("studio_perso/video_01"):
         default_proj = "studio_perso/video_01"
+
+    selected_preset = "veryfast" if args.fast else args.preset
 
     render_video(
         project_path=default_proj,
@@ -411,5 +423,6 @@ if __name__ == "__main__":
         fps=args.fps,
         verify_avatars=not args.no_verify_avatars,
         rendu_deterministe=args.rendu_deterministe,
-        preflight=not args.no_preflight
+        preflight=not args.no_preflight,
+        preset=selected_preset
     )

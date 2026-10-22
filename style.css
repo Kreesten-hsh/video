@@ -89,6 +89,14 @@
   --accent-red: #F59E0B;
   --accent-green: #00F5A0;
   --yellow: #00F5A0;
+
+  /* Safe Zones 9:16 Mobile & UI Clearance (AGENT404 Standard) */
+  --safe-top: 220px;
+  --safe-bottom: 380px;
+  --safe-left: 50px;
+  --safe-right: 130px;
+  --safe-width: 900px;
+  --safe-height: 1320px;
 }
 
 * {
@@ -150,14 +158,14 @@ html, body {
 
 
 /* ==========================================================================
-   ZONE SOUS-TITRES (TOP 96px) - BOÎTE CYBER-MINT UNIQUE
+   ZONE SOUS-TITRES (TOP 220px - SAFE ZONE 9:16) - BOÎTE CYBER-MINT UNIQUE
    ========================================================================== */
 #subtitles-zone {
   position: absolute;
-  top: 96px;
+  top: var(--safe-top);
   left: 0;
   width: 1080px;
-  height: 200px;
+  height: 160px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -188,7 +196,7 @@ html, body {
   justify-content: center !important;
   align-items: center !important;
   gap: 10px 14px !important;
-  max-width: 940px !important;
+  max-width: var(--safe-width) !important;
 }
 
 .word, .sub-word {
@@ -212,15 +220,15 @@ html, body {
 }
 
 /* ==========================================================================
-   ZONE SCÈNE (CENTRE / BAS)
+   ZONE SCÈNE (CENTRE / BAS - SAFE ZONE 9:16)
    ========================================================================== */
 #scene-zone {
   position: absolute;
-  top: 310px;
+  top: 390px;
   bottom: 0;
   left: 0;
   width: 1080px;
-  height: 1610px;
+  height: 1530px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -3411,5 +3419,119 @@ html, body {
   letter-spacing: -0.01em;
   transition: transform 0.15s var(--ease-out);
 }
+
+/* ==========================================================================
+   DIAGNOSTIC VISUEL : OVERLAYS DE SAFE-ZONES & INSTAGRAM CROP GRILLE
+   Activable via ?safe_zones=1
+   ========================================================================== */
+#safe-zones-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1080px;
+  height: 1920px;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.sz-zone-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1080px;
+  height: var(--safe-top);
+  background: var(--accent-warning-dim);
+  border-bottom: 2px dashed var(--accent-warning);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--accent-warning);
+  letter-spacing: 1px;
+}
+
+.sz-zone-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 1080px;
+  height: var(--safe-bottom);
+  background: var(--accent-warning-dim);
+  border-top: 2px dashed var(--accent-warning);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--accent-warning);
+  letter-spacing: 1px;
+}
+
+.sz-zone-right {
+  position: absolute;
+  top: var(--safe-top);
+  right: 0;
+  width: var(--safe-right);
+  height: calc(1920px - var(--safe-top) - var(--safe-bottom));
+  background: var(--accent-warning-dim);
+  border-left: 2px dashed var(--accent-warning);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--accent-warning);
+  letter-spacing: 1px;
+}
+
+.sz-crop-insta-1-1 {
+  position: absolute;
+  top: 420px;
+  left: 0;
+  width: 1080px;
+  height: 1080px;
+  border: 3px dashed var(--accent-primary);
+  box-sizing: border-box;
+}
+
+.sz-crop-insta-1-1::after {
+  content: 'INSTAGRAM CROP GRILLE 1:1 (420px - 1500px)';
+  position: absolute;
+  top: 10px;
+  left: 60px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--accent-primary);
+}
+
+.sz-crop-insta-4-5 {
+  position: absolute;
+  top: 285px;
+  left: 0;
+  width: 1080px;
+  height: 1350px;
+  border: 2px dotted var(--syntax-blue);
+  box-sizing: border-box;
+}
+
+.sz-crop-insta-4-5::after {
+  content: 'INSTAGRAM FEED 4:5 (285px - 1635px)';
+  position: absolute;
+  bottom: 10px;
+  left: 60px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--syntax-blue);
+}
+
 
 

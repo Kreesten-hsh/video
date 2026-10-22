@@ -190,12 +190,12 @@ body {{
   background: var(--bg-dark);
 }}
 
-/* Safe Zones 9:16 */
+/* Safe Zones 9:16 (Standard AGENT404) */
 #subtitles-zone {{
   position: absolute;
-  top: 96px;
-  left: 48px;
-  right: 48px;
+  top: var(--safe-top);
+  left: var(--safe-left);
+  right: var(--safe-right);
   height: 160px;
   display: flex;
   align-items: center;
@@ -210,14 +210,15 @@ body {{
   text-align: center;
   text-transform: uppercase;
   letter-spacing: -0.02em;
+  max-width: var(--safe-width);
 }}
 
 #scene-zone {{
   position: absolute;
-  top: 260px;
+  top: 390px;
   bottom: 240px;
-  left: 48px;
-  right: 48px;
+  left: var(--safe-left);
+  right: var(--safe-right);
   display: flex;
   align-items: center;
   justify-content: center;
