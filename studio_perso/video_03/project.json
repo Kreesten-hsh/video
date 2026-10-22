@@ -1,0 +1,522 @@
+{
+  "video_number": 3,
+  "title": "L'Entrée Agnostique pour Créateurs B2B",
+  "topic": "Transformer des posts LinkedIn en vidéos haute précision",
+  "cta_keyword": "CLARTÉ",
+  "audio_path": "voix.wav",
+  "gele": false,
+  "rendu_deterministe": true,
+  "reference_words": [
+    "Tu",
+    "publies",
+    "quatre",
+    "posts",
+    "écrits",
+    "par",
+    "semaine",
+    "sur",
+    "LinkedIn,",
+    "mais",
+    "tu",
+    "as",
+    "toujours",
+    "zéro",
+    "vidéo.",
+    "Pourtant",
+    "tu",
+    "as",
+    "déjà",
+    "l'expertise,",
+    "les",
+    "cas",
+    "clients",
+    "et",
+    "les",
+    "méthodes.",
+    "Mais",
+    "dès",
+    "qu'il",
+    "faut",
+    "allumer",
+    "une",
+    "caméra,",
+    "régler",
+    "la",
+    "lumière",
+    "et",
+    "monter",
+    "pendant",
+    "quatre",
+    "heures,",
+    "tu",
+    "abandonnes.",
+    "Et",
+    "tu",
+    "as",
+    "raison",
+    "de",
+    "refuser",
+    "les",
+    "avatars",
+    "clonés",
+    "génériques.",
+    "En",
+    "B2B,",
+    "un",
+    "visage",
+    "robotique",
+    "avec",
+    "le",
+    "même",
+    "modèle",
+    "que",
+    "tout",
+    "le",
+    "monde",
+    "détruit",
+    "ta",
+    "crédibilité",
+    "en",
+    "trois",
+    "secondes.",
+    "Le",
+    "problème,",
+    "ce",
+    "n'est",
+    "pas",
+    "ton",
+    "contenu.",
+    "C'est",
+    "que",
+    "tes",
+    "meilleurs",
+    "arguments",
+    "restent",
+    "enfermés",
+    "dans",
+    "des",
+    "pavés",
+    "de",
+    "texte.",
+    "Alors",
+    "on",
+    "a",
+    "inversé",
+    "le",
+    "processus.",
+    "Étape",
+    "un:",
+    "tu",
+    "nous",
+    "envoies",
+    "juste",
+    "une",
+    "note",
+    "vocale",
+    "de",
+    "deux",
+    "minutes",
+    "ou",
+    "ton",
+    "meilleur",
+    "post",
+    "écrit.",
+    "Étape",
+    "deux:",
+    "on",
+    "extrait",
+    "l'idée",
+    "forte",
+    "et",
+    "on",
+    "structure",
+    "chaque",
+    "mouvement",
+    "sur",
+    "ta",
+    "voix.",
+    "Étape",
+    "trois:",
+    "chaque",
+    "mot",
+    "prononcé",
+    "déclenche",
+    "la",
+    "bonne",
+    "preuve",
+    "visuelle",
+    "à",
+    "l'écran.",
+    "Aucune",
+    "vidéo",
+    "ne",
+    "ressemble",
+    "à",
+    "une",
+    "autre.",
+    "On",
+    "adapte",
+    "toute",
+    "la",
+    "direction",
+    "artistique",
+    "à",
+    "ta",
+    "propre",
+    "identité.",
+    "Éditorial",
+    "chaud,",
+    "tech",
+    "sombre,",
+    "conseil",
+    "financier",
+    "ou",
+    "créateur",
+    "percutant.",
+    "En",
+    "quarante-huit",
+    "heures,",
+    "une",
+    "seule",
+    "idée",
+    "devient",
+    "une",
+    "capsule",
+    "haute",
+    "précision",
+    "prête",
+    "à",
+    "dominer",
+    "LinkedIn,",
+    "TikTok,",
+    "Reels",
+    "et",
+    "Shorts.",
+    "Tu",
+    "veux",
+    "voir",
+    "un",
+    "de",
+    "tes",
+    "posts",
+    "écrits",
+    "transformé",
+    "en",
+    "vidéo",
+    "sur",
+    "mesure?",
+    "Commente",
+    "ou",
+    "envoie",
+    "Clarté",
+    "en",
+    "messages",
+    "privés."
+  ],
+  "scene_end_words": [
+    "vidéo.",
+    "abandonnes.",
+    "secondes.",
+    "texte.",
+    "l'écran.",
+    "identité.",
+    "financier",
+    "percutant.",
+    "Shorts.",
+    "privés."
+  ],
+  "phonetic_map": {
+    "publies": "publiques",
+    "posts": "postes",
+    "quatre": "4",
+    "trois": "3",
+    "un": "1",
+    "deux": "2",
+    "quarantehuit": "48",
+    "editorial": "editoriale",
+    "transforme": "transformes"
+  },
+  "scenes": [
+    {
+      "id": "scene_01",
+      "title": "Hook Choc LinkedIn",
+      "start": 0.0,
+      "end": 4.86,
+      "type": "blueprint_kinetic_type",
+      "caption_mode": "center_slam",
+      "switch_theme": "default",
+      "avatar_mode": "hidden",
+      "camera": {
+        "initial": {
+          "zoom": 1.22,
+          "panX": 0,
+          "panY": 0
+        },
+        "target": {
+          "zoom": 1.0,
+          "panX": 0,
+          "panY": 0
+        },
+        "easing": "easeOutExpo",
+        "duration": 0.6
+      },
+      "data": {
+        "tag": "AUDIT LINKEDIN B2B",
+        "text": "Tu publies quatre posts écrits par semaine sur LinkedIn mais tu as toujours zéro vidéo",
+        "highlight": "zéro vidéo"
+      }
+    },
+    {
+      "id": "scene_02",
+      "title": "Corvée Tournage & Friction",
+      "start": 4.86,
+      "end": 13.96,
+      "type": "blueprint_overwhelm",
+      "caption_mode": "single_line_top",
+      "switch_theme": "default",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.12,
+          "panX": 0,
+          "panY": 15
+        }
+      },
+      "data": {
+        "cards": [
+          "Caméra 4K",
+          "Lumière & Décor",
+          "Retakes & Hésitations",
+          "4h de Montage"
+        ],
+        "avatar": "assets/avatars/facepalm.png"
+      }
+    },
+    {
+      "id": "scene_03",
+      "title": "Refus des Clones IA Génériques",
+      "start": 13.96,
+      "end": 22.06,
+      "type": "blueprint_compare_split",
+      "caption_mode": "dynamic_band",
+      "switch_theme": "default",
+      "avatar_mode": "inset",
+      "camera": {
+        "keyframes": [
+          {
+            "at": 11.2,
+            "zoom": 1.0,
+            "panX": -35,
+            "panY": 0
+          },
+          {
+            "at": 15.2,
+            "zoom": 1.04,
+            "panX": 35,
+            "panY": 0
+          }
+        ]
+      },
+      "data": {
+        "title_left": "CLONES IA GÉNÉRIQUES",
+        "desc_left": "Avatar robotique rigide, voix métallique et modèle cloné partagé par tout le monde",
+        "title_right": "STUDIO SUR-MESURE AGENT404",
+        "desc_right": "Direction artistique humaine, motion design haute précision et 100% aligné sur ta charte",
+        "reveal_at": 15.2,
+        "avatar": "assets/avatars/skeptic.png"
+      }
+    },
+    {
+      "id": "scene_04",
+      "title": "Pivot Narratif - Le Vrai Blocage",
+      "start": 22.06,
+      "end": 27.4,
+      "type": "blueprint_kinetic_type",
+      "caption_mode": "center_slam",
+      "switch_theme": "default",
+      "avatar_mode": "hero",
+      "camera": {
+        "initial": {
+          "zoom": 1.35,
+          "panX": 0,
+          "panY": 0
+        },
+        "target": {
+          "zoom": 1.0,
+          "panX": 0,
+          "panY": 0
+        },
+        "easing": "easeOutExpo",
+        "duration": 0.55
+      },
+      "data": {
+        "tag": "LE VRAI BLOCAGE",
+        "text": "TES MEILLEURS ARGUMENTS RESTENT ENFERMÉS DANS DU TEXTE",
+        "highlight": "ENFERMÉS",
+        "avatar": "assets/avatars/stop.png"
+      }
+    },
+    {
+      "id": "scene_05",
+      "title": "Workflow 3 Stations Agnostique",
+      "start": 27.4,
+      "end": 41.72,
+      "type": "blueprint_spatial_pan",
+      "caption_mode": "single_line_top",
+      "switch_theme": "default",
+      "avatar_mode": "inset",
+      "camera": {
+        "keyframes": [
+          {
+            "at": 27.4,
+            "zoom": 1.04,
+            "panX": 0,
+            "panY": 0
+          },
+          {
+            "at": 33.68,
+            "zoom": 1.06,
+            "panX": -260,
+            "panY": 0
+          },
+          {
+            "at": 37.84,
+            "zoom": 1.08,
+            "panX": -540,
+            "panY": 0
+          }
+        ]
+      },
+      "data": {
+        "avatar": "assets/avatars/mic.png"
+      }
+    },
+    {
+      "id": "scene_06a",
+      "title": "Charte Sur-Mesure Éditorial",
+      "start": 41.72,
+      "end": 46.84,
+      "type": "blueprint_cursor_ui",
+      "caption_mode": "dynamic_band",
+      "switch_theme": "claude",
+      "avatar_mode": "inset",
+      "camera": {
+        "target": {
+          "zoom": 1.08,
+          "panX": 25,
+          "panY": 0
+        }
+      },
+      "data": {
+        "title": "Direction Artistique Personnalisée",
+        "status_initial": "Charte Client Active",
+        "btn_left": "Éditorial Chaud",
+        "btn_right": "Appliquer Charte",
+        "click_at": 44.0,
+        "status_active": "Charte Terracotta Validée",
+        "avatar": "assets/avatars/laptop.png"
+      }
+    },
+    {
+      "id": "scene_06b",
+      "title": "Switch Chartes Tech & Conseil",
+      "start": 46.84,
+      "end": 49.62,
+      "type": "blueprint_cursor_ui",
+      "caption_mode": "dynamic_band",
+      "switch_theme": "cobalt-grid",
+      "avatar_mode": "inset",
+      "camera": {
+        "target": {
+          "zoom": 1.0,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "data": {
+        "title": "Adaptation Dynamique de Marque",
+        "status_initial": "Palette Tech & Finance",
+        "btn_left": "Tech Sombre",
+        "btn_right": "Conseil Vert",
+        "click_at": 48.0,
+        "status_active": "Palette Verte Active",
+        "avatar": "assets/avatars/happy.png"
+      }
+    },
+    {
+      "id": "scene_06c",
+      "title": "Switch Bold Poster",
+      "start": 49.62,
+      "end": 51.1,
+      "type": "blueprint_cursor_ui",
+      "caption_mode": "dynamic_band",
+      "switch_theme": "bold-poster",
+      "avatar_mode": "inset",
+      "camera": {
+        "target": {
+          "zoom": 1.0,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "data": {
+        "title": "Identité Créateur Haute Énergie",
+        "status_initial": "Impact Maximal",
+        "btn_left": "Standard",
+        "btn_right": "Bold Poster",
+        "click_at": 50.2,
+        "status_active": "Mode Poster Validé",
+        "avatar": "assets/avatars/happy.png"
+      }
+    },
+    {
+      "id": "scene_07",
+      "title": "Terminal Export 4 Canaux",
+      "start": 51.1,
+      "end": 57.68,
+      "type": "blueprint_terminal_scene",
+      "caption_mode": "single_line_top",
+      "switch_theme": "default",
+      "avatar_mode": "inset",
+      "camera": {
+        "target": {
+          "zoom": 1.06,
+          "panX": 0,
+          "panY": 10
+        }
+      },
+      "data": {
+        "command": "agent404 export --dest=linkedin,tiktok,reels,shorts --safe-zones",
+        "execute_at": 53.5,
+        "output_text": "✓ EXPORT 4 CANAUX TERMINÉ (48H LIVRAISON GARANTIE)",
+        "avatar": "assets/avatars/prof.png"
+      }
+    },
+    {
+      "id": "scene_08",
+      "title": "CTA Final CLARTÉ",
+      "start": 57.68,
+      "end": 62.746,
+      "type": "face_to_dm_cta",
+      "caption_mode": "single_line_top",
+      "switch_theme": "default",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.0,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "data": {
+        "keyword": "CLARTÉ",
+        "hero_title": "TRANSFORME UN POST EN <span class=\"highlight\">VIDÉO</span>",
+        "instruction_label": "ENVOIE CE MOT-CLÉ EN MESSAGE PRIVÉ :",
+        "button_label": "[ ENVOYER « CLARTÉ » EN MESSAGE PRIVÉ ↗ ]",
+        "cta_at": 59.5,
+        "spoken_at": 61.44,
+        "avatar": "assets/avatars/pointing.png"
+      }
+    }
+  ]
+}

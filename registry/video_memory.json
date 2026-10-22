@@ -71,6 +71,31 @@
         "mic",
         "pointing"
       ]
+    },
+    {
+      "video_id": "video_03",
+      "target": "studio_perso",
+      "title": "L'Entrée Agnostique pour Créateurs B2B",
+      "topic": "Transformer des posts écrits LinkedIn ou notes vocales en vidéos sur-mesure",
+      "cta_keyword": "CLARTÉ",
+      "used_illustrations": [
+        "blueprint_kinetic_type",
+        "blueprint_overwhelm",
+        "blueprint_compare_split",
+        "blueprint_spatial_pan",
+        "blueprint_cursor_ui",
+        "blueprint_terminal_scene"
+      ],
+      "avatar_sequence": [
+        "facepalm",
+        "skeptic",
+        "stop",
+        "mic",
+        "laptop",
+        "happy",
+        "prof",
+        "pointing"
+      ]
     }
   ]
 }

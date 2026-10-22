@@ -176,11 +176,14 @@ def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_pat
                 if (!container) continue;
 
                 // 2. Contrôle Géométrique 9:16 (illustrations centrales)
-                if (sc.type !== 'face' && sc.type !== 'big') {
+                const isTypographyOrFaceScene = sc.type === 'face' || sc.type === 'big' || sc.type === 'blueprint_kinetic_type' || sc.type === 'face_to_dm_cta';
+                const isSpatialPan = sc.type === 'blueprint_spatial_pan';
+
+                if (!isTypographyOrFaceScene) {
                     const firstChild = container.firstElementChild;
                     if (firstChild) {
                         const rect = firstChild.getBoundingClientRect();
-                        if (rect.width < 838 || rect.height < 518) {
+                        if (!isSpatialPan && (rect.width < 838 || rect.height < 518)) {
                             report.geometric_violations.push({
                                 scene: sc.id,
                                 type: sc.type,
@@ -188,7 +191,8 @@ def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_pat
                                 height: Math.round(rect.height)
                             });
                         }
-                        if (rect.left < -2 || rect.right > 1082 || rect.top < -2 || rect.bottom > 1922) {
+                        const isSpatialYValid = isSpatialPan && (rect.top >= -10 && rect.bottom <= 1930);
+                        if (!isSpatialYValid && (rect.left < -2 || rect.right > 1082 || rect.top < -2 || rect.bottom > 1922)) {
                             report.geometric_violations.push({
                                 scene: sc.id,
                                 type: sc.type,
@@ -316,7 +320,7 @@ def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_pat
                 });
 
                 // Validation titre principal >= 28px sur scène d'illustration
-                if (sc.type !== 'face' && sc.type !== 'big') {
+                if (!isTypographyOrFaceScene) {
                     if (maxFsInScene < 27.5) {
                         report.font_size_violations.push({
                             scene: sc.id,

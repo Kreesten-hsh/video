@@ -158,24 +158,31 @@ def mix_sfx(
             continue
 
         # 1. Pop organique mat sur apparitions visuelles & rupture rouge
-        if sc_type in ["face", "cards", "split", "audio_wave"]:
+        if sc_type in ["face", "cards", "split", "audio_wave", "blueprint_overwhelm", "blueprint_compare_split", "blueprint_spatial_pan", "face_to_dm_cta"]:
             end_idx = min(total_samples, idx_start + len(pop_sfx))
             length = end_idx - idx_start
             audio[idx_start:end_idx] += pop_sfx[:length, np.newaxis] * 32767.0
 
-        # 2. Whoosh feutré doux sur transitions big ou changements de fond majeurs
-        elif sc_type == "big" or bg in ["red", "diamonds", "circles"]:
+        # 2. Whoosh feutré doux sur transitions big ou kinetic type ou changements de fond majeurs
+        elif sc_type in ["big", "blueprint_kinetic_type"] or bg in ["red", "diamonds", "circles"]:
             end_idx = min(total_samples, idx_start + len(whoosh_sfx))
             length = end_idx - idx_start
             audio[idx_start:end_idx] += whoosh_sfx[:length, np.newaxis] * 32767.0
 
-        # 3. Micro-clics mécaniques sur machine à écrire (window)
-        elif sc_type == "window":
+        # 3. Micro-clics mécaniques sur terminal ou machine à écrire
+        elif sc_type in ["window", "blueprint_terminal_scene"]:
             duration = t_end - t_start
             for dt in np.arange(0.08, min(duration, 1.4), 0.12):
                 c_idx = int((t_start + dt) * framerate)
                 if c_idx + len(click_sfx) < total_samples:
                     audio[c_idx:c_idx + len(click_sfx)] += click_sfx[:, np.newaxis] * 32767.0
+
+        # 4. Clic d'interface sur blueprint_cursor_ui
+        elif sc_type == "blueprint_cursor_ui":
+            click_at = sc.get("data", {}).get("click_at", t_start + 0.4)
+            c_idx = int(click_at * framerate)
+            if c_idx + len(click_sfx) < total_samples:
+                audio[c_idx:c_idx + len(click_sfx)] += click_sfx[:, np.newaxis] * 32767.0
 
     # Normalisation et clamp strict sans saturation
     np.clip(audio, -32767.0, 32767.0, out=audio)

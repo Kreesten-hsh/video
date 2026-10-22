@@ -36,7 +36,8 @@ class TestPreflightAndRatchet(unittest.TestCase):
         """Garantit que 100% des couleurs hors :root dans tous les fichiers style.css utilisent des variables CSS sémantiques."""
         style_files = [
             REPO_ROOT / "style.css",
-            REPO_ROOT / "studio_perso" / "video_02" / "style.css"
+            REPO_ROOT / "studio_perso" / "video_02" / "style.css",
+            REPO_ROOT / "studio_perso" / "video_03" / "style.css"
         ]
 
         for style_path in style_files:
@@ -59,7 +60,8 @@ class TestPreflightAndRatchet(unittest.TestCase):
         """Règle d'or : bannissement absolu et perpétuel de #FF2A5F dans l'ensemble du projet."""
         style_files = [
             REPO_ROOT / "style.css",
-            REPO_ROOT / "studio_perso" / "video_02" / "style.css"
+            REPO_ROOT / "studio_perso" / "video_02" / "style.css",
+            REPO_ROOT / "studio_perso" / "video_03" / "style.css"
         ]
         for style_path in style_files:
             if style_path.exists():

@@ -345,7 +345,7 @@
     if (scene.type && scene.type.startsWith("blueprint_")) {
       animateBlueprint(scene.type, scene.data || {}, progress, elapsed, t, scene);
     } else {
-      animateComponent(scene.type, scene.data, progress, elapsed, t);
+      animateComponent(scene.type, scene.data, progress, elapsed, t, scene);
     }
   }
 
@@ -378,6 +378,10 @@
             <div class="bcui-header">
               <div class="bcui-title">${data.title || "Interface Système"}</div>
               <div class="bcui-status" id="bcui-status">${data.status_initial || "En attente"}</div>
+            </div>
+            <div class="bcui-preview" id="bcui-preview">
+              <div class="bcui-preview-badge">DIRECTION ARTISTIQUE</div>
+              <div class="bcui-preview-title">${data.preview_title || "SYSTÈME SUR-MESURE B2B"}</div>
             </div>
             <div class="bcui-actions">
               <div class="bcui-btn" id="bcui-btn-left">${btnLeft}</div>
@@ -455,11 +459,12 @@
         const c4 = data.cards && data.cards[3] ? data.cards[3] : "Décrochage";
         return `
           <div class="blueprint-overwhelm" id="blueprint-overwhelm">
+            <div class="bow-title">${data.title || "SURCHARGE DE TOURNAGE"}</div>
             <div class="bow-center">
               <img src="${data.avatar || 'assets/avatars/facepalm.png'}" alt="Avatar" class="bow-avatar" />
             </div>
-            <div class="bow-fly-card" id="bow-c1" style="top: 80px; left: 60px;">⚠️ ${c1}</div>
-            <div class="bow-fly-card" id="bow-c2" style="top: 100px; right: 60px;">🔇 ${c2}</div>
+            <div class="bow-fly-card" id="bow-c1" style="top: 100px; left: 60px;">⚠️ ${c1}</div>
+            <div class="bow-fly-card" id="bow-c2" style="top: 120px; right: 60px;">🔇 ${c2}</div>
             <div class="bow-fly-card" id="bow-c3" style="bottom: 120px; left: 80px;">🥱 ${c3}</div>
             <div class="bow-fly-card" id="bow-c4" style="bottom: 100px; right: 80px;">❌ ${c4}</div>
           </div>
@@ -1367,11 +1372,18 @@
           </div>
         `;
       case "face_to_dm_cta":
+        const keyword = (data && data.keyword) || "DEMO";
+        const lettersHtml = keyword.split("").map((ch, idx) =>
+          `<span class="keyword-letter" id="kw-letter-${idx}">${ch}</span>`
+        ).join("");
+        const heroTitle = (data && data.hero_title) || 'TRANSFORME TES DÉMOS EN <span class="highlight">RDV</span>';
+        const instructionLabel = (data && data.instruction_label) || "ENVOIE CE MOT-CLÉ EN MESSAGE PRIVÉ :";
+        const buttonLabel = (data && data.button_label) || `[ ENVOYER « ${keyword} » EN MESSAGE PRIVÉ ↗ ]`;
         return `
           <div class="comp-face-dm" id="comp-face-dm">
             <div class="face-dm-avatar-stage" id="face-dm-avatar-stage">
               <div class="face-hero-title" style="top: 220px;">
-                <span>TRANSFORME TES DÉMOS EN </span><span class="highlight">RDV</span>
+                <span>${heroTitle}</span>
               </div>
               <div class="comp-face">
                 <img src="${data.avatar || 'assets/avatars/pointing.png'}" alt="Avatar" class="avatar-sticker" id="avatar-img" />
@@ -1380,15 +1392,12 @@
             <div class="face-dm-cta-stage" id="face-dm-cta-stage" style="opacity: 0; pointer-events: none;">
               <div class="cta-direct-box">
                 <div class="cta-hero-center">
-                  <div class="cta-instruction-label">ENVOIE CE MOT-CLÉ EN MESSAGE PRIVÉ :</div>
+                  <div class="cta-instruction-label">${instructionLabel}</div>
                   <div class="cta-giant-keyword-box" id="cta-giant-box">
-                    <span class="keyword-letter" id="letter-D">D</span>
-                    <span class="keyword-letter" id="letter-E">E</span>
-                    <span class="keyword-letter" id="letter-M">M</span>
-                    <span class="keyword-letter" id="letter-O">O</span>
+                    ${lettersHtml}
                   </div>
                   <div class="cta-send-button-massive" id="cta-send-button">
-                    [ ENVOYER « DEMO » EN MESSAGE PRIVÉ ↗ ]
+                    ${buttonLabel}
                   </div>
                 </div>
                 <div class="virtual-cursor" id="cta-cursor" style="position: absolute; pointer-events: none; z-index: 70;">
@@ -1527,7 +1536,7 @@
     }
   }
 
-  function animateComponent(type, data, progress, elapsed, t) {
+  function animateComponent(type, data, progress, elapsed, t, scene) {
     const spring = calcSpringOvershoot(elapsed);
 
     if (type === "face") {
@@ -2259,8 +2268,15 @@
       const sendBtn = document.getElementById("cta-send-button");
       const cursor = document.getElementById("cta-cursor");
 
-      // Bascule vers le CTA final monumental dès que l'avatar finit sa réplique (t >= 63.0 ou progress >= 0.63)
-      const isCtaActive = t >= 63.0 || progress >= 0.63;
+      const sceneStart = (scene && scene.start) !== undefined ? scene.start : 52.0;
+      const sceneEnd = (scene && scene.end) !== undefined ? scene.end : (sceneStart + 6.0);
+      const sceneDur = Math.max(0.001, sceneEnd - sceneStart);
+
+      // Bascule vers le CTA final monumental
+      const ctaAt = (data && data.cta_at) !== undefined ? data.cta_at : (scene ? sceneStart + sceneDur * 0.45 : 63.0);
+      const spokenAt = (data && data.spoken_at) !== undefined ? data.spoken_at : (scene ? sceneStart + sceneDur * 0.70 : 63.66);
+
+      const isCtaActive = t >= ctaAt;
 
       if (!isCtaActive) {
         if (avatarStage) {
@@ -2286,37 +2302,31 @@
           ctaStage.style.pointerEvents = "auto";
         }
 
-        // Animation des lettres D - E - M - O :
-        // Mot "DEMO" prononcé à 01:03.66 (ou t >= 63.66)
-        const lD = document.getElementById("letter-D");
-        const lE = document.getElementById("letter-E");
-        const lM = document.getElementById("letter-M");
-        const lO = document.getElementById("letter-O");
+        const ctaElapsed = Math.max(0, t - ctaAt);
+        const keyword = (data && data.keyword) || "DEMO";
 
-        const ctaElapsed = Math.max(0, t - 63.0);
-        if (lD) {
-          const pD = Math.min(1, ctaElapsed / 0.15);
-          lD.style.opacity = `${pD}`;
-          lD.style.transform = `scale(${0.7 + 0.3 * pD})`;
+        // Animation séquentielle dynamique des lettres
+        const step = Math.min(0.15, 0.6 / Math.max(1, keyword.length));
+        for (let i = 0; i < keyword.length; i++) {
+          const letterEl = document.getElementById(`kw-letter-${i}`);
+          if (letterEl) {
+            const p = Math.max(0, Math.min(1, (ctaElapsed - i * step) / step));
+            letterEl.style.opacity = `${p}`;
+            letterEl.style.transform = `scale(${0.7 + 0.3 * p})`;
+          }
         }
-        if (lE) {
-          const pE = Math.max(0, Math.min(1, (ctaElapsed - 0.15) / 0.15));
-          lE.style.opacity = `${pE}`;
-          lE.style.transform = `scale(${0.7 + 0.3 * pE})`;
-        }
-        if (lM) {
-          const pM = Math.max(0, Math.min(1, (ctaElapsed - 0.30) / 0.15));
-          lM.style.opacity = `${pM}`;
-          lM.style.transform = `scale(${0.7 + 0.3 * pM})`;
-        }
-        if (lO) {
-          const pO = Math.max(0, Math.min(1, (ctaElapsed - 0.45) / 0.15));
-          lO.style.opacity = `${pO}`;
-          lO.style.transform = `scale(${0.7 + 0.3 * pO})`;
-        }
+        // Support rétrocompatible pour letter-D, letter-E, letter-M, letter-O
+        ["D", "E", "M", "O"].forEach((ch, idx) => {
+          const legacyEl = document.getElementById(`letter-${ch}`);
+          if (legacyEl) {
+            const p = Math.max(0, Math.min(1, (ctaElapsed - idx * 0.15) / 0.15));
+            legacyEl.style.opacity = `${p}`;
+            legacyEl.style.transform = `scale(${0.7 + 0.3 * p})`;
+          }
+        });
 
-        // Punch-in monumental sur le mot DEMO à t >= 63.66
-        const isSpoken = t >= 63.66 || ctaElapsed >= 0.65;
+        // Punch-in monumental sur le mot-clé
+        const isSpoken = t >= spokenAt || ctaElapsed >= (keyword.length * step + 0.2);
         if (giantBox) {
           if (isSpoken) {
             giantBox.style.transform = "scale(1.08)";
@@ -2327,7 +2337,7 @@
           }
         }
         if (cursor) {
-          const moveCurP = Math.min(1, Math.max(0, (ctaElapsed - 0.5) / 0.4));
+          const moveCurP = Math.min(1, Math.max(0, (ctaElapsed - 0.4) / 0.4));
           const cx = 200 * (1 - moveCurP);
           const cy = 180 * (1 - moveCurP) + 145;
           cursor.style.transform = `translate(${cx}px, ${cy}px) scale(${isSpoken ? 0.9 : 1.0})`;

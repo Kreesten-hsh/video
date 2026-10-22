@@ -176,10 +176,15 @@ def verify_rendered_avatars(video_path: str, scenes: Union[list, str, Path] = No
         avatar_pip = data.get("avatar_pip")
         sc_type = sc.get("type", "")
 
-        has_bust = (avatar and "mini" not in str(avatar)) or (sc_type == "face" and avatar)
+        avatar_mode = sc.get("avatar_mode") or data.get("avatar_mode")
+        if avatar_mode == "hidden" or sc_type == "face_to_dm_cta":
+            continue
+
+        is_inset = avatar_mode == "inset"
+        has_bust = not is_inset and ((avatar and "mini" not in str(avatar)) or (sc_type == "face" and avatar))
         has_pip = bool(avatar_pip)
 
-        if not has_bust and not has_pip:
+        if not has_bust and not has_pip and not is_inset:
             continue
 
         if "start" not in sc:
@@ -216,6 +221,16 @@ def verify_rendered_avatars(video_path: str, scenes: Union[list, str, Path] = No
             if mean_lum < 28.0 and std_lum < 8.0:
                 failed_scenes.append(
                     (sc.get("id", "?"), t_sample, f"Avatar PiP absent (luminance moyenne={mean_lum:.2f}, std={std_lum:.2f})")
+                )
+
+        # 3. Vérification Avatar Médaillon Inset (y: 1360..1520, x: 60..220)
+        if is_inset and avatar:
+            inset_crop = frame_bgr[1360:1520, 60:220]
+            mean_lum = float(np.mean(inset_crop))
+            std_lum = float(np.std(inset_crop))
+            if mean_lum < 20.0 and std_lum < 6.0:
+                failed_scenes.append(
+                    (sc.get("id", "?"), t_sample, f"Avatar Inset absent (luminance moyenne={mean_lum:.2f}, std={std_lum:.2f})")
                 )
 
     cap.release()
@@ -351,21 +366,11 @@ def render_video(
         print("[Render] Capture et encodage déterministe avec synchronisation totale des images et polices...")
         for i in range(total_frames):
             t = i / float(fps)
-            page.evaluate(f"""async () => {{
+            page.evaluate(f"""() => {{
                 window.setTime({t:.4f});
-                await document.fonts.ready;
-                const imgs = Array.from(document.querySelectorAll('img'));
-                await Promise.all(imgs.map(img => {{
-                    if (!img.src) return Promise.resolve();
-                    if (img.complete) return img.decode().catch(() => {{}});
-                    return new Promise(resolve => {{
-                        img.onload = () => img.decode().then(resolve).catch(resolve);
-                        img.onerror = resolve;
-                    }});
-                }}));
             }}""")
 
-            frame_bytes = page.screenshot(type="jpeg", quality=90)
+            frame_bytes = page.screenshot(type="jpeg", quality=90, timeout=120000, animations="disabled")
             proc.stdin.write(frame_bytes)
 
             # Recyclage périodique pour libérer la mémoire V8/Skia
