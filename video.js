@@ -21,42 +21,111 @@
     return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
   }
 
+  function easeOutBack(x) {
+    const c1 = 1.70158;
+    const c3 = c1 + 1;
+    return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
+  }
+
   /**
-   * Découpe la liste de mots Whisper en paquets dynamiques selon le mode :
+   * Découpe la liste de mots Whisper en paquets dynamiques mot par mot :
    * - center_slam (88px) : 2 à 3 mots max pour ne jamais déborder
    * - dynamic_band (52px) : 3 mots
-   * - single_line_top (38px) / legacy : 4 mots
+   * - single_line_top (38px) / legacy : 4 mots max
+   * Fermeture immédiate du paquet si :
+   * 1. Changement de scène (findSceneIdx(w[j+1]) !== findSceneIdx(w[j]))
+   * 2. Ponctuation forte (., ?, !, :, ou , en center_slam)
+   * 3. Pause respiratoire >= 0.22s
    */
   function buildSubtitleChunks(words) {
     if (!words || words.length === 0) return [];
+
+    function findSceneIdx(time) {
+      return (window.SCENES || []).findIndex(s => time >= s.start && time < s.end);
+    }
+
     const chunks = [];
-    let i = 0;
-    while (i < words.length) {
-      const wStart = words[i].start;
-      const sc = (window.SCENES || []).find(s => wStart >= s.start && wStart < s.end);
+    let currentSlice = [];
+    let currentMode = "legacy";
+
+    for (let j = 0; j < words.length; j++) {
+      const w = words[j];
+      const scIdx = findSceneIdx(w.start);
+      const sc = scIdx !== -1 ? window.SCENES[scIdx] : null;
       const mode = (sc && sc.caption_mode) || "legacy";
+
+      if (currentSlice.length === 0) {
+        currentMode = mode;
+      }
+
+      currentSlice.push(w);
 
       let chunkSize = 4;
       if (mode === "center_slam") {
-        const firstLen = words[i].word.length;
-        const secondLen = words[i + 1] ? words[i + 1].word.length : 0;
+        const firstLen = currentSlice[0].word.length;
+        const secondLen = words[j + 1] ? words[j + 1].word.length : 0;
         chunkSize = (firstLen + secondLen > 13) ? 2 : 3;
       } else if (mode === "dynamic_band") {
         chunkSize = 3;
       } else if (mode === "single_line_top") {
         chunkSize = 4;
       }
-      chunkSize = Math.min(chunkSize, words.length - i);
 
-      const slice = words.slice(i, i + chunkSize);
-      chunks.push({
-        start: slice[0].start,
-        end: slice[slice.length - 1].end,
-        words: slice,
-        mode: mode
-      });
-      i += chunkSize;
+      let shouldClose = false;
+
+      // Taille max atteinte
+      if (currentSlice.length >= chunkSize) {
+        shouldClose = true;
+      }
+
+      // Dernier mot
+      if (j === words.length - 1) {
+        shouldClose = true;
+      } else {
+        const nextW = words[j + 1];
+        const nextScIdx = findSceneIdx(nextW.start);
+
+        // Condition 1 : Changement de scène
+        if (nextScIdx !== scIdx) {
+          shouldClose = true;
+        }
+
+        // Condition 2 : Ponctuation forte
+        const wordText = w.word.trim();
+        const hasPunctuation = (mode === "center_slam")
+          ? /[.,!?:;]$/.test(wordText)
+          : /[.!?:]$/.test(wordText);
+
+        if (hasPunctuation) {
+          shouldClose = true;
+        }
+
+        // Condition 3 : Pause respiratoire >= 0.22s
+        if ((nextW.start - w.end) >= 0.22) {
+          shouldClose = true;
+        }
+      }
+
+      if (shouldClose && currentSlice.length > 0) {
+        chunks.push({
+          start: currentSlice[0].start,
+          end: currentSlice[currentSlice.length - 1].end,
+          words: currentSlice,
+          mode: currentMode
+        });
+        currentSlice = [];
+      }
     }
+
+    if (currentSlice.length > 0) {
+      chunks.push({
+        start: currentSlice[0].start,
+        end: currentSlice[currentSlice.length - 1].end,
+        words: currentSlice,
+        mode: currentMode
+      });
+    }
+
     return chunks;
   }
 
@@ -137,7 +206,7 @@
       }
       const dt = Math.max(0.001, k2.at - k1.at);
       const rawP = Math.min(1, Math.max(0, (t - k1.at) / dt));
-      const pEased = dt <= 0.8 ? easeOutExpo(rawP) : easeInOutCubic(rawP);
+      const pEased = dt <= 0.6 ? easeOutBack(rawP) : (dt <= 0.8 ? easeOutExpo(rawP) : easeInOutCubic(rawP));
       currentZoom = (k1.zoom || 1.0) + ((k2.zoom || 1.0) - (k1.zoom || 1.0)) * pEased + drift;
       currentPanX = (k1.panX || 0) + ((k2.panX || 0) - (k1.panX || 0)) * pEased;
       currentPanY = (k1.panY || 0) + ((k2.panY || 0) - (k1.panY || 0)) * pEased;
@@ -153,6 +222,30 @@
       currentZoom = 1.0;
       currentPanX = 0;
       currentPanY = 0;
+    }
+
+    // Punch-in dynamique à chaque début de scène sur les 0.30 premières secondes
+    if (scene) {
+      const sceneElapsed = Math.max(0, t - scene.start);
+      if (sceneElapsed < 0.30) {
+        const pScene = sceneElapsed / 0.30;
+        const entryPunch = (1 - easeOutBack(pScene)) * 0.06;
+        currentZoom += entryPunch;
+      }
+    }
+
+    // En mode center_slam, zoom-kick (scale 1.06 -> 1.0) à chaque nouveau paquet de mots
+    const isCenterSlam = scene && (scene.caption_mode === "center_slam");
+    if (isCenterSlam && subtitleChunks.length > 0) {
+      const curChunk = subtitleChunks.find(c => t >= c.start && t <= c.end);
+      if (curChunk) {
+        const chunkElapsed = Math.max(0, t - curChunk.start);
+        if (chunkElapsed < 0.25) {
+          const pKick = chunkElapsed / 0.25;
+          const kick = (1 - easeOutExpo(pKick)) * 0.06;
+          currentZoom += kick;
+        }
+      }
     }
 
     rig.style.transform = `scale(${currentZoom}) translate(${currentPanX}px, ${currentPanY}px)`;
@@ -185,9 +278,9 @@
     if (!wrapper || !img) return;
 
     // L'avatar n'apparaît que s'il est explicitement 'hero' (ou face sans masquage)
-    const isSelfContainedAvatar = (scene.type === "blueprint_overwhelm" || scene.type === "face_to_dm_cta");
+    const isSelfContainedAvatar = (scene.type === "blueprint_overwhelm" || scene.type === "face_to_dm_cta" || scene.type === "face");
     const mode = isSelfContainedAvatar ? "hidden" : (
-      scene.avatar_mode === "hero" || (scene.type === "face" && scene.avatar_mode !== "hidden") ? "hero" : "hidden"
+      scene.avatar_mode === "hero" ? "hero" : "hidden"
     );
 
     wrapper.className = "avatar-" + mode;
@@ -237,6 +330,9 @@
 
     if (mode === "center_slam") {
       subtitlesZone.className = "mode-center-slam";
+      if (activeScene && activeScene.avatar_mode === "hero") {
+        subtitlesZone.classList.add("has-avatar-hero");
+      }
     } else if (mode === "dynamic_band") {
       subtitlesZone.className = "mode-dynamic-band";
     } else if (mode === "single_line_top") {
@@ -355,6 +451,14 @@
    * LES 6 BLUEPRINTS SIGNATURES DU STUDIO AGENT404
    * ==========================================================================
    */
+  const SVG_LINKEDIN = `<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="10" fill="#0A66C2"/><path d="M14.5 19H19.5V35H14.5V19ZM17 12C15.4 12 14 13.4 14 15C14 16.6 15.4 18 17 18C18.6 18 20 16.6 20 15C20 13.4 18.6 12 17 12Z" fill="white"/><path d="M22.5 19H27.3V21.2H27.4C28.1 19.9 29.8 18.5 32.3 18.5C37.5 18.5 38.5 21.9 38.5 26.4V35H33.5V27.1C33.5 25.2 33.5 22.8 30.8 22.8C28.1 22.8 27.7 24.9 27.7 26.9V35H22.5V19Z" fill="white"/></svg>`;
+
+  const SVG_TIKTOK = `<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="10" fill="#000000"/><path d="M33.5 17.5C31.5 17.5 29.8 16.6 28.5 15.2V27.8C28.5 33.2 24.1 37.5 18.8 37.5C13.4 37.5 9 33.1 9 27.8C9 22.4 13.4 18 18.8 18C19.3 18 19.8 18.05 20.3 18.15V22.9C19.8 22.75 19.3 22.65 18.8 22.65C16 22.65 13.7 24.95 13.7 27.75C13.7 30.55 16 32.85 18.8 32.85C21.6 32.85 23.8 30.55 23.8 27.75V9.5H28.5C28.5 12.3 30.7 14.5 33.5 14.5V17.5Z" fill="#25F4EE"/><path d="M34.5 16.5C32.5 16.5 30.8 15.6 29.5 14.2V26.8C29.5 32.2 25.1 36.5 19.8 36.5C14.4 36.5 10 32.1 10 26.8C10 21.4 14.4 17 19.8 17C20.3 17 20.8 17.05 21.3 17.15V21.9C20.8 21.75 20.3 21.65 19.8 21.65C17 21.65 14.7 23.95 14.7 26.75C14.7 29.55 17 31.85 19.8 31.85C22.6 31.85 24.8 29.55 24.8 26.75V8.5H29.5C29.5 11.3 31.7 13.5 34.5 13.5V16.5Z" fill="#FE2C55"/><path d="M34 17C32 17 30.3 16.1 29 14.7V27.3C29 32.7 24.6 37 19.3 37C13.9 37 9.5 32.6 9.5 27.3C9.5 21.9 13.9 17.5 19.3 17.5C19.8 17.5 20.3 17.55 20.8 17.65V22.4C20.3 22.25 19.8 22.15 19.3 22.15C16.5 22.15 14.2 24.45 14.2 27.25C14.2 30.05 16.5 32.35 19.3 32.35C22.1 32.35 24.3 30.05 24.3 27.25V9H29C29 11.8 31.2 14 34 14V17Z" fill="white"/></svg>`;
+
+  const SVG_REELS = `<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><defs><radialGradient id="ig-grad" cx="20%" cy="110%" r="130%"><stop offset="0%" stop-color="#FFDD55"/><stop offset="25%" stop-color="#FF5D3B"/><stop offset="50%" stop-color="#FF0069"/><stop offset="75%" stop-color="#D300C5"/><stop offset="100%" stop-color="#7638FA"/></radialGradient></defs><rect width="48" height="48" rx="12" fill="url(#ig-grad)"/><rect x="11" y="11" width="26" height="26" rx="7" stroke="white" stroke-width="3" fill="none"/><circle cx="24" cy="24" r="6" stroke="white" stroke-width="3" fill="none"/><circle cx="31.5" cy="16.5" r="1.5" fill="white"/></svg>`;
+
+  const SVG_SHORTS = `<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="10" fill="#FF0000"/><path d="M31.2 20.1C29.6 19.2 28.2 19.1 28.2 19.1L29.6 18.2C32.1 16.7 32.9 13.5 31.4 11C29.9 8.5 26.7 7.7 24.2 9.2L16.2 14C14.1 15.3 12.8 17.7 13 20.2C13.2 22.7 14.9 24.7 17.3 25.3L15.6 26.3C13.1 27.8 12.3 31 13.8 33.5C15.3 36 18.5 36.8 21 35.3L29 30.5C31.1 29.2 32.4 26.8 32.2 24.3C32 21.8 30.3 20.8 31.2 20.1Z" fill="#CC0000"/><path d="M29.5 17.5L24 14.2C21.8 12.9 19 13.6 17.7 15.8C16.4 18 17.1 20.8 19.3 22.1L20.8 23L16.5 25.5C14.3 26.8 13.6 29.6 14.9 31.8C16.2 34 19 34.7 21.2 33.4L26.7 30.1C28.9 28.8 29.6 26 28.3 23.8L26.8 22.9L31.1 20.4C33.3 19.1 34 16.3 32.7 14.1C31.7 12.4 29.5 17.5 29.5 17.5Z" fill="white"/><polygon points="21,19 21,29 29,24" fill="#FF0000"/></svg>`;
+
   function renderBlueprint(type, data, scene) {
     switch (type) {
       case "blueprint_kinetic_type":
@@ -383,15 +487,15 @@
           <div class="blueprint-cursor-ui" id="blueprint-cursor-ui">
             <div class="bcui-header">
               <div class="bcui-title">${data.title || "EFFET CAMÉLÉON : 4 CHARTES"}</div>
-              <div class="bcui-status" id="bcui-status">${data.status_initial || "SUR-MESURE B2B"}</div>
+              <div class="bcui-status" id="bcui-status">${data.status_initial || "SUR-MESURE HAUTE PRÉCISION"}</div>
             </div>
             <div class="bcui-preview" id="bcui-preview">
               <div class="bcui-preview-badge">DIRECTION ARTISTIQUE ACTIVE</div>
-              <div class="bcui-preview-title" id="bcui-preview-title">${data.preview_title || "01. ÉDITORIAL CHAUD"}</div>
+              <div class="bcui-preview-title" id="bcui-preview-title">${data.preview_title || "CHARTE GRAPHIQUE : PRÊTE À ADAPTER"}</div>
             </div>
             <div class="bcui-actions-grid" id="bcui-actions-grid">
               ${themes.map((th, idx) => `
-                <div class="bcui-btn ${idx === 0 ? 'is-active' : ''}" id="bcui-btn-${idx}">
+                <div class="bcui-btn" id="bcui-btn-${idx}">
                   ${th.name}
                 </div>
               `).join("")}
@@ -423,14 +527,23 @@
         return `
           <div class="blueprint-compare-split" id="blueprint-compare-split">
             <div class="bcs-card bcs-card-avant" id="bcs-card-avant">
-              <div class="bcs-badge bcs-badge-avant">${data.badge_avant || "❌ CLONE IA GÉNÉRIQUE"}</div>
+              <div class="bcs-badge bcs-badge-avant" id="bcs-badge-avant">${data.badge_avant || "✕ CLONE IA GÉNÉRIQUE"}</div>
               <div class="bcs-card-title">${data.title_avant || "Visage Robotique"}</div>
-              <div class="bcs-card-desc">${data.desc_avant || "Même template que tout le monde = Crédibilité détruite en 3s"}</div>
+              <div class="bcs-card-desc">${data.desc_avant || "Même modèle cloné que tout le monde sur LinkedIn"}</div>
             </div>
-            <div class="bcs-card bcs-card-apres" id="bcs-card-apres">
-              <div class="bcs-badge bcs-badge-apres">${data.badge_apres || "✓ STUDIO SUR-MESURE"}</div>
-              <div class="bcs-card-title">${data.title_apres || "Direction Artistique B2B"}</div>
-              <div class="bcs-card-desc">${data.desc_apres || "Ton identité visuelle codée au centième de seconde"}</div>
+            <div class="bcs-card bcs-card-apres bcs-card-warning" id="bcs-card-apres">
+              <div class="bcs-badge bcs-badge-apres" id="bcs-badge-apres">${data.badge_apres || "⚠️ SANCTION CRÉDIBILITÉ"}</div>
+              <div class="bcs-card-title" id="bcs-title-apres">${data.title_apres || "Crédibilité : 0%"}</div>
+              <div class="bcs-card-desc" id="bcs-desc-apres">${data.desc_apres || "Confiance détruite en 3 secondes chrono"}</div>
+              <div class="bcs-gauge-container" id="bcs-gauge-container">
+                <div class="bcs-gauge-label">
+                  <span>NIVEAU DE CONFIANCE</span>
+                  <span class="bcs-gauge-val" id="bcs-gauge-val">100%</span>
+                </div>
+                <div class="bcs-gauge-track">
+                  <div class="bcs-gauge-fill" id="bcs-gauge-fill" style="width: 100%;"></div>
+                </div>
+              </div>
             </div>
           </div>
         `;
@@ -446,28 +559,40 @@
         const s3 = stations[2] || { title: "Étape 3", desc: "" };
         return `
           <div class="blueprint-spatial-pan" id="blueprint-spatial-pan">
-            <div class="bsp-station is-active" id="bsp-st-1">
-              <div class="bcs-badge bcs-badge-avant">Étape 01</div>
+            <div class="bsp-station" id="bsp-st-1">
+              <div class="bcs-badge bcs-badge-apres">Étape 01</div>
               <div class="bsp-content" style="display: flex; flex-direction: column; gap: 6px; flex: 1; margin-left: 24px;">
                 <div class="bcs-card-title">${s1.title}</div>
                 <div class="bcs-card-desc">${s1.desc}</div>
+                <div class="bsp-progress-track">
+                  <div class="bsp-progress-fill" id="bsp-progress-1"></div>
+                </div>
               </div>
+              <div class="bsp-icon-box" id="bsp-icon-1">🎤</div>
             </div>
-            <div class="bsp-connector">↓</div>
+            <div class="bsp-connector" id="bsp-conn-1">↓</div>
             <div class="bsp-station" id="bsp-st-2">
               <div class="bcs-badge bcs-badge-apres">Étape 02</div>
               <div class="bsp-content" style="display: flex; flex-direction: column; gap: 6px; flex: 1; margin-left: 24px;">
                 <div class="bcs-card-title">${s2.title}</div>
                 <div class="bcs-card-desc">${s2.desc}</div>
+                <div class="bsp-progress-track">
+                  <div class="bsp-progress-fill" id="bsp-progress-2"></div>
+                </div>
               </div>
+              <div class="bsp-icon-box" id="bsp-icon-2">✂️</div>
             </div>
-            <div class="bsp-connector">↓</div>
+            <div class="bsp-connector" id="bsp-conn-2">↓</div>
             <div class="bsp-station" id="bsp-st-3">
               <div class="bcs-badge bcs-badge-apres">Étape 03</div>
               <div class="bsp-content" style="display: flex; flex-direction: column; gap: 6px; flex: 1; margin-left: 24px;">
                 <div class="bcs-card-title">${s3.title}</div>
                 <div class="bcs-card-desc">${s3.desc}</div>
+                <div class="bsp-progress-track">
+                  <div class="bsp-progress-fill" id="bsp-progress-3"></div>
+                </div>
               </div>
+              <div class="bsp-icon-box" id="bsp-icon-3">🎯</div>
             </div>
           </div>
         `;
@@ -492,19 +617,25 @@
         `;
 
       case "blueprint_delivery_grid":
-        const deliveryChannels = data.channels || [
-          "01. LINKEDIN B2B",
-          "02. TIKTOK",
-          "03. INSTAGRAM REELS",
-          "04. YOUTUBE SHORTS"
+        const channelList = [
+          { name: "01. LINKEDIN", svg: SVG_LINKEDIN },
+          { name: "02. TIKTOK", svg: SVG_TIKTOK },
+          { name: "03. INSTAGRAM REELS", svg: SVG_REELS },
+          { name: "04. YOUTUBE SHORTS", svg: SVG_SHORTS }
         ];
         return `
           <div class="blueprint-delivery-grid" id="blueprint-delivery-grid">
-            <div class="bdg-header">${data.header || "LIVRAISON 48H : 1 VIDÉO = 4 RÉSEAUX"}</div>
-            <div class="bdg-grid">
-              ${deliveryChannels.map((ch, idx) => `
-                <div class="bdg-card" id="bdg-card-${idx}">
-                  ${ch}
+            <div class="bdg-header-box" id="bdg-header-box">
+              <div class="bdg-header-title">⚡ LIVRAISON EN 48H CHRONO — EXPORT MULTI-FORMAT 9:16</div>
+              <div class="bdg-progress-track">
+                <div class="bdg-progress-bar" id="bdg-render-bar"></div>
+              </div>
+            </div>
+            <div class="bdg-grid" id="bdg-grid">
+              ${channelList.map((ch, idx) => `
+                <div class="bdg-card channel-card" id="channel-card-${idx}">
+                  <div class="bdg-icon">${ch.svg}</div>
+                  <div class="bdg-card-title">${ch.name}</div>
                 </div>
               `).join("")}
             </div>
@@ -1413,13 +1544,18 @@
           </div>
         `;
       case "face_to_dm_cta":
-        const keyword = (data && data.keyword) || "DEMO";
+        const keyword = (data && data.keyword) || "CLARTÉ";
         const lettersHtml = keyword.split("").map((ch, idx) =>
-          `<span class="keyword-letter" id="kw-letter-${idx}">${ch}</span>`
+          `<span class="keyword-letter" id="kw-letter-${idx}" style="opacity: 0; transform: scale(0.5);">${ch}</span>`
         ).join("");
-        const heroTitle = (data && data.hero_title) || 'TRANSFORME TES DÉMOS EN <span class="highlight">RDV</span>';
+        let heroTitle = (data && data.hero_title) || 'TON POST ÉCRIT EN <span class="highlight">VIDÉO</span>';
+        const highlightWord = (data && data.highlight_word) || "VIDÉO";
+        if (highlightWord && heroTitle.includes(highlightWord) && !heroTitle.includes('<span class="highlight">')) {
+          heroTitle = heroTitle.replace(highlightWord, `<span class="highlight">${highlightWord}</span>`);
+        }
         const instructionLabel = (data && data.instruction_label) || "ENVOIE CE MOT-CLÉ EN MESSAGE PRIVÉ :";
-        const buttonLabel = (data && data.button_label) || `[ ENVOYER « ${keyword} » EN MESSAGE PRIVÉ ↗ ]`;
+        const rawButton = (data && data.button_label) || `ENVOYER « ${keyword} » EN MESSAGE PRIVÉ ↗`;
+        const buttonLabel = rawButton.replace(/\[|\]/g, "").trim();
         return `
           <div class="comp-face-dm" id="comp-face-dm">
             <div class="face-dm-avatar-stage" id="face-dm-avatar-stage">
@@ -1441,12 +1577,260 @@
                     ${buttonLabel}
                   </div>
                 </div>
-                <div class="virtual-cursor" id="cta-cursor" style="position: absolute; pointer-events: none; z-index: 70;">
+                <div class="virtual-cursor" id="cta-cursor" style="position: absolute; top: 0; left: 0; pointer-events: none; z-index: 70;">
                   <svg width="68" height="68" viewBox="0 0 24 24" fill="none">
                     <path d="M4 3L11 21L14 13L22 10L4 3Z" fill="var(--accent-warning)" stroke="var(--bg-dark)" stroke-width="2.5" stroke-linejoin="round"/>
                   </svg>
                 </div>
               </div>
+            </div>
+          </div>
+        `;
+      case "zero_video_slam":
+        return `
+          <div class="comp-zero-slam" id="comp-zero-slam">
+            <div class="zero-counter-box" id="zero-counter-box">
+              <div class="zero-counter-label">POSTS ÉCRITS PUBLIÉS :</div>
+              <div class="zero-counter-num" id="zero-counter-num">4</div>
+            </div>
+            <div class="zero-giant-wrap" id="zero-giant-wrap" style="opacity: 0;">
+              <div class="zero-shockwave" id="zero-shockwave"></div>
+              <div class="zero-giant-digit" id="zero-giant-digit">0</div>
+              <div class="zero-slam-badge" id="zero-slam-badge" style="opacity: 0;">VIDÉO PUBLIÉE</div>
+            </div>
+          </div>
+        `;
+      case "shooting_wall_illustrations":
+        return `
+          <div class="comp-shooting-wall" id="comp-shooting-wall">
+            <div class="sw-card" id="sw-card-0">
+              <div class="sw-icon-wrap">
+                <svg width="110" height="110" viewBox="0 0 120 120" fill="none">
+                  <rect x="15" y="32" width="75" height="56" rx="10" fill="var(--surface-elevated)" stroke="var(--border-subtle)" stroke-width="3"/>
+                  <path d="M38 32L44 22H62L68 32H38Z" fill="var(--surface-elevated)" stroke="var(--border-subtle)" stroke-width="3"/>
+                  <circle cx="52" cy="60" r="22" fill="var(--bg-carbon)" stroke="var(--border-subtle)" stroke-width="3"/>
+                  <circle cx="52" cy="60" r="15" fill="none" stroke="var(--mint)" stroke-width="2.5" opacity="0.85"/>
+                  <circle cx="52" cy="60" r="7" fill="var(--surface-black)"/>
+                  <circle cx="48" cy="56" r="3" fill="var(--white)" opacity="0.7"/>
+                  <circle cx="78" cy="42" r="5" fill="var(--mint)"/>
+                  <path d="M22 40V37H27" stroke="var(--mint)" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M83 40V37H78" stroke="var(--mint)" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M22 80V83H27" stroke="var(--mint)" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M83 80V83H78" stroke="var(--mint)" stroke-width="2" stroke-linecap="round"/>
+                  <rect x="90" y="44" width="16" height="32" rx="4" fill="var(--surface-card)" stroke="var(--border-subtle)" stroke-width="2.5"/>
+                </svg>
+              </div>
+              <div class="sw-content">
+                <div class="sw-title">📷 CAMÉRA & PRISES</div>
+                <div class="sw-desc">Objectif cinéma & réglages reflex</div>
+                <div class="sw-badge" id="sw-badge-rec">● REC 00:00:00</div>
+              </div>
+            </div>
+            <div class="sw-card" id="sw-card-1">
+              <div class="sw-icon-wrap">
+                <svg width="110" height="110" viewBox="0 0 120 120" fill="none">
+                  <line x1="60" y1="74" x2="60" y2="108" stroke="var(--border-subtle)" stroke-width="3.5" stroke-linecap="round"/>
+                  <line x1="60" y1="95" x2="40" y2="114" stroke="var(--border-subtle)" stroke-width="3" stroke-linecap="round"/>
+                  <line x1="60" y1="95" x2="80" y2="114" stroke="var(--border-subtle)" stroke-width="3" stroke-linecap="round"/>
+                  <polygon points="60,16 88,28 98,54 84,76 36,76 22,54 32,28" fill="var(--surface-elevated)" stroke="var(--mint)" stroke-width="3"/>
+                  <polygon points="60,24 82,34 90,54 78,70 42,70 30,54 38,34" fill="rgba(0, 245, 160, 0.12)" stroke="var(--mint)" stroke-width="1.5" stroke-dasharray="4 2"/>
+                  <circle cx="60" cy="50" r="12" fill="var(--mint)"/>
+                  <circle cx="60" cy="50" r="18" fill="none" stroke="var(--white)" stroke-width="1.5" opacity="0.6"/>
+                  <line x1="20" y1="20" x2="10" y2="12" stroke="var(--mint)" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="100" y1="20" x2="110" y2="12" stroke="var(--mint)" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="12" y1="52" x2="2" y2="52" stroke="var(--mint)" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="108" y1="52" x2="118" y2="52" stroke="var(--mint)" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="sw-content">
+                <div class="sw-title">💡 LUMIÈRE & DÉCOR</div>
+                <div class="sw-desc">Projecteur softbox & éclairage studio</div>
+                <div class="sw-badge">5600K MAX</div>
+              </div>
+            </div>
+            <div class="sw-card" id="sw-card-2">
+              <div class="sw-icon-wrap">
+                <svg width="110" height="110" viewBox="0 0 120 120" fill="none">
+                  <rect x="12" y="16" width="96" height="88" rx="10" fill="var(--surface-elevated)" stroke="var(--mint)" stroke-width="3"/>
+                  <rect x="12" y="16" width="96" height="24" rx="10" fill="var(--surface-black)"/>
+                  <text x="60" y="33" fill="var(--mint)" font-family="Montserrat" font-size="12" font-weight="900" text-anchor="middle" letter-spacing="1">04:00:00</text>
+                  <rect x="18" y="46" width="22" height="14" rx="3" fill="var(--mint)" opacity="0.45"/>
+                  <rect x="43" y="46" width="38" height="14" rx="3" fill="var(--white)" opacity="0.8"/>
+                  <rect x="84" y="46" width="18" height="14" rx="3" fill="var(--mint)" opacity="0.45"/>
+                  <rect x="18" y="64" width="40" height="14" rx="3" fill="var(--mint)" opacity="0.9"/>
+                  <rect x="61" y="64" width="41" height="14" rx="3" fill="var(--surface-elevated)" stroke="var(--border-subtle)" stroke-width="1.5"/>
+                  <rect x="18" y="82" width="28" height="14" rx="3" fill="var(--border-subtle)"/>
+                  <rect x="49" y="82" width="53" height="14" rx="3" fill="var(--mint)" opacity="0.6"/>
+                  <line x1="58" y1="40" x2="58" y2="100" stroke="var(--white)" stroke-width="2.5"/>
+                  <polygon points="53,40 63,40 58,47" fill="var(--white)"/>
+                </svg>
+              </div>
+              <div class="sw-content">
+                <div class="sw-title">⏱️ 4H DE MONTAGE</div>
+                <div class="sw-desc">Timeline multipiste saturée & chronomètre</div>
+                <div class="sw-badge">04:00:00</div>
+              </div>
+            </div>
+          </div>
+        `;
+      case "real_clone_feed_skip":
+      case "b2b_robot_clone_crash":
+        return `
+          <div class="comp-real-clone" id="comp-real-clone">
+            <div class="rcf-top-banner" id="rcf-top-banner">
+              <div class="rcf-top-banner-title">MÊME AVATAR CLONÉ SUR TOUS LES COMPTES</div>
+            </div>
+            <div class="rcf-stage" id="rcf-stage">
+              <!-- Phase 1 : Post Unique -->
+              <div class="rcf-post-single" id="rcf-post-single">
+                <div class="rcf-post-header">
+                  <div class="rcf-avatar-circle">
+                    <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                      <circle cx="14" cy="10" r="6" stroke="var(--mint)" stroke-width="2"/>
+                      <path d="M4 24C4 19 8.5 17 14 17C19.5 17 24 19 24 24" stroke="var(--mint)" stroke-width="2"/>
+                    </svg>
+                  </div>
+                  <div class="rcf-author-meta">
+                    <div class="rcf-author-name">Créateur Synthétique • 1er</div>
+                    <div class="rcf-author-sub">Modèle IA #404 • Sponsorisé 🌐</div>
+                  </div>
+                  <div style="font-size: 24px; color: var(--text-muted); font-weight: 900;">•••</div>
+                </div>
+                <div class="rcf-player-box">
+                  <svg width="180" height="180" viewBox="0 0 180 180" fill="none">
+                    <circle cx="90" cy="90" r="75" stroke="var(--border-subtle)" stroke-width="2" stroke-dasharray="4 4"/>
+                    <path d="M60 55H120L135 90L120 135H60L45 90L60 55Z" fill="var(--surface-elevated)" stroke="var(--mint)" stroke-width="3"/>
+                    <rect x="62" y="80" width="56" height="16" rx="4" fill="var(--surface-black)" stroke="var(--mint)" stroke-width="1.5"/>
+                    <circle cx="78" cy="88" r="5" fill="var(--mint)"/>
+                    <circle cx="102" cy="88" r="5" fill="var(--mint)"/>
+                    <line x1="70" y1="112" x2="110" y2="112" stroke="var(--border-subtle)" stroke-width="2.5"/>
+                    <line x1="75" y1="120" x2="105" y2="120" stroke="var(--border-subtle)" stroke-width="2.5"/>
+                  </svg>
+                  <div class="rcf-target-bracket">
+                    <div class="rcf-target-label">SYNTHÈSE FACIALE IA</div>
+                  </div>
+                  <div class="rcf-wave-bar">
+                    <div class="rcf-flat-wave"></div>
+                    <div class="rcf-wave-label">TON MONOTONE • 0 ÉMOTION</div>
+                    <div class="rcf-flat-wave"></div>
+                  </div>
+                </div>
+                <div class="rcf-post-badge">MODÈLE AVATAR GÉNÉRIQUE</div>
+              </div>
+
+              <!-- Phase 2 : Grille de 3 clones -->
+              <div class="rcf-clone-row" id="rcf-clone-row" style="display: none;">
+                ${[1, 2, 3].map(num => `
+                  <div class="rcf-clone-mini-card">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                      <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--bg-carbon); border: 1.5px solid var(--mint); display: flex; align-items: center; justify-content: center; font-size: 20px;">🤖</div>
+                      <div style="font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: var(--white);">Compte #${num}</div>
+                    </div>
+                    <div style="flex: 1; background: var(--bg-carbon); border-radius: 12px; border: 1.5px solid var(--border-subtle); display: flex; align-items: center; justify-content: center;">
+                      <svg width="100" height="100" viewBox="0 0 180 180" fill="none">
+                        <path d="M60 55H120L135 90L120 135H60L45 90L60 55Z" fill="var(--surface-elevated)" stroke="var(--mint)" stroke-width="3"/>
+                        <rect x="62" y="80" width="56" height="16" rx="4" fill="var(--surface-black)" stroke="var(--mint)" stroke-width="1.5"/>
+                        <circle cx="78" cy="88" r="5" fill="var(--mint)"/>
+                        <circle cx="102" cy="88" r="5" fill="var(--mint)"/>
+                      </svg>
+                    </div>
+                    <div class="rcf-clone-tag">CLONE IDENTIQUE #0${num}</div>
+                  </div>
+                `).join("")}
+              </div>
+            </div>
+
+            <!-- Phase 3 : Carte Audit & Chute Crédibilité -->
+            <div class="rcf-audit-card" id="rcf-audit-card">
+              <div class="rcf-audit-title">RÉTENTION & <span>CRÉDIBILITÉ PROSPECT</span></div>
+              <div class="rcf-gauge-box">
+                <div class="rcf-gauge-labels">
+                  <span>CONFIANCE AUDIENCE</span>
+                  <span class="rcf-gauge-percent" id="rcf-gauge-percent">100%</span>
+                </div>
+                <div class="rcf-gauge-track">
+                  <div class="rcf-gauge-fill" id="rcf-gauge-fill" style="width: 100%;"></div>
+                </div>
+              </div>
+              <div class="rcf-stopwatch-num" id="rcf-stopwatch-num">00:01s</div>
+              <div class="rcf-final-stamp" id="rcf-final-stamp" style="opacity: 0;">SWIPE EN 3 SECONDES — PROSPECT PERDU</div>
+            </div>
+          </div>
+        `;
+      case "overflowing_text_posts":
+      case "locked_post_wall":
+        return `
+          <div class="comp-overflowing-posts" id="comp-overflowing-posts">
+            <div class="otp-header-box">
+              <div class="otp-header-title">TES MEILLEURS ARGUMENTS <span>NOYÉS DANS L'ÉCRIT</span></div>
+            </div>
+            <div class="otp-window">
+              <div class="otp-window-bar">
+                <div style="display: flex; gap: 8px;">
+                  <div style="width: 14px; height: 14px; border-radius: 50%; background: var(--window-dot-close);"></div>
+                  <div style="width: 14px; height: 14px; border-radius: 50%; background: var(--window-dot-min);"></div>
+                  <div style="width: 14px; height: 14px; border-radius: 50%; background: var(--accent-primary);"></div>
+                </div>
+                <div class="otp-window-meta">Post publié • 1 850 mots • 8 min de lecture</div>
+                <div style="font-size: 20px; color: var(--text-muted); font-weight: 700;">LinkedIn Feed</div>
+              </div>
+              <div class="otp-window-body">
+                <div class="otp-scroll-content" id="otp-scroll-content">
+                  <div class="otp-line">Dans le monde du conseil, l'acquisition repose souvent sur des méthodes éprouvées...</div>
+                  <div class="otp-line">Nous constatons chaque semaine que les décideurs n'ont plus le temps d'analyser...</div>
+                  <div class="otp-line highlight-arg">★ ARGUMENT MASSUE #1 : +140K€ GÉNÉRÉS SANS PROSPECTION</div>
+                  <div class="otp-line">Pourtant la majorité des équipes continuent de rédiger des synthèses textuelles...</div>
+                  <div class="otp-line">Une analyse approfondie sur plus de quatre-vingts cas d'usage démontre que...</div>
+                  <div class="otp-line highlight-arg">★ RÉSULTAT CLIENT PROUVÉ : CYCLE DE VENTE DIVISÉ PAR 3</div>
+                  <div class="otp-line">En conséquence directe de cette surcharge cognitive, le taux d'attention s'effondre...</div>
+                  <div class="otp-line">Il devient alors impératif de revoir complètement la chaîne de transmission...</div>
+                  <div class="otp-line highlight-arg">★ MÉTHODE SUR-MESURE : CONVERSION DÉCUPLÉE EN VIDÉO</div>
+                  <div class="otp-line">Mais faute d'outils adaptés, ces démonstrations restent invisibles dans le feed...</div>
+                  <div class="otp-line">Les prospects survolent les premiers paragraphes sans jamais atteindre la valeur...</div>
+                  <div class="otp-line">Chaque publication demande ainsi deux heures d'écriture pour un impact nul...</div>
+                  <div class="otp-line">Le diagnostic est sans appel : le format texte sature et ne convertit plus...</div>
+                  <div class="otp-line">Seule une preuve visuelle dynamique et rythmée permet d'arrêter le scroll...</div>
+                </div>
+              </div>
+            </div>
+            <div class="otp-bottom-banner">PAVÉ DE 150 LIGNES : 92% DES PROSPECTS SCROLLENT SANS LIRE</div>
+          </div>
+        `;
+      case "social_logos_carousel_rtl":
+        const channelsData = [
+          {
+            id: "linkedin",
+            name: "LINKEDIN",
+            svg: `<svg width="180" height="180" viewBox="0 0 180 180" fill="none"><rect width="180" height="180" rx="36" fill="#0A66C2"/><path d="M52 74H76V142H52V74ZM64 42C56.3 42 50 48.3 50 56C50 63.7 56.3 70 64 70C71.7 70 78 63.7 78 56C78 48.3 71.7 42 64 42ZM92 74H115V83.5C118.5 77 127 72 138 72C160 72 165 86 165 107V142H141V111C141 102 140 93 128.5 93C116.5 93 115 102 115 110.5V142H92V74Z" fill="#FFFFFF"/></svg>`
+          },
+          {
+            id: "tiktok",
+            name: "TIKTOK",
+            svg: `<svg width="180" height="180" viewBox="0 0 180 180" fill="none"><rect width="180" height="180" rx="36" fill="#000000"/><g transform="translate(18, 18) scale(3)"><path d="M33.5 17.5C31.5 17.5 29.8 16.6 28.5 15.2V27.8C28.5 33.2 24.1 37.5 18.8 37.5C13.4 37.5 9 33.1 9 27.8C9 22.4 13.4 18 18.8 18C19.3 18 19.8 18.05 20.3 18.15V22.9C19.8 22.75 19.3 22.65 18.8 22.65C16 22.65 13.7 24.95 13.7 27.75C13.7 30.55 16 32.85 18.8 32.85C21.6 32.85 23.8 30.55 23.8 27.75V9.5H28.5C28.5 12.3 30.7 14.5 33.5 14.5V17.5Z" fill="#25F4EE"/><path d="M34.5 16.5C32.5 16.5 30.8 15.6 29.5 14.2V26.8C29.5 32.2 25.1 36.5 19.8 36.5C14.4 36.5 10 32.1 10 26.8C10 21.4 14.4 17 19.8 17C20.3 17 20.8 17.05 21.3 17.15V21.9C20.8 21.75 20.3 21.65 19.8 21.65C17 21.65 14.7 23.95 14.7 26.75C14.7 29.55 17 31.85 19.8 31.85C22.6 31.85 24.8 29.55 24.8 26.75V8.5H29.5C29.5 11.3 31.7 13.5 34.5 13.5V16.5Z" fill="#FE2C55"/><path d="M34 17C32 17 30.3 16.1 29 14.7V27.3C29 32.7 24.6 37 19.3 37C13.9 37 9.5 32.6 9.5 27.3C9.5 21.9 13.9 17.5 19.3 17.5C19.8 17.5 20.3 17.55 20.8 17.65V22.4C20.3 22.25 19.8 22.15 19.3 22.15C16.5 22.15 14.2 24.45 14.2 27.25C14.2 30.05 16.5 32.35 19.3 32.35C22.1 32.35 24.3 30.05 24.3 27.25V9H29C29 11.8 31.2 14 34 14V17Z" fill="#FFFFFF"/></g></svg>`
+          },
+          {
+            id: "reels",
+            name: "REELS",
+            svg: `<svg width="180" height="180" viewBox="0 0 180 180" fill="none"><defs><radialGradient id="ig-grad-real" cx="20%" cy="110%" r="130%"><stop offset="0%" stop-color="#FFDD55"/><stop offset="25%" stop-color="#FF5D3B"/><stop offset="50%" stop-color="#FF0069"/><stop offset="75%" stop-color="#D300C5"/><stop offset="100%" stop-color="#7638FA"/></radialGradient></defs><rect width="180" height="180" rx="42" fill="url(#ig-grad-real)"/><g transform="translate(18, 18) scale(3)"><rect x="10" y="10" width="28" height="28" rx="8" stroke="white" stroke-width="3" fill="none"/><circle cx="24" cy="24" r="6.5" stroke="white" stroke-width="3" fill="none"/><circle cx="31.5" cy="16.5" r="1.6" fill="white"/></g></svg>`
+          },
+          {
+            id: "shorts",
+            name: "SHORTS",
+            svg: `<svg width="180" height="180" viewBox="0 0 180 180" fill="none"><rect width="180" height="180" rx="36" fill="#FF0000"/><g transform="translate(18, 18) scale(3)"><path d="M31.2 20.1C29.6 19.2 28.2 19.1 28.2 19.1L29.6 18.2C32.1 16.7 32.9 13.5 31.4 11C29.9 8.5 26.7 7.7 24.2 9.2L16.2 14C14.1 15.3 12.8 17.7 13 20.2C13.2 22.7 14.9 24.7 17.3 25.3L15.6 26.3C13.1 27.8 12.3 31 13.8 33.5C15.3 36 18.5 36.8 21 35.3L29 30.5C31.1 29.2 32.4 26.8 32.2 24.3C32 21.8 30.3 20.8 31.2 20.1Z" fill="#CC0000"/><path d="M29.5 17.5L24 14.2C21.8 12.9 19 13.6 17.7 15.8C16.4 18 17.1 20.8 19.3 22.1L20.8 23L16.5 25.5C14.3 26.8 13.6 29.6 14.9 31.8C16.2 34 19 34.7 21.2 33.4L26.7 30.1C28.9 28.8 29.6 26 28.3 23.8L26.8 22.9L31.1 20.4C33.3 19.1 34 16.3 32.7 14.1C31.7 12.4 29.5 17.5 29.5 17.5Z" fill="white"/><polygon points="21,19 21,29 29,24" fill="#FF0000"/></g></svg>`
+          }
+        ];
+        return `
+          <div class="comp-social-carousel" id="comp-social-carousel">
+            <div class="slc-header">
+              <div class="slc-header-title">DOMINER LES 4 RÉSEAUX EN SIMULTANÉ</div>
+            </div>
+            <div class="slc-stage" id="slc-stage">
+              ${channelsData.map((ch, idx) => `
+                <div class="slc-card" id="slc-card-${idx}">
+                  <div class="slc-logo-wrap">${ch.svg}</div>
+                  <div class="slc-card-title">${ch.name}</div>
+                </div>
+              `).join("")}
             </div>
           </div>
         `;
@@ -1479,69 +1863,140 @@
         el.style.transform = `translate(-50%, -50%) scale(${spring.scale})`;
       }
     } else if (type === "blueprint_cursor_ui") {
+      const container = document.getElementById("blueprint-cursor-ui");
       const cursor = document.getElementById("bcui-cursor");
       const previewTitleEl = document.getElementById("bcui-preview-title");
       const ripple = document.getElementById("bcui-ripple");
-      const clickAt = (data && data.click_at) || (scene.start + 1.2);
-      const themeBeats = (data && data.theme_beats) || (data && data.beats) || [
-        clickAt,
-        scene.start + 2.4,
-        scene.start + 3.6,
-        scene.start + 4.8
-      ];
+      const clickAt = (data && data.click_at) || 46.84;
+      const themeBeats = (data && data.theme_beats) || (data && data.beats) || [46.84, 47.98, 48.88, 49.94];
       const themeList = [
-        { id: "claude", name: "01. ÉDITORIAL CHAUD", cx: 220, cy: 460 },
-        { id: "cobalt-grid", name: "02. TECH SOMBRE", cx: 640, cy: 460 },
-        { id: "editorial-forest", name: "03. CONSEIL FINANCIER", cx: 220, cy: 535 },
-        { id: "bold-poster", name: "04. CRÉATEUR PERCUTANT", cx: 640, cy: 535 }
+        { id: "claude", name: "01. ÉDITORIAL CHAUD" },
+        { id: "cobalt-grid", name: "02. TECH SOMBRE" },
+        { id: "editorial-forest", name: "03. CONSEIL FINANCIER" },
+        { id: "bold-poster", name: "04. CRÉATEUR PERCUTANT" }
       ];
 
-      let activeThemeIdx = 0;
-      for (let i = 0; i < themeBeats.length; i++) {
-        if (t >= themeBeats[i]) {
-          activeThemeIdx = i;
+      const getBtnCoords = (idx) => {
+        const btn = document.getElementById(`bcui-btn-${idx}`);
+        if (!btn) return { x: 230, y: 460 };
+        return {
+          x: btn.offsetLeft + btn.offsetWidth * 0.55,
+          y: btn.offsetTop + btn.offsetHeight * 0.55
+        };
+      };
+
+      // Avant 46.84s : AUCUN thème n'est activé, reste en cyber-mint
+      if (t < themeBeats[0]) {
+        document.documentElement.setAttribute("data-theme", "cyber-mint");
+        if (canvas) canvas.setAttribute("data-theme", "cyber-mint");
+        if (previewTitleEl) previewTitleEl.textContent = "CHARTE GRAPHIQUE : PRÊTE À ADAPTER";
+        for (let i = 0; i < 4; i++) {
+          const btn = document.getElementById(`bcui-btn-${i}`);
+          if (btn) {
+            btn.classList.remove("is-active");
+            btn.style.transform = "";
+          }
         }
-      }
+        if (ripple) ripple.style.opacity = "0";
 
-      const currentTarget = themeList[activeThemeIdx];
-      const prevTarget = activeThemeIdx > 0 ? themeList[activeThemeIdx - 1] : { cx: 120, cy: 300 };
-      const currentBeatT = themeBeats[activeThemeIdx];
-      const moveDuration = 0.45;
-      const moveP = Math.min(1, Math.max(0, (t - (currentBeatT - moveDuration)) / moveDuration));
-      const easedMove = easeInOutCubic(moveP);
-
-      const curX = prevTarget.cx + (currentTarget.cx - prevTarget.cx) * easedMove;
-      const curY = prevTarget.cy + (currentTarget.cy - prevTarget.cy) * easedMove;
-
-      if (cursor) {
-        cursor.style.transform = `translate(${curX}px, ${curY}px)`;
-      }
-
-      for (let i = 0; i < 4; i++) {
-        const btn = document.getElementById(`bcui-btn-${i}`);
-        if (btn) {
-          btn.classList.toggle("is-active", i === activeThemeIdx);
+        // Approche du curseur vers le bouton 0 (arrive 0.15s avant 46.84s)
+        const b0Coords = getBtnCoords(0);
+        const startX = b0Coords.x - 180;
+        const startY = b0Coords.y + 120;
+        const arriveT = themeBeats[0] - 0.15;
+        const departT = themeBeats[0] - 0.70;
+        const moveP = Math.min(1, Math.max(0, (t - departT) / (arriveT - departT)));
+        const curX = startX + (b0Coords.x - startX) * easeInOutCubic(moveP);
+        const curY = startY + (b0Coords.y - startY) * easeInOutCubic(moveP);
+        if (cursor) {
+          cursor.style.transform = `translate(${curX}px, ${curY}px) scale(1.0)`;
         }
-      }
+      } else {
+        // À partir de 46.84s : détermination du thème actif
+        let activeThemeIdx = 0;
+        for (let i = 0; i < themeBeats.length; i++) {
+          if (t >= themeBeats[i]) {
+            activeThemeIdx = i;
+          }
+        }
 
-      if (previewTitleEl) {
-        previewTitleEl.textContent = currentTarget.name;
-      }
+        const currentTarget = themeList[activeThemeIdx];
+        const currentBeatT = themeBeats[activeThemeIdx];
 
-      // Application dynamique immédiate du thème sur DOM et canvas
-      const activeThemeId = currentTarget.id;
-      document.documentElement.setAttribute("data-theme", activeThemeId);
-      if (canvas) canvas.setAttribute("data-theme", activeThemeId);
+        // Application dynamique immédiate du thème sur DOM et canvas
+        document.documentElement.setAttribute("data-theme", currentTarget.id);
+        if (canvas) canvas.setAttribute("data-theme", currentTarget.id);
 
-      // Ripple d'impact au clic
-      if (ripple) {
-        const rippleElapsed = t - currentBeatT;
-        if (rippleElapsed >= 0 && rippleElapsed <= 0.45) {
-          const ripP = rippleElapsed / 0.45;
-          ripple.style.transform = `translate(${currentTarget.cx}px, ${currentTarget.cy}px) scale(${ripP * 2.8})`;
-          ripple.style.opacity = String(1.0 - ripP);
+        if (previewTitleEl) {
+          previewTitleEl.textContent = currentTarget.name;
+        }
+
+        // Mise à jour de l'état actif des boutons
+        for (let i = 0; i < 4; i++) {
+          const btn = document.getElementById(`bcui-btn-${i}`);
+          if (btn) {
+            btn.classList.toggle("is-active", i === activeThemeIdx);
+          }
+        }
+
+        const curCoords = getBtnCoords(activeThemeIdx);
+        let curX = curCoords.x;
+        let curY = curCoords.y;
+
+        // Déplacement du curseur vers le bouton suivant s'il existe
+        if (activeThemeIdx < themeBeats.length - 1) {
+          const nextBeatT = themeBeats[activeThemeIdx + 1];
+          const arriveNextT = nextBeatT - 0.15;
+          const departNextT = currentBeatT + 0.30;
+          if (t > departNextT && t <= arriveNextT) {
+            const nextCoords = getBtnCoords(activeThemeIdx + 1);
+            const pMove = Math.min(1, Math.max(0, (t - departNextT) / (arriveNextT - departNextT)));
+            const eased = easeInOutCubic(pMove);
+            curX = curCoords.x + (nextCoords.x - curCoords.x) * eased;
+            curY = curCoords.y + (nextCoords.y - curCoords.y) * eased;
+          } else if (t > arriveNextT) {
+            const nextCoords = getBtnCoords(activeThemeIdx + 1);
+            curX = nextCoords.x;
+            curY = nextCoords.y;
+          }
+        }
+
+        // Clic à l'instant du beat :
+        // 1. Curseur : scale(0.82) -> scale(1.0)
+        // 2. Bouton cliqué : translateY(4px) scale(0.96)
+        // 3. Onde ripple sous la pointe
+        const clickElapsed = t - currentBeatT;
+        let cursorScale = 1.0;
+        const activeBtn = document.getElementById(`bcui-btn-${activeThemeIdx}`);
+
+        if (clickElapsed >= 0 && clickElapsed <= 0.22) {
+          if (clickElapsed < 0.08) {
+            const pPress = clickElapsed / 0.08;
+            cursorScale = 1.0 - 0.18 * pPress;
+            if (activeBtn) activeBtn.style.transform = `translateY(${4 * pPress}px) scale(${1.0 - 0.04 * pPress})`;
+          } else {
+            const pRel = (clickElapsed - 0.08) / 0.14;
+            cursorScale = 0.82 + 0.18 * pRel;
+            if (activeBtn) activeBtn.style.transform = `translateY(${4 * (1 - pRel)}px) scale(${0.96 + 0.04 * pRel})`;
+          }
         } else {
-          ripple.style.opacity = "0";
+          if (activeBtn) activeBtn.style.transform = "";
+        }
+
+        if (cursor) {
+          cursor.style.transform = `translate(${curX}px, ${curY}px) scale(${cursorScale})`;
+        }
+
+        if (ripple) {
+          if (clickElapsed >= 0 && clickElapsed <= 0.40) {
+            const pRip = clickElapsed / 0.40;
+            ripple.style.left = `${curCoords.x}px`;
+            ripple.style.top = `${curCoords.y}px`;
+            ripple.style.transform = `scale(${pRip * 2.2})`;
+            ripple.style.opacity = `${1.0 - pRip}`;
+          } else {
+            ripple.style.opacity = "0";
+          }
         }
       }
     } else if (type === "blueprint_terminal_scene") {
@@ -1570,7 +2025,12 @@
     } else if (type === "blueprint_compare_split") {
       const cardAvant = document.getElementById("bcs-card-avant");
       const cardApres = document.getElementById("bcs-card-apres");
-      const revealAt = (data && data.reveal_at) || (scene.start + 1.0);
+      const gaugeFill = document.getElementById("bcs-gauge-fill");
+      const gaugeVal = document.getElementById("bcs-gauge-val");
+      const revealAt = (data && data.reveal_at) !== undefined ? data.reveal_at : 17.52;
+      const alertAt = (data && data.alert_at) !== undefined ? data.alert_at : 19.78;
+      const gaugeStart = (data && data.gauge_start) !== undefined ? data.gauge_start : 19.78;
+      const gaugeEnd = (data && data.gauge_end) !== undefined ? data.gauge_end : (scene ? scene.end - 0.4 : 21.66);
 
       if (cardAvant) {
         cardAvant.style.transform = `scale(${spring.scale}) rotate(-1.5deg)`;
@@ -1581,29 +2041,89 @@
           const apresSpring = calcSpringOvershoot(apresElapsed);
           cardApres.style.transform = `scale(${apresSpring.scale}) rotate(1.5deg)`;
           cardApres.style.opacity = "1";
+
+          // Alerte critique dès alertAt (19.78s sur "détruit")
+          if (t >= alertAt) {
+            cardApres.classList.add("bcs-card-alert");
+            cardApres.classList.remove("bcs-card-warning");
+          } else {
+            cardApres.classList.remove("bcs-card-alert");
+            cardApres.classList.add("bcs-card-warning");
+          }
+
+          // Jauge de confiance : chute de 100% à 0% entre 19.78s et 21.66s
+          if (gaugeFill && gaugeVal) {
+            if (t < gaugeStart) {
+              gaugeFill.style.width = "100%";
+              gaugeVal.textContent = "100%";
+            } else if (t >= gaugeEnd) {
+              gaugeFill.style.width = "0%";
+              gaugeVal.textContent = "0%";
+            } else {
+              const pGauge = Math.min(1, Math.max(0, (t - gaugeStart) / Math.max(0.01, gaugeEnd - gaugeStart)));
+              const remaining = Math.round((1 - pGauge) * 100);
+              gaugeFill.style.width = `${remaining}%`;
+              gaugeVal.textContent = `${remaining}%`;
+            }
+          }
         } else {
           cardApres.style.transform = "scale(0.8) rotate(5deg)";
-          cardApres.style.opacity = "0.3";
+          cardApres.style.opacity = "0";
         }
       }
     } else if (type === "blueprint_spatial_pan") {
       const st1 = document.getElementById("bsp-st-1");
       const st2 = document.getElementById("bsp-st-2");
       const st3 = document.getElementById("bsp-st-3");
-      const beats = (data && data.beats) || [
-        scene.start + (scene.end - scene.start) * 0.15,
-        scene.start + (scene.end - scene.start) * 0.45,
-        scene.start + (scene.end - scene.start) * 0.75
-      ];
-      const b0 = beats[0] !== undefined ? beats[0] : scene.start;
-      const b1 = beats[1] !== undefined ? beats[1] : (scene.start + 3.0);
-      const b2 = beats[2] !== undefined ? beats[2] : (scene.start + 6.0);
+      const conn1 = document.getElementById("bsp-conn-1");
+      const conn2 = document.getElementById("bsp-conn-2");
+      const pFill1 = document.getElementById("bsp-progress-1");
+      const pFill2 = document.getElementById("bsp-progress-2");
+      const pFill3 = document.getElementById("bsp-progress-3");
+      const icon1 = document.getElementById("bsp-icon-1");
+      const icon2 = document.getElementById("bsp-icon-2");
+      const icon3 = document.getElementById("bsp-icon-3");
 
-      if (st1 && st2 && st3) {
-        st1.classList.toggle("is-active", t < b1);
-        st2.classList.toggle("is-active", t >= b1 && t < b2);
-        st3.classList.toggle("is-active", t >= b2);
+      const t1 = 29.00;
+      const t2 = 33.68;
+      const t3 = 37.84;
+      const tEnd = (scene && scene.end) || 41.72;
+
+      function updateStation(st, pFill, icon, startT, endT, isActiveNow, isPast) {
+        if (!st) return;
+        if (t < startT) {
+          st.style.opacity = "0.12";
+          st.style.transform = "scale(0.88) translateY(30px)";
+          st.classList.remove("is-active");
+          if (pFill) pFill.style.width = "0%";
+          if (icon) icon.style.transform = "scale(0.9)";
+        } else if (isActiveNow) {
+          const elapsed = t - startT;
+          const sp = calcSpringOvershoot(elapsed);
+          st.style.opacity = "1";
+          st.style.transform = `scale(${sp.scale * 1.02})`;
+          st.classList.add("is-active");
+
+          const pProg = Math.min(1, Math.max(0, (t - startT) / (endT - startT)));
+          if (pFill) pFill.style.width = `${Math.round(pProg * 100)}%`;
+
+          const pulse = 1.0 + Math.sin(t * 14) * 0.16;
+          if (icon) icon.style.transform = `scale(${pulse})`;
+        } else if (isPast) {
+          st.style.opacity = "0.85";
+          st.style.transform = "scale(1.0)";
+          st.classList.remove("is-active");
+          if (pFill) pFill.style.width = "100%";
+          if (icon) icon.style.transform = "scale(1.0)";
+        }
       }
+
+      updateStation(st1, pFill1, icon1, t1, t2, t >= t1 && t < t2, t >= t2);
+      updateStation(st2, pFill2, icon2, t2, t3, t >= t2 && t < t3, t >= t3);
+      updateStation(st3, pFill3, icon3, t3, tEnd, t >= t3, false);
+
+      if (conn1) conn1.style.opacity = t >= t2 ? "1" : "0.2";
+      if (conn2) conn2.style.opacity = t >= t3 ? "1" : "0.2";
     } else if (type === "blueprint_overwhelm") {
       const beats = (data && data.beats) || [scene.start + 0.8, scene.start + 1.8, scene.start + 2.8, scene.start + 3.8];
       const avatar = document.getElementById("bow-avatar");
@@ -1627,20 +2147,44 @@
         }
       }
     } else if (type === "blueprint_delivery_grid") {
-      const beats = (data && data.beats) || [scene.start + 1.0, scene.start + 2.0, scene.start + 3.0, scene.start + 4.0];
-      for (let i = 0; i < 4; i++) {
-        const card = document.getElementById(`bdg-card-${i}`);
-        if (!card) continue;
-        const beatT = beats[i] !== undefined ? beats[i] : (scene.start + i * 1.0);
-        if (t >= beatT) {
-          card.classList.add("is-active");
-          const popElapsed = Math.min(0.35, t - beatT);
-          const p = popElapsed / 0.35;
-          const scale = 0.95 + 0.09 * p + (p < 1 ? 0.08 * Math.sin(p * Math.PI) : 0);
-          card.style.transform = `scale(${scale})`;
-        } else {
-          card.classList.remove("is-active");
-          card.style.transform = "scale(0.95)";
+      const renderBar = document.getElementById("bdg-render-bar");
+      const beats = (data && data.beats) || [55.04, 55.82, 56.46, 56.85];
+
+      // Compteur et barre de rendu de 0% à 100% à 55.00s
+      if (renderBar) {
+        const pPrep = Math.min(1, Math.max(0, (t - 51.10) / (55.00 - 51.10)));
+        renderBar.style.width = `${Math.round(pPrep * 100)}%`;
+      }
+
+      // Pré-chauffage pulsé avant 55.04s
+      if (t < 55.04) {
+        const cycle = ((t - 51.10) * 3) % 4;
+        for (let i = 0; i < 4; i++) {
+          const card = document.getElementById(`channel-card-${i}`) || document.getElementById(`bdg-card-${i}`);
+          if (!card) continue;
+          card.classList.remove("is-active", "active");
+          const isPulsing = Math.floor(cycle) === i;
+          card.style.opacity = isPulsing ? "0.65" : "0.35";
+          card.style.transform = isPulsing ? "scale(0.98)" : "scale(0.95)";
+        }
+      } else {
+        // Allumage mot-à-mot des 4 cartes
+        for (let i = 0; i < 4; i++) {
+          const card = document.getElementById(`channel-card-${i}`) || document.getElementById(`bdg-card-${i}`);
+          if (!card) continue;
+          const beatT = beats[i] !== undefined ? beats[i] : (55.04 + i * 0.7);
+          if (t >= beatT) {
+            card.classList.add("is-active", "active");
+            const popElapsed = Math.min(0.30, t - beatT);
+            const p = popElapsed / 0.30;
+            const scale = 0.95 + 0.10 * p + (p < 1 ? 0.08 * Math.sin(p * Math.PI) : 0);
+            card.style.transform = `scale(${scale})`;
+            card.style.opacity = "1";
+          } else {
+            card.classList.remove("is-active", "active");
+            card.style.transform = "scale(0.95)";
+            card.style.opacity = "0.35";
+          }
         }
       }
     }
@@ -1660,16 +2204,36 @@
       }
 
       // Dynamisme continu : flottement, inclinaison et zoom caméra progressif
-      const floatY = Math.sin(t * 5) * 10;
-      const tiltDeg = Math.sin(t * 2.5) * 1.5;
-      const camZoom = 1.0 + progress * 0.05;
+      let floatY = Math.sin(t * 5) * 10;
+      let tiltDeg = Math.sin(t * 2.5) * 1.5;
+      let camZoom = 1.0 + progress * 0.05;
+      let sighScaleY = 1.0;
+
+      // Mandatory fix #2: Soupir réaliste entre 7.95s et 8.50s
+      if (data.is_sigh || (t >= 7.95 && t <= 8.50)) {
+        const sighT = Math.max(0, Math.min(1, (t - 7.95) / 0.55));
+        if (sighT < 0.3) {
+          const p = sighT / 0.3;
+          floatY += -8 * Math.sin(p * Math.PI * 0.5);
+          sighScaleY = 1.0 + 0.02 * p;
+        } else {
+          const p = (sighT - 0.3) / 0.7;
+          floatY += 18 * Math.sin(p * Math.PI * 0.5);
+          sighScaleY = 1.0 - 0.03 * Math.sin(p * Math.PI * 0.5);
+        }
+      }
+
+      // Mandatory fix #4: Punch-in dramatique à 13.06s
+      if (data.is_punch_in || (t >= 13.06 && t < 13.96)) {
+        camZoom = 1.15;
+      }
 
       if (avatar) {
         if (isHeadOnly) {
-          avatar.style.transform = `translateY(${spring.ty + floatY}px) rotate(${tiltDeg}deg) scale(${spring.scale * camZoom})`;
+          avatar.style.transform = `translateY(${spring.ty + floatY}px) rotate(${tiltDeg}deg) scale(${spring.scale * camZoom}) scaleY(${sighScaleY})`;
           avatar.style.transformOrigin = "center center";
         } else {
-          avatar.style.transform = `translateX(-50%) translateY(${spring.ty + floatY}px) rotate(${tiltDeg}deg) scale(${spring.scale * camZoom})`;
+          avatar.style.transform = `translateX(-50%) translateY(${spring.ty + floatY}px) rotate(${tiltDeg}deg) scale(${spring.scale * camZoom}) scaleY(${sighScaleY})`;
           avatar.style.transformOrigin = "bottom center";
         }
       }
@@ -2420,31 +2984,44 @@
           ctaStage.style.pointerEvents = "auto";
         }
 
-        const ctaElapsed = Math.max(0, t - ctaAt);
-        const keyword = (data && data.keyword) || "DEMO";
+        const keyword = (data && data.keyword) || "CLARTÉ";
+        const cascadeStart = (data && data.cascade_start !== undefined) ? data.cascade_start : (spokenAt > ctaAt + 0.3 ? spokenAt - 0.05 : ctaAt);
+        const letterStep = 0.04; // 0.04s par lettre
 
-        // Animation séquentielle dynamique des lettres
-        const step = Math.min(0.15, 0.6 / Math.max(1, keyword.length));
         for (let i = 0; i < keyword.length; i++) {
           const letterEl = document.getElementById(`kw-letter-${i}`);
           if (letterEl) {
-            const p = Math.max(0, Math.min(1, (ctaElapsed - i * step) / step));
-            letterEl.style.opacity = `${p}`;
-            letterEl.style.transform = `scale(${0.7 + 0.3 * p})`;
+            const letterStart = cascadeStart + i * letterStep;
+            if (t < letterStart) {
+              letterEl.style.opacity = "0";
+              letterEl.style.transform = "scale(0.5)";
+            } else {
+              const p = Math.min(1, (t - letterStart) / 0.03);
+              letterEl.style.opacity = "1";
+              const scale = p < 0.8 ? (0.5 + 0.7 * (p / 0.8)) : (1.2 - 0.2 * ((p - 0.8) / 0.2));
+              letterEl.style.transform = `scale(${scale})`;
+            }
           }
         }
+
         // Support rétrocompatible pour letter-D, letter-E, letter-M, letter-O
         ["D", "E", "M", "O"].forEach((ch, idx) => {
           const legacyEl = document.getElementById(`letter-${ch}`);
           if (legacyEl) {
-            const p = Math.max(0, Math.min(1, (ctaElapsed - idx * 0.15) / 0.15));
-            legacyEl.style.opacity = `${p}`;
-            legacyEl.style.transform = `scale(${0.7 + 0.3 * p})`;
+            const letterStart = cascadeStart + idx * letterStep;
+            if (t < letterStart) {
+              legacyEl.style.opacity = "0";
+              legacyEl.style.transform = "scale(0.5)";
+            } else {
+              const p = Math.min(1, (t - letterStart) / 0.03);
+              legacyEl.style.opacity = "1";
+              legacyEl.style.transform = `scale(${0.7 + 0.3 * p})`;
+            }
           }
         });
 
-        // Punch-in monumental sur le mot-clé
-        const isSpoken = t >= spokenAt || ctaElapsed >= (keyword.length * step + 0.2);
+        // Punch-in monumental sur le mot-clé dès spokenAt (61.40s)
+        const isSpoken = t >= spokenAt;
         if (giantBox) {
           if (isSpoken) {
             giantBox.style.transform = "scale(1.08)";
@@ -2454,19 +3031,278 @@
             giantBox.style.boxShadow = "14px 14px 0px var(--white), 0 0 40px rgba(0, 245, 160, 0.4)";
           }
         }
+
         if (cursor) {
-          const moveCurP = Math.min(1, Math.max(0, (ctaElapsed - 0.4) / 0.4));
-          const cx = 200 * (1 - moveCurP) + 120;
-          const cy = 180 * (1 - moveCurP) + 195;
-          cursor.style.transform = `translate(${cx}px, ${cy}px) scale(${isSpoken ? 0.9 : 1.0})`;
+          const directBox = document.querySelector(".cta-direct-box");
+          if (directBox && sendBtn) {
+            const boxRect = directBox.getBoundingClientRect();
+            const btnRect = sendBtn.getBoundingClientRect();
+            const btnX = (btnRect.left - boxRect.left) + btnRect.width * 0.48;
+            const btnY = (btnRect.top - boxRect.top) + btnRect.height * 0.45;
+
+            // Arrivée sur le bouton 0.15s avant spokenAt, clic à spokenAt
+            const approachP = Math.min(1, Math.max(0, (t - (spokenAt - 0.35)) / 0.25));
+            const cx = btnX + (1 - approachP) * 140;
+            const cy = btnY + (1 - approachP) * 100;
+            const curScale = isSpoken ? 0.82 : 1.0;
+            cursor.style.transform = `translate(${cx}px, ${cy}px) scale(${curScale})`;
+          } else {
+            const ctaElapsed = Math.max(0, t - ctaAt);
+            const moveCurP = Math.min(1, Math.max(0, (ctaElapsed - 0.4) / 0.4));
+            const cx = 200 * (1 - moveCurP) + 120;
+            const cy = 180 * (1 - moveCurP) + 195;
+            cursor.style.transform = `translate(${cx}px, ${cy}px) scale(${isSpoken ? 0.82 : 1.0})`;
+          }
         }
-        if (sendBtn && isSpoken) {
-          sendBtn.style.transform = "translateY(4px) scale(0.97)";
-          sendBtn.style.boxShadow = "2px 2px 0px var(--accent-primary)";
+
+        if (sendBtn) {
+          if (isSpoken) {
+            sendBtn.style.transform = "translateY(4px) scale(0.96)";
+            sendBtn.style.boxShadow = "2px 2px 0px var(--accent-primary)";
+          } else {
+            sendBtn.style.transform = "scale(1.0)";
+            sendBtn.style.boxShadow = "8px 8px 0px var(--accent-primary)";
+          }
+        }
+      }
+    } else if (type === "zero_video_slam") {
+        const box = document.getElementById("zero-counter-box");
+        const num = document.getElementById("zero-counter-num");
+        const giantWrap = document.getElementById("zero-giant-wrap");
+        const shockwave = document.getElementById("zero-shockwave");
+        const giantDigit = document.getElementById("zero-giant-digit");
+        const slamBadge = document.getElementById("zero-slam-badge");
+
+        // Countdown 4 -> 3 -> 2 -> 1 from 2.52s to 3.54s
+        if (t < 2.52) {
+          if (num) num.textContent = "4";
+        } else if (t < 2.78) {
+          if (num) num.textContent = "4";
+        } else if (t < 3.03) {
+          if (num) num.textContent = "3";
+        } else if (t < 3.28) {
+          if (num) num.textContent = "2";
+        } else if (t < 3.54) {
+          if (num) num.textContent = "1";
+        }
+
+        if (t < 3.54) {
+          if (box) {
+            box.style.opacity = "1";
+            box.style.transform = "scale(1.0)";
+          }
+          if (giantWrap) giantWrap.style.opacity = "0";
+        } else {
+          if (box) {
+            box.style.opacity = "0";
+            box.style.transform = "scale(0.7)";
+          }
+          if (giantWrap) giantWrap.style.opacity = "1";
+
+          // Claque monumentale du 0 à 3.54s avec rebond easeOutBack (scale 2.1 -> 1.0)
+          const slamElapsed = t - 3.54;
+          const slamP = Math.min(1, slamElapsed / 0.28);
+          const c1 = 1.70158;
+          const c3 = c1 + 1;
+          const easeBack = 1 + c3 * Math.pow(slamP - 1, 3) + c1 * Math.pow(slamP - 1, 2);
+          const scale = 2.1 - 1.1 * easeBack;
+          if (giantDigit) {
+            giantDigit.style.transform = `scale(${Math.max(1.0, scale)})`;
+          }
+
+          // Onde de choc circulaire
+          if (shockwave) {
+            const waveP = Math.min(1, slamElapsed / 0.40);
+            const waveScale = 0.2 + 2.0 * waveP;
+            const waveOpacity = Math.max(0, 1 - waveP);
+            shockwave.style.transform = `scale(${waveScale})`;
+            shockwave.style.opacity = String(waveOpacity);
+          }
+
+          // Badge "VIDÉO PUBLIÉE" qui claque à t = 4.10s
+          if (slamBadge) {
+            if (t >= 4.10) {
+              const bElapsed = t - 4.10;
+              const bP = Math.min(1, bElapsed / 0.22);
+              const bScale = 1.8 - 0.8 * (1 + c3 * Math.pow(bP - 1, 3) + c1 * Math.pow(bP - 1, 2));
+              slamBadge.style.opacity = "1";
+              slamBadge.style.transform = `scale(${Math.max(1.0, bScale)})`;
+            } else {
+              slamBadge.style.opacity = "0";
+            }
+          }
+        }
+      } else if (type === "shooting_wall_illustrations") {
+        const c0 = document.getElementById("sw-card-0");
+        const c1 = document.getElementById("sw-card-1");
+        const c2 = document.getElementById("sw-card-2");
+        const recBadge = document.getElementById("sw-badge-rec");
+
+        // Carte 1: Caméra à 9.48s
+        if (c0) {
+          if (t >= 9.48) {
+            c0.classList.add("active");
+            const p0 = Math.min(1, (t - 9.48) / 0.22);
+            const sc0 = 0.92 + 0.10 * p0 + (p0 < 1 ? 0.08 * Math.sin(p0 * Math.PI) : 0);
+            c0.style.transform = `scale(${sc0})`;
+          } else {
+            c0.classList.remove("active");
+            c0.style.transform = "scale(0.92)";
+          }
+        }
+        // Carte 2: Lumière Softbox à 10.52s
+        if (c1) {
+          if (t >= 10.52) {
+            c1.classList.add("active");
+            const p1 = Math.min(1, (t - 10.52) / 0.22);
+            const sc1 = 0.92 + 0.10 * p1 + (p1 < 1 ? 0.08 * Math.sin(p1 * Math.PI) : 0);
+            c1.style.transform = `scale(${sc1})`;
+          } else {
+            c1.classList.remove("active");
+            c1.style.transform = "scale(0.92)";
+          }
+        }
+        // Carte 3: Timeline 4h de montage à 11.34s
+        if (c2) {
+          if (t >= 11.34) {
+            c2.classList.add("active");
+            const p2 = Math.min(1, (t - 11.34) / 0.22);
+            const sc2 = 0.92 + 0.10 * p2 + (p2 < 1 ? 0.08 * Math.sin(p2 * Math.PI) : 0);
+            c2.style.transform = `scale(${sc2})`;
+          } else {
+            c2.classList.remove("active");
+            c2.style.transform = "scale(0.92)";
+          }
+        }
+        if (recBadge && t >= 9.48) {
+          const blink = Math.floor((t - 9.48) * 3) % 2 === 0;
+          recBadge.style.opacity = blink ? "1" : "0.5";
+        }
+      } else if (type === "real_clone_feed_skip" || type === "b2b_robot_clone_crash") {
+        const topBanner = document.getElementById("rcf-top-banner");
+        const stage = document.getElementById("rcf-stage");
+        const postSingle = document.getElementById("rcf-post-single");
+        const cloneRow = document.getElementById("rcf-clone-row");
+        const auditCard = document.getElementById("rcf-audit-card");
+        const gaugeFill = document.getElementById("rcf-gauge-fill");
+        const gaugePercent = document.getElementById("rcf-gauge-percent");
+        const stopwatch = document.getElementById("rcf-stopwatch-num");
+        const stamp = document.getElementById("rcf-final-stamp");
+
+        // Phase 1 (16.76 - 18.54): Post unique IA
+        // Phase 2 (18.54 - 19.78): Dédoublement en 3 clones identiques
+        // Phase 3 (19.78 - 22.06): Swipe-up post ignoré + Audit crédibilité chute 0%
+        if (t < 18.54) {
+          if (topBanner) topBanner.classList.remove("active");
+          if (stage) stage.classList.remove("swipe-up");
+          if (postSingle) postSingle.style.display = "flex";
+          if (cloneRow) cloneRow.style.display = "none";
+          if (auditCard) auditCard.classList.remove("active");
+        } else if (t < 19.78) {
+          if (topBanner) topBanner.classList.add("active");
+          if (stage) stage.classList.remove("swipe-up");
+          if (postSingle) postSingle.style.display = "none";
+          if (cloneRow) cloneRow.style.display = "flex";
+          if (auditCard) auditCard.classList.remove("active");
+
+          const pClone = Math.min(1, (t - 18.54) / 0.22);
+          if (cloneRow) {
+            cloneRow.style.transform = `scale(${0.9 + 0.1 * pClone})`;
+          }
+        } else {
+          // Phase 3 : Swipe up & audit card
+          if (topBanner) topBanner.classList.remove("active");
+          if (stage) stage.classList.add("swipe-up");
+          if (auditCard) auditCard.classList.add("active");
+
+          // Effondrement de la jauge 100% -> 0% de 19.78s à 20.60s
+          const gaugeP = Math.min(1, Math.max(0, (t - 19.78) / 0.82));
+          const currentPct = Math.round(100 * (1 - gaugeP));
+          if (gaugeFill) gaugeFill.style.width = `${currentPct}%`;
+          if (gaugePercent) gaugePercent.textContent = `${currentPct}%`;
+
+          // Compteur chronomètre 00:01s -> 00:02s -> 00:03s entre 20.94 et 21.66
+          if (t < 21.18) {
+            if (stopwatch) stopwatch.textContent = "00:01s";
+          } else if (t < 21.42) {
+            if (stopwatch) stopwatch.textContent = "00:02s";
+          } else {
+            if (stopwatch) stopwatch.textContent = "00:03s";
+          }
+
+          // Tampon final SWIPE EN 3 SECONDES qui claque à 21.66s
+          if (stamp) {
+            if (t >= 21.66) {
+              const sElapsed = t - 21.66;
+              const sP = Math.min(1, sElapsed / 0.18);
+              const sScale = 2.0 - 1.0 * sP;
+              stamp.style.opacity = "1";
+              stamp.style.transform = `rotate(-3deg) scale(${Math.max(1.0, sScale)})`;
+            } else {
+              stamp.style.opacity = "0";
+            }
+          }
+        }
+      } else if (type === "overflowing_text_posts" || type === "locked_post_wall") {
+        const scrollContent = document.getElementById("otp-scroll-content");
+        if (scrollContent) {
+          const pScroll = Math.min(1, Math.max(0, (t - 24.02) / 3.38));
+          const ty = -240 * pScroll;
+          scrollContent.style.transform = `translateY(${ty}px)`;
+        }
+      } else if (type === "social_logos_carousel_rtl") {
+        // Défilement 1 à 1 Droite -> Gauche
+        // Timestamps exacts:
+        // t < 55.45 : LinkedIn au centre
+        // 55.45 <= t < 55.75 : easeOutBack de 0 vers 1
+        // 55.75 <= t < 56.25 : TikTok verrouillé plein centre
+        // 56.25 <= t < 56.45 : easeOutBack de 1 vers 2
+        // 56.45 <= t < 56.78 : Reels verrouillé plein centre
+        // 56.78 <= t < 56.95 : easeOutBack de 2 vers 3
+        // t >= 56.95 : Shorts verrouillé plein centre
+        const easeOutBackNorm = (p) => {
+          const c1 = 1.70158;
+          const c3 = c1 + 1;
+          return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2);
+        };
+
+        let slidePos = 0;
+        if (t < 55.45) {
+          slidePos = 0;
+        } else if (t < 55.75) {
+          const p = (t - 55.45) / (55.75 - 55.45);
+          slidePos = Math.max(0, easeOutBackNorm(Math.min(1, p)));
+        } else if (t < 56.25) {
+          slidePos = 1;
+        } else if (t < 56.45) {
+          const p = (t - 56.25) / (56.45 - 56.25);
+          slidePos = 1 + Math.max(0, easeOutBackNorm(Math.min(1, p)));
+        } else if (t < 56.78) {
+          slidePos = 2;
+        } else if (t < 56.95) {
+          const p = (t - 56.78) / (56.95 - 56.78);
+          slidePos = 2 + Math.max(0, easeOutBackNorm(Math.min(1, p)));
+        } else {
+          slidePos = 3;
+        }
+
+        for (let i = 0; i < 4; i++) {
+          const cardEl = document.getElementById(`slc-card-${i}`);
+          if (!cardEl) continue;
+          const diff = i - slidePos;
+          const offsetX = diff * 700;
+          const scale = 1 - Math.min(0.25, Math.abs(diff) * 0.22);
+          const opacity = Math.max(0.2, 1 - Math.abs(diff) * 0.65);
+          cardEl.style.transform = `translate3d(calc(-50% + ${offsetX}px), -50%, 0) scale(${scale})`;
+          cardEl.style.opacity = String(opacity);
+          if (Math.abs(diff) < 0.35) {
+            cardEl.classList.add("active");
+          } else {
+            cardEl.classList.remove("active");
+          }
         }
       }
     }
-  }
 
   // Initialisation à l'évaluation du script
   initData();

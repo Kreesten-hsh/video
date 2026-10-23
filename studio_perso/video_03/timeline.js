@@ -1036,7 +1036,7 @@ window.SCENES = [
     "start": 0.0,
     "end": 4.86,
     "data": {
-      "tag": "[ DIAGNOSTIC LINKEDIN B2B ]",
+      "tag": "",
       "text": ""
     },
     "caption_mode": "center_slam",
@@ -1070,7 +1070,7 @@ window.SCENES = [
     "id": "scene_02",
     "type": "list",
     "start": 4.86,
-    "end": 8.54,
+    "end": 7.86,
     "data": {
       "header": "TES 3 ACTIFS DÉJÀ PRÊTS",
       "items": [
@@ -1097,106 +1097,180 @@ window.SCENES = [
     "title": "Tes 3 Actifs Prêts"
   },
   {
-    "id": "scene_03",
-    "type": "blueprint_overwhelm",
-    "start": 8.54,
-    "end": 13.96,
+    "id": "scene_02b",
+    "type": "face",
+    "start": 7.86,
+    "end": 9.48,
     "data": {
-      "title": "LE MUR DU TOURNAGE MANUEL",
-      "avatar": "assets/avatars/facepalm.png",
-      "cards": [
-        "Allumer la Caméra",
-        "Régler la Lumière",
-        "4h de Montage",
-        "Abandon du Post"
-      ],
-      "beats": [
-        9.84,
-        10.88,
-        11.78,
-        13.06
-      ]
+      "avatar": "assets/avatars/sigh.png",
+      "hero_title": "ET POURTANT TU <span class='highlight'>BLOQUES</span>",
+      "highlight_word": "BLOQUES",
+      "is_sigh": true,
+      "badge": "BLOCAGE TOURNAGE"
     },
     "caption_mode": "single_line_top",
     "avatar_mode": "hidden",
     "camera": {
       "target": {
-        "zoom": 1.08,
+        "zoom": 1.02,
         "panX": 0,
-        "panY": 15
+        "panY": 0
       }
     },
     "switch_theme": "default",
-    "title": "Le Mur du Tournage Manuel"
+    "title": "Le Soupir de Blocage"
   },
   {
-    "id": "scene_04",
-    "type": "blueprint_compare_split",
-    "start": 13.96,
-    "end": 22.06,
+    "id": "scene_03a",
+    "type": "shooting_wall_illustrations",
+    "start": 9.48,
+    "end": 12.85,
+    "data": {},
+    "caption_mode": "single_line_top",
+    "avatar_mode": "hidden",
+    "camera": {
+      "target": {
+        "zoom": 1.04,
+        "panX": 0,
+        "panY": 0
+      }
+    },
+    "switch_theme": "default",
+    "title": "Le Mur du Tournage"
+  },
+  {
+    "id": "scene_03b",
+    "type": "face",
+    "start": 12.85,
+    "end": 13.96,
     "data": {
-      "badge_avant": "❌ CLONE IA GÉNÉRIQUE",
-      "title_avant": "Visage Robotique",
-      "desc_avant": "Même template que tout le monde = Crédibilité détruite en 3s",
-      "badge_apres": "✓ STUDIO SUR-MESURE",
-      "title_apres": "Direction Artistique B2B",
-      "desc_apres": "Ton identité visuelle codée au centième de seconde",
-      "reveal_at": 17.5
+      "avatar": "assets/avatars/facepalm.png",
+      "hero_title": "RÉSULTAT : TU <span class='highlight'>ABANDONNES</span>",
+      "highlight_word": "ABANDONNES",
+      "badge": "ENCORE 0 VIDÉO PUBLIÉE",
+      "is_punch_in": true
     },
     "caption_mode": "single_line_top",
     "avatar_mode": "hidden",
     "camera": {
-      "keyframes": [
-        {
-          "at": 13.54,
-          "zoom": 1.02,
-          "panX": -25,
-          "panY": 0
-        },
-        {
-          "at": 17.5,
-          "zoom": 1.06,
-          "panX": 25,
-          "panY": 0
-        }
-      ]
+      "target": {
+        "zoom": 1.12,
+        "panX": 0,
+        "panY": 0
+      }
     },
     "switch_theme": "default",
-    "title": "Rejet des Clones IA Génériques"
+    "title": "Tu Abandonnes"
   },
   {
-    "id": "scene_05",
-    "type": "blueprint_kinetic_type",
-    "start": 22.06,
-    "end": 27.4,
+    "id": "scene_04a",
+    "type": "face",
+    "start": 13.96,
+    "end": 16.76,
     "data": {
-      "tag": "[ LE VRAI BLOCAGE ]",
-      "text": "",
-      "avatar": "assets/avatars/stop.png"
+      "avatar": "assets/avatars/skeptic.png",
+      "hero_title": "REFUSE LES <span class='highlight'>CLONES IA</span>",
+      "highlight_word": "CLONES IA",
+      "badge": "ZÉRO AVATAR GÉNÉRIQUE"
     },
-    "caption_mode": "center_slam",
-    "avatar_mode": "hero",
+    "caption_mode": "single_line_top",
+    "avatar_mode": "hidden",
     "camera": {
-      "initial": {
-        "zoom": 1.25,
-        "panX": 0,
-        "panY": 0
-      },
       "target": {
-        "zoom": 1.0,
+        "zoom": 1.02,
         "panX": 0,
         "panY": 0
-      },
-      "easing": "easeOutExpo",
-      "duration": 0.55
+      }
     },
     "switch_theme": "default",
-    "title": "Le Vrai Blocage"
+    "title": "Refuse les Clones IA"
+  },
+  {
+    "id": "scene_04b",
+    "type": "real_clone_feed_skip",
+    "start": 16.76,
+    "end": 22.06,
+    "data": {},
+    "caption_mode": "single_line_top",
+    "avatar_mode": "hidden",
+    "camera": {
+      "target": {
+        "zoom": 1.04,
+        "panX": 0,
+        "panY": 0
+      }
+    },
+    "switch_theme": "default",
+    "title": "Visage Robotique et Chute de Crédibilité"
+  },
+  {
+    "id": "scene_05a",
+    "type": "face",
+    "start": 22.06,
+    "end": 24.02,
+    "data": {
+      "avatar": "assets/avatars/stop.png",
+      "hero_title": "CE N'EST PAS <span class='highlight'>TON CONTENU</span>",
+      "highlight_word": "TON CONTENU",
+      "badge": "LE VRAI PROBLÈME"
+    },
+    "caption_mode": "single_line_top",
+    "avatar_mode": "hidden",
+    "camera": {
+      "target": {
+        "zoom": 1.05,
+        "panX": 0,
+        "panY": 0
+      }
+    },
+    "switch_theme": "default",
+    "title": "Ce n'est pas ton Contenu"
+  },
+  {
+    "id": "scene_05b",
+    "type": "overflowing_text_posts",
+    "start": 24.02,
+    "end": 27.4,
+    "data": {},
+    "caption_mode": "single_line_top",
+    "avatar_mode": "hidden",
+    "camera": {
+      "target": {
+        "zoom": 1.02,
+        "panX": 0,
+        "panY": 0
+      }
+    },
+    "switch_theme": "default",
+    "title": "Arguments Enfermés dans des Pavés"
+  },
+  {
+    "id": "scene_05c",
+    "type": "face",
+    "start": 27.4,
+    "end": 29.0,
+    "data": {
+      "avatar": "assets/avatars/idea.png",
+      "hero_title": "PROCESSUS <span class='highlight'>INVERSÉ</span>",
+      "highlight_word": "INVERSÉ",
+      "badge": "LA SOLUTION AGENT404"
+    },
+    "caption_mode": "single_line_top",
+    "avatar_mode": "hidden",
+    "camera": {
+      "target": {
+        "zoom": 1.05,
+        "panX": 0,
+        "panY": 0
+      }
+    },
+    "switch_theme": "default",
+    "title": "Processus Inversé"
   },
   {
     "id": "scene_06",
     "type": "blueprint_spatial_pan",
-    "start": 27.4,
+    "start": 29.0,
     "end": 41.72,
     "data": {
       "stations": [
@@ -1224,22 +1298,34 @@ window.SCENES = [
     "camera": {
       "keyframes": [
         {
-          "at": 27.14,
-          "zoom": 1.05,
+          "at": 29.0,
+          "zoom": 1.14,
           "panX": 0,
-          "panY": 120
+          "panY": 190
+        },
+        {
+          "at": 33.28,
+          "zoom": 1.14,
+          "panX": 0,
+          "panY": 190
         },
         {
           "at": 33.68,
-          "zoom": 1.05,
+          "zoom": 1.14,
+          "panX": 0,
+          "panY": 0
+        },
+        {
+          "at": 37.44,
+          "zoom": 1.14,
           "panX": 0,
           "panY": 0
         },
         {
           "at": 37.84,
-          "zoom": 1.05,
+          "zoom": 1.16,
           "panX": 0,
-          "panY": -120
+          "panY": -190
         }
       ]
     },
@@ -1254,10 +1340,10 @@ window.SCENES = [
     "data": {
       "title": "EFFET CAMÉLÉON : 4 CHARTES",
       "theme_beats": [
-        47.0,
-        48.0,
-        49.0,
-        50.1
+        46.84,
+        47.98,
+        48.88,
+        49.94
       ]
     },
     "caption_mode": "single_line_top",
@@ -1269,40 +1355,49 @@ window.SCENES = [
         "panY": 0
       }
     },
-    "switch_theme": "claude",
+    "switch_theme": "cyber-mint",
     "title": "L'Effet Caméléon - 4 Chartes en Direct"
   },
   {
-    "id": "scene_08",
-    "type": "blueprint_delivery_grid",
+    "id": "scene_08a",
+    "type": "face",
     "start": 51.1,
-    "end": 57.68,
+    "end": 54.62,
     "data": {
-      "header": "LIVRAISON 48H : 1 VIDÉO = 4 RÉSEAUX",
-      "channels": [
-        "01. LINKEDIN B2B",
-        "02. TIKTOK",
-        "03. INSTAGRAM REELS",
-        "04. YOUTUBE SHORTS"
-      ],
-      "beats": [
-        55.04,
-        55.82,
-        56.46,
-        56.9
-      ]
+      "avatar": "assets/avatars/prof.png",
+      "hero_title": "LIVRÉE EN <span class='highlight'>48 HEURES</span>",
+      "highlight_word": "48 HEURES",
+      "badge": "1 IDÉE = 1 CAPSULE HAUTE PRÉCISION"
     },
     "caption_mode": "single_line_top",
     "avatar_mode": "hidden",
     "camera": {
       "target": {
-        "zoom": 1.05,
+        "zoom": 1.04,
         "panX": 0,
         "panY": 0
       }
     },
     "switch_theme": "cyber-mint",
-    "title": "1 Idée = 4 Plateformes en 48h"
+    "title": "Livrée en 48 Heures"
+  },
+  {
+    "id": "scene_08b",
+    "type": "social_logos_carousel_rtl",
+    "start": 54.62,
+    "end": 57.68,
+    "data": {},
+    "caption_mode": "single_line_top",
+    "avatar_mode": "hidden",
+    "camera": {
+      "target": {
+        "zoom": 1.0,
+        "panX": 0,
+        "panY": 0
+      }
+    },
+    "switch_theme": "cyber-mint",
+    "title": "Carrousel 4 Réseaux RTL"
   },
   {
     "id": "scene_09",
@@ -1314,9 +1409,9 @@ window.SCENES = [
       "hero_title": "TON POST ÉCRIT EN VIDÉO",
       "highlight_word": "VIDÉO",
       "instruction_label": "ENVOIE CE MOT-CLÉ EN MESSAGE PRIVÉ :",
-      "button_label": "[ ENVOYER « CLARTÉ » EN MESSAGE PRIVÉ ↗ ]",
-      "cta_at": 59.5,
-      "spoken_at": 61.44,
+      "button_label": "ENVOYER « CLARTÉ » EN MESSAGE PRIVÉ ↗",
+      "cta_at": 60.54,
+      "spoken_at": 61.4,
       "avatar": "assets/avatars/pointing.png"
     },
     "caption_mode": "single_line_top",

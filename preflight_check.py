@@ -158,6 +158,7 @@ def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_pat
                 nowrap_overflow_violations: [],
                 hud_detected: false,
                 banned_pink_detected: false,
+                banned_linkedin_b2b_detected: [],
                 multistep_evaluations: []
             };
 
@@ -174,6 +175,15 @@ def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_pat
 
                 const container = document.getElementById('scene-container');
                 if (!container) continue;
+
+                // Contrôle Contenu Banni : 'linkedin b2b'
+                const bodyText = (document.body.innerText || '');
+                if (bodyText.toLowerCase().includes('linkedin b2b')) {
+                    report.banned_linkedin_b2b_detected.push({
+                        scene: sc.id,
+                        error: "Présence interdite de 'linkedin b2b' dans le DOM"
+                    });
+                }
 
                 // 2. Contrôle Géométrique 9:16 (illustrations centrales)
                 const isTypographyOrFaceScene = sc.type === 'face' || sc.type === 'big' || sc.type === 'blueprint_kinetic_type' || sc.type === 'face_to_dm_cta';
@@ -409,6 +419,11 @@ def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_pat
 
     if dom_report.get("banned_pink_detected"):
         errors.append("Contrôle Couleur : Détection interdite du rose banni #FF2A5F dans les styles calculés !")
+
+    banned_b2b = dom_report.get("banned_linkedin_b2b_detected", [])
+    if banned_b2b:
+        for b in banned_b2b:
+            errors.append(f"Contrôle Contenu Banni : Scène {b.get('scene')} : {b.get('error')} !")
 
     geo_viols = dom_report.get("geometric_violations", [])
     if geo_viols:
