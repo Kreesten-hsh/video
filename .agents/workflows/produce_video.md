@@ -43,17 +43,27 @@ Consulter le guide complet dans [`VIDEO_PRODUCTION_PLAYBOOK.md`](file:///home/ha
      - Style vectoriel cel-shaded cohérent avec l'identité de marque.
      - Unicité binaire SHA-256 validée contre les poses existantes.
 
-### PHASE 4 — Conception du Storyboard & Illustrations 100% Inédites
+### PHASE 4 — Conception du Storyboard & Illustrations Néo-Brutalistes (Règles d'Or)
 1. **Consultation du registre** : Lire `registry/video_memory.json` (`used_illustrations`) pour lister les composants déjà utilisés. **Interdiction formelle de les réutiliser**.
-2. **Géométrie 9:16** : Concevoir des composants occupant pleinement l'espace utile central :
-   - Largeur : `880px` à `940px`.
-   - Hauteur minimale : `620px` à `880px`.
-3. **Hiérarchie typographique** :
-   - Titre principal de chaque scène d'illustration $\ge 28\text{px}$.
-   - Textes descriptifs, listes, étapes et badges $\ge 20\text{px}$.
-   - Micro-tags techniques secondaires tolérés à $\ge 18\text{px}$ (`.thumb-mini-tag`, `.wf-bar`, `.editor-lang-tag`, `.webcam-mute-badge`).
-   - `white-space: nowrap` obligatoire sur tous les badges `[ ... ]`, KPIs, nombres et résolutions pour interdire les retours orphelins sur 2 lignes.
-4. **Dynamique multi-étapes** : Dans toute scène contenant $N$ cartes/étapes ($N \ge 2$), programmer dans `video.js` l'activation séquentielle individuelle de **chacune des $N$ cartes** aux timestamps identifiés en Phase 2 (zéro carte inerte).
+2. **Direction Artistique Néo-Brutaliste Papier** :
+   - Fond papier cream `#F5F2EB` avec grille quadrillée d'écolier 48px continue.
+   - Cartes pastel (`.pastel-yellow`, `.pastel-blue`, `.pastel-green`, `.pastel-pink`) bordées d'un trait noir 4px et ombre portée dure 0px de flou `8px 8px 0px #111111`.
+   - Légère inclinaison désaxée alternée ($\pm 1.5^\circ$) sur les cartes pour casser la rigidité numérique.
+   - Zéro halo diffus, zéro flou (`filter: blur(...)` interdit), zéro effet "néon cyber".
+3. **Zéro Pavé de Texte & Hiérarchie Typographique Lisible** :
+   - **Zéro pavé de texte à l'écran** : tout texte explicatif ou descriptif de plus de 4-5 mots est banni.
+   - Titre principal de chaque scène / carte : $\ge 28\text{px}$ en gras majuscules ultra-concis ($\le 4$ mots).
+   - Aucun texte à l'écran inférieur à $26\text{px}$ (lisibilité immédiate sur smartphone à 1.5 mètre).
+   - Micro-tags résiduels tolérés à $\ge 20\text{px}$ avec `white-space: nowrap` obligatoire.
+4. **1 Idée = 1 Preuve Visuelle Physique** :
+   - Remplacer les longs posts par des squelettes UI géométriques barrés d'un tampon `.neo-stamp` rouge vif (`#D9381E`) incliné à $-6^\circ$ (ex. `"PAVÉ DE 150 LIGNES = IGNORÉ !"`).
+   - Utiliser des schémas physiques : cartes pastel physiques, tampons d'alerte, indicateurs de chronomètre grand format.
+5. **Rythme & Dynamisme Temporel** :
+   - Durée idéale par scène : **2.0s à 3.5s** (grand maximum 4.0s). Au-delà, le décrochage de rétention est garanti.
+   - Dans toute scène multi-étapes ($N \ge 2$), activation séquentielle individuelle de **chacune des $N$ cartes** aux timestamps identifiés en Phase 2 (zéro carte inerte).
+6. **Avatars Purs & Sous-titres Épurés** :
+   - Avatars : zéro badge parasite (`.face-badge` strictement masqué), pur sticker avec ombre dure `drop-shadow(8px 8px 0px #111111)`.
+   - Sous-titres : affichage direct sur papier quadrillé sans cartouche blanc / pilule (zéro effet karaoké bloquant), un seul mot-clé sémantique en rouge accent (`#D9381E`).
 
 ### PHASE 5 — Scaffolding & Implémentation CSS/JS
 1. **Initialisation automatique** :

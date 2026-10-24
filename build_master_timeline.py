@@ -212,6 +212,8 @@ def validate_timeline(words, scenes, total_audio_dur, reference_words, scene_end
         sc_s = float(sc["start"])
         sc_e = float(sc["end"])
         dur = sc_e - sc_s
+        if dur > 4.5:
+            print(f"⚠️  AVERTISSEMENT RYTHME : Scène {sc['id']} durée {dur:.2f}s (> 4.5s) ! Cible recommandée pour le dynamisme Néo-Brutaliste : 2.0s à 3.5s.")
         end_w = scene_end_words[i]
         sc_type = sc["type"]
         sc_bg = sc["data"].get("bg", "default")
@@ -524,6 +526,8 @@ def run_pipeline(
     proj_cfg = {}
     if "theme" in project_data:
         proj_cfg["theme"] = project_data["theme"]
+    if "theme_preset" in project_data:
+        proj_cfg["theme_preset"] = project_data["theme_preset"]
 
     step3_build_timeline(
         words=words,
