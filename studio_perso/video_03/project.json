@@ -2,6 +2,7 @@
   "video_number": 3,
   "title": "L'Entrée Agnostique pour Créateurs B2B",
   "topic": "Transformer des posts LinkedIn en vidéos haute précision",
+  "theme_preset": "obsidian-flame",
   "cta_keyword": "CLARTÉ",
   "audio_path": "voix.wav",
   "gele": false,
@@ -214,14 +215,19 @@
     "privés."
   ],
   "scene_end_words": [
+    "LinkedIn,",
     "vidéo.",
     "méthodes.",
+    "heures,",
     "abandonnes.",
+    "génériques.",
+    "monde",
     "secondes.",
+    "contenu.",
     "texte.",
+    "processus.",
     "l'écran.",
     "percutant.",
-    "Shorts.",
     "privés."
   ],
   "phonetic_map": {
@@ -238,204 +244,129 @@
   "scenes": [
     {
       "id": "scene_01",
-      "title": "Hook Kinetic Slam",
-      "start": 0.0,
-      "end": 4.42,
-      "type": "blueprint_kinetic_type",
-      "caption_mode": "center_slam",
-      "switch_theme": "default",
-      "avatar_mode": "hidden",
-      "camera": {
-        "keyframes": [
-          { "at": 0.0, "zoom": 1.15, "panX": 0, "panY": 0 },
-          { "at": 0.6, "zoom": 1.0, "panX": 0, "panY": 0 },
-          { "at": 3.2, "zoom": 1.12, "panX": 0, "panY": 0 }
-        ]
-      },
-      "data": {
-        "tag": "[ DIAGNOSTIC LINKEDIN B2B ]",
-        "text": ""
-      }
+      "title": "Publication LinkedIn",
+      "type": "ob_post_counter",
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hero",
+      "camera": { "target": { "zoom": 1.0, "panX": 0, "panY": 0 } },
+      "data": { "avatar": "assets/avatars/laptop.png" }
     },
     {
-      "id": "scene_02a",
-      "title": "Tes 3 Actifs Prêts",
-      "start": 4.42,
-      "end": 7.86,
-      "type": "list",
+      "id": "scene_02",
+      "title": "Zéro Vidéo",
+      "type": "ob_zero_stamp",
       "caption_mode": "single_line_top",
-      "switch_theme": "default",
       "avatar_mode": "hidden",
-      "camera": {
-        "target": { "zoom": 1.05, "panX": 0, "panY": 0 }
-      },
-      "data": {
-        "header": "TES 3 ACTIFS DÉJÀ PRÊTS",
-        "items": [
-          "TON EXPERTISE MÉTIER",
-          "TES CAS CLIENTS PROUVÉS",
-          "TES MÉTHODES ÉCRITES"
-        ],
-        "beats": [5.58, 6.78, 7.50]
-      }
-    },
-    {
-      "id": "scene_02b",
-      "title": "Le Mur du Tournage Manuel",
-      "start": 7.86,
-      "end": 13.54,
-      "type": "blueprint_overwhelm",
-      "caption_mode": "single_line_top",
-      "switch_theme": "default",
-      "avatar_mode": "hidden",
-      "camera": {
-        "target": { "zoom": 1.08, "panX": 0, "panY": 15 }
-      },
-      "data": {
-        "title": "LE MUR DU TOURNAGE MANUEL",
-        "avatar": "assets/avatars/facepalm.png",
-        "cards": [
-          "Allumer la Caméra",
-          "Régler la Lumière",
-          "4h de Montage",
-          "Abandon du Post"
-        ],
-        "beats": [9.84, 10.88, 11.78, 13.06]
-      }
+      "camera": { "target": { "zoom": 1.05, "panX": 0, "panY": 0 } },
+      "data": {}
     },
     {
       "id": "scene_03",
-      "title": "Rejet des Clones IA Génériques",
-      "start": 13.54,
-      "end": 21.66,
-      "type": "blueprint_compare_split",
+      "title": "Actifs Prêts",
+      "type": "ob_assets_stack",
       "caption_mode": "single_line_top",
-      "switch_theme": "default",
       "avatar_mode": "hidden",
-      "camera": {
-        "keyframes": [
-          { "at": 13.54, "zoom": 1.02, "panX": -25, "panY": 0 },
-          { "at": 17.5, "zoom": 1.06, "panX": 25, "panY": 0 }
-        ]
-      },
-      "data": {
-        "badge_avant": "❌ CLONE IA GÉNÉRIQUE",
-        "title_avant": "Visage Robotique",
-        "desc_avant": "Même template que tout le monde = Crédibilité détruite en 3s",
-        "badge_apres": "✓ STUDIO SUR-MESURE",
-        "title_apres": "Direction Artistique B2B",
-        "desc_apres": "Ton identité visuelle codée au centième de seconde",
-        "reveal_at": 17.5
-      }
+      "camera": { "target": { "zoom": 1.03, "panX": 0, "panY": 0 } },
+      "data": {}
     },
     {
       "id": "scene_04",
-      "title": "Le Vrai Blocage",
-      "start": 21.66,
-      "end": 27.14,
-      "type": "blueprint_kinetic_type",
-      "caption_mode": "center_slam",
-      "switch_theme": "default",
-      "avatar_mode": "hero",
-      "camera": {
-        "initial": { "zoom": 1.25, "panX": 0, "panY": 0 },
-        "target": { "zoom": 1.0, "panX": 0, "panY": 0 },
-        "easing": "easeOutExpo",
-        "duration": 0.55
-      },
-      "data": {
-        "tag": "[ LE VRAI BLOCAGE ]",
-        "text": "",
-        "avatar": "assets/avatars/stop.png"
-      }
+      "title": "Friction Tournage",
+      "type": "ob_camera_chaos",
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": { "target": { "zoom": 1.04, "panX": 0, "panY": 0 } },
+      "data": {}
     },
     {
       "id": "scene_05",
-      "title": "Workflow 3 Étapes Synchronisées",
-      "start": 27.14,
-      "end": 41.36,
-      "type": "blueprint_spatial_pan",
+      "title": "Abandon du Post",
+      "type": "ob_abandon_slam",
       "caption_mode": "single_line_top",
-      "switch_theme": "default",
-      "avatar_mode": "hidden",
-      "camera": {
-        "keyframes": [
-          { "at": 27.14, "zoom": 1.05, "panX": 0, "panY": 120 },
-          { "at": 33.68, "zoom": 1.05, "panX": 0, "panY": 0 },
-          { "at": 37.84, "zoom": 1.05, "panX": 0, "panY": -120 }
-        ]
-      },
-      "data": {
-        "stations": [
-          { "title": "1. Note Vocale 2 min ou Post Écrit", "desc": "Tu envoies ta matière brute sans tourner" },
-          { "title": "2. Extraction & Structure Rythmique", "desc": "Découpage chirurgical calé sur ta voix" },
-          { "title": "3. Preuve Visuelle Mot-à-Mot", "desc": "Chaque argument déclenche son animation" }
-        ],
-        "beats": [29.0, 33.68, 37.84]
-      }
+      "avatar_mode": "hero",
+      "camera": { "target": { "zoom": 1.06, "panX": 0, "panY": 0 } },
+      "data": { "avatar": "assets/avatars/facepalm.png" }
     },
     {
       "id": "scene_06",
-      "title": "L'Effet Caméléon - 4 Chartes en Direct",
-      "start": 41.36,
-      "end": 50.80,
-      "type": "blueprint_cursor_ui",
+      "title": "Refus des Clones IA",
+      "type": "ob_refuse_clones",
       "caption_mode": "single_line_top",
-      "switch_theme": "claude",
       "avatar_mode": "hidden",
-      "camera": {
-        "target": { "zoom": 1.04, "panX": 0, "panY": 0 }
-      },
-      "data": {
-        "title": "EFFET CAMÉLÉON : 4 CHARTES",
-        "theme_beats": [47.0, 48.0, 49.0, 50.1]
-      }
+      "camera": { "target": { "zoom": 1.02, "panX": 0, "panY": 0 } },
+      "data": {}
     },
     {
       "id": "scene_07",
-      "title": "1 Idée = 4 Plateformes en 48h",
-      "start": 50.80,
-      "end": 57.24,
-      "type": "blueprint_delivery_grid",
+      "title": "Effet Clone en B2B",
+      "type": "ob_clone_grid",
       "caption_mode": "single_line_top",
-      "switch_theme": "cyber-mint",
       "avatar_mode": "hidden",
-      "camera": {
-        "target": { "zoom": 1.05, "panX": 0, "panY": 0 }
-      },
-      "data": {
-        "header": "LIVRAISON 48H : 1 VIDÉO = 4 RÉSEAUX",
-        "channels": [
-          "01. LINKEDIN B2B",
-          "02. TIKTOK",
-          "03. INSTAGRAM REELS",
-          "04. YOUTUBE SHORTS"
-        ],
-        "beats": [55.04, 55.82, 56.46, 56.90]
-      }
+      "camera": { "target": { "zoom": 1.03, "panX": 0, "panY": 0 } },
+      "data": {}
     },
     {
       "id": "scene_08",
-      "title": "CTA Final Clarté",
-      "start": 57.24,
-      "end": 62.746,
-      "type": "face_to_dm_cta",
+      "title": "Perte de Crédibilité",
+      "type": "ob_trust_drop",
       "caption_mode": "single_line_top",
-      "switch_theme": "default",
+      "avatar_mode": "hero",
+      "camera": { "target": { "zoom": 1.05, "panX": 0, "panY": 0 } },
+      "data": { "avatar": "assets/avatars/shock.png" }
+    },
+    {
+      "id": "scene_09",
+      "title": "Diagnostic Fond Excellent",
+      "type": "ob_not_content",
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hero",
+      "camera": { "target": { "zoom": 1.02, "panX": 0, "panY": 0 } },
+      "data": { "avatar": "assets/avatars/idea.png" }
+    },
+    {
+      "id": "scene_10",
+      "title": "Pavés de Texte",
+      "type": "ob_text_wall_stamp",
+      "caption_mode": "single_line_top",
       "avatar_mode": "hidden",
-      "camera": {
-        "target": { "zoom": 1.0, "panX": 0, "panY": 0 }
-      },
-      "data": {
-        "keyword": "CLARTÉ",
-        "hero_title": "TON POST ÉCRIT EN VIDÉO",
-        "highlight_word": "VIDÉO",
-        "instruction_label": "ENVOIE CE MOT-CLÉ EN MESSAGE PRIVÉ :",
-        "button_label": "[ ENVOYER « CLARTÉ » EN MESSAGE PRIVÉ ↗ ]",
-        "cta_at": 59.5,
-        "spoken_at": 61.44,
-        "avatar": "assets/avatars/pointing.png"
-      }
+      "camera": { "target": { "zoom": 1.04, "panX": 0, "panY": 0 } },
+      "data": {}
+    },
+    {
+      "id": "scene_11",
+      "title": "Processus Inversé",
+      "type": "ob_reverse_switch",
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hero",
+      "camera": { "target": { "zoom": 1.03, "panX": 0, "panY": 0 } },
+      "data": { "avatar": "assets/avatars/prof.png" }
+    },
+    {
+      "id": "scene_12",
+      "title": "Protocole 3 Étapes",
+      "type": "ob_three_steps_cards",
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": { "target": { "zoom": 1.03, "panX": 0, "panY": 0 } },
+      "data": {}
+    },
+    {
+      "id": "scene_13",
+      "title": "4 Chartes Visuelles",
+      "type": "ob_four_palettes_grid",
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": { "target": { "zoom": 1.04, "panX": 0, "panY": 0 } },
+      "data": {}
+    },
+    {
+      "id": "scene_14",
+      "title": "Livraison & CTA",
+      "type": "ob_final_delivery_cta",
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hero",
+      "camera": { "target": { "zoom": 1.02, "panX": 0, "panY": 0 } },
+      "data": { "avatar": "assets/avatars/pointing.png", "keyword": "CLARTÉ" }
     }
   ]
 }

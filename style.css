@@ -1,94 +1,124 @@
 /* ==========================================================================
-   CHARTE OFFICIELLE AGENT404 // CYBER-MINT
-   Esthétique Néo-Brutaliste Haute Précision : Carbone & Émeraude
-   100% Thématisable par Variables CSS Sémantiques
+   CHARTE OFFICIELLE AGENT404 // NÉO-BRUTALISME PAPIER QUADRILLÉ
+   Esthétique Haute Précision : Papier Crème #F5F2EB & Encre Noire #111111
+   Inspiré par lymphe_presentation.mp4 et @ledevultime
+   100% Thématisable par Variables CSS Sémantiques (Zéro Hex Hors :root)
    ========================================================================== */
 
 :root {
-  /* Surfaces & Backgrounds */
-  --bg-dark: #0D1117;
-  --bg-canvas: #0D1117;
-  --bg-carbon: #090D16;
-  --surface-card: #161B22;
-  --surface-elevated: #21262D;
-  --surface-hover: #1F2937;
-  --surface-black: #000000;
-  --slate-card: #161B22;
-  --bg-dark-alpha-e6: #0D1117E6;
+  /* ==========================================================================
+     PALETTE MAÎTRE SIGNATURE "OBSIDIAN & FLAME" (ZÉRO GRILLE, ZÉRO GLOW FLOU)
+     ========================================================================== */
+  /* Fond Sombre Mat Éditorial */
+  --bg-obsidian: #121110;
+  --bg-dark: #121110;
+  --bg-canvas: #121110;
+  --bg-carbon: #0A0908;
+  --grid-line: transparent;
 
-  /* Primary Accent : Cyber-Mint */
-  --mint: #00F5A0;
-  --accent-primary: #00F5A0;
-  --accent-primary-border: #00F5A0;
-  --accent-primary-subtle: #00F5A015;
-  --accent-primary-alpha-12: #00F5A012;
-  --accent-primary-alpha-10: #00F5A010;
-  --accent-primary-dim: rgba(0, 245, 160, 0.08);
-  --accent-primary-glow: rgba(0, 245, 160, 0.25);
-  --mint-dark: #047857;
-  --mint-deep: #041E16;
-  --mint-light: #A3FFD9;
-  --mint-emerald: #10B981;
-  --mint-emerald-dark: #064E3B;
-  --mint-border-dark: #062E22;
-  --mint-terminal-header: #094F3B;
+  /* Cartes Claires Haute Lisibilité (Contraste Maximal sur Fond Noir) */
+  --surface-card: #FAF6F0;      /* Ivoire Crème */
+  --surface-elevated: #FFFFFF;  /* Blanc Pur */
+  --surface-hover: #F0EAE1;
+  --card-text: #121110;         /* Encre Noire sur cartes ivoire */
+  --card-text-muted: #4A453E;
+  --surface-black: #121110;
+  --slate-card: #FAF6F0;
+  --bg-dark-alpha-e6: rgba(18, 17, 16, 0.9);
+
+  /* Accents "Flame" & Couleurs Secondaires Néo-Brutalistes */
+  --flame: #FF4F18;             /* Orange Flamme Vif (Signature) */
+  --accent-primary: #FF4F18;
+  --mint: #FF4F18;              /* Alias rétrocompatibilité */
+  --accent-primary-border: #121110;
+  --accent-primary-subtle: rgba(255, 79, 24, 0.12);
+  --accent-primary-alpha-12: rgba(255, 79, 24, 0.12);
+  --accent-primary-alpha-10: rgba(255, 79, 24, 0.10);
+  --accent-primary-dim: rgba(255, 79, 24, 0.08);
+  --accent-primary-glow: transparent;
+  --mint-dark: #D43E10;
+  --mint-deep: #1A0803;
+  --mint-light: #FF8259;
+  --mint-emerald: #FF4F18;
+  --mint-emerald-dark: #D43E10;
+  --mint-border-dark: #121110;
+  --mint-terminal-header: #FAF6F0;
 
   /* Warning & Problem Accents : Amber */
-  --amber: #F59E0B;
+  --amber: #F59E0B;             /* Or Ambre Chaud */
   --accent-warning: #F59E0B;
   --accent-warning-bright: #FBBF24;
-  --accent-warning-dim: #1F190D;
-  --accent-warning-dark: #78350F;
-  --accent-warning-glow: rgba(245, 158, 11, 0.25);
-  --alert-red: #F59E0B;
-  --alert-dark: #1F190D;
-  --problem-bg-dark: #26101B;
-  --problem-border-dark: #3E1627;
+  --accent-warning-dim: #FEF3C7;
+  --accent-warning-dark: #B45309;
+  --accent-warning-glow: transparent;
+  --alert-red: #FF4F18;
+  --alert-dark: #FAF6F0;
+  --problem-bg-dark: #2A120A;
+  --problem-border-dark: #121110;
 
-  /* Typography & Neutrals */
-  --white: #FFFFFF;
-  --text-primary: #FFFFFF;
-  --text-secondary: #E6EDF3;
-  --text-light-muted: #C9D1D9;
-  --text-muted: #8B949E;
-  --text-subtle: #6E7681;
-  --text-dim: #484F58;
-  --text-dark: #090D16;
+  /* Pastels Chauds pour Grilles Multi-Cartes (Style Lymphe) */
+  --tile-cream: #FEF3C7;
+  --tile-peach: #FFEDD5;
+  --tile-mint: #D1FAE5;
+  --tile-sky: #DBEAFE;
+  --pastel-yellow: #FEF3C7;
+  --pastel-blue: #DBEAFE;
+  --pastel-green: #D1FAE5;
+  --pastel-pink: #FFEDD5;
 
-  /* Borders & Outlines */
-  --slate-border: #30363D;
-  --border-subtle: #30363D;
-  --border-mid: #374151;
-  --border-muted: #21262D;
-  --border-dark: #1F2937;
-  --border-strong: #090D16;
-  --border-color: #090D16;
+  /* Couleurs Franches */
+  --sage: #10B981;              /* Vert Sauge Franc */
+  --cobalt: #2563EB;            /* Bleu Roi Franc */
+  --yellow: #FACC15;
 
-  /* Shadows */
-  --shadow-color: #000000;
-  --shadow-brutal: 0 10px 0 #000000;
-  --shadow-brutal-sm: 0 4px 0 #000000;
-  --shadow-brutal-mint: 0 8px 0 #00F5A0;
-  --shadow-brutal-amber: 0 8px 0 #F59E0B;
+  /* Textes sur Fond Sombre */
+  --white: #FAF6F0;
+  --black: #121110;
+  --text-primary: #FAF6F0;
+  --text-secondary: #E5DEC9;
+  --text-light-muted: #A39B8E;
+  --text-muted: #8A8275;
+  --text-subtle: #736C61;
+  --text-dim: #5A544B;
+  --text-dark: #121110;
 
-  /* Terminal & Window Dots (Zero Rouge Banni) */
-  --window-dot-close: #484F58;
+  /* Bordures & Ombres Dures 3D (ZÉRO FLOU) */
+  --border-ink: #121110;
+  --border-subtle: #121110;
+  --border-mid: #121110;
+  --border-muted: #121110;
+  --border-dark: #121110;
+  --border-strong: #121110;
+  --border-color: #121110;
+  --slate-border: #121110;
+
+  --shadow-color: #FF4F18;
+  --shadow-flame: 8px 8px 0px #FF4F18;
+  --shadow-flame-sm: 5px 5px 0px #FF4F18;
+  --shadow-ink: 6px 6px 0px #121110;
+  --shadow-ivory: 6px 6px 0px #FAF6F0;
+  --shadow-brutal: 8px 8px 0px #FF4F18;
+  --shadow-brutal-sm: 5px 5px 0px #FF4F18;
+  --shadow-brutal-mint: 8px 8px 0px #FF4F18;
+  --shadow-brutal-amber: 8px 8px 0px #F59E0B;
+
+  /* Terminal & Window Dots */
+  --window-dot-close: #EF4444;
   --window-dot-min: #F59E0B;
-  --window-dot-max: #00F5A0;
-  --terminal-green: #27C93F;
+  --window-dot-max: #10B981;
+  --terminal-green: #10B981;
 
   /* Syntax Highlighting */
-  --syntax-blue: #58A6FF;
-  --syntax-blue-light: #79C0FF;
-  --syntax-green: #7EE787;
-  --syntax-purple: #D2A8FF;
-  --syntax-red: #F59E0B;
-  --syntax-pink: #F59E0B;
+  --syntax-blue: #3B82F6;
+  --syntax-blue-light: #60A5FA;
+  --syntax-green: #10B981;
+  --syntax-purple: #A855F7;
+  --syntax-red: #FF4F18;
+  --syntax-pink: #EC4899;
 
   /* Rétrocompatibilité */
-  --accent-red: #F59E0B;
-  --accent-green: #00F5A0;
-  --yellow: #00F5A0;
+  --accent-red: #FF4F18;
+  --accent-green: #10B981;
 
   /* Safe Zones 9:16 Mobile & UI Clearance (AGENT404 Standard) */
   --safe-top: 220px;
@@ -101,55 +131,66 @@
   /* ==========================================================================
      THEME PRESET TOKENS (Multi-Identités Studio & Clients)
      ========================================================================== */
+  /* Preset: Default / Paper Red (@ledevultime / Lymphe) */
+  --theme-paper-bg: #F5F2EB;
+  --theme-paper-surface: #FFFFFF;
+  --theme-paper-elevated: #FAF8F5;
+  --theme-paper-hover: #EFECE4;
+  --theme-paper-text: #111111;
+  --theme-paper-text-secondary: #222222;
+  --theme-paper-text-muted: #4B5563;
+  --theme-paper-accent: #D9381E;
+  --theme-paper-border: #111111;
+  --theme-paper-amber: #F59E0B;
+
   /* Preset: Claude (Warm Editorial / Anthracite / Terracotta / Crème) */
-  --theme-claude-bg: #1F1E1D;
-  --theme-claude-surface: #2B2A27;
-  --theme-claude-text: #FAF8F5;
-  --theme-claude-accent: #D97757;
-  --theme-claude-accent-glow: rgba(217, 119, 87, 0.25);
-  --theme-claude-border: #3D3B36;
-  --theme-claude-amber: #E09F3E;
+  --theme-claude-bg: #F5F2EB;
+  --theme-claude-surface: #FFFFFF;
+  --theme-claude-hover: #EFECE4;
+  --theme-claude-text: #111111;
+  --theme-claude-accent: #D9381E;
+  --theme-claude-accent-glow: transparent;
+  --theme-claude-border: #111111;
+  --theme-claude-amber: #F59E0B;
 
-  --theme-claude-hover: #3A3834;
-
-  /* Preset: Cobalt Grid (Dark Tech SaaS / Nuit / Cyan) */
-  --theme-cobalt-bg: #0B0F19;
-  --theme-cobalt-surface: #111827;
-  --theme-cobalt-hover: #1E293B;
-  --theme-cobalt-text: #F9FAFB;
-  --theme-cobalt-accent: #3B82F6;
-  --theme-cobalt-accent-glow: rgba(59, 130, 246, 0.3);
-  --theme-cobalt-border: #1E293B;
+  /* Preset: Cobalt Grid (Bleu Roi Néo-Brutaliste #2B3499) */
+  --theme-cobalt-bg: #F3F4F8;
+  --theme-cobalt-surface: #FFFFFF;
+  --theme-cobalt-hover: #E5E7EB;
+  --theme-cobalt-text: #111111;
+  --theme-cobalt-accent: #2B3499;
+  --theme-cobalt-accent-glow: transparent;
+  --theme-cobalt-border: #111111;
   --theme-cobalt-amber: #F59E0B;
 
-  /* Preset: Editorial Forest (B2B Consulting / Finance / Vert Forêt / Or) */
-  --theme-forest-bg: #081711;
-  --theme-forest-surface: #0E241B;
-  --theme-forest-hover: #153326;
-  --theme-forest-text: #F7FBF9;
-  --theme-forest-accent: #10B981;
-  --theme-forest-accent-glow: rgba(16, 185, 129, 0.25);
-  --theme-forest-border: #1B382B;
-  --theme-forest-amber: #EAB308;
+  /* Preset: Editorial Forest (Émeraude Néo-Brutaliste #059669) */
+  --theme-forest-bg: #F4F6F4;
+  --theme-forest-surface: #FFFFFF;
+  --theme-forest-hover: #E2E8E4;
+  --theme-forest-text: #111111;
+  --theme-forest-accent: #059669;
+  --theme-forest-accent-glow: transparent;
+  --theme-forest-border: #111111;
+  --theme-forest-amber: #D97706;
 
-  /* Preset: Bold Poster (Créateur / Jaune Biennale / Noir Pur) */
-  --theme-poster-bg: #090D16;
-  --theme-poster-surface: #141A28;
-  --theme-poster-hover: #1E273D;
-  --theme-poster-text: #FACC15;
-  --theme-poster-accent: #FACC15;
-  --theme-poster-glow: rgba(250, 204, 21, 0.35);
-  --theme-poster-border: #FACC15;
+  /* Preset: Bold Poster (Jaune Hormozi #F5D547 / Noir Pur #111111) */
+  --theme-poster-bg: #F5D547;
+  --theme-poster-surface: #FFFFFF;
+  --theme-poster-hover: #FEF08A;
+  --theme-poster-text: #111111;
+  --theme-poster-accent: #111111;
+  --theme-poster-glow: transparent;
+  --theme-poster-border: #111111;
   --theme-poster-amber: #F97316;
 
-  /* Preset: Cyber Mint (AGENT404 Standard / Carbone & Émeraude) */
-  --theme-cyber-bg: #0D1117;
-  --theme-cyber-surface: #161B22;
-  --theme-cyber-hover: #1F2937;
-  --theme-cyber-text: #FFFFFF;
-  --theme-cyber-accent: #00F5A0;
-  --theme-cyber-accent-glow: rgba(0, 245, 160, 0.25);
-  --theme-cyber-border: #30363D;
+  /* Preset: Cyber Mint (Aligné sur Paper Red) */
+  --theme-cyber-bg: #F5F2EB;
+  --theme-cyber-surface: #FFFFFF;
+  --theme-cyber-hover: #EFECE4;
+  --theme-cyber-text: #111111;
+  --theme-cyber-accent: #D9381E;
+  --theme-cyber-accent-glow: transparent;
+  --theme-cyber-border: #111111;
   --theme-cyber-amber: #F59E0B;
 }
 
@@ -170,7 +211,7 @@ html, body {
 }
 
 /* ==========================================================================
-   CANVAS PRINCIPAL & DÉCOR FIXE CYBER-MINT
+   CANVAS PRINCIPAL SOMBRE ÉDITORIAL "OBSIDIAN" & STUDIO FRAME (ZÉRO GRILLE)
    ========================================================================== */
 #video-canvas,
 #bg-layer,
@@ -178,37 +219,52 @@ html, body {
 #bg-layer.bg-alert,
 #bg-layer.bg-mint,
 #bg-layer.bg-red,
+#bg-layer.bg-diamonds,
+#bg-layer.bg-circles,
+#video-canvas.bg-diamonds,
+#video-canvas.bg-circles,
 .bg-grid,
 .bg-alert,
 .bg-mint,
-.bg-red {
+.bg-red,
+.bg-diamonds,
+.bg-circles {
   position: relative;
   width: 1080px;
   height: 1920px;
   overflow: hidden;
-  background-color: var(--bg-dark) !important;
-  background-image: radial-gradient(var(--surface-hover) 3px, transparent 3px) !important;
-  background-size: 36px 36px !important;
-  background-position: 0 0 !important;
+  background-color: var(--bg-obsidian) !important;
+  background-image: none !important;
 }
 
-#bg-layer.bg-diamonds,
-#video-canvas.bg-diamonds,
-.bg-diamonds {
-  background-color: var(--bg-dark) !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpolygon points='20,14 26,20 20,26 14,20' fill='%23243042'/%3E%3C/svg%3E") !important;
-  background-size: 40px 40px !important;
-  background-position: 0 0 !important;
+/* Cadre Éditorial Permanent "Studio Frame" (Chanfreiné Néo-Brutaliste) */
+#video-canvas::before {
+  content: "";
+  position: absolute;
+  inset: 28px;
+  border: 2px solid rgba(250, 246, 240, 0.14);
+  pointer-events: none;
+  z-index: 5;
+  clip-path: polygon(
+    24px 0, calc(100% - 24px) 0, 100% 24px, 100% calc(100% - 24px),
+    calc(100% - 24px) 100%, 24px 100%, 0 calc(100% - 24px), 0 24px
+  );
 }
 
-#bg-layer.bg-circles,
-#video-canvas.bg-circles,
-.bg-circles {
-  background-color: var(--bg-dark) !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='6' fill='none' stroke='%23243042' stroke-width='2'/%3E%3C/svg%3E") !important;
-  background-size: 40px 40px !important;
-  background-position: 0 0 !important;
+/* Mode Impact Plein Écran Flame Shock */
+#video-canvas.bg-flame-shock,
+#bg-layer.bg-flame-shock {
+  background-color: var(--flame) !important;
+  background-image: none !important;
 }
+
+/* ==========================================================================
+   CLASSES UTILITAIRES DE FONDS PASTEL NÉO-BRUTALISTES
+   ========================================================================== */
+.pastel-yellow { background: var(--pastel-yellow) !important; }
+.pastel-blue { background: var(--pastel-blue) !important; }
+.pastel-green { background: var(--pastel-green) !important; }
+.pastel-pink { background: var(--pastel-pink) !important; }
 
 /* ==========================================================================
    MULTI-THÈMES PRESETS (Zéro Hex Hors :root)
@@ -221,7 +277,7 @@ html[data-theme="claude"], body[data-theme="claude"], #video-canvas[data-theme="
   --text-primary: var(--theme-claude-text);
   --mint: var(--theme-claude-accent);
   --accent-primary: var(--theme-claude-accent);
-  --accent-primary-border: var(--theme-claude-accent);
+  --accent-primary-border: var(--theme-claude-border);
   --accent-primary-glow: var(--theme-claude-accent-glow);
   --border-subtle: var(--theme-claude-border);
   --slate-border: var(--theme-claude-border);
@@ -236,7 +292,7 @@ html[data-theme="cobalt-grid"], body[data-theme="cobalt-grid"], #video-canvas[da
   --text-primary: var(--theme-cobalt-text);
   --mint: var(--theme-cobalt-accent);
   --accent-primary: var(--theme-cobalt-accent);
-  --accent-primary-border: var(--theme-cobalt-accent);
+  --accent-primary-border: var(--theme-cobalt-border);
   --accent-primary-glow: var(--theme-cobalt-accent-glow);
   --border-subtle: var(--theme-cobalt-border);
   --slate-border: var(--theme-cobalt-border);
@@ -251,7 +307,7 @@ html[data-theme="editorial-forest"], body[data-theme="editorial-forest"], #video
   --text-primary: var(--theme-forest-text);
   --mint: var(--theme-forest-accent);
   --accent-primary: var(--theme-forest-accent);
-  --accent-primary-border: var(--theme-forest-accent);
+  --accent-primary-border: var(--theme-forest-border);
   --accent-primary-glow: var(--theme-forest-accent-glow);
   --border-subtle: var(--theme-forest-border);
   --slate-border: var(--theme-forest-border);
@@ -266,26 +322,35 @@ html[data-theme="bold-poster"], body[data-theme="bold-poster"], #video-canvas[da
   --text-primary: var(--theme-poster-text);
   --mint: var(--theme-poster-accent);
   --accent-primary: var(--theme-poster-accent);
-  --accent-primary-border: var(--theme-poster-accent);
+  --accent-primary-border: var(--theme-poster-border);
   --accent-primary-glow: var(--theme-poster-glow);
   --border-subtle: var(--theme-poster-border);
   --slate-border: var(--theme-poster-border);
   --amber: var(--theme-poster-amber);
 }
 
-html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data-theme="cyber-mint"], [data-theme="default"], [data-theme="cyber-mint"] {
-  --bg-dark: var(--theme-cyber-bg);
-  --bg-canvas: var(--theme-cyber-bg);
-  --surface-card: var(--theme-cyber-surface);
-  --surface-hover: var(--theme-cyber-hover);
-  --text-primary: var(--theme-cyber-text);
-  --mint: var(--theme-cyber-accent);
-  --accent-primary: var(--theme-cyber-accent);
-  --accent-primary-border: var(--theme-cyber-accent);
-  --accent-primary-glow: var(--theme-cyber-accent-glow);
-  --border-subtle: var(--theme-cyber-border);
-  --slate-border: var(--theme-cyber-border);
-  --amber: var(--theme-cyber-amber);
+html[data-theme="paper-red"], body[data-theme="paper-red"], #video-canvas[data-theme="paper-red"],
+html[data-theme="default"], body[data-theme="default"], #video-canvas[data-theme="default"],
+html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data-theme="cyber-mint"],
+[data-theme="paper-red"], [data-theme="default"], [data-theme="cyber-mint"] {
+  --bg-dark: var(--theme-paper-bg);
+  --bg-canvas: var(--theme-paper-bg);
+  --surface-card: var(--theme-paper-surface);
+  --surface-elevated: var(--theme-paper-elevated);
+  --surface-hover: var(--theme-paper-hover);
+  --text-primary: var(--theme-paper-text);
+  --text-secondary: var(--theme-paper-text-secondary);
+  --text-muted: var(--theme-paper-text-muted);
+  --mint: var(--theme-paper-accent);
+  --accent-primary: var(--theme-paper-accent);
+  --accent-primary-border: var(--theme-paper-border);
+  --border-subtle: var(--theme-paper-border);
+  --slate-border: var(--theme-paper-border);
+  --border-color: var(--theme-paper-border);
+  --shadow-brutal: 8px 8px 0px var(--border-color);
+  --shadow-brutal-sm: 5px 5px 0px var(--border-color);
+  --shadow-brutal-mint: 8px 8px 0px var(--border-color);
+  --amber: var(--theme-paper-amber);
 }
 
 /* ==========================================================================
@@ -318,33 +383,10 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
   will-change: transform;
 }
 .ambient-glow {
-  position: absolute;
-  top: 25%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 800px;
-  height: 800px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--accent-primary-glow) 0%, transparent 70%);
-  filter: blur(80px);
-  pointer-events: none;
-  opacity: 0.5;
+  display: none !important;
 }
 .watermark-text {
-  position: absolute;
-  top: 48%;
-  left: -20%;
-  width: 140%;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 150px;
-  font-weight: 900;
-  text-transform: uppercase;
-  color: var(--white);
-  opacity: 0.035;
-  white-space: nowrap;
-  letter-spacing: 14px;
-  pointer-events: none;
-  will-change: transform;
+  display: none !important;
 }
 
 /* ==========================================================================
@@ -363,21 +405,28 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
   z-index: 85 !important;
   opacity: 1 !important;
 }
-#global-avatar-wrapper.avatar-hero img {
-  height: 560px !important;
+#global-avatar-wrapper.avatar-hero img,
+.avatar-sticker,
+#global-avatar-wrapper img {
+  height: 680px !important;
+  max-width: 90vw !important;
+  object-fit: contain !important;
   display: block !important;
-  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.8)) !important;
+  filter: drop-shadow(7px 5px 0px var(--flame)) drop-shadow(-3px -3px 0px var(--border-ink)) !important;
+}
+.face-badge {
+  display: none !important;
 }
 #global-avatar-wrapper.avatar-inset {
   bottom: 400px;
   left: 60px;
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  border: 4px solid var(--mint);
+  width: 180px;
+  height: 180px;
+  border-radius: 12px;
+  border: 4px solid var(--border-ink);
   background: var(--surface-card);
   overflow: hidden;
-  box-shadow: var(--shadow-brutal-sm), 0 0 25px var(--accent-primary-glow);
+  box-shadow: var(--shadow-flame);
   opacity: 1;
 }
 #global-avatar-wrapper.avatar-inset img {
@@ -386,6 +435,7 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
   object-fit: cover;
   object-position: top center;
   display: block;
+  filter: none !important;
 }
 #global-avatar-wrapper.avatar-hidden {
   opacity: 0;
@@ -398,7 +448,7 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
    ========================================================================== */
 #subtitles-zone {
   position: absolute;
-  top: var(--safe-top);
+  top: 190px !important;
   left: 0;
   width: 1080px;
   height: 160px;
@@ -407,7 +457,7 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
   align-items: center;
   padding: 0 60px;
   box-sizing: border-box;
-  z-index: 25;
+  z-index: 50;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -421,7 +471,7 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
 }
 #subtitles-zone.mode-center-slam.has-avatar-hero,
 #video-canvas:has(#global-avatar-wrapper.avatar-hero) #subtitles-zone.mode-center-slam {
-  top: 38% !important;
+  top: 36% !important;
 }
 #subtitles-zone.mode-center-slam .sub-line {
   background: transparent !important;
@@ -432,19 +482,18 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
 }
 #subtitles-zone.mode-center-slam .sub-word {
   font-size: 86px !important;
-  color: var(--text-primary) !important;
+  color: var(--white) !important;
   text-transform: uppercase !important;
-  text-shadow: 0 8px 30px rgba(0, 0, 0, 0.9) !important;
   letter-spacing: -2px !important;
   padding: 4px 14px !important;
 }
 #subtitles-zone.mode-center-slam .sub-word.active {
-  background: var(--mint) !important;
-  color: var(--bg-dark) !important;
+  background: var(--flame) !important;
+  color: var(--white) !important;
   padding: 6px 18px !important;
-  border-radius: 12px !important;
+  border-radius: 6px !important;
   transform: scale(1.08) !important;
-  box-shadow: var(--shadow-brutal-sm) !important;
+  box-shadow: var(--shadow-flame-sm) !important;
   text-shadow: none !important;
   display: inline-block !important;
 }
@@ -458,57 +507,86 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
 }
 #subtitles-zone.mode-dynamic-band .sub-line {
   background: var(--surface-card) !important;
-  border: 3px solid var(--border-subtle) !important;
-  box-shadow: var(--shadow-brutal-sm) !important;
-  border-radius: 18px !important;
+  border: 4px solid var(--border-ink) !important;
+  box-shadow: var(--shadow-flame-sm) !important;
+  border-radius: 6px !important;
   padding: 14px 28px !important;
 }
 #subtitles-zone.mode-dynamic-band .sub-word {
   font-size: 50px !important;
-  color: var(--text-primary) !important;
+  color: var(--card-text) !important;
 }
 #subtitles-zone.mode-dynamic-band .sub-word.active {
-  background: var(--mint) !important;
-  color: var(--bg-dark) !important;
+  background: var(--flame) !important;
+  color: var(--white) !important;
   padding: 4px 12px !important;
-  border-radius: 8px !important;
+  border-radius: 6px !important;
   text-decoration: none !important;
 }
 
-/* Mode 3 : SINGLE_LINE_TOP (Boîte blanche néo-brutaliste signature AGENT404) */
-#subtitles-zone.mode-single-line-top {
-  top: var(--safe-top) !important;
+/* Mode 3 : SINGLE_LINE_TOP (Sous-titres Directs Éditoriaux Haut) */
+#subtitles-zone.mode-single-line-top,
+#subtitles-zone {
+  top: 190px !important;
   transform: none !important;
   height: auto !important;
   z-index: 50 !important;
 }
-#subtitles-zone:not(.mode-center-slam) .sub-line {
-  background: var(--white) !important;
-  border: 4px solid var(--bg-carbon) !important;
-  box-shadow: 0 8px 0 var(--accent-primary) !important;
-  border-radius: 18px !important;
-  padding: 16px 28px !important;
-}
-#subtitles-zone:not(.mode-center-slam) .sub-word {
-  font-family: 'Plus Jakarta Sans', sans-serif !important;
-  font-weight: 800 !important;
-  font-size: 42px !important;
-  color: var(--bg-carbon) !important;
+#subtitles-zone:not(.mode-center-slam) .sub-line,
+.sub-line {
   background: transparent !important;
-  padding: 4px 10px !important;
-  border-radius: 10px !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+.word,
+.sub-word {
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 900 !important;
+  font-size: 54px !important;
+  color: var(--white) !important;
+  background: transparent !important;
+}
+.word.keyword-accent,
+.sub-word.keyword-accent {
+  color: var(--flame) !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 #subtitles-zone:not(.mode-center-slam) .sub-word.active {
-  background: var(--accent-primary) !important;
-  color: var(--bg-carbon) !important;
-  box-shadow: 0 4px 0 var(--bg-carbon) !important;
-  transform: scale(1.06) !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
 }
 
 /* Mode 4 : HIDDEN / UI_EMBEDDED */
 #subtitles-zone.mode-hidden {
   opacity: 0 !important;
   pointer-events: none !important;
+}
+
+/* ==========================================================================
+   CARTES OBSIDIAN & FLAME & NÉO-BRUTALISTES
+   ========================================================================== */
+.ob-card, .ob-window, .neo-card, .bcs-card, .bsp-station, .sw-card, .otp-window, .blueprint-cursor-ui {
+  background: var(--surface-card) !important;
+  color: var(--card-text) !important;
+  border: 4px solid var(--border-ink) !important;
+  border-radius: 8px !important;
+  box-shadow: var(--shadow-flame) !important;
+}
+
+.ob-stamp, .neo-stamp {
+  background: var(--flame) !important;
+  color: var(--white) !important;
+  border: 4px solid var(--border-ink) !important;
+  box-shadow: 6px 6px 0px var(--border-ink) !important;
+  padding: 14px 32px !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 38px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  transform: rotate(-6deg);
 }
 
 /* ==========================================================================
@@ -1175,23 +1253,29 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
 }
 
 .word, .sub-word {
-  font-family: 'Plus Jakarta Sans', sans-serif !important;
-  font-weight: 800 !important;
-  font-size: 44px !important;
-  color: var(--bg-carbon) !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 900 !important;
+  font-size: 54px !important;
+  color: var(--white) !important;
+  background: transparent !important;
   padding: 4px 10px !important;
-  border-radius: 10px !important;
+  border-radius: 6px !important;
   margin: 0 !important;
   letter-spacing: -0.5px;
-  transition: color 0.05s ease, transform 0.05s ease, background 0.05s ease;
+  transition: color 0.05s ease, transform 0.05s ease;
 }
 
 .word.active, .sub-word.active {
-  background: var(--mint) !important;
-  color: var(--bg-dark) !important;
+  background: transparent !important;
+  color: var(--white) !important;
   border: none !important;
   box-shadow: none !important;
-  transform: scale(1.05) !important;
+}
+
+.word.keyword-accent, .sub-word.keyword-accent {
+  color: var(--flame) !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 /* ==========================================================================
@@ -1246,7 +1330,7 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
   object-fit: contain;
   transform: translateX(-50%);
   transform-origin: bottom center;
-  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.7));
+  filter: drop-shadow(8px 8px 0px var(--border-color)) !important;
   will-change: transform;
 }
 
@@ -1262,56 +1346,11 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
   transform: none;
   height: 600px;
   max-width: 600px;
-  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(8px 8px 0px var(--border-color)) !important;
 }
 
 .face-badge {
-  position: absolute;
-  bottom: 70px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--mint);
-  color: var(--bg-carbon);
-  font-family: 'Montserrat', sans-serif;
-  font-size: 38px;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: -0.5px;
-  padding: 16px 36px;
-  border: 4px solid var(--border-color);
-  box-shadow: 0 8px 0 var(--surface-black);
-  border-radius: 14px;
-  white-space: nowrap;
-  max-width: 860px;
-  text-align: center;
-  z-index: 20;
-  pointer-events: auto;
-  transition: transform 0.1s ease;
-}
-
-/* Badge Pilule Cyber-Mint */
-.face-badge {
-  position: absolute;
-  bottom: 70px;
-  left: 50%;
-  transform: translateX(-50%) rotate(0deg) !important;
-  background: var(--accent-primary) !important;
-  color: var(--bg-carbon) !important;
-  border: 4px solid var(--bg-carbon) !important;
-  box-shadow: 0 8px 0 var(--surface-black) !important;
-  border-radius: 999px !important;
-  font-family: 'Montserrat', sans-serif !important;
-  font-size: 38px !important;
-  font-weight: 900 !important;
-  text-transform: uppercase !important;
-  letter-spacing: -0.5px !important;
-  padding: 16px 36px !important;
-  white-space: nowrap !important;
-  max-width: 860px !important;
-  text-align: center !important;
-  z-index: 20;
-  pointer-events: auto;
-  transition: transform 0.1s ease;
+  display: none !important;
 }
 
 /* ==========================================================================
@@ -2670,22 +2709,22 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
   font-size: 56px;
   font-weight: 900;
   text-transform: uppercase;
-  color: var(--white);
+  color: var(--text-color);
   line-height: 1.15;
   letter-spacing: -1.5px;
-  text-shadow: 0 6px 16px rgba(0, 0, 0, 0.9);
+  text-shadow: none;
   z-index: 25;
 }
 .face-hero-title .highlight,
 .bkt-main-text .highlight,
 .highlight {
-  color: var(--mint) !important;
+  color: var(--accent-primary) !important;
   background: transparent !important;
   border: none !important;
   padding: 0 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  text-shadow: 0 6px 16px rgba(0, 0, 0, 0.85) !important;
+  text-shadow: none !important;
 }
 
 /* Avatar Picture-in-Picture (PiP) */
@@ -5195,6 +5234,373 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
   color: var(--white);
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+/* ==========================================================================
+   COMPOSANTS SIGNATURE OBSIDIAN & FLAME (video_03)
+   ========================================================================== */
+.ob-container {
+  width: 900px !important;
+  min-height: 540px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+  margin: 0 auto !important;
+}
+
+.ob-card {
+  width: 900px !important;
+  min-height: 540px !important;
+  background: var(--surface-card) !important;
+  color: var(--card-text) !important;
+  border: 4px solid var(--border-ink) !important;
+  border-radius: 8px !important;
+  box-shadow: var(--shadow-flame) !important;
+  padding: 36px 40px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  position: relative !important;
+}
+
+.ob-header-box {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  border-bottom: 3px solid var(--border-ink) !important;
+  padding-bottom: 20px !important;
+  margin-bottom: 24px !important;
+  width: 100% !important;
+}
+
+.ob-header-title {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 32px !important;
+  font-weight: 900 !important;
+  color: var(--card-text) !important;
+  text-transform: uppercase !important;
+  letter-spacing: -0.5px !important;
+}
+
+.ob-badge {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 900 !important;
+  background: var(--flame) !important;
+  color: var(--white) !important;
+  border: 3px solid var(--border-ink) !important;
+  border-radius: 6px !important;
+  padding: 8px 18px !important;
+  text-transform: uppercase !important;
+  box-shadow: 4px 4px 0px var(--border-ink) !important;
+  white-space: nowrap !important;
+}
+
+.ob-badge-dark {
+  background: var(--border-ink) !important;
+  color: var(--white) !important;
+}
+
+.ob-stamp-giant {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 56px !important;
+  font-weight: 900 !important;
+  background: var(--flame) !important;
+  color: var(--white) !important;
+  border: 5px solid var(--border-ink) !important;
+  box-shadow: 8px 8px 0px var(--border-ink) !important;
+  padding: 20px 44px !important;
+  text-transform: uppercase !important;
+  transform: rotate(-6deg) !important;
+  display: inline-block !important;
+  text-align: center !important;
+  margin: 20px auto !important;
+}
+
+/* Scene 1 : LinkedIn post */
+.ob-post-author {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+}
+.ob-post-avatar {
+  width: 64px !important;
+  height: 64px !important;
+  border-radius: 50% !important;
+  border: 3px solid var(--border-ink) !important;
+  background: var(--tile-peach) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 28px !important;
+}
+.ob-post-meta {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
+.ob-post-name {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 24px !important;
+  font-weight: 900 !important;
+  color: var(--card-text) !important;
+}
+.ob-post-sub {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: var(--card-text-muted) !important;
+}
+.ob-post-body {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 28px !important;
+  font-weight: 800 !important;
+  color: var(--card-text) !important;
+  line-height: 1.4 !important;
+  padding: 20px 0 !important;
+}
+.ob-post-kpi-bar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  border-top: 2px dashed var(--border-ink) !important;
+  padding-top: 18px !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
+}
+
+/* Scene 3 : Assets Stack */
+.ob-stack-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 18px !important;
+  width: 100% !important;
+}
+.ob-stack-item {
+  background: var(--surface-elevated) !important;
+  border: 3px solid var(--border-ink) !important;
+  border-radius: 6px !important;
+  box-shadow: 5px 5px 0px var(--border-ink) !important;
+  padding: 22px 28px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 26px !important;
+  font-weight: 900 !important;
+  transition: all 0.25s ease-out !important;
+}
+.ob-stack-item.active {
+  background: var(--flame) !important;
+  color: var(--white) !important;
+  box-shadow: 6px 6px 0px var(--border-ink) !important;
+  transform: translateX(12px) scale(1.02) !important;
+}
+
+/* Scene 4 : Camera Chaos */
+.ob-chaos-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  width: 100% !important;
+}
+.ob-chaos-item {
+  background: var(--surface-elevated) !important;
+  border: 3px solid var(--border-ink) !important;
+  border-radius: 6px !important;
+  padding: 18px 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 24px !important;
+  font-weight: 900 !important;
+  transition: all 0.25s ease-out !important;
+}
+.ob-chaos-item.active {
+  border-color: var(--flame) !important;
+  background: var(--problem-bg-dark) !important;
+  color: var(--white) !important;
+  transform: scale(1.02) !important;
+}
+
+/* Scene 7 : Clone grid */
+.ob-clones-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 18px !important;
+  width: 100% !important;
+}
+.ob-clone-box {
+  background: var(--surface-elevated) !important;
+  border: 3px solid var(--border-ink) !important;
+  border-radius: 6px !important;
+  padding: 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 12px !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 900 !important;
+}
+
+/* Scene 8 : Trust Drop */
+.ob-kpi-huge {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 68px !important;
+  font-weight: 900 !important;
+  color: var(--flame) !important;
+  text-align: center !important;
+  margin: 12px 0 !important;
+}
+
+/* Scene 11 : Reverse switch */
+.ob-switch-track {
+  width: 100% !important;
+  height: 90px !important;
+  background: var(--border-ink) !important;
+  border-radius: 45px !important;
+  border: 4px solid var(--border-ink) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 8px !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+}
+.ob-switch-lever {
+  width: 50% !important;
+  height: 70px !important;
+  background: var(--flame) !important;
+  border-radius: 35px !important;
+  border: 3px solid var(--border-ink) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: var(--white) !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 24px !important;
+  font-weight: 900 !important;
+  box-shadow: 4px 4px 0px var(--border-ink) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+/* Scene 12 : Three Steps */
+.ob-steps-container {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+  width: 100% !important;
+}
+.ob-step-card {
+  background: var(--surface-elevated) !important;
+  border: 3px solid var(--border-ink) !important;
+  border-radius: 8px !important;
+  box-shadow: 5px 5px 0px var(--border-ink) !important;
+  padding: 22px 28px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 22px !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 24px !important;
+  font-weight: 900 !important;
+  transition: all 0.3s ease-out !important;
+}
+.ob-step-card.active {
+  background: var(--flame) !important;
+  color: var(--white) !important;
+  border-color: var(--border-ink) !important;
+  box-shadow: 6px 6px 0px var(--border-ink) !important;
+  transform: translateX(14px) scale(1.02) !important;
+}
+.ob-step-num {
+  font-size: 32px !important;
+  font-weight: 900 !important;
+  background: var(--border-ink) !important;
+  color: var(--white) !important;
+  padding: 6px 14px !important;
+  border-radius: 4px !important;
+}
+.ob-step-card.active .ob-step-num {
+  background: var(--white) !important;
+  color: var(--border-ink) !important;
+}
+
+/* Scene 13 : Four palettes */
+.ob-palettes-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 20px !important;
+  width: 100% !important;
+}
+.ob-palette-card {
+  border: 3px solid var(--border-ink) !important;
+  border-radius: 8px !important;
+  box-shadow: 5px 5px 0px var(--border-ink) !important;
+  padding: 24px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 900 !important;
+  transition: all 0.3s ease-out !important;
+}
+.ob-palette-card.pal-1 { background: var(--tile-peach) !important; color: var(--card-text) !important; }
+.ob-palette-card.pal-2 { background: var(--bg-carbon) !important; color: var(--white) !important; border-color: var(--flame) !important; }
+.ob-palette-card.pal-3 { background: var(--tile-mint) !important; color: var(--card-text) !important; }
+.ob-palette-card.pal-4 { background: var(--flame) !important; color: var(--white) !important; }
+.ob-palette-card.active {
+  box-shadow: 8px 8px 0px var(--border-ink) !important;
+  transform: scale(1.04) !important;
+}
+
+/* Scene 14 : Delivery & CTA */
+.ob-channels-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 18px !important;
+  width: 100% !important;
+}
+.ob-channel-card {
+  background: var(--surface-elevated) !important;
+  border: 3px solid var(--border-ink) !important;
+  border-radius: 6px !important;
+  box-shadow: 4px 4px 0px var(--border-ink) !important;
+  padding: 16px 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 900 !important;
+  transition: all 0.25s ease-out !important;
+}
+.ob-channel-card.active {
+  background: var(--flame) !important;
+  color: var(--white) !important;
+  transform: scale(1.03) !important;
+}
+.ob-cta-button {
+  background: var(--flame) !important;
+  color: var(--white) !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 44px !important;
+  font-weight: 900 !important;
+  border: 5px solid var(--border-ink) !important;
+  border-radius: 12px !important;
+  padding: 24px 48px !important;
+  box-shadow: 8px 8px 0px var(--border-ink) !important;
+  text-transform: uppercase !important;
+  text-align: center !important;
+  margin-top: 18px !important;
+  display: inline-block !important;
 }
 
 

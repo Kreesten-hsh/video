@@ -58,7 +58,13 @@
         currentMode = mode;
       }
 
-      currentSlice.push(w);
+      // Nettoyage de la ponctuation : suppression des ., ,, ;, : à la fin (conservation de ? et !)
+      const cleanedWord = (w.word || "").replace(/[.,;:]+$/, "");
+      currentSlice.push({
+        ...w,
+        word: cleanedWord,
+        rawWord: w.word
+      });
 
       let chunkSize = 4;
       if (mode === "center_slam") {
@@ -91,7 +97,7 @@
         }
 
         // Condition 2 : Ponctuation forte
-        const wordText = w.word.trim();
+        const wordText = (w.word || "").trim();
         const hasPunctuation = (mode === "center_slam")
           ? /[.,!?:;]$/.test(wordText)
           : /[.!?:]$/.test(wordText);
@@ -125,6 +131,59 @@
         mode: currentMode
       });
     }
+
+    // Anti-mot orphelin obligatoire : fusionne les chunks isolés de 1 seul mot
+    for (let i = chunks.length - 1; i >= 1; i--) {
+      const c = chunks[i];
+      const prev = chunks[i - 1];
+      if (c.words.length === 1) {
+        const scIdxCurrent = findSceneIdx(c.start);
+        const scIdxPrev = findSceneIdx(prev.start);
+        if (scIdxCurrent === scIdxPrev || prev.words.length <= 3) {
+          prev.words.push(...c.words);
+          prev.end = c.end;
+          chunks.splice(i, 1);
+        }
+      }
+    }
+    if (chunks.length > 1 && chunks[0].words.length === 1) {
+      chunks[1].words.unshift(...chunks[0].words);
+      chunks[1].start = chunks[0].start;
+      chunks.splice(0, 1);
+    }
+
+    // Coloration sémantique fixe (Style @ledevultime) : 1 mot-clé porteur de sens
+    const FRENCH_STOP_WORDS = new Set([
+      "le", "la", "les", "un", "une", "des", "de", "du", "d", "l",
+      "tu", "il", "on", "mais", "ou", "et", "donc",
+      "dans", "sur", "pour", "par", "avec", "sans",
+      "qui", "que", "ne", "pas", "plus",
+      "as", "est", "sont", "a", "en", "au"
+    ]);
+
+    chunks.forEach(chunk => {
+      let bestIdx = -1;
+      let maxLen = -1;
+      chunk.words.forEach((cw, idx) => {
+        const cleanNorm = (cw.word || "").toLowerCase().replace(/[^a-zà-ÿ0-9]/g, "");
+        if (!FRENCH_STOP_WORDS.has(cleanNorm)) {
+          if (cleanNorm.length > maxLen) {
+            maxLen = cleanNorm.length;
+            bestIdx = idx;
+          }
+        }
+      });
+      if (bestIdx === -1 && chunk.words.length > 0) {
+        chunk.words.forEach((cw, idx) => {
+          const cleanNorm = (cw.word || "").toLowerCase().replace(/[^a-zà-ÿ0-9]/g, "");
+          if (cleanNorm.length > maxLen) {
+            maxLen = cleanNorm.length;
+            bestIdx = idx;
+          }
+        });
+      }
+      chunk.keywordIndex = bestIdx >= 0 ? bestIdx : 0;
+    });
 
     return chunks;
   }
@@ -323,6 +382,12 @@
     const subtitlesZone = document.getElementById("subtitles-zone");
     if (!subtitlesZone) return;
 
+    // Suppression de collision sur scènes Avatar avec hero_title
+    if (activeScene && activeScene.type === "face" && activeScene.data && activeScene.data.hero_title) {
+      subtitlesZone.className = "mode-hidden";
+      return;
+    }
+
     let mode = (activeScene && activeScene.caption_mode) || "legacy";
     if (activeScene && activeScene.type === "blueprint_kinetic_type" && mode !== "center_slam" && mode !== "hidden") {
       mode = "single_line_top";
@@ -374,19 +439,26 @@
     if (chunkIdx !== currentChunkIndex) {
       currentChunkIndex = chunkIdx;
       subtitlesBox.innerHTML = chunk.words
-        .map((w, idx) => `<span class="sub-word word" id="sw-${idx}">${w.word}</span>`)
+        .map((w, idx) => {
+          const isKeyword = idx === chunk.keywordIndex;
+          const cls = `sub-word word${isKeyword ? ' keyword-accent' : ''}`;
+          return `<span class="${cls}" id="sw-${idx}">${w.word}</span>`;
+        })
         .join(" ");
     }
 
-    chunk.words.forEach((w, idx) => {
-      const el = document.getElementById(`sw-${idx}`);
-      if (!el) return;
-      if (t >= w.start && t <= w.end) {
-        el.classList.add("active");
-      } else {
-        el.classList.remove("active");
-      }
-    });
+    // Karaoké actif uniquement en mode center_slam ou dynamic_band (désactivé en single_line_top pour un affichage stable)
+    if (mode === "center_slam" || mode === "dynamic_band") {
+      chunk.words.forEach((w, idx) => {
+        const el = document.getElementById(`sw-${idx}`);
+        if (!el) return;
+        if (t >= w.start && t <= w.end) {
+          el.classList.add("active");
+        } else {
+          el.classList.remove("active");
+        }
+      });
+    }
 
     if (mode === "center_slam") {
       const chunkElapsed = Math.max(0, t - chunk.start);
@@ -550,49 +622,46 @@
 
       case "blueprint_spatial_pan":
         const stations = data.stations || [
-          { title: "1. Note Vocale 2 min ou Post Écrit", desc: "Tu envoies ta matière brute sans tourner" },
-          { title: "2. Extraction & Structure Rythmique", desc: "Découpage chirurgical calé sur ta voix" },
-          { title: "3. Preuve Visuelle Mot-à-Mot", desc: "Chaque argument déclenche son animation" }
+          { title: "NOTE VOCALE OU POST", icon: "🎤" },
+          { title: "DÉCOUPAGE RYTHMIQUE CHIRURGICAL", icon: "✂️" },
+          { title: "PREUVE VISUELLE MOT-À-MOT", icon: "🎯" }
         ];
-        const s1 = stations[0] || { title: "Étape 1", desc: "" };
-        const s2 = stations[1] || { title: "Étape 2", desc: "" };
-        const s3 = stations[2] || { title: "Étape 3", desc: "" };
+        const s1 = stations[0] || { title: "NOTE VOCALE OU POST", icon: "🎤" };
+        const s2 = stations[1] || { title: "DÉCOUPAGE RYTHMIQUE CHIRURGICAL", icon: "✂️" };
+        const s3 = stations[2] || { title: "PREUVE VISUELLE MOT-À-MOT", icon: "🎯" };
         return `
           <div class="blueprint-spatial-pan" id="blueprint-spatial-pan">
-            <div class="bsp-station" id="bsp-st-1">
-              <div class="bcs-badge bcs-badge-apres">Étape 01</div>
-              <div class="bsp-content" style="display: flex; flex-direction: column; gap: 6px; flex: 1; margin-left: 24px;">
-                <div class="bcs-card-title">${s1.title}</div>
-                <div class="bcs-card-desc">${s1.desc}</div>
+            <div class="bsp-station pastel-yellow" id="bsp-st-1" style="transform: rotate(-1.5deg);">
+              <div class="bcs-badge bcs-badge-apres">01</div>
+              <div class="bsp-content" style="display: flex; flex-direction: column; justify-content: center; gap: 6px; flex: 1; margin-left: 20px;">
+                <div class="bcs-card-title" style="font-size: 32px; font-weight: 900; text-transform: uppercase;">${s1.title}</div>
                 <div class="bsp-progress-track">
                   <div class="bsp-progress-fill" id="bsp-progress-1"></div>
                 </div>
               </div>
-              <div class="bsp-icon-box" id="bsp-icon-1">🎤</div>
+              <div class="bsp-icon-box" id="bsp-icon-1">${s1.icon || "🎤"}</div>
             </div>
             <div class="bsp-connector" id="bsp-conn-1">↓</div>
-            <div class="bsp-station" id="bsp-st-2">
-              <div class="bcs-badge bcs-badge-apres">Étape 02</div>
-              <div class="bsp-content" style="display: flex; flex-direction: column; gap: 6px; flex: 1; margin-left: 24px;">
-                <div class="bcs-card-title">${s2.title}</div>
-                <div class="bcs-card-desc">${s2.desc}</div>
+            <div class="bsp-station pastel-blue" id="bsp-st-2" style="transform: rotate(1.5deg);">
+              <div class="bcs-badge bcs-badge-apres">02</div>
+              <div class="bsp-content" style="display: flex; flex-direction: column; justify-content: center; gap: 6px; flex: 1; margin-left: 20px;">
+                <div class="bcs-card-title" style="font-size: 32px; font-weight: 900; text-transform: uppercase;">${s2.title}</div>
                 <div class="bsp-progress-track">
                   <div class="bsp-progress-fill" id="bsp-progress-2"></div>
                 </div>
               </div>
-              <div class="bsp-icon-box" id="bsp-icon-2">✂️</div>
+              <div class="bsp-icon-box" id="bsp-icon-2">${s2.icon || "✂️"}</div>
             </div>
             <div class="bsp-connector" id="bsp-conn-2">↓</div>
-            <div class="bsp-station" id="bsp-st-3">
-              <div class="bcs-badge bcs-badge-apres">Étape 03</div>
-              <div class="bsp-content" style="display: flex; flex-direction: column; gap: 6px; flex: 1; margin-left: 24px;">
-                <div class="bcs-card-title">${s3.title}</div>
-                <div class="bcs-card-desc">${s3.desc}</div>
+            <div class="bsp-station pastel-green" id="bsp-st-3" style="transform: rotate(-1.5deg);">
+              <div class="bcs-badge bcs-badge-apres">03</div>
+              <div class="bsp-content" style="display: flex; flex-direction: column; justify-content: center; gap: 6px; flex: 1; margin-left: 20px;">
+                <div class="bcs-card-title" style="font-size: 32px; font-weight: 900; text-transform: uppercase;">${s3.title}</div>
                 <div class="bsp-progress-track">
                   <div class="bsp-progress-fill" id="bsp-progress-3"></div>
                 </div>
               </div>
-              <div class="bsp-icon-box" id="bsp-icon-3">🎯</div>
+              <div class="bsp-icon-box" id="bsp-icon-3">${s3.icon || "🎯"}</div>
             </div>
           </div>
         `;
@@ -1603,72 +1672,54 @@
       case "shooting_wall_illustrations":
         return `
           <div class="comp-shooting-wall" id="comp-shooting-wall">
-            <div class="sw-card" id="sw-card-0">
+            <div class="sw-card pastel-pink" id="sw-card-0" style="transform: rotate(-1.5deg) scale(0.92);">
               <div class="sw-icon-wrap">
                 <svg width="110" height="110" viewBox="0 0 120 120" fill="none">
-                  <rect x="15" y="32" width="75" height="56" rx="10" fill="var(--surface-elevated)" stroke="var(--border-subtle)" stroke-width="3"/>
-                  <path d="M38 32L44 22H62L68 32H38Z" fill="var(--surface-elevated)" stroke="var(--border-subtle)" stroke-width="3"/>
-                  <circle cx="52" cy="60" r="22" fill="var(--bg-carbon)" stroke="var(--border-subtle)" stroke-width="3"/>
-                  <circle cx="52" cy="60" r="15" fill="none" stroke="var(--mint)" stroke-width="2.5" opacity="0.85"/>
-                  <circle cx="52" cy="60" r="7" fill="var(--surface-black)"/>
-                  <circle cx="48" cy="56" r="3" fill="var(--white)" opacity="0.7"/>
+                  <rect x="15" y="32" width="75" height="56" rx="6" fill="var(--surface-elevated)" stroke="var(--border-color)" stroke-width="3"/>
+                  <path d="M38 32L44 22H62L68 32H38Z" fill="var(--surface-elevated)" stroke="var(--border-color)" stroke-width="3"/>
+                  <circle cx="52" cy="60" r="22" fill="var(--white)" stroke="var(--border-color)" stroke-width="3"/>
+                  <circle cx="52" cy="60" r="15" fill="none" stroke="var(--mint)" stroke-width="2.5"/>
+                  <circle cx="52" cy="60" r="7" fill="var(--black)"/>
+                  <circle cx="48" cy="56" r="3" fill="var(--white)"/>
                   <circle cx="78" cy="42" r="5" fill="var(--mint)"/>
-                  <path d="M22 40V37H27" stroke="var(--mint)" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M83 40V37H78" stroke="var(--mint)" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M22 80V83H27" stroke="var(--mint)" stroke-width="2" stroke-linecap="round"/>
-                  <path d="M83 80V83H78" stroke="var(--mint)" stroke-width="2" stroke-linecap="round"/>
-                  <rect x="90" y="44" width="16" height="32" rx="4" fill="var(--surface-card)" stroke="var(--border-subtle)" stroke-width="2.5"/>
                 </svg>
               </div>
               <div class="sw-content">
-                <div class="sw-title">📷 CAMÉRA & PRISES</div>
-                <div class="sw-desc">Objectif cinéma & réglages reflex</div>
+                <div class="sw-title">1. ALLUMER LA CAMÉRA</div>
                 <div class="sw-badge" id="sw-badge-rec">● REC 00:00:00</div>
               </div>
             </div>
-            <div class="sw-card" id="sw-card-1">
+            <div class="sw-card pastel-yellow" id="sw-card-1" style="transform: rotate(1.5deg) scale(0.92);">
               <div class="sw-icon-wrap">
                 <svg width="110" height="110" viewBox="0 0 120 120" fill="none">
-                  <line x1="60" y1="74" x2="60" y2="108" stroke="var(--border-subtle)" stroke-width="3.5" stroke-linecap="round"/>
-                  <line x1="60" y1="95" x2="40" y2="114" stroke="var(--border-subtle)" stroke-width="3" stroke-linecap="round"/>
-                  <line x1="60" y1="95" x2="80" y2="114" stroke="var(--border-subtle)" stroke-width="3" stroke-linecap="round"/>
-                  <polygon points="60,16 88,28 98,54 84,76 36,76 22,54 32,28" fill="var(--surface-elevated)" stroke="var(--mint)" stroke-width="3"/>
-                  <polygon points="60,24 82,34 90,54 78,70 42,70 30,54 38,34" fill="rgba(0, 245, 160, 0.12)" stroke="var(--mint)" stroke-width="1.5" stroke-dasharray="4 2"/>
-                  <circle cx="60" cy="50" r="12" fill="var(--mint)"/>
-                  <circle cx="60" cy="50" r="18" fill="none" stroke="var(--white)" stroke-width="1.5" opacity="0.6"/>
-                  <line x1="20" y1="20" x2="10" y2="12" stroke="var(--mint)" stroke-width="2.5" stroke-linecap="round"/>
-                  <line x1="100" y1="20" x2="110" y2="12" stroke="var(--mint)" stroke-width="2.5" stroke-linecap="round"/>
-                  <line x1="12" y1="52" x2="2" y2="52" stroke="var(--mint)" stroke-width="2.5" stroke-linecap="round"/>
-                  <line x1="108" y1="52" x2="118" y2="52" stroke="var(--mint)" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="60" y1="74" x2="60" y2="108" stroke="var(--border-color)" stroke-width="3.5" stroke-linecap="round"/>
+                  <line x1="60" y1="95" x2="40" y2="114" stroke="var(--border-color)" stroke-width="3" stroke-linecap="round"/>
+                  <line x1="60" y1="95" x2="80" y2="114" stroke="var(--border-color)" stroke-width="3" stroke-linecap="round"/>
+                  <polygon points="60,16 88,28 98,54 84,76 36,76 22,54 32,28" fill="var(--surface-elevated)" stroke="var(--border-color)" stroke-width="3"/>
+                  <circle cx="60" cy="50" r="14" fill="var(--amber)"/>
+                  <circle cx="60" cy="50" r="20" fill="none" stroke="var(--black)" stroke-width="2"/>
                 </svg>
               </div>
               <div class="sw-content">
-                <div class="sw-title">💡 LUMIÈRE & DÉCOR</div>
-                <div class="sw-desc">Projecteur softbox & éclairage studio</div>
-                <div class="sw-badge">5600K MAX</div>
+                <div class="sw-title">2. RÉGLER LA LUMIÈRE</div>
+                <div class="sw-badge">5600K STUDIO</div>
               </div>
             </div>
-            <div class="sw-card" id="sw-card-2">
+            <div class="sw-card pastel-blue" id="sw-card-2" style="transform: rotate(-1.5deg) scale(0.92);">
               <div class="sw-icon-wrap">
                 <svg width="110" height="110" viewBox="0 0 120 120" fill="none">
-                  <rect x="12" y="16" width="96" height="88" rx="10" fill="var(--surface-elevated)" stroke="var(--mint)" stroke-width="3"/>
-                  <rect x="12" y="16" width="96" height="24" rx="10" fill="var(--surface-black)"/>
-                  <text x="60" y="33" fill="var(--mint)" font-family="Montserrat" font-size="12" font-weight="900" text-anchor="middle" letter-spacing="1">04:00:00</text>
-                  <rect x="18" y="46" width="22" height="14" rx="3" fill="var(--mint)" opacity="0.45"/>
-                  <rect x="43" y="46" width="38" height="14" rx="3" fill="var(--white)" opacity="0.8"/>
-                  <rect x="84" y="46" width="18" height="14" rx="3" fill="var(--mint)" opacity="0.45"/>
-                  <rect x="18" y="64" width="40" height="14" rx="3" fill="var(--mint)" opacity="0.9"/>
-                  <rect x="61" y="64" width="41" height="14" rx="3" fill="var(--surface-elevated)" stroke="var(--border-subtle)" stroke-width="1.5"/>
-                  <rect x="18" y="82" width="28" height="14" rx="3" fill="var(--border-subtle)"/>
-                  <rect x="49" y="82" width="53" height="14" rx="3" fill="var(--mint)" opacity="0.6"/>
-                  <line x1="58" y1="40" x2="58" y2="100" stroke="var(--white)" stroke-width="2.5"/>
-                  <polygon points="53,40 63,40 58,47" fill="var(--white)"/>
+                  <rect x="12" y="16" width="96" height="88" rx="6" fill="var(--surface-elevated)" stroke="var(--border-color)" stroke-width="3"/>
+                  <rect x="12" y="16" width="96" height="24" rx="6" fill="var(--black)"/>
+                  <text x="60" y="33" fill="var(--white)" font-family="Montserrat" font-size="12" font-weight="900" text-anchor="middle" letter-spacing="1">04:00:00</text>
+                  <rect x="18" y="46" width="22" height="14" rx="3" fill="var(--mint)"/>
+                  <rect x="43" y="46" width="38" height="14" rx="3" fill="var(--white)"/>
+                  <rect x="84" y="46" width="18" height="14" rx="3" fill="var(--mint)"/>
+                  <rect x="18" y="64" width="40" height="14" rx="3" fill="var(--border-color)"/>
                 </svg>
               </div>
               <div class="sw-content">
-                <div class="sw-title">⏱️ 4H DE MONTAGE</div>
-                <div class="sw-desc">Timeline multipiste saturée & chronomètre</div>
-                <div class="sw-badge">04:00:00</div>
+                <div class="sw-title">3. 4H DE MONTAGE</div>
+                <div class="sw-badge">TIMELINE BLOQUÉE</div>
               </div>
             </div>
           </div>
@@ -1774,23 +1825,15 @@
                 <div class="otp-window-meta">Post publié • 1 850 mots • 8 min de lecture</div>
                 <div style="font-size: 20px; color: var(--text-muted); font-weight: 700;">LinkedIn Feed</div>
               </div>
-              <div class="otp-window-body">
-                <div class="otp-scroll-content" id="otp-scroll-content">
-                  <div class="otp-line">Dans le monde du conseil, l'acquisition repose souvent sur des méthodes éprouvées...</div>
-                  <div class="otp-line">Nous constatons chaque semaine que les décideurs n'ont plus le temps d'analyser...</div>
-                  <div class="otp-line highlight-arg">★ ARGUMENT MASSUE #1 : +140K€ GÉNÉRÉS SANS PROSPECTION</div>
-                  <div class="otp-line">Pourtant la majorité des équipes continuent de rédiger des synthèses textuelles...</div>
-                  <div class="otp-line">Une analyse approfondie sur plus de quatre-vingts cas d'usage démontre que...</div>
-                  <div class="otp-line highlight-arg">★ RÉSULTAT CLIENT PROUVÉ : CYCLE DE VENTE DIVISÉ PAR 3</div>
-                  <div class="otp-line">En conséquence directe de cette surcharge cognitive, le taux d'attention s'effondre...</div>
-                  <div class="otp-line">Il devient alors impératif de revoir complètement la chaîne de transmission...</div>
-                  <div class="otp-line highlight-arg">★ MÉTHODE SUR-MESURE : CONVERSION DÉCUPLÉE EN VIDÉO</div>
-                  <div class="otp-line">Mais faute d'outils adaptés, ces démonstrations restent invisibles dans le feed...</div>
-                  <div class="otp-line">Les prospects survolent les premiers paragraphes sans jamais atteindre la valeur...</div>
-                  <div class="otp-line">Chaque publication demande ainsi deux heures d'écriture pour un impact nul...</div>
-                  <div class="otp-line">Le diagnostic est sans appel : le format texte sature et ne convertit plus...</div>
-                  <div class="otp-line">Seule une preuve visuelle dynamique et rythmée permet d'arrêter le scroll...</div>
+              <div class="otp-window-body" style="position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 32px;">
+                <div class="otp-scroll-content" id="otp-scroll-content" style="width: 100%; display: flex; flex-direction: column; gap: 20px; align-items: flex-start;">
+                  <div class="otp-skeleton" style="width: 92%; height: 24px; background: var(--grid-line); border: 2px solid var(--border-color); border-radius: 4px;"></div>
+                  <div class="otp-skeleton" style="width: 78%; height: 24px; background: var(--border-color); border-radius: 4px;"></div>
+                  <div class="otp-skeleton" style="width: 86%; height: 24px; background: var(--grid-line); border: 2px solid var(--border-color); border-radius: 4px;"></div>
+                  <div class="otp-skeleton" style="width: 65%; height: 24px; background: var(--border-color); border-radius: 4px;"></div>
+                  <div class="otp-skeleton" style="width: 82%; height: 24px; background: var(--grid-line); border: 2px solid var(--border-color); border-radius: 4px;"></div>
                 </div>
+                <div class="neo-stamp" id="otp-stamp" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-6deg); z-index: 25; text-align: center; white-space: nowrap; font-size: 28px !important; padding: 10px 22px !important;">PAVÉ DE 150 LIGNES = IGNORÉ !</div>
               </div>
             </div>
             <div class="otp-bottom-banner">PAVÉ DE 150 LIGNES : 92% DES PROSPECTS SCROLLENT SANS LIRE</div>
@@ -1834,6 +1877,315 @@
             </div>
           </div>
         `;
+
+      case "ob_post_counter":
+        return `
+          <div class="ob-container" id="ob-container-01">
+            <div class="ob-card" id="ob-post-card">
+              <div class="ob-header-box">
+                <div class="ob-post-author">
+                  <div class="ob-post-avatar">✍️</div>
+                  <div class="ob-post-meta">
+                    <div class="ob-post-name">KREESTEN AGBOTON</div>
+                    <div class="ob-post-sub">Fondateur @ AGENT404 • 1j</div>
+                  </div>
+                </div>
+                <div class="ob-badge">4 POSTS / SEMAINE</div>
+              </div>
+              <div class="ob-header-title">PUBLIER SUR LINKEDIN</div>
+              <div class="ob-post-body">
+                "Pourquoi 99% des créateurs B2B abandonnent la vidéo alors qu'ils ont déjà toute l'expertise nécessaire ?"
+              </div>
+              <div class="ob-post-kpi-bar">
+                <span>👍 142 Réactions</span>
+                <span>💬 38 Commentaires</span>
+                <span>🚀 12 Partages</span>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_zero_stamp":
+        return `
+          <div class="ob-container" id="ob-container-02">
+            <div class="ob-card" id="ob-zero-card" style="align-items: center; justify-content: center; text-align: center;">
+              <div class="ob-header-title" style="margin-bottom: 24px;">RÉSULTAT VIDÉO ACTUEL</div>
+              <div class="ob-stamp-giant" id="ob-zero-stamp">ZÉRO VIDÉO</div>
+              <div class="ob-badge ob-badge-dark" style="margin-top: 24px;">AUCUN FORMAT CAPITALISÉ</div>
+            </div>
+          </div>
+        `;
+
+      case "ob_assets_stack":
+        return `
+          <div class="ob-container" id="ob-container-03">
+            <div class="ob-card" id="ob-assets-card">
+              <div class="ob-header-box">
+                <div class="ob-header-title">LE CAPITAL CONTENU EXISTE DÉJÀ</div>
+                <div class="ob-badge">3 ACTIFS PRÊTS</div>
+              </div>
+              <div class="ob-stack-list">
+                <div class="ob-stack-item" id="ob-stack-0">
+                  <span>01. EXPERTISE MÉTIER VALIDÉE</span>
+                  <span>🧠</span>
+                </div>
+                <div class="ob-stack-item" id="ob-stack-1">
+                  <span>02. CAS CLIENTS & RÉSULTATS</span>
+                  <span>📈</span>
+                </div>
+                <div class="ob-stack-item" id="ob-stack-2">
+                  <span>03. MÉTHODES ACTIONNABLES</span>
+                  <span>🎯</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_camera_chaos":
+        return `
+          <div class="ob-container" id="ob-container-04">
+            <div class="ob-card" id="ob-chaos-card">
+              <div class="ob-header-box">
+                <div class="ob-header-title">LA FRICTION DU TOURNAGE</div>
+                <div class="ob-badge" style="background: var(--border-ink);">REC [●] 00:04:12</div>
+              </div>
+              <div class="ob-chaos-grid">
+                <div class="ob-chaos-item" id="ob-chaos-0">
+                  <span>📹 ALLUMER LA CAMÉRA</span>
+                  <span class="ob-badge ob-badge-dark">FRICTION #1</span>
+                </div>
+                <div class="ob-chaos-item" id="ob-chaos-1">
+                  <span>💡 RÉGLER LA LUMIÈRE & LE SON</span>
+                  <span class="ob-badge ob-badge-dark">FRICTION #2</span>
+                </div>
+                <div class="ob-chaos-item" id="ob-chaos-2">
+                  <span>⏱️ QUATRE HEURES DE MONTAGE</span>
+                  <span class="ob-badge ob-badge-dark">FRICTION #3</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_abandon_slam":
+        return `
+          <div class="ob-container" id="ob-container-05">
+            <div class="ob-card" id="ob-abandon-card" style="align-items: center; justify-content: center; text-align: center;">
+              <div class="ob-header-title" style="margin-bottom: 20px;">PROJET EN SUSPENS</div>
+              <div class="ob-stamp-giant" id="ob-abandon-stamp">ABANDON DU POST</div>
+              <div class="ob-badge ob-badge-dark" style="margin-top: 20px;">0 RETOUR SUR INVESTISSEMENT</div>
+            </div>
+          </div>
+        `;
+
+      case "ob_refuse_clones":
+        return `
+          <div class="ob-container" id="ob-container-06">
+            <div class="ob-card" id="ob-refuse-card">
+              <div class="ob-header-box">
+                <div class="ob-header-title">REFUS DU CONTENU GÉNÉRIQUE</div>
+                <div class="ob-badge">DÉCISION CLÉ</div>
+              </div>
+              <div style="display: flex; gap: 20px; width: 100%; justify-content: space-between;">
+                <div class="ob-card" style="width: 48%; min-height: 340px; padding: 24px; align-items: center; justify-content: center; text-align: center; background: var(--problem-bg-dark); color: var(--white); border-color: var(--flame);">
+                  <div style="font-size: 54px; margin-bottom: 12px;">🤖</div>
+                  <div class="ob-header-title" style="color: var(--flame); font-size: 26px;">AVATARS CLONÉS</div>
+                  <div class="ob-badge ob-badge-dark" style="margin-top: 14px;">❌ À BANNIR</div>
+                </div>
+                <div class="ob-card" style="width: 48%; min-height: 340px; padding: 24px; align-items: center; justify-content: center; text-align: center; background: var(--surface-card); color: var(--card-text);">
+                  <div style="font-size: 54px; margin-bottom: 12px;">🎨</div>
+                  <div class="ob-header-title" style="font-size: 26px;">IDENTITÉ ÉDITORIALE</div>
+                  <div class="ob-badge" style="margin-top: 14px;">⚡ SIGNATURE UNIQUE</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_clone_grid":
+        return `
+          <div class="ob-container" id="ob-container-07">
+            <div class="ob-card" id="ob-clone-grid-card">
+              <div class="ob-header-box">
+                <div class="ob-header-title">L'EFFET CLONE EN B2B</div>
+                <div class="ob-badge ob-badge-dark">MÊME MODÈLE</div>
+              </div>
+              <div class="ob-clones-grid">
+                <div class="ob-clone-box" id="ob-clone-0">
+                  <div style="font-size: 40px;">🤖</div>
+                  <span>[AVATAR_01]</span>
+                  <div class="ob-badge ob-badge-dark">GÉNÉRIQUE</div>
+                </div>
+                <div class="ob-clone-box" id="ob-clone-1">
+                  <div style="font-size: 40px;">🤖</div>
+                  <span>[AVATAR_02]</span>
+                  <div class="ob-badge ob-badge-dark">GÉNÉRIQUE</div>
+                </div>
+                <div class="ob-clone-box" id="ob-clone-2">
+                  <div style="font-size: 40px;">🤖</div>
+                  <span>[AVATAR_03]</span>
+                  <div class="ob-badge ob-badge-dark">GÉNÉRIQUE</div>
+                </div>
+                <div class="ob-clone-box" id="ob-clone-3">
+                  <div style="font-size: 40px;">🤖</div>
+                  <span>[AVATAR_04]</span>
+                  <div class="ob-badge ob-badge-dark">GÉNÉRIQUE</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_trust_drop":
+        return `
+          <div class="ob-container" id="ob-container-08">
+            <div class="ob-card" id="ob-trust-card" style="align-items: center; justify-content: center; text-align: center;">
+              <div class="ob-header-title">IMPACT SUR L'AUDIENCE</div>
+              <div class="ob-kpi-huge" id="ob-trust-stat">-85% CRÉDIBILITÉ</div>
+              <div class="ob-badge" style="font-size: 26px; padding: 12px 28px;">3 SECONDES POUR DÉCROCHER</div>
+            </div>
+          </div>
+        `;
+
+      case "ob_not_content":
+        return `
+          <div class="ob-container" id="ob-container-09">
+            <div class="ob-card" id="ob-not-content-card" style="align-items: center; justify-content: center; text-align: center;">
+              <div class="ob-header-title" style="margin-bottom: 24px;">DIAGNOSTIC STRATÉGIQUE</div>
+              <div class="ob-stamp-giant" style="transform: rotate(0deg); font-size: 40px; padding: 20px 32px;">
+                TON FOND EST EXCELLENT
+              </div>
+              <div class="ob-badge ob-badge-dark" style="margin-top: 24px;">CE N'EST PAS LE CONTENU</div>
+            </div>
+          </div>
+        `;
+
+      case "ob_text_wall_stamp":
+        return `
+          <div class="ob-container" id="ob-container-10">
+            <div class="ob-card" id="ob-wall-card">
+              <div class="ob-header-box">
+                <div class="ob-header-title">PAVÉS DE TEXTE DANS LE FEED</div>
+                <div class="ob-badge ob-badge-dark">SCROLL RAPIDE</div>
+              </div>
+              <div class="ob-post-body" style="font-size: 24px; opacity: 0.6; line-height: 1.5;">
+                "Voici notre méthodologie complète en 12 points pour structurer votre proposition de valeur sans jamais perdre de prospects en route..."
+              </div>
+              <div class="ob-stamp-giant" id="ob-wall-stamp" style="font-size: 44px; margin: 0 auto;">
+                ENFERMÉ DANS LE TEXTE
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_reverse_switch":
+        return `
+          <div class="ob-container" id="ob-container-11">
+            <div class="ob-card" id="ob-switch-card">
+              <div class="ob-header-box">
+                <div class="ob-header-title">LE PROCESSUS INVERSÉ</div>
+                <div class="ob-badge">LEVIER STUDIO</div>
+              </div>
+              <div class="ob-switch-track">
+                <div class="ob-switch-lever" id="ob-switch-lever">
+                  ⚡ VIDÉO CODE SUR-MESURE
+                </div>
+              </div>
+              <div style="display: flex; justify-content: space-between; width: 100%; margin-top: 18px; font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800;">
+                <span style="opacity: 0.5;">01. TEXTE STATIQUE</span>
+                <span style="color: var(--flame);">02. VIDÉO ACTIONNABLE</span>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_three_steps_cards":
+        return `
+          <div class="ob-container" id="ob-container-12">
+            <div class="ob-card" id="ob-steps-card">
+              <div class="ob-header-box">
+                <div class="ob-header-title">LE PROTOCOLE EN 3 ÉTAPES</div>
+                <div class="ob-badge">MÉCANIQUE STUDIO</div>
+              </div>
+              <div class="ob-steps-container">
+                <div class="ob-step-card" id="ob-step-0">
+                  <div class="ob-step-num">01</div>
+                  <div style="display: flex; flex-direction: column; gap: 4px;">
+                    <span style="font-size: 26px;">NOTE VOCALE OU POST ÉCRIT</span>
+                    <span style="font-size: 20px; opacity: 0.8;">2 minutes de voix ou ton meilleur texte</span>
+                  </div>
+                </div>
+                <div class="ob-step-card" id="ob-step-1">
+                  <div class="ob-step-num">02</div>
+                  <div style="display: flex; flex-direction: column; gap: 4px;">
+                    <span style="font-size: 26px;">SYNCHRO RYTHMIQUE SUR TA VOIX</span>
+                    <span style="font-size: 20px; opacity: 0.8;">Extraction de l'idée & chorégraphie</span>
+                  </div>
+                </div>
+                <div class="ob-step-card" id="ob-step-2">
+                  <div class="ob-step-num">03</div>
+                  <div style="display: flex; flex-direction: column; gap: 4px;">
+                    <span style="font-size: 26px;">PREUVE VISUELLE PAR LE CODE</span>
+                    <span style="font-size: 20px; opacity: 0.8;">Chaque mot déclenche le bon impact</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_four_palettes_grid":
+        return `
+          <div class="ob-container" id="ob-container-13">
+            <div class="ob-card" id="ob-palettes-card">
+              <div class="ob-header-box">
+                <div class="ob-header-title">DIRECTION ARTISTIQUE SUR-MESURE</div>
+                <div class="ob-badge">4 STYLES SIGNATURE</div>
+              </div>
+              <div class="ob-palettes-grid">
+                <div class="ob-palette-card pal-1" id="ob-pal-0">
+                  <span style="font-size: 30px;">📰</span>
+                  <span>01. ÉDITORIAL CHAUD</span>
+                  <span class="ob-badge ob-badge-dark">CRÈME & ENCRE</span>
+                </div>
+                <div class="ob-palette-card pal-2" id="ob-pal-1">
+                  <span style="font-size: 30px;">💻</span>
+                  <span>02. TECH SOMBRE</span>
+                  <span class="ob-badge">OBSIDIAN & FLAME</span>
+                </div>
+                <div class="ob-palette-card pal-3" id="ob-pal-2">
+                  <span style="font-size: 30px;">📊</span>
+                  <span>03. CONSEIL FINANCIER</span>
+                  <span class="ob-badge ob-badge-dark">BLEU & SAUGE</span>
+                </div>
+                <div class="ob-palette-card pal-4" id="ob-pal-3">
+                  <span style="font-size: 30px;">⚡</span>
+                  <span>04. CRÉATEUR PERCUTANT</span>
+                  <span class="ob-badge ob-badge-dark">CONTRASTE FORT</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_final_delivery_cta":
+        return `
+          <div class="ob-container" id="ob-container-14">
+            <div class="ob-card" id="ob-final-card" style="align-items: center; justify-content: center; text-align: center;">
+              <div class="ob-header-title" style="font-size: 36px; margin-bottom: 12px;">LIVRAISON EN 48H CHRONO</div>
+              <div class="ob-channels-grid" style="margin-bottom: 20px;">
+                <div class="ob-channel-card" id="ob-chan-0"><span>💼</span><span>01. LINKEDIN</span></div>
+                <div class="ob-channel-card" id="ob-chan-1"><span>📱</span><span>02. TIKTOK</span></div>
+                <div class="ob-channel-card" id="ob-chan-2"><span>📸</span><span>03. REELS</span></div>
+                <div class="ob-channel-card" id="ob-chan-3"><span>▶️</span><span>04. SHORTS</span></div>
+              </div>
+              <div class="ob-cta-button" id="ob-cta-btn">COMMENTE "CLARTÉ"</div>
+              <div class="ob-badge ob-badge-dark" style="margin-top: 14px;">OU ENVOIE EN MESSAGE PRIVÉ</div>
+            </div>
+          </div>
+        `;
+
       default:
         return `<div>Scène non définie</div>`;
     }
@@ -2089,11 +2441,12 @@
       const t3 = 37.84;
       const tEnd = (scene && scene.end) || 41.72;
 
-      function updateStation(st, pFill, icon, startT, endT, isActiveNow, isPast) {
+      function updateStation(st, pFill, icon, startT, endT, isActiveNow, isPast, rotDeg) {
         if (!st) return;
+        const rotStr = `rotate(${rotDeg}deg)`;
         if (t < startT) {
           st.style.opacity = "0.12";
-          st.style.transform = "scale(0.88) translateY(30px)";
+          st.style.transform = `scale(0.88) translateY(30px) ${rotStr}`;
           st.classList.remove("is-active");
           if (pFill) pFill.style.width = "0%";
           if (icon) icon.style.transform = "scale(0.9)";
@@ -2101,7 +2454,7 @@
           const elapsed = t - startT;
           const sp = calcSpringOvershoot(elapsed);
           st.style.opacity = "1";
-          st.style.transform = `scale(${sp.scale * 1.02})`;
+          st.style.transform = `scale(${sp.scale * 1.02}) ${rotStr}`;
           st.classList.add("is-active");
 
           const pProg = Math.min(1, Math.max(0, (t - startT) / (endT - startT)));
@@ -2111,16 +2464,16 @@
           if (icon) icon.style.transform = `scale(${pulse})`;
         } else if (isPast) {
           st.style.opacity = "0.85";
-          st.style.transform = "scale(1.0)";
+          st.style.transform = `scale(1.0) ${rotStr}`;
           st.classList.remove("is-active");
           if (pFill) pFill.style.width = "100%";
           if (icon) icon.style.transform = "scale(1.0)";
         }
       }
 
-      updateStation(st1, pFill1, icon1, t1, t2, t >= t1 && t < t2, t >= t2);
-      updateStation(st2, pFill2, icon2, t2, t3, t >= t2 && t < t3, t >= t3);
-      updateStation(st3, pFill3, icon3, t3, tEnd, t >= t3, false);
+      updateStation(st1, pFill1, icon1, t1, t2, t >= t1 && t < t2, t >= t2, -1.5);
+      updateStation(st2, pFill2, icon2, t2, t3, t >= t2 && t < t3, t >= t3, 1.5);
+      updateStation(st3, pFill3, icon3, t3, tEnd, t >= t3, false, -1.5);
 
       if (conn1) conn1.style.opacity = t >= t2 ? "1" : "0.2";
       if (conn2) conn2.style.opacity = t >= t3 ? "1" : "0.2";
@@ -3138,40 +3491,40 @@
         const c2 = document.getElementById("sw-card-2");
         const recBadge = document.getElementById("sw-badge-rec");
 
-        // Carte 1: Caméra à 9.48s
+        // Carte 1: Caméra à 9.48s (rotate -1.5deg)
         if (c0) {
           if (t >= 9.48) {
             c0.classList.add("active");
             const p0 = Math.min(1, (t - 9.48) / 0.22);
             const sc0 = 0.92 + 0.10 * p0 + (p0 < 1 ? 0.08 * Math.sin(p0 * Math.PI) : 0);
-            c0.style.transform = `scale(${sc0})`;
+            c0.style.transform = `scale(${sc0}) rotate(-1.5deg)`;
           } else {
             c0.classList.remove("active");
-            c0.style.transform = "scale(0.92)";
+            c0.style.transform = "scale(0.92) rotate(-1.5deg)";
           }
         }
-        // Carte 2: Lumière Softbox à 10.52s
+        // Carte 2: Lumière Softbox à 10.52s (rotate 1.5deg)
         if (c1) {
           if (t >= 10.52) {
             c1.classList.add("active");
             const p1 = Math.min(1, (t - 10.52) / 0.22);
             const sc1 = 0.92 + 0.10 * p1 + (p1 < 1 ? 0.08 * Math.sin(p1 * Math.PI) : 0);
-            c1.style.transform = `scale(${sc1})`;
+            c1.style.transform = `scale(${sc1}) rotate(1.5deg)`;
           } else {
             c1.classList.remove("active");
-            c1.style.transform = "scale(0.92)";
+            c1.style.transform = "scale(0.92) rotate(1.5deg)";
           }
         }
-        // Carte 3: Timeline 4h de montage à 11.34s
+        // Carte 3: Timeline 4h de montage à 11.34s (rotate -1.5deg)
         if (c2) {
           if (t >= 11.34) {
             c2.classList.add("active");
             const p2 = Math.min(1, (t - 11.34) / 0.22);
             const sc2 = 0.92 + 0.10 * p2 + (p2 < 1 ? 0.08 * Math.sin(p2 * Math.PI) : 0);
-            c2.style.transform = `scale(${sc2})`;
+            c2.style.transform = `scale(${sc2}) rotate(-1.5deg)`;
           } else {
             c2.classList.remove("active");
-            c2.style.transform = "scale(0.92)";
+            c2.style.transform = "scale(0.92) rotate(-1.5deg)";
           }
         }
         if (recBadge && t >= 9.48) {
@@ -3246,9 +3599,24 @@
       } else if (type === "overflowing_text_posts" || type === "locked_post_wall") {
         const scrollContent = document.getElementById("otp-scroll-content");
         if (scrollContent) {
-          const pScroll = Math.min(1, Math.max(0, (t - 24.02) / 3.38));
-          const ty = -240 * pScroll;
+          const sStart = (scene && scene.start !== undefined) ? scene.start : 24.02;
+          const sDur = (scene && scene.duration) ? scene.duration : 3.38;
+          const pScroll = Math.min(1, Math.max(0, (t - sStart) / sDur));
+          const ty = -140 * pScroll;
           scrollContent.style.transform = `translateY(${ty}px)`;
+        }
+        const stamp = document.getElementById("otp-stamp");
+        if (stamp) {
+          const sElapsed = (typeof elapsed === "number") ? elapsed : Math.max(0, t - 24.02);
+          if (sElapsed >= 0.15) {
+            const p = Math.min(1, (sElapsed - 0.15) / 0.22);
+            const scale = p < 1 ? 1.0 + 1.2 * Math.cos(p * Math.PI * 0.5) * (1 - p) : 1.0;
+            stamp.style.opacity = "1";
+            stamp.style.transform = `translate(-50%, -50%) rotate(-6deg) scale(${scale.toFixed(3)})`;
+          } else {
+            stamp.style.opacity = "0";
+            stamp.style.transform = `translate(-50%, -50%) rotate(-6deg) scale(2.2)`;
+          }
         }
       } else if (type === "social_logos_carousel_rtl") {
         // Défilement 1 à 1 Droite -> Gauche
@@ -3299,6 +3667,141 @@
             cardEl.classList.add("active");
           } else {
             cardEl.classList.remove("active");
+          }
+        }
+      }
+
+      // ======================================================================
+      // ANIMATIONS OBSIDIAN & FLAME (video_03)
+      // ======================================================================
+      if (type && type.startsWith("ob_")) {
+        const container = document.querySelector(".ob-container");
+        if (container) {
+          container.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+        }
+
+        if (type === "ob_assets_stack") {
+          const items = [0, 1, 2];
+          const stepDur = Math.max(0.1, (scene.end - scene.start) / 3.0);
+          const activeStep = Math.min(2, Math.floor(elapsed / stepDur));
+          items.forEach(idx => {
+            const el = document.getElementById(`ob-stack-${idx}`);
+            if (el) {
+              if (idx === activeStep) {
+                el.classList.add("active");
+                el.style.transform = "translateX(16px) scale(1.03)";
+              } else {
+                el.classList.remove("active");
+                el.style.transform = "translateX(0px) scale(1.0)";
+              }
+            }
+          });
+        } else if (type === "ob_camera_chaos") {
+          const items = [0, 1, 2];
+          const stepDur = Math.max(0.1, (scene.end - scene.start) / 3.0);
+          const activeStep = Math.min(2, Math.floor(elapsed / stepDur));
+          items.forEach(idx => {
+            const el = document.getElementById(`ob-chaos-${idx}`);
+            if (el) {
+              if (idx === activeStep) {
+                el.classList.add("active");
+                el.style.transform = "scale(1.04)";
+              } else {
+                el.classList.remove("active");
+                el.style.transform = "scale(1.0)";
+              }
+            }
+          });
+        } else if (type === "ob_clone_grid") {
+          const items = [0, 1, 2, 3];
+          const stepDur = Math.max(0.1, (scene.end - scene.start) / 4.0);
+          const activeStep = Math.min(3, Math.floor(elapsed / stepDur));
+          items.forEach(idx => {
+            const el = document.getElementById(`ob-clone-${idx}`);
+            if (el) {
+              if (idx === activeStep) {
+                el.classList.add("active");
+                el.style.transform = "scale(1.05)";
+              } else {
+                el.classList.remove("active");
+                el.style.transform = "scale(1.0)";
+              }
+            }
+          });
+        } else if (type === "ob_trust_drop") {
+          const statEl = document.getElementById("ob-trust-stat");
+          if (statEl) {
+            const pulse = 1.0 + Math.sin(t * 8) * 0.04;
+            statEl.style.transform = `scale(${pulse})`;
+          }
+        } else if (type === "ob_reverse_switch") {
+          const lever = document.getElementById("ob-switch-lever");
+          if (lever) {
+            const slideP = Math.min(1.0, elapsed / 0.4);
+            const moveX = 400 * (0.5 - 0.5 * Math.cos(slideP * Math.PI));
+            lever.style.transform = `translateX(${moveX}px)`;
+          }
+        } else if (type === "ob_three_steps_cards") {
+          const items = [0, 1, 2];
+          let activeStep = 0;
+          if (t >= 37.5) {
+            activeStep = 2;
+          } else if (t >= 33.2) {
+            activeStep = 1;
+          }
+          items.forEach(idx => {
+            const el = document.getElementById(`ob-step-${idx}`);
+            if (el) {
+              if (idx === activeStep) {
+                el.classList.add("active");
+                el.style.transform = "translateX(18px) scale(1.03)";
+              } else {
+                el.classList.remove("active");
+                el.style.transform = "translateX(0px) scale(1.0)";
+              }
+            }
+          });
+        } else if (type === "ob_four_palettes_grid") {
+          const items = [0, 1, 2, 3];
+          let activePal = 0;
+          if (t >= 48.8) {
+            activePal = 3;
+          } else if (t >= 46.5) {
+            activePal = 2;
+          } else if (t >= 44.0) {
+            activePal = 1;
+          }
+          items.forEach(idx => {
+            const el = document.getElementById(`ob-pal-${idx}`);
+            if (el) {
+              if (idx === activePal) {
+                el.classList.add("active");
+                el.style.transform = "scale(1.06)";
+              } else {
+                el.classList.remove("active");
+                el.style.transform = "scale(1.0)";
+              }
+            }
+          });
+        } else if (type === "ob_final_delivery_cta") {
+          const chanItems = [0, 1, 2, 3];
+          const activeChan = Math.min(3, Math.floor(elapsed / 1.2));
+          chanItems.forEach(idx => {
+            const el = document.getElementById(`ob-chan-${idx}`);
+            if (el) {
+              if (idx === activeChan) {
+                el.classList.add("active");
+                el.style.transform = "scale(1.05)";
+              } else {
+                el.classList.remove("active");
+                el.style.transform = "scale(1.0)";
+              }
+            }
+          });
+          const ctaBtn = document.getElementById("ob-cta-btn");
+          if (ctaBtn) {
+            const ctaPulse = 1.0 + Math.sin(t * 7) * 0.05;
+            ctaBtn.style.transform = `scale(${ctaPulse})`;
           }
         }
       }
