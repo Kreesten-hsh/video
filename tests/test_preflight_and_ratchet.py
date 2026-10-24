@@ -210,6 +210,32 @@ class TestPreflightAndRatchet(unittest.TestCase):
         self.assertIn("#agent-hud", pb_content)
         self.assertIn("Matrice d'Audit Rapide", pb_content)
 
+    def test_tracked_files_do_not_exceed_size_threshold(self):
+        """Effet cliquet taille : aucun fichier suivi ne doit dépasser 15 Mo (sauf le Golden Master video1.mp4)."""
+        import subprocess
+        tracked_output = subprocess.check_output(
+            ["git", "ls-tree", "-r", "-l", "HEAD"],
+            cwd=str(REPO_ROOT),
+            text=True
+        )
+        max_bytes = 15 * 1024 * 1024
+        whitelisted = {"studio_perso/video_01/video1.mp4"}
+
+        oversized_files = []
+        for line in tracked_output.splitlines():
+            parts = line.split()
+            if len(parts) >= 5 and parts[1] == "blob":
+                size = int(parts[3])
+                path = parts[4]
+                if path not in whitelisted and size > max_bytes:
+                    oversized_files.append((path, size / (1024 * 1024)))
+
+        self.assertEqual(
+            oversized_files,
+            [],
+            f"Fichiers volumineux non autorisés détectés dans HEAD (seuil 15 Mo) : {oversized_files}"
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

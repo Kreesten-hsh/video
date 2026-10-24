@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# AGENT404 // Pre-commit hook anti-surpoids
+# Empêche l'introduction accidentelle de fichiers binaires volumineux dans le dépôt.
+
+MAX_SIZE_MB="${AGENT404_MAX_FILE_MB:-15}"
+MAX_BYTES=$((MAX_SIZE_MB * 1024 * 1024))
+
+# Liste blanche d'exceptions légitimes indispensables
+is_whitelisted() {
+    local file="$1"
+    if [ "$file" = "studio_perso/video_01/video1.mp4" ]; then
+        return 0
+    fi
+    return 1
+}
+
+has_error=0
+
+# Parcourt tous les fichiers en attente de commit (ajoutés ou modifiés)
+while IFS= read -r -d '' file; do
+    if [ -f "$file" ]; then
+        if is_whitelisted "$file"; then
+            continue
+        fi
+
+        size=$(stat -c%s "$file" 2>/dev/null || stat -f%z "$file" 2>/dev/null)
+        if [ -n "$size" ] && [ "$size" -gt "$MAX_BYTES" ]; then
+            size_mb=$(echo "scale=2; $size / 1048576" | bc 2>/dev/null || echo $((size / 1048576)))
+            echo "❌ ERREUR DE COMMIT : Le fichier '$file' dépasse le seuil autorisé ($size_mb Mo > $MAX_SIZE_MB Mo)."
+            echo "   👉 S'il s'agit d'un rendu vidéo ou audio temporaire :"
+            echo "      1. Annulez son indexation : git reset HEAD '$file'"
+            echo "      2. Vérifiez qu'il est bien couvert par .gitignore"
+            echo "   👉 S'il s'agit d'un artéfact volumineux exceptionnel justifié :"
+            echo "      AGENT404_MAX_FILE_MB=50 git commit"
+            has_error=1
+        fi
+    fi
+done < <(git diff --cached --name-only -z --diff-filter=ACM)
+
+if [ "$has_error" -eq 1 ]; then
+    echo "🚫 Commit refusé pour préserver la taille du dépôt sous 100 Mo (requis par Gemini & Codex)."
+    exit 1
+fi
+
+exit 0
