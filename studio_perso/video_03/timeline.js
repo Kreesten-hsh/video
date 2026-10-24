@@ -1,5 +1,9 @@
-// TIMELINE VIDÉO PROGRAMMATIQUE SUR-MESURE (9 SCÈNES)
+// TIMELINE VIDÉO PROGRAMMATIQUE SUR-MESURE (14 SCÈNES)
 // Généré automatiquement par build_master_timeline.py
+
+window.PROJECT_CONFIG = {
+  "theme_preset": "obsidian-flame"
+};
 
 window.WORDS = [
   {
@@ -1032,58 +1036,29 @@ window.WORDS = [
 window.SCENES = [
   {
     "id": "scene_01",
-    "type": "blueprint_kinetic_type",
+    "type": "ob_post_counter",
     "start": 0.0,
-    "end": 4.86,
+    "end": 2.52,
     "data": {
-      "tag": "",
-      "text": ""
+      "avatar": "assets/avatars/laptop.png"
     },
-    "caption_mode": "center_slam",
-    "avatar_mode": "hidden",
+    "caption_mode": "single_line_top",
+    "avatar_mode": "hero",
     "camera": {
-      "keyframes": [
-        {
-          "at": 0.0,
-          "zoom": 1.15,
-          "panX": 0,
-          "panY": 0
-        },
-        {
-          "at": 0.6,
-          "zoom": 1.0,
-          "panX": 0,
-          "panY": 0
-        },
-        {
-          "at": 3.2,
-          "zoom": 1.12,
-          "panX": 0,
-          "panY": 0
-        }
-      ]
+      "target": {
+        "zoom": 1.0,
+        "panX": 0,
+        "panY": 0
+      }
     },
-    "switch_theme": "default",
-    "title": "Hook Kinetic Slam"
+    "title": "Publication LinkedIn"
   },
   {
     "id": "scene_02",
-    "type": "list",
-    "start": 4.86,
-    "end": 7.86,
-    "data": {
-      "header": "TES 3 ACTIFS DÉJÀ PRÊTS",
-      "items": [
-        "TON EXPERTISE MÉTIER",
-        "TES CAS CLIENTS PROUVÉS",
-        "TES MÉTHODES ÉCRITES"
-      ],
-      "beats": [
-        5.58,
-        6.78,
-        7.5
-      ]
-    },
+    "type": "ob_zero_stamp",
+    "start": 2.52,
+    "end": 4.86,
+    "data": {},
     "caption_mode": "single_line_top",
     "avatar_mode": "hidden",
     "camera": {
@@ -1093,38 +1068,30 @@ window.SCENES = [
         "panY": 0
       }
     },
-    "switch_theme": "default",
-    "title": "Tes 3 Actifs Prêts"
+    "title": "Zéro Vidéo"
   },
   {
-    "id": "scene_02b",
-    "type": "face",
-    "start": 7.86,
-    "end": 9.48,
-    "data": {
-      "avatar": "assets/avatars/sigh.png",
-      "hero_title": "ET POURTANT TU <span class='highlight'>BLOQUES</span>",
-      "highlight_word": "BLOQUES",
-      "is_sigh": true,
-      "badge": "BLOCAGE TOURNAGE"
-    },
+    "id": "scene_03",
+    "type": "ob_assets_stack",
+    "start": 4.86,
+    "end": 8.54,
+    "data": {},
     "caption_mode": "single_line_top",
     "avatar_mode": "hidden",
     "camera": {
       "target": {
-        "zoom": 1.02,
+        "zoom": 1.03,
         "panX": 0,
         "panY": 0
       }
     },
-    "switch_theme": "default",
-    "title": "Le Soupir de Blocage"
+    "title": "Actifs Prêts"
   },
   {
-    "id": "scene_03a",
-    "type": "shooting_wall_illustrations",
-    "start": 9.48,
-    "end": 12.85,
+    "id": "scene_04",
+    "type": "ob_camera_chaos",
+    "start": 8.54,
+    "end": 12.94,
     "data": {},
     "caption_mode": "single_line_top",
     "avatar_mode": "hidden",
@@ -1135,44 +1102,33 @@ window.SCENES = [
         "panY": 0
       }
     },
-    "switch_theme": "default",
-    "title": "Le Mur du Tournage"
+    "title": "Friction Tournage"
   },
   {
-    "id": "scene_03b",
-    "type": "face",
-    "start": 12.85,
+    "id": "scene_05",
+    "type": "ob_abandon_slam",
+    "start": 12.94,
     "end": 13.96,
     "data": {
-      "avatar": "assets/avatars/facepalm.png",
-      "hero_title": "RÉSULTAT : TU <span class='highlight'>ABANDONNES</span>",
-      "highlight_word": "ABANDONNES",
-      "badge": "ENCORE 0 VIDÉO PUBLIÉE",
-      "is_punch_in": true
+      "avatar": "assets/avatars/facepalm.png"
     },
     "caption_mode": "single_line_top",
-    "avatar_mode": "hidden",
+    "avatar_mode": "hero",
     "camera": {
       "target": {
-        "zoom": 1.12,
+        "zoom": 1.06,
         "panX": 0,
         "panY": 0
       }
     },
-    "switch_theme": "default",
-    "title": "Tu Abandonnes"
+    "title": "Abandon du Post"
   },
   {
-    "id": "scene_04a",
-    "type": "face",
+    "id": "scene_06",
+    "type": "ob_refuse_clones",
     "start": 13.96,
     "end": 16.76,
-    "data": {
-      "avatar": "assets/avatars/skeptic.png",
-      "hero_title": "REFUSE LES <span class='highlight'>CLONES IA</span>",
-      "highlight_word": "CLONES IA",
-      "badge": "ZÉRO AVATAR GÉNÉRIQUE"
-    },
+    "data": {},
     "caption_mode": "single_line_top",
     "avatar_mode": "hidden",
     "camera": {
@@ -1182,53 +1138,66 @@ window.SCENES = [
         "panY": 0
       }
     },
-    "switch_theme": "default",
-    "title": "Refuse les Clones IA"
+    "title": "Refus des Clones IA"
   },
   {
-    "id": "scene_04b",
-    "type": "real_clone_feed_skip",
+    "id": "scene_07",
+    "type": "ob_clone_grid",
     "start": 16.76,
-    "end": 22.06,
+    "end": 19.78,
     "data": {},
     "caption_mode": "single_line_top",
     "avatar_mode": "hidden",
     "camera": {
       "target": {
-        "zoom": 1.04,
+        "zoom": 1.03,
         "panX": 0,
         "panY": 0
       }
     },
-    "switch_theme": "default",
-    "title": "Visage Robotique et Chute de Crédibilité"
+    "title": "Effet Clone en B2B"
   },
   {
-    "id": "scene_05a",
-    "type": "face",
+    "id": "scene_08",
+    "type": "ob_trust_drop",
+    "start": 19.78,
+    "end": 22.06,
+    "data": {
+      "avatar": "assets/avatars/shock.png"
+    },
+    "caption_mode": "single_line_top",
+    "avatar_mode": "hero",
+    "camera": {
+      "target": {
+        "zoom": 1.05,
+        "panX": 0,
+        "panY": 0
+      }
+    },
+    "title": "Perte de Crédibilité"
+  },
+  {
+    "id": "scene_09",
+    "type": "ob_not_content",
     "start": 22.06,
     "end": 24.02,
     "data": {
-      "avatar": "assets/avatars/stop.png",
-      "hero_title": "CE N'EST PAS <span class='highlight'>TON CONTENU</span>",
-      "highlight_word": "TON CONTENU",
-      "badge": "LE VRAI PROBLÈME"
+      "avatar": "assets/avatars/idea.png"
     },
     "caption_mode": "single_line_top",
-    "avatar_mode": "hidden",
+    "avatar_mode": "hero",
     "camera": {
       "target": {
-        "zoom": 1.05,
+        "zoom": 1.02,
         "panX": 0,
         "panY": 0
       }
     },
-    "switch_theme": "default",
-    "title": "Ce n'est pas ton Contenu"
+    "title": "Diagnostic Fond Excellent"
   },
   {
-    "id": "scene_05b",
-    "type": "overflowing_text_posts",
+    "id": "scene_10",
+    "type": "ob_text_wall_stamp",
     "start": 24.02,
     "end": 27.4,
     "data": {},
@@ -1236,194 +1205,84 @@ window.SCENES = [
     "avatar_mode": "hidden",
     "camera": {
       "target": {
-        "zoom": 1.02,
+        "zoom": 1.04,
         "panX": 0,
         "panY": 0
       }
     },
-    "switch_theme": "default",
-    "title": "Arguments Enfermés dans des Pavés"
+    "title": "Pavés de Texte"
   },
   {
-    "id": "scene_05c",
-    "type": "face",
+    "id": "scene_11",
+    "type": "ob_reverse_switch",
     "start": 27.4,
     "end": 29.0,
     "data": {
-      "avatar": "assets/avatars/idea.png",
-      "hero_title": "PROCESSUS <span class='highlight'>INVERSÉ</span>",
-      "highlight_word": "INVERSÉ",
-      "badge": "LA SOLUTION AGENT404"
+      "avatar": "assets/avatars/prof.png"
     },
     "caption_mode": "single_line_top",
-    "avatar_mode": "hidden",
+    "avatar_mode": "hero",
     "camera": {
       "target": {
-        "zoom": 1.05,
+        "zoom": 1.03,
         "panX": 0,
         "panY": 0
       }
     },
-    "switch_theme": "default",
     "title": "Processus Inversé"
   },
   {
-    "id": "scene_06",
-    "type": "blueprint_spatial_pan",
+    "id": "scene_12",
+    "type": "ob_three_steps_cards",
     "start": 29.0,
     "end": 41.72,
-    "data": {
-      "stations": [
-        {
-          "title": "1. Note Vocale 2 min ou Post Écrit",
-          "desc": "Tu envoies ta matière brute sans tourner"
-        },
-        {
-          "title": "2. Extraction & Structure Rythmique",
-          "desc": "Découpage chirurgical calé sur ta voix"
-        },
-        {
-          "title": "3. Preuve Visuelle Mot-à-Mot",
-          "desc": "Chaque argument déclenche son animation"
-        }
-      ],
-      "beats": [
-        29.0,
-        33.68,
-        37.84
-      ]
-    },
-    "caption_mode": "single_line_top",
-    "avatar_mode": "hidden",
-    "camera": {
-      "keyframes": [
-        {
-          "at": 29.0,
-          "zoom": 1.14,
-          "panX": 0,
-          "panY": 190
-        },
-        {
-          "at": 33.28,
-          "zoom": 1.14,
-          "panX": 0,
-          "panY": 190
-        },
-        {
-          "at": 33.68,
-          "zoom": 1.14,
-          "panX": 0,
-          "panY": 0
-        },
-        {
-          "at": 37.44,
-          "zoom": 1.14,
-          "panX": 0,
-          "panY": 0
-        },
-        {
-          "at": 37.84,
-          "zoom": 1.16,
-          "panX": 0,
-          "panY": -190
-        }
-      ]
-    },
-    "switch_theme": "default",
-    "title": "Workflow 3 Étapes Synchronisées"
-  },
-  {
-    "id": "scene_07",
-    "type": "blueprint_cursor_ui",
-    "start": 41.72,
-    "end": 51.1,
-    "data": {
-      "title": "EFFET CAMÉLÉON : 4 CHARTES",
-      "theme_beats": [
-        46.84,
-        47.98,
-        48.88,
-        49.94
-      ]
-    },
-    "caption_mode": "single_line_top",
-    "avatar_mode": "hidden",
-    "camera": {
-      "target": {
-        "zoom": 1.04,
-        "panX": 0,
-        "panY": 0
-      }
-    },
-    "switch_theme": "cyber-mint",
-    "title": "L'Effet Caméléon - 4 Chartes en Direct"
-  },
-  {
-    "id": "scene_08a",
-    "type": "face",
-    "start": 51.1,
-    "end": 54.62,
-    "data": {
-      "avatar": "assets/avatars/prof.png",
-      "hero_title": "LIVRÉE EN <span class='highlight'>48 HEURES</span>",
-      "highlight_word": "48 HEURES",
-      "badge": "1 IDÉE = 1 CAPSULE HAUTE PRÉCISION"
-    },
-    "caption_mode": "single_line_top",
-    "avatar_mode": "hidden",
-    "camera": {
-      "target": {
-        "zoom": 1.04,
-        "panX": 0,
-        "panY": 0
-      }
-    },
-    "switch_theme": "cyber-mint",
-    "title": "Livrée en 48 Heures"
-  },
-  {
-    "id": "scene_08b",
-    "type": "social_logos_carousel_rtl",
-    "start": 54.62,
-    "end": 57.68,
     "data": {},
     "caption_mode": "single_line_top",
     "avatar_mode": "hidden",
     "camera": {
       "target": {
-        "zoom": 1.0,
+        "zoom": 1.03,
         "panX": 0,
         "panY": 0
       }
     },
-    "switch_theme": "cyber-mint",
-    "title": "Carrousel 4 Réseaux RTL"
+    "title": "Protocole 3 Étapes"
   },
   {
-    "id": "scene_09",
-    "type": "face_to_dm_cta",
-    "start": 57.68,
-    "end": 62.746,
-    "data": {
-      "keyword": "CLARTÉ",
-      "hero_title": "TON POST ÉCRIT EN VIDÉO",
-      "highlight_word": "VIDÉO",
-      "instruction_label": "ENVOIE CE MOT-CLÉ EN MESSAGE PRIVÉ :",
-      "button_label": "ENVOYER « CLARTÉ » EN MESSAGE PRIVÉ ↗",
-      "cta_at": 60.54,
-      "spoken_at": 61.4,
-      "avatar": "assets/avatars/pointing.png"
-    },
+    "id": "scene_13",
+    "type": "ob_four_palettes_grid",
+    "start": 41.72,
+    "end": 51.1,
+    "data": {},
     "caption_mode": "single_line_top",
     "avatar_mode": "hidden",
     "camera": {
       "target": {
-        "zoom": 1.0,
+        "zoom": 1.04,
         "panX": 0,
         "panY": 0
       }
     },
-    "switch_theme": "default",
-    "title": "CTA Final Clarté"
+    "title": "4 Chartes Visuelles"
+  },
+  {
+    "id": "scene_14",
+    "type": "ob_final_delivery_cta",
+    "start": 51.1,
+    "end": 62.746,
+    "data": {
+      "avatar": "assets/avatars/pointing.png",
+      "keyword": "CLARTÉ"
+    },
+    "caption_mode": "single_line_top",
+    "avatar_mode": "hero",
+    "camera": {
+      "target": {
+        "zoom": 1.02,
+        "panX": 0,
+        "panY": 0
+      }
+    },
+    "title": "Livraison & CTA"
   }
 ];

@@ -1877,6 +1877,315 @@
             </div>
           </div>
         `;
+
+      case "ob_post_counter":
+        return `
+          <div class="ob-container" id="ob-container-01">
+            <div class="ob-card" id="ob-post-card">
+              <div class="ob-header-box">
+                <div class="ob-post-author">
+                  <div class="ob-post-avatar">✍️</div>
+                  <div class="ob-post-meta">
+                    <div class="ob-post-name">KREESTEN AGBOTON</div>
+                    <div class="ob-post-sub">Fondateur @ AGENT404 • 1j</div>
+                  </div>
+                </div>
+                <div class="ob-badge">4 POSTS / SEMAINE</div>
+              </div>
+              <div class="ob-header-title">PUBLIER SUR LINKEDIN</div>
+              <div class="ob-post-body">
+                "Pourquoi 99% des créateurs B2B abandonnent la vidéo alors qu'ils ont déjà toute l'expertise nécessaire ?"
+              </div>
+              <div class="ob-post-kpi-bar">
+                <span>👍 142 Réactions</span>
+                <span>💬 38 Commentaires</span>
+                <span>🚀 12 Partages</span>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_zero_stamp":
+        return `
+          <div class="ob-container" id="ob-container-02">
+            <div class="ob-card" id="ob-zero-card" style="align-items: center; justify-content: center; text-align: center;">
+              <div class="ob-header-title" style="margin-bottom: 24px;">RÉSULTAT VIDÉO ACTUEL</div>
+              <div class="ob-stamp-giant" id="ob-zero-stamp">ZÉRO VIDÉO</div>
+              <div class="ob-badge ob-badge-dark" style="margin-top: 24px;">AUCUN FORMAT CAPITALISÉ</div>
+            </div>
+          </div>
+        `;
+
+      case "ob_assets_stack":
+        return `
+          <div class="ob-container" id="ob-container-03">
+            <div class="ob-card" id="ob-assets-card">
+              <div class="ob-header-box">
+                <div class="ob-header-title">LE CAPITAL CONTENU EXISTE DÉJÀ</div>
+                <div class="ob-badge">3 ACTIFS PRÊTS</div>
+              </div>
+              <div class="ob-stack-list">
+                <div class="ob-stack-item" id="ob-stack-0">
+                  <span>01. EXPERTISE MÉTIER VALIDÉE</span>
+                  <span>🧠</span>
+                </div>
+                <div class="ob-stack-item" id="ob-stack-1">
+                  <span>02. CAS CLIENTS & RÉSULTATS</span>
+                  <span>📈</span>
+                </div>
+                <div class="ob-stack-item" id="ob-stack-2">
+                  <span>03. MÉTHODES ACTIONNABLES</span>
+                  <span>🎯</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_camera_chaos":
+        return `
+          <div class="ob-container" id="ob-container-04">
+            <div class="ob-card" id="ob-chaos-card">
+              <div class="ob-header-box">
+                <div class="ob-header-title">LA FRICTION DU TOURNAGE</div>
+                <div class="ob-badge" style="background: var(--border-ink);">REC [●] 00:04:12</div>
+              </div>
+              <div class="ob-chaos-grid">
+                <div class="ob-chaos-item" id="ob-chaos-0">
+                  <span>📹 ALLUMER LA CAMÉRA</span>
+                  <span class="ob-badge ob-badge-dark">FRICTION #1</span>
+                </div>
+                <div class="ob-chaos-item" id="ob-chaos-1">
+                  <span>💡 RÉGLER LA LUMIÈRE & LE SON</span>
+                  <span class="ob-badge ob-badge-dark">FRICTION #2</span>
+                </div>
+                <div class="ob-chaos-item" id="ob-chaos-2">
+                  <span>⏱️ QUATRE HEURES DE MONTAGE</span>
+                  <span class="ob-badge ob-badge-dark">FRICTION #3</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_abandon_slam":
+        return `
+          <div class="ob-container" id="ob-container-05">
+            <div class="ob-card" id="ob-abandon-card" style="align-items: center; justify-content: center; text-align: center;">
+              <div class="ob-header-title" style="margin-bottom: 20px;">PROJET EN SUSPENS</div>
+              <div class="ob-stamp-giant" id="ob-abandon-stamp">ABANDON DU POST</div>
+              <div class="ob-badge ob-badge-dark" style="margin-top: 20px;">0 RETOUR SUR INVESTISSEMENT</div>
+            </div>
+          </div>
+        `;
+
+      case "ob_refuse_clones":
+        return `
+          <div class="ob-container" id="ob-container-06">
+            <div class="ob-card" id="ob-refuse-card">
+              <div class="ob-header-box">
+                <div class="ob-header-title">REFUS DU CONTENU GÉNÉRIQUE</div>
+                <div class="ob-badge">DÉCISION CLÉ</div>
+              </div>
+              <div style="display: flex; gap: 20px; width: 100%; justify-content: space-between;">
+                <div class="ob-card" style="width: 48%; min-height: 340px; padding: 24px; align-items: center; justify-content: center; text-align: center; background: var(--problem-bg-dark); color: var(--white); border-color: var(--flame);">
+                  <div style="font-size: 54px; margin-bottom: 12px;">🤖</div>
+                  <div class="ob-header-title" style="color: var(--flame); font-size: 26px;">AVATARS CLONÉS</div>
+                  <div class="ob-badge ob-badge-dark" style="margin-top: 14px;">❌ À BANNIR</div>
+                </div>
+                <div class="ob-card" style="width: 48%; min-height: 340px; padding: 24px; align-items: center; justify-content: center; text-align: center; background: var(--surface-card); color: var(--card-text);">
+                  <div style="font-size: 54px; margin-bottom: 12px;">🎨</div>
+                  <div class="ob-header-title" style="font-size: 26px;">IDENTITÉ ÉDITORIALE</div>
+                  <div class="ob-badge" style="margin-top: 14px;">⚡ SIGNATURE UNIQUE</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_clone_grid":
+        return `
+          <div class="ob-container" id="ob-container-07">
+            <div class="ob-card" id="ob-clone-grid-card">
+              <div class="ob-header-box">
+                <div class="ob-header-title">L'EFFET CLONE EN B2B</div>
+                <div class="ob-badge ob-badge-dark">MÊME MODÈLE</div>
+              </div>
+              <div class="ob-clones-grid">
+                <div class="ob-clone-box" id="ob-clone-0">
+                  <div style="font-size: 40px;">🤖</div>
+                  <span>[AVATAR_01]</span>
+                  <div class="ob-badge ob-badge-dark">GÉNÉRIQUE</div>
+                </div>
+                <div class="ob-clone-box" id="ob-clone-1">
+                  <div style="font-size: 40px;">🤖</div>
+                  <span>[AVATAR_02]</span>
+                  <div class="ob-badge ob-badge-dark">GÉNÉRIQUE</div>
+                </div>
+                <div class="ob-clone-box" id="ob-clone-2">
+                  <div style="font-size: 40px;">🤖</div>
+                  <span>[AVATAR_03]</span>
+                  <div class="ob-badge ob-badge-dark">GÉNÉRIQUE</div>
+                </div>
+                <div class="ob-clone-box" id="ob-clone-3">
+                  <div style="font-size: 40px;">🤖</div>
+                  <span>[AVATAR_04]</span>
+                  <div class="ob-badge ob-badge-dark">GÉNÉRIQUE</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_trust_drop":
+        return `
+          <div class="ob-container" id="ob-container-08">
+            <div class="ob-card" id="ob-trust-card" style="align-items: center; justify-content: center; text-align: center;">
+              <div class="ob-header-title">IMPACT SUR L'AUDIENCE</div>
+              <div class="ob-kpi-huge" id="ob-trust-stat">-85% CRÉDIBILITÉ</div>
+              <div class="ob-badge" style="font-size: 26px; padding: 12px 28px;">3 SECONDES POUR DÉCROCHER</div>
+            </div>
+          </div>
+        `;
+
+      case "ob_not_content":
+        return `
+          <div class="ob-container" id="ob-container-09">
+            <div class="ob-card" id="ob-not-content-card" style="align-items: center; justify-content: center; text-align: center;">
+              <div class="ob-header-title" style="margin-bottom: 24px;">DIAGNOSTIC STRATÉGIQUE</div>
+              <div class="ob-stamp-giant" style="transform: rotate(0deg); font-size: 40px; padding: 20px 32px;">
+                TON FOND EST EXCELLENT
+              </div>
+              <div class="ob-badge ob-badge-dark" style="margin-top: 24px;">CE N'EST PAS LE CONTENU</div>
+            </div>
+          </div>
+        `;
+
+      case "ob_text_wall_stamp":
+        return `
+          <div class="ob-container" id="ob-container-10">
+            <div class="ob-card" id="ob-wall-card">
+              <div class="ob-header-box">
+                <div class="ob-header-title">PAVÉS DE TEXTE DANS LE FEED</div>
+                <div class="ob-badge ob-badge-dark">SCROLL RAPIDE</div>
+              </div>
+              <div class="ob-post-body" style="font-size: 24px; opacity: 0.6; line-height: 1.5;">
+                "Voici notre méthodologie complète en 12 points pour structurer votre proposition de valeur sans jamais perdre de prospects en route..."
+              </div>
+              <div class="ob-stamp-giant" id="ob-wall-stamp" style="font-size: 44px; margin: 0 auto;">
+                ENFERMÉ DANS LE TEXTE
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_reverse_switch":
+        return `
+          <div class="ob-container" id="ob-container-11">
+            <div class="ob-card" id="ob-switch-card">
+              <div class="ob-header-box">
+                <div class="ob-header-title">LE PROCESSUS INVERSÉ</div>
+                <div class="ob-badge">LEVIER STUDIO</div>
+              </div>
+              <div class="ob-switch-track">
+                <div class="ob-switch-lever" id="ob-switch-lever">
+                  ⚡ VIDÉO CODE SUR-MESURE
+                </div>
+              </div>
+              <div style="display: flex; justify-content: space-between; width: 100%; margin-top: 18px; font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800;">
+                <span style="opacity: 0.5;">01. TEXTE STATIQUE</span>
+                <span style="color: var(--flame);">02. VIDÉO ACTIONNABLE</span>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_three_steps_cards":
+        return `
+          <div class="ob-container" id="ob-container-12">
+            <div class="ob-card" id="ob-steps-card">
+              <div class="ob-header-box">
+                <div class="ob-header-title">LE PROTOCOLE EN 3 ÉTAPES</div>
+                <div class="ob-badge">MÉCANIQUE STUDIO</div>
+              </div>
+              <div class="ob-steps-container">
+                <div class="ob-step-card" id="ob-step-0">
+                  <div class="ob-step-num">01</div>
+                  <div style="display: flex; flex-direction: column; gap: 4px;">
+                    <span style="font-size: 26px;">NOTE VOCALE OU POST ÉCRIT</span>
+                    <span style="font-size: 20px; opacity: 0.8;">2 minutes de voix ou ton meilleur texte</span>
+                  </div>
+                </div>
+                <div class="ob-step-card" id="ob-step-1">
+                  <div class="ob-step-num">02</div>
+                  <div style="display: flex; flex-direction: column; gap: 4px;">
+                    <span style="font-size: 26px;">SYNCHRO RYTHMIQUE SUR TA VOIX</span>
+                    <span style="font-size: 20px; opacity: 0.8;">Extraction de l'idée & chorégraphie</span>
+                  </div>
+                </div>
+                <div class="ob-step-card" id="ob-step-2">
+                  <div class="ob-step-num">03</div>
+                  <div style="display: flex; flex-direction: column; gap: 4px;">
+                    <span style="font-size: 26px;">PREUVE VISUELLE PAR LE CODE</span>
+                    <span style="font-size: 20px; opacity: 0.8;">Chaque mot déclenche le bon impact</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_four_palettes_grid":
+        return `
+          <div class="ob-container" id="ob-container-13">
+            <div class="ob-card" id="ob-palettes-card">
+              <div class="ob-header-box">
+                <div class="ob-header-title">DIRECTION ARTISTIQUE SUR-MESURE</div>
+                <div class="ob-badge">4 STYLES SIGNATURE</div>
+              </div>
+              <div class="ob-palettes-grid">
+                <div class="ob-palette-card pal-1" id="ob-pal-0">
+                  <span style="font-size: 30px;">📰</span>
+                  <span>01. ÉDITORIAL CHAUD</span>
+                  <span class="ob-badge ob-badge-dark">CRÈME & ENCRE</span>
+                </div>
+                <div class="ob-palette-card pal-2" id="ob-pal-1">
+                  <span style="font-size: 30px;">💻</span>
+                  <span>02. TECH SOMBRE</span>
+                  <span class="ob-badge">OBSIDIAN & FLAME</span>
+                </div>
+                <div class="ob-palette-card pal-3" id="ob-pal-2">
+                  <span style="font-size: 30px;">📊</span>
+                  <span>03. CONSEIL FINANCIER</span>
+                  <span class="ob-badge ob-badge-dark">BLEU & SAUGE</span>
+                </div>
+                <div class="ob-palette-card pal-4" id="ob-pal-3">
+                  <span style="font-size: 30px;">⚡</span>
+                  <span>04. CRÉATEUR PERCUTANT</span>
+                  <span class="ob-badge ob-badge-dark">CONTRASTE FORT</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_final_delivery_cta":
+        return `
+          <div class="ob-container" id="ob-container-14">
+            <div class="ob-card" id="ob-final-card" style="align-items: center; justify-content: center; text-align: center;">
+              <div class="ob-header-title" style="font-size: 36px; margin-bottom: 12px;">LIVRAISON EN 48H CHRONO</div>
+              <div class="ob-channels-grid" style="margin-bottom: 20px;">
+                <div class="ob-channel-card" id="ob-chan-0"><span>💼</span><span>01. LINKEDIN</span></div>
+                <div class="ob-channel-card" id="ob-chan-1"><span>📱</span><span>02. TIKTOK</span></div>
+                <div class="ob-channel-card" id="ob-chan-2"><span>📸</span><span>03. REELS</span></div>
+                <div class="ob-channel-card" id="ob-chan-3"><span>▶️</span><span>04. SHORTS</span></div>
+              </div>
+              <div class="ob-cta-button" id="ob-cta-btn">COMMENTE "CLARTÉ"</div>
+              <div class="ob-badge ob-badge-dark" style="margin-top: 14px;">OU ENVOIE EN MESSAGE PRIVÉ</div>
+            </div>
+          </div>
+        `;
+
       default:
         return `<div>Scène non définie</div>`;
     }
@@ -3358,6 +3667,141 @@
             cardEl.classList.add("active");
           } else {
             cardEl.classList.remove("active");
+          }
+        }
+      }
+
+      // ======================================================================
+      // ANIMATIONS OBSIDIAN & FLAME (video_03)
+      // ======================================================================
+      if (type && type.startsWith("ob_")) {
+        const container = document.querySelector(".ob-container");
+        if (container) {
+          container.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+        }
+
+        if (type === "ob_assets_stack") {
+          const items = [0, 1, 2];
+          const stepDur = Math.max(0.1, (scene.end - scene.start) / 3.0);
+          const activeStep = Math.min(2, Math.floor(elapsed / stepDur));
+          items.forEach(idx => {
+            const el = document.getElementById(`ob-stack-${idx}`);
+            if (el) {
+              if (idx === activeStep) {
+                el.classList.add("active");
+                el.style.transform = "translateX(16px) scale(1.03)";
+              } else {
+                el.classList.remove("active");
+                el.style.transform = "translateX(0px) scale(1.0)";
+              }
+            }
+          });
+        } else if (type === "ob_camera_chaos") {
+          const items = [0, 1, 2];
+          const stepDur = Math.max(0.1, (scene.end - scene.start) / 3.0);
+          const activeStep = Math.min(2, Math.floor(elapsed / stepDur));
+          items.forEach(idx => {
+            const el = document.getElementById(`ob-chaos-${idx}`);
+            if (el) {
+              if (idx === activeStep) {
+                el.classList.add("active");
+                el.style.transform = "scale(1.04)";
+              } else {
+                el.classList.remove("active");
+                el.style.transform = "scale(1.0)";
+              }
+            }
+          });
+        } else if (type === "ob_clone_grid") {
+          const items = [0, 1, 2, 3];
+          const stepDur = Math.max(0.1, (scene.end - scene.start) / 4.0);
+          const activeStep = Math.min(3, Math.floor(elapsed / stepDur));
+          items.forEach(idx => {
+            const el = document.getElementById(`ob-clone-${idx}`);
+            if (el) {
+              if (idx === activeStep) {
+                el.classList.add("active");
+                el.style.transform = "scale(1.05)";
+              } else {
+                el.classList.remove("active");
+                el.style.transform = "scale(1.0)";
+              }
+            }
+          });
+        } else if (type === "ob_trust_drop") {
+          const statEl = document.getElementById("ob-trust-stat");
+          if (statEl) {
+            const pulse = 1.0 + Math.sin(t * 8) * 0.04;
+            statEl.style.transform = `scale(${pulse})`;
+          }
+        } else if (type === "ob_reverse_switch") {
+          const lever = document.getElementById("ob-switch-lever");
+          if (lever) {
+            const slideP = Math.min(1.0, elapsed / 0.4);
+            const moveX = 400 * (0.5 - 0.5 * Math.cos(slideP * Math.PI));
+            lever.style.transform = `translateX(${moveX}px)`;
+          }
+        } else if (type === "ob_three_steps_cards") {
+          const items = [0, 1, 2];
+          let activeStep = 0;
+          if (t >= 37.5) {
+            activeStep = 2;
+          } else if (t >= 33.2) {
+            activeStep = 1;
+          }
+          items.forEach(idx => {
+            const el = document.getElementById(`ob-step-${idx}`);
+            if (el) {
+              if (idx === activeStep) {
+                el.classList.add("active");
+                el.style.transform = "translateX(18px) scale(1.03)";
+              } else {
+                el.classList.remove("active");
+                el.style.transform = "translateX(0px) scale(1.0)";
+              }
+            }
+          });
+        } else if (type === "ob_four_palettes_grid") {
+          const items = [0, 1, 2, 3];
+          let activePal = 0;
+          if (t >= 48.8) {
+            activePal = 3;
+          } else if (t >= 46.5) {
+            activePal = 2;
+          } else if (t >= 44.0) {
+            activePal = 1;
+          }
+          items.forEach(idx => {
+            const el = document.getElementById(`ob-pal-${idx}`);
+            if (el) {
+              if (idx === activePal) {
+                el.classList.add("active");
+                el.style.transform = "scale(1.06)";
+              } else {
+                el.classList.remove("active");
+                el.style.transform = "scale(1.0)";
+              }
+            }
+          });
+        } else if (type === "ob_final_delivery_cta") {
+          const chanItems = [0, 1, 2, 3];
+          const activeChan = Math.min(3, Math.floor(elapsed / 1.2));
+          chanItems.forEach(idx => {
+            const el = document.getElementById(`ob-chan-${idx}`);
+            if (el) {
+              if (idx === activeChan) {
+                el.classList.add("active");
+                el.style.transform = "scale(1.05)";
+              } else {
+                el.classList.remove("active");
+                el.style.transform = "scale(1.0)";
+              }
+            }
+          });
+          const ctaBtn = document.getElementById("ob-cta-btn");
+          if (ctaBtn) {
+            const ctaPulse = 1.0 + Math.sin(t * 7) * 0.05;
+            ctaBtn.style.transform = `scale(${ctaPulse})`;
           }
         }
       }
