@@ -14,8 +14,17 @@ comparatif_univers.html
 !*.example.*
 
 # Rendus temporaires et candidats
+output.mp4
 output.candidate.mp4
 output.*.mp4
+
+# Audio lourd généré (100% reproductible depuis les sources mp3)
+*.wav
+
+# Rendus vidéo générés
+studio_perso/**/video*.mp4
+# Exception absolue : Préservation du Golden Master vidéo 1 pour les tests de non-régression
+!studio_perso/video_01/video1.mp4
 
 # Données privées de prospection et CRM
 /output/
