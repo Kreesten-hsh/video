@@ -45,10 +45,9 @@ Consulter le guide complet dans [`VIDEO_PRODUCTION_PLAYBOOK.md`](file:///home/ha
 
 ### PHASE 4 — Conception du Storyboard & Illustrations Néo-Brutalistes (Règles d'Or)
 1. **Consultation du registre** : Lire `registry/video_memory.json` (`used_illustrations`) pour lister les composants déjà utilisés. **Interdiction formelle de les réutiliser**.
-2. **Direction Artistique Néo-Brutaliste Papier** :
-   - Fond papier cream `#F5F2EB` avec grille quadrillée d'écolier 48px continue.
-   - Cartes pastel (`.pastel-yellow`, `.pastel-blue`, `.pastel-green`, `.pastel-pink`) bordées d'un trait noir 4px et ombre portée dure 0px de flou `8px 8px 0px #111111`.
-   - Légère inclinaison désaxée alternée ($\pm 1.5^\circ$) sur les cartes pour casser la rigidité numérique.
+2. **Liberté Scénographique & Interdiction du Gabarit Unique Répétitif** :
+   - **Interdiction formelle du template répétitif** : Bannissement strict du patron `<div class="card"><div class="header">TITRE + BADGE</div>...</div>` répété de scène en scène.
+   - **Compositions variées libres** : Textes chocs plein écran sans boîte (`ZÉRO VIDÉO`, `CE N'EST PAS / TON CONTENU`), carrés de numérotation géants (`[ÉTAPE 1]`, etc.), post-its et tuiles flottantes indépendantes en diagonale (style lymphe), schémas à flèches animées (`[BLOC A] ━━▶ [BLOC B]`) posés directement sur le fond sans boîte englobante.
    - Zéro halo diffus, zéro flou (`filter: blur(...)` interdit), zéro effet "néon cyber".
 3. **Zéro Pavé de Texte & Hiérarchie Typographique Lisible** :
    - **Zéro pavé de texte à l'écran** : tout texte explicatif ou descriptif de plus de 4-5 mots est banni.

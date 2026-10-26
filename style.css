@@ -74,6 +74,7 @@
   /* Textes sur Fond Sombre */
   --white: #FAF6F0;
   --black: #121110;
+  --black-pure: #000000;
   --text-primary: #FAF6F0;
   --text-secondary: #E5DEC9;
   --text-light-muted: #A39B8E;
@@ -97,6 +98,8 @@
   --shadow-flame-sm: 5px 5px 0px #FF4F18;
   --shadow-ink: 6px 6px 0px #121110;
   --shadow-ivory: 6px 6px 0px #FAF6F0;
+  --shadow-black-pure: 10px 10px 0px #000000;
+  --shadow-black-sm: 4px 4px 0px #000000;
   --shadow-brutal: 8px 8px 0px #FF4F18;
   --shadow-brutal-sm: 5px 5px 0px #FF4F18;
   --shadow-brutal-mint: 8px 8px 0px #FF4F18;
@@ -390,7 +393,8 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
 }
 
 /* ==========================================================================
-   AVATAR GLOBAL CHORÉGRAPHIÉ (hero, inset, hidden)
+   AVATAR GLOBAL CHORÉGRAPHIÉ (SOLO 980PX, DUO_LYMPHE 640PX, INSET, HIDDEN)
+   LOI SPATIALE STRICTE : ZÉRO COLLISION AVATAR / ILLUSTRATION
    ========================================================================== */
 #global-avatar-wrapper {
   position: absolute;
@@ -398,25 +402,53 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
+
+/* Mode A (avatar_mode: "solo" / "hero") — 980px bas centré, aucun élément graphique derrière */
+#global-avatar-wrapper.avatar-solo,
 #global-avatar-wrapper.avatar-hero {
   bottom: 0px !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
   z-index: 85 !important;
+  display: block !important;
   opacity: 1 !important;
 }
-#global-avatar-wrapper.avatar-hero img,
-.avatar-sticker,
-#global-avatar-wrapper img {
-  height: 680px !important;
+#global-avatar-wrapper.avatar-solo img,
+#global-avatar-wrapper.avatar-hero img {
+  height: 980px !important;
   max-width: 90vw !important;
   object-fit: contain !important;
   display: block !important;
-  filter: drop-shadow(7px 5px 0px var(--flame)) drop-shadow(-3px -3px 0px var(--border-ink)) !important;
+  filter: drop-shadow(8px 8px 0px var(--black-pure)) !important;
 }
+
+/* Mode B (avatar_mode: "duo_lymphe") — 640px bas centré (Y: 1280px -> 1920px) */
+#global-avatar-wrapper.avatar-duo_lymphe {
+  bottom: 0px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 85 !important;
+  display: block !important;
+  opacity: 1 !important;
+}
+#global-avatar-wrapper.avatar-duo_lymphe img {
+  height: 640px !important;
+  max-width: 90vw !important;
+  object-fit: contain !important;
+  display: block !important;
+  filter: drop-shadow(8px 8px 0px var(--black-pure)) !important;
+}
+
+.avatar-sticker,
+#global-avatar-wrapper img {
+  display: block !important;
+}
+
 .face-badge {
   display: none !important;
 }
+
+/* Mode Inset rétrocompatible */
 #global-avatar-wrapper.avatar-inset {
   bottom: 400px;
   left: 60px;
@@ -437,14 +469,36 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
   display: block;
   filter: none !important;
 }
+
+/* Mode C (avatar_mode: "hidden") */
 #global-avatar-wrapper.avatar-hidden {
-  opacity: 0;
-  pointer-events: none;
-  transform: scale(0.6);
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Verrouillages Spatiaux Stricts Anti-Collision */
+#video-canvas:has(#global-avatar-wrapper.avatar-duo_lymphe) #scene-zone,
+#video-canvas:has(#global-avatar-wrapper.avatar-duo_lymphe) #stage,
+#video-canvas:has(#global-avatar-wrapper.avatar-duo_lymphe) #scene-container {
+  top: 360px !important;
+  max-height: 760px !important;
+  bottom: auto !important;
+}
+
+#video-canvas:has(#global-avatar-wrapper.avatar-solo) #scene-zone,
+#video-canvas:has(#global-avatar-wrapper.avatar-solo) #stage,
+#video-canvas:has(#global-avatar-wrapper.avatar-solo) #scene-container,
+#video-canvas:has(#global-avatar-wrapper.avatar-hero) #scene-zone,
+#video-canvas:has(#global-avatar-wrapper.avatar-hero) #stage,
+#video-canvas:has(#global-avatar-wrapper.avatar-hero) #scene-container {
+  top: 380px !important;
+  max-height: 420px !important;
+  bottom: auto !important;
 }
 
 /* ==========================================================================
-   ZONE SOUS-TITRES MULTI-ZONES (CENTER_SLAM, DYNAMIC_BAND, SINGLE_LINE_TOP)
+   ZONE SOUS-TITRES MULTI-ZONES (100% BLANC IVOIRE ET ORANGE FLAMME)
    ========================================================================== */
 #subtitles-zone {
   position: absolute;
@@ -457,8 +511,29 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
   align-items: center;
   padding: 0 60px;
   box-sizing: border-box;
-  z-index: 50;
+  z-index: 95;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#subtitles-zone,
+#subtitles-zone span,
+#subtitles-zone .word,
+#subtitles-zone .sub-word {
+  color: var(--white) !important; /* Blanc Ivoire ultra-lisible */
+  font-family: 'Montserrat', 'Inter', sans-serif !important;
+  font-weight: 900 !important;
+  font-size: 56px !important;
+  line-height: 1.15 !important;
+  text-transform: uppercase !important;
+  text-shadow: 0px 4px 0px var(--black-pure) !important;
+  background: transparent !important;
+}
+
+#subtitles-zone .keyword-accent,
+#subtitles-zone .highlight,
+#subtitles-zone .accent {
+  color: var(--flame) !important; /* Orange Flamme Vif */
+  background: transparent !important;
 }
 
 /* Mode 1 : CENTER_SLAM (Plein Centre Y: 50%, 88px, Slam In) */
@@ -470,7 +545,8 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
   z-index: 100 !important;
 }
 #subtitles-zone.mode-center-slam.has-avatar-hero,
-#video-canvas:has(#global-avatar-wrapper.avatar-hero) #subtitles-zone.mode-center-slam {
+#video-canvas:has(#global-avatar-wrapper.avatar-hero) #subtitles-zone.mode-center-slam,
+#video-canvas:has(#global-avatar-wrapper.avatar-solo) #subtitles-zone.mode-center-slam {
   top: 36% !important;
 }
 #subtitles-zone.mode-center-slam .sub-line {
@@ -498,7 +574,7 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
   display: inline-block !important;
 }
 
-/* Mode 2 : DYNAMIC_BAND (Bande centrale-basse Y: 66%, 52px, Karaoké) */
+/* Mode 2 : DYNAMIC_BAND (Bande centrale-basse Y: 66%, 52px) */
 #subtitles-zone.mode-dynamic-band {
   top: 66% !important;
   transform: translateY(-50%) !important;
@@ -515,6 +591,7 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
 #subtitles-zone.mode-dynamic-band .sub-word {
   font-size: 50px !important;
   color: var(--card-text) !important;
+  text-shadow: none !important;
 }
 #subtitles-zone.mode-dynamic-band .sub-word.active {
   background: var(--flame) !important;
@@ -538,20 +615,6 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
-}
-.word,
-.sub-word {
-  font-family: 'Montserrat', sans-serif !important;
-  font-weight: 900 !important;
-  font-size: 54px !important;
-  color: var(--white) !important;
-  background: transparent !important;
-}
-.word.keyword-accent,
-.sub-word.keyword-accent {
-  color: var(--flame) !important;
-  background: transparent !important;
-  box-shadow: none !important;
 }
 #subtitles-zone:not(.mode-center-slam) .sub-word.active {
   background: transparent !important;
@@ -5237,371 +5300,910 @@ html[data-theme="cyber-mint"], body[data-theme="cyber-mint"], #video-canvas[data
 }
 
 /* ==========================================================================
-   COMPOSANTS SIGNATURE OBSIDIAN & FLAME (video_03)
+   21 MICRO-SCÈNES DYNAMIQUES OBSIDIAN & FLAME (video_03)
+   ZÉRO GABARIT DE BOÎTE ADMINISTRATIVE UNIQUE — COMPOSITIONS VARIÉES & LIBRES
    ========================================================================== */
-.ob-container {
-  width: 900px !important;
-  min-height: 540px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
+
+/* --- Scène 1 : 4 Post-its indépendants en quinconce (style lymphe 0:01) --- */
+.ob-postits-stage {
   position: relative !important;
-  box-sizing: border-box !important;
+  width: 960px !important;
+  height: 520px !important;
   margin: 0 auto !important;
 }
-
-.ob-card {
-  width: 900px !important;
-  min-height: 540px !important;
+.ob-postit-tile {
+  position: absolute !important;
+  width: 440px !important;
   background: var(--surface-card) !important;
   color: var(--card-text) !important;
   border: 4px solid var(--border-ink) !important;
   border-radius: 8px !important;
-  box-shadow: var(--shadow-flame) !important;
-  padding: 36px 40px !important;
+  box-shadow: var(--shadow-flame-sm) !important;
+  padding: 18px 24px !important;
   box-sizing: border-box !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: space-between !important;
-  position: relative !important;
-}
-
-.ob-header-box {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  border-bottom: 3px solid var(--border-ink) !important;
-  padding-bottom: 20px !important;
-  margin-bottom: 24px !important;
-  width: 100% !important;
+  font-family: 'Montserrat', sans-serif !important;
+  transition: transform 0.25s ease-out !important;
+}
+.ob-postit-tile .ob-postit-tag {
+  background: var(--flame) !important;
+  color: var(--white) !important;
+  font-size: 28px !important;
+  font-weight: 900 !important;
+  padding: 6px 14px !important;
+  border: 3px solid var(--border-ink) !important;
+  border-radius: 6px !important;
+  white-space: nowrap !important;
+}
+.ob-postit-tile .ob-postit-text {
+  font-size: 28px !important;
+  font-weight: 800 !important;
+  color: var(--card-text) !important;
+  white-space: nowrap !important;
+}
+.ob-postit-1 { top: 0px !important; left: 40px !important; transform: rotate(-5deg) !important; }
+.ob-postit-2 { top: 90px !important; right: 40px !important; transform: rotate(4deg) !important; }
+.ob-postit-3 { top: 190px !important; left: 60px !important; transform: rotate(-3deg) !important; }
+.ob-postit-4 { top: 280px !important; right: 50px !important; transform: rotate(5deg) !important; }
+
+/* --- Scène 2 : Plein Écran Choc ZÉRO VIDÉO (style @ledevultime 0:01) --- */
+.ob-shock-stage {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 1000px !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+.ob-shock-badge {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 26px !important;
+  font-weight: 900 !important;
+  background: var(--flame) !important;
+  color: var(--white) !important;
+  border: 4px solid var(--border-ink) !important;
+  border-radius: 8px !important;
+  box-shadow: var(--shadow-ink) !important;
+  padding: 12px 32px !important;
+  text-transform: uppercase !important;
+  margin-bottom: 28px !important;
+  white-space: nowrap !important;
+}
+.ob-shock-giant-title {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 110px !important;
+  font-weight: 900 !important;
+  color: var(--white) !important;
+  line-height: 1.0 !important;
+  text-transform: uppercase !important;
+  text-shadow: 0px 6px 0px var(--black-pure) !important;
+  letter-spacing: -2px !important;
+}
+.ob-shock-giant-title .accent-flame {
+  color: var(--flame) !important;
 }
 
-.ob-header-title {
+/* --- Scène 3 : 3 Tuiles Horizontales en Quinconce (style lymphe 0:05) --- */
+.ob-cascade-stage {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 24px !important;
+  width: 900px !important;
+  margin: 0 auto !important;
+  align-items: center !important;
+}
+.ob-cascade-tile {
+  width: 840px !important;
+  padding: 24px 36px !important;
+  box-sizing: border-box !important;
+  border: 4px solid var(--border-ink) !important;
+  border-radius: 10px !important;
+  box-shadow: var(--shadow-flame) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
   font-family: 'Montserrat', sans-serif !important;
   font-size: 32px !important;
   font-weight: 900 !important;
-  color: var(--card-text) !important;
   text-transform: uppercase !important;
-  letter-spacing: -0.5px !important;
+  white-space: nowrap !important;
 }
-
-.ob-badge {
-  font-family: 'Montserrat', sans-serif !important;
-  font-size: 22px !important;
-  font-weight: 900 !important;
+.ob-cascade-tile.tile-cream {
+  background: var(--tile-cream) !important;
+  color: var(--card-text) !important;
+  transform: rotate(-2deg) !important;
+}
+.ob-cascade-tile.tile-blue {
+  background: var(--tile-sky) !important;
+  color: var(--card-text) !important;
+  transform: rotate(2deg) !important;
+}
+.ob-cascade-tile.tile-flame {
   background: var(--flame) !important;
   color: var(--white) !important;
-  border: 3px solid var(--border-ink) !important;
-  border-radius: 6px !important;
-  padding: 8px 18px !important;
+  transform: rotate(-1deg) !important;
+}
+
+/* --- Scène 4 : Avatar Solo + MAIS... --- */
+.ob-mais-stage {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 900px !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+.ob-mais-title {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 96px !important;
+  font-weight: 900 !important;
+  color: var(--flame) !important;
+  text-shadow: 0px 6px 0px var(--black-pure) !important;
   text-transform: uppercase !important;
-  box-shadow: 4px 4px 0px var(--border-ink) !important;
   white-space: nowrap !important;
 }
 
-.ob-badge-dark {
-  background: var(--border-ink) !important;
-  color: var(--white) !important;
+/* --- Scène 5 : 3 Carrés Pop-In Sans Boîte (style @ledevultime 0:45) --- */
+.ob-friction-stage {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 24px !important;
+  width: 1000px !important;
+  margin: 0 auto !important;
+  align-items: center !important;
+}
+.ob-friction-square {
+  width: 300px !important;
+  height: 320px !important;
+  background: var(--surface-card) !important;
+  border: 4px solid var(--border-ink) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-flame) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 20px !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+}
+.ob-friction-iconbox {
+  width: 110px !important;
+  height: 110px !important;
+  background: var(--bg-carbon) !important;
+  border: 3px solid var(--border-ink) !important;
+  border-radius: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 52px !important;
+}
+.ob-friction-label {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 26px !important;
+  font-weight: 900 !important;
+  color: var(--card-text) !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+}
+.ob-friction-counter {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 38px !important;
+  font-weight: 900 !important;
+  color: var(--flame) !important;
+  white-space: nowrap !important;
 }
 
-.ob-stamp-giant {
+/* --- Scène 6 : Avatar Solo + Tampon TU ABANDONNES ! --- */
+.ob-abandon-stamp {
   font-family: 'Montserrat', sans-serif !important;
-  font-size: 56px !important;
+  font-size: 64px !important;
   font-weight: 900 !important;
   background: var(--flame) !important;
   color: var(--white) !important;
-  border: 5px solid var(--border-ink) !important;
-  box-shadow: 8px 8px 0px var(--border-ink) !important;
-  padding: 20px 44px !important;
+  border: 6px solid var(--border-ink) !important;
+  box-shadow: 10px 10px 0px var(--black-pure) !important;
+  padding: 22px 50px !important;
   text-transform: uppercase !important;
   transform: rotate(-6deg) !important;
   display: inline-block !important;
   text-align: center !important;
-  margin: 20px auto !important;
+  white-space: nowrap !important;
 }
 
-/* Scene 1 : LinkedIn post */
-.ob-post-author {
+/* --- Scène 7 : Comparaison A/B Sans Boîte (style @ledevultime 2:23) --- */
+.ob-ab-stage {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 36px !important;
+  width: 960px !important;
+  margin: 0 auto !important;
+}
+.ob-ab-square {
+  width: 440px !important;
+  height: 480px !important;
+  border: 5px solid var(--border-ink) !important;
+  border-radius: 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 24px !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+}
+.ob-ab-left {
+  background: var(--surface-card) !important;
+  color: var(--card-text) !important;
+  box-shadow: var(--shadow-ink) !important;
+}
+.ob-ab-right {
+  background: var(--flame) !important;
+  color: var(--white) !important;
+  box-shadow: 8px 8px 0px var(--white) !important;
+}
+.ob-ab-icon {
+  font-size: 88px !important;
+}
+.ob-ab-label {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 32px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+}
+.ob-ab-cross {
+  position: absolute !important;
+  font-size: 150px !important;
+  font-weight: 900 !important;
+  color: var(--flame) !important;
+  text-shadow: 0px 4px 0px var(--black-pure) !important;
+  line-height: 1 !important;
+}
+.ob-ab-check {
+  font-size: 80px !important;
+  font-weight: 900 !important;
+  color: var(--white) !important;
+}
+
+/* --- Scène 8 : 3 Écrans Téléphone Clones Robot (style @ledevultime 2:03) --- */
+.ob-phones-stage {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 28px !important;
+  width: 980px !important;
+  margin: 0 auto !important;
+}
+.ob-phone-frame {
+  width: 280px !important;
+  height: 480px !important;
+  background: var(--bg-carbon) !important;
+  border: 5px solid var(--surface-card) !important;
+  border-radius: 32px !important;
+  box-shadow: var(--shadow-flame) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 24px !important;
+  padding: 24px !important;
+  box-sizing: border-box !important;
+}
+.ob-phone-robot {
+  font-size: 80px !important;
+}
+.ob-phone-tag {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 900 !important;
+  color: var(--white) !important;
+  background: var(--border-ink) !important;
+  border: 2px solid var(--flame) !important;
+  border-radius: 6px !important;
+  padding: 8px 18px !important;
+  white-space: nowrap !important;
+}
+
+/* --- Scène 9 : Graphique en Chute (style @ledevultime 1:31) --- */
+.ob-chart-window {
+  width: 880px !important;
+  height: 480px !important;
+  background: var(--surface-card) !important;
+  border: 5px solid var(--border-ink) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--shadow-flame) !important;
+  padding: 28px 36px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  margin: 0 auto !important;
+}
+.ob-win-header {
   display: flex !important;
   align-items: center !important;
-  gap: 16px !important;
+  justify-content: space-between !important;
+  border-bottom: 3px solid var(--border-ink) !important;
+  padding-bottom: 16px !important;
 }
-.ob-post-avatar {
-  width: 64px !important;
-  height: 64px !important;
+.ob-win-dots {
+  display: flex !important;
+  gap: 8px !important;
+}
+.ob-win-dot {
+  width: 18px !important;
+  height: 18px !important;
   border-radius: 50% !important;
+  border: 2px solid var(--border-ink) !important;
+}
+.ob-win-dot.d-red { background: var(--window-dot-close) !important; }
+.ob-win-dot.d-yellow { background: var(--window-dot-min) !important; }
+.ob-win-dot.d-green { background: var(--window-dot-max) !important; }
+.ob-win-title {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 28px !important;
+  font-weight: 900 !important;
+  color: var(--card-text) !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+}
+.ob-bars-stage {
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: space-around !important;
+  height: 250px !important;
+  border-bottom: 4px solid var(--border-ink) !important;
+  padding-bottom: 4px !important;
+}
+.ob-chart-bar {
+  width: 90px !important;
+  background: var(--flame) !important;
   border: 3px solid var(--border-ink) !important;
-  background: var(--tile-peach) !important;
+  border-radius: 6px 6px 0 0 !important;
+  box-shadow: 4px 4px 0px var(--border-ink) !important;
+  transition: height 0.15s ease-out !important;
+}
+.ob-badge-seconds {
+  align-self: center !important;
+  background: var(--border-ink) !important;
+  color: var(--white) !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 32px !important;
+  font-weight: 900 !important;
+  padding: 10px 28px !important;
+  border: 3px solid var(--flame) !important;
+  border-radius: 6px !important;
+  white-space: nowrap !important;
+}
+
+/* --- Scène 10 : Plein Écran Choc Diagnostic --- */
+.ob-diag-line1 {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 72px !important;
+  font-weight: 900 !important;
+  color: var(--white) !important;
+  text-shadow: 0px 5px 0px var(--black-pure) !important;
+  text-transform: uppercase !important;
+  letter-spacing: -1px !important;
+  margin-bottom: 12px !important;
+  white-space: nowrap !important;
+}
+.ob-diag-line2 {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 88px !important;
+  font-weight: 900 !important;
+  color: var(--flame) !important;
+  text-shadow: 0px 6px 0px var(--black-pure) !important;
+  text-transform: uppercase !important;
+  letter-spacing: -1px !important;
+  white-space: nowrap !important;
+}
+
+/* --- Scène 11 : Wireframe LinkedIn + Tampon PAVÉ DE TEXTE ! --- */
+.ob-wireframe-stage {
+  width: 860px !important;
+  height: 480px !important;
+  background: var(--surface-card) !important;
+  border: 5px solid var(--border-ink) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--shadow-flame) !important;
+  padding: 36px !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 22px !important;
+  margin: 0 auto !important;
+}
+.ob-wf-bar {
+  height: 26px !important;
+  background: var(--border-ink) !important;
+  border-radius: 6px !important;
+  width: 100% !important;
+  opacity: 0.8 !important;
+}
+.ob-wf-bar.short { width: 60% !important; }
+.ob-wf-bar.medium { width: 85% !important; }
+.ob-stamp-pave {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) rotate(-6deg) !important;
+  background: var(--flame) !important;
+  color: var(--white) !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 58px !important;
+  font-weight: 900 !important;
+  padding: 22px 46px !important;
+  border: 6px solid var(--border-ink) !important;
+  box-shadow: 10px 10px 0px var(--black-pure) !important;
+  white-space: nowrap !important;
+  text-transform: uppercase !important;
+}
+
+/* --- Scène 12 : Schéma Fléché Direct sur Fond --- */
+.ob-flow-stage {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  font-size: 28px !important;
+  gap: 32px !important;
+  width: 980px !important;
+  margin: 0 auto !important;
 }
-.ob-post-meta {
+.ob-flow-card {
+  width: 380px !important;
+  height: 340px !important;
+  border: 5px solid var(--border-ink) !important;
+  border-radius: 14px !important;
   display: flex !important;
   flex-direction: column !important;
-  gap: 4px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 18px !important;
+  box-sizing: border-box !important;
 }
-.ob-post-name {
+.ob-flow-card.card-post {
+  background: var(--surface-card) !important;
+  color: var(--card-text) !important;
+  box-shadow: var(--shadow-flame) !important;
+}
+.ob-flow-card.card-video {
+  background: var(--flame) !important;
+  color: var(--white) !important;
+  box-shadow: 8px 8px 0px var(--white) !important;
+}
+.ob-flow-card-icon { font-size: 72px !important; }
+.ob-flow-card-title {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 30px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+}
+.ob-flow-arrow {
+  font-size: 64px !important;
+  color: var(--flame) !important;
+  font-weight: 900 !important;
+}
+
+/* --- Scène 13 : Étape 1 + Onde Sonore --- */
+.ob-step-giant-box {
+  background: var(--flame) !important;
+  color: var(--white) !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 54px !important;
+  font-weight: 900 !important;
+  padding: 16px 40px !important;
+  border: 5px solid var(--border-ink) !important;
+  border-radius: 10px !important;
+  box-shadow: var(--shadow-ink) !important;
+  text-transform: uppercase !important;
+  margin-bottom: 24px !important;
+  white-space: nowrap !important;
+  display: inline-block !important;
+}
+.ob-wave-card {
+  width: 860px !important;
+  height: 320px !important;
+  background: var(--surface-card) !important;
+  border: 5px solid var(--border-ink) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--shadow-flame) !important;
+  padding: 24px 32px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin: 0 auto !important;
+}
+.ob-wave-bars-box {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 14px !important;
+  height: 140px !important;
+  width: 100% !important;
+}
+.ob-single-wave-bar {
+  width: 14px !important;
+  background: var(--flame) !important;
+  border-radius: 7px !important;
+  border: 2px solid var(--border-ink) !important;
+  transition: height 0.05s linear !important;
+}
+.ob-wave-meta-box {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+}
+.ob-wave-timer {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 32px !important;
+  font-weight: 900 !important;
+  color: var(--card-text) !important;
+  white-space: nowrap !important;
+}
+.ob-wave-badge {
+  background: var(--flame) !important;
+  color: var(--white) !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 900 !important;
+  padding: 8px 20px !important;
+  border: 3px solid var(--border-ink) !important;
+  border-radius: 6px !important;
+  white-space: nowrap !important;
+}
+
+/* --- Scène 14 : Étape 2 + 3 Blocs Reliés --- */
+.ob-struct-flow-box {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 18px !important;
+  width: 980px !important;
+  margin: 0 auto !important;
+}
+.ob-struct-card {
+  width: 260px !important;
+  height: 280px !important;
+  background: var(--surface-card) !important;
+  border: 4px solid var(--border-ink) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-flame-sm) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 16px !important;
+  box-sizing: border-box !important;
+  text-align: center !important;
+}
+.ob-struct-card.active {
+  background: var(--flame) !important;
+  color: var(--white) !important;
+  transform: scale(1.06) !important;
+}
+.ob-struct-card.active .ob-struct-label {
+  color: var(--white) !important;
+}
+.ob-struct-icon { font-size: 56px !important; }
+.ob-struct-label {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 900 !important;
+  color: var(--card-text) !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+}
+.ob-struct-arrow {
+  font-size: 40px !important;
+  color: var(--flame) !important;
+  font-weight: 900 !important;
+}
+
+/* --- Scène 15 : Étape 3 + Démo Code -> Preuve --- */
+.ob-code-window {
+  width: 880px !important;
+  height: 440px !important;
+  background: var(--bg-carbon) !important;
+  border: 5px solid var(--surface-card) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--shadow-flame) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  margin: 0 auto !important;
+}
+.ob-code-body {
+  padding: 40px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 32px !important;
+  height: 100% !important;
+}
+.ob-code-text {
+  font-family: 'Courier New', monospace !important;
+  font-size: 44px !important;
+  font-weight: 900 !important;
+  color: var(--white) !important;
+  text-shadow: 0px 4px 0px var(--border-ink) !important;
+  letter-spacing: 1px !important;
+  white-space: nowrap !important;
+}
+.ob-code-cursor {
+  color: var(--flame) !important;
+  font-weight: 900 !important;
+}
+.ob-sync-badge {
+  background: var(--flame) !important;
+  color: var(--white) !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 28px !important;
+  font-weight: 900 !important;
+  padding: 12px 32px !important;
+  border: 4px solid var(--border-ink) !important;
+  border-radius: 8px !important;
+  box-shadow: var(--shadow-ink) !important;
+  white-space: nowrap !important;
+}
+
+/* --- Scène 16 : Barre Recherche Identité --- */
+.ob-brand-window {
+  width: 880px !important;
+  height: 440px !important;
+  background: var(--surface-card) !important;
+  border: 5px solid var(--border-ink) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--shadow-flame) !important;
+  padding: 32px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin: 0 auto !important;
+}
+.ob-brand-swatch {
+  width: 110px !important;
+  height: 110px !important;
+  border: 4px solid var(--border-ink) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-ink) !important;
+  background: var(--flame) !important;
+  transition: background 0.2s linear !important;
+}
+.ob-brand-input {
+  width: 620px !important;
+  height: 72px !important;
+  background: var(--white) !important;
+  border: 4px solid var(--border-ink) !important;
+  border-radius: 36px !important;
+  padding: 0 32px !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 28px !important;
+  font-weight: 900 !important;
+  display: flex !important;
+  align-items: center !important;
+  color: var(--card-text) !important;
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
+}
+.ob-brand-badge {
+  background: var(--flame) !important;
+  color: var(--white) !important;
   font-family: 'Montserrat', sans-serif !important;
   font-size: 24px !important;
   font-weight: 900 !important;
-  color: var(--card-text) !important;
-}
-.ob-post-sub {
-  font-family: 'Montserrat', sans-serif !important;
-  font-size: 20px !important;
-  font-weight: 700 !important;
-  color: var(--card-text-muted) !important;
-}
-.ob-post-body {
-  font-family: 'Montserrat', sans-serif !important;
-  font-size: 28px !important;
-  font-weight: 800 !important;
-  color: var(--card-text) !important;
-  line-height: 1.4 !important;
-  padding: 20px 0 !important;
-}
-.ob-post-kpi-bar {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  border-top: 2px dashed var(--border-ink) !important;
-  padding-top: 18px !important;
-  font-family: 'Montserrat', sans-serif !important;
-  font-size: 22px !important;
-  font-weight: 800 !important;
-}
-
-/* Scene 3 : Assets Stack */
-.ob-stack-list {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 18px !important;
-  width: 100% !important;
-}
-.ob-stack-item {
-  background: var(--surface-elevated) !important;
+  padding: 8px 24px !important;
   border: 3px solid var(--border-ink) !important;
   border-radius: 6px !important;
-  box-shadow: 5px 5px 0px var(--border-ink) !important;
-  padding: 22px 28px !important;
+  white-space: nowrap !important;
+}
+
+/* --- Scène 17 : 4 Styles Graphiques Sans Boîte (style @ledevultime 0:45) --- */
+.ob-styles-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 24px !important;
+  width: 900px !important;
+  margin: 0 auto !important;
+}
+.ob-style-card {
+  width: 430px !important;
+  height: 240px !important;
+  border: 4px solid var(--border-ink) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-flame-sm) !important;
   display: flex !important;
+  flex-direction: column !important;
   align-items: center !important;
-  justify-content: space-between !important;
+  justify-content: center !important;
+  gap: 16px !important;
+  box-sizing: border-box !important;
   font-family: 'Montserrat', sans-serif !important;
   font-size: 26px !important;
   font-weight: 900 !important;
-  transition: all 0.25s ease-out !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
 }
-.ob-stack-item.active {
+.ob-style-card.style-warm {
+  background: var(--tile-cream) !important;
+  color: var(--card-text) !important;
+}
+.ob-style-card.style-tech {
+  background: var(--bg-carbon) !important;
+  color: var(--white) !important;
+  border-color: var(--flame) !important;
+}
+.ob-style-card.style-finance {
+  background: var(--tile-mint) !important;
+  color: var(--card-text) !important;
+}
+.ob-style-card.style-creator {
   background: var(--flame) !important;
   color: var(--white) !important;
-  box-shadow: 6px 6px 0px var(--border-ink) !important;
-  transform: translateX(12px) scale(1.02) !important;
 }
 
-/* Scene 4 : Camera Chaos */
-.ob-chaos-grid {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 16px !important;
-  width: 100% !important;
-}
-.ob-chaos-item {
-  background: var(--surface-elevated) !important;
-  border: 3px solid var(--border-ink) !important;
-  border-radius: 6px !important;
-  padding: 18px 24px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  font-family: 'Montserrat', sans-serif !important;
-  font-size: 24px !important;
-  font-weight: 900 !important;
-  transition: all 0.25s ease-out !important;
-}
-.ob-chaos-item.active {
-  border-color: var(--flame) !important;
-  background: var(--problem-bg-dark) !important;
-  color: var(--white) !important;
-  transform: scale(1.02) !important;
-}
-
-/* Scene 7 : Clone grid */
-.ob-clones-grid {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 18px !important;
-  width: 100% !important;
-}
-.ob-clone-box {
-  background: var(--surface-elevated) !important;
-  border: 3px solid var(--border-ink) !important;
-  border-radius: 6px !important;
-  padding: 20px !important;
+/* --- Scène 18 : Compteur 48H Chrono --- */
+.ob-chrono-stage {
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  gap: 12px !important;
-  font-family: 'Montserrat', sans-serif !important;
-  font-size: 22px !important;
-  font-weight: 900 !important;
+  justify-content: center !important;
+  gap: 28px !important;
+  width: 900px !important;
+  margin: 0 auto !important;
 }
-
-/* Scene 8 : Trust Drop */
-.ob-kpi-huge {
+.ob-chrono-counter {
   font-family: 'Montserrat', sans-serif !important;
-  font-size: 68px !important;
+  font-size: 110px !important;
   font-weight: 900 !important;
   color: var(--flame) !important;
-  text-align: center !important;
-  margin: 12px 0 !important;
+  text-shadow: 0px 6px 0px var(--black-pure) !important;
+  white-space: nowrap !important;
 }
-
-/* Scene 11 : Reverse switch */
-.ob-switch-track {
-  width: 100% !important;
-  height: 90px !important;
-  background: var(--border-ink) !important;
-  border-radius: 45px !important;
-  border: 4px solid var(--border-ink) !important;
+.ob-chrono-flow {
   display: flex !important;
   align-items: center !important;
-  justify-content: space-between !important;
-  padding: 8px !important;
-  position: relative !important;
-  box-sizing: border-box !important;
+  gap: 24px !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 28px !important;
+  font-weight: 900 !important;
+  color: var(--white) !important;
+  white-space: nowrap !important;
 }
-.ob-switch-lever {
-  width: 50% !important;
-  height: 70px !important;
+.ob-chrono-chip {
+  background: var(--surface-card) !important;
+  color: var(--card-text) !important;
+  border: 4px solid var(--border-ink) !important;
+  border-radius: 8px !important;
+  padding: 12px 28px !important;
+  box-shadow: var(--shadow-flame-sm) !important;
+}
+.ob-chrono-chip.chip-flame {
   background: var(--flame) !important;
-  border-radius: 35px !important;
-  border: 3px solid var(--border-ink) !important;
+  color: var(--white) !important;
+}
+
+/* --- Scène 19 : 4 Logos Plateformes --- */
+.ob-plat-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 24px !important;
+  width: 900px !important;
+  margin: 0 auto !important;
+}
+.ob-plat-tile {
+  width: 430px !important;
+  height: 180px !important;
+  background: var(--surface-card) !important;
+  border: 4px solid var(--border-ink) !important;
+  border-radius: 14px !important;
+  box-shadow: var(--shadow-flame) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  color: var(--white) !important;
-  font-family: 'Montserrat', sans-serif !important;
-  font-size: 24px !important;
-  font-weight: 900 !important;
-  box-shadow: 4px 4px 0px var(--border-ink) !important;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-/* Scene 12 : Three Steps */
-.ob-steps-container {
-  display: flex !important;
-  flex-direction: column !important;
   gap: 20px !important;
-  width: 100% !important;
-}
-.ob-step-card {
-  background: var(--surface-elevated) !important;
-  border: 3px solid var(--border-ink) !important;
-  border-radius: 8px !important;
-  box-shadow: 5px 5px 0px var(--border-ink) !important;
-  padding: 22px 28px !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 22px !important;
   font-family: 'Montserrat', sans-serif !important;
-  font-size: 24px !important;
+  font-size: 30px !important;
   font-weight: 900 !important;
-  transition: all 0.3s ease-out !important;
-}
-.ob-step-card.active {
-  background: var(--flame) !important;
-  color: var(--white) !important;
-  border-color: var(--border-ink) !important;
-  box-shadow: 6px 6px 0px var(--border-ink) !important;
-  transform: translateX(14px) scale(1.02) !important;
-}
-.ob-step-num {
-  font-size: 32px !important;
-  font-weight: 900 !important;
-  background: var(--border-ink) !important;
-  color: var(--white) !important;
-  padding: 6px 14px !important;
-  border-radius: 4px !important;
-}
-.ob-step-card.active .ob-step-num {
-  background: var(--white) !important;
-  color: var(--border-ink) !important;
-}
-
-/* Scene 13 : Four palettes */
-.ob-palettes-grid {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 20px !important;
-  width: 100% !important;
-}
-.ob-palette-card {
-  border: 3px solid var(--border-ink) !important;
-  border-radius: 8px !important;
-  box-shadow: 5px 5px 0px var(--border-ink) !important;
-  padding: 24px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 12px !important;
-  font-family: 'Montserrat', sans-serif !important;
-  font-size: 22px !important;
-  font-weight: 900 !important;
-  transition: all 0.3s ease-out !important;
-}
-.ob-palette-card.pal-1 { background: var(--tile-peach) !important; color: var(--card-text) !important; }
-.ob-palette-card.pal-2 { background: var(--bg-carbon) !important; color: var(--white) !important; border-color: var(--flame) !important; }
-.ob-palette-card.pal-3 { background: var(--tile-mint) !important; color: var(--card-text) !important; }
-.ob-palette-card.pal-4 { background: var(--flame) !important; color: var(--white) !important; }
-.ob-palette-card.active {
-  box-shadow: 8px 8px 0px var(--border-ink) !important;
-  transform: scale(1.04) !important;
-}
-
-/* Scene 14 : Delivery & CTA */
-.ob-channels-grid {
-  display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 18px !important;
-  width: 100% !important;
-}
-.ob-channel-card {
-  background: var(--surface-elevated) !important;
-  border: 3px solid var(--border-ink) !important;
-  border-radius: 6px !important;
-  box-shadow: 4px 4px 0px var(--border-ink) !important;
-  padding: 16px 20px !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 12px !important;
-  font-family: 'Montserrat', sans-serif !important;
-  font-size: 22px !important;
-  font-weight: 900 !important;
-  transition: all 0.25s ease-out !important;
-}
-.ob-channel-card.active {
-  background: var(--flame) !important;
-  color: var(--white) !important;
-  transform: scale(1.03) !important;
-}
-.ob-cta-button {
-  background: var(--flame) !important;
-  color: var(--white) !important;
-  font-family: 'Montserrat', sans-serif !important;
-  font-size: 44px !important;
-  font-weight: 900 !important;
-  border: 5px solid var(--border-ink) !important;
-  border-radius: 12px !important;
-  padding: 24px 48px !important;
-  box-shadow: 8px 8px 0px var(--border-ink) !important;
+  color: var(--card-text) !important;
   text-transform: uppercase !important;
-  text-align: center !important;
-  margin-top: 18px !important;
-  display: inline-block !important;
+  box-sizing: border-box !important;
+  white-space: nowrap !important;
 }
 
+/* --- Scène 20 : Avatar Solo + Titre Écran --- */
+.ob-pitch-stage {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 960px !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+}
+.ob-pitch-l1 {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 68px !important;
+  font-weight: 900 !important;
+  color: var(--white) !important;
+  text-shadow: 0px 5px 0px var(--black-pure) !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  margin-bottom: 8px !important;
+}
+.ob-pitch-l2 {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 76px !important;
+  font-weight: 900 !important;
+  color: var(--flame) !important;
+  text-shadow: 0px 6px 0px var(--black-pure) !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+}
 
-
+/* --- Scène 21 : CTA Final Monumental + Curseur Souris Vectoriel --- */
+.ob-cta-final-stage {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 1000px !important;
+  margin: 0 auto !important;
+  position: relative !important;
+}
+.ob-cta-topbadge {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 26px !important;
+  font-weight: 900 !important;
+  background: var(--surface-card) !important;
+  color: var(--card-text) !important;
+  border: 4px solid var(--border-ink) !important;
+  border-radius: 8px !important;
+  box-shadow: var(--shadow-flame-sm) !important;
+  padding: 12px 32px !important;
+  text-transform: uppercase !important;
+  margin-bottom: 24px !important;
+  white-space: nowrap !important;
+}
+.ob-cta-button-monumental {
+  width: 820px !important;
+  height: 180px !important;
+  background: var(--flame) !important;
+  color: var(--white) !important;
+  border: 5px solid var(--white) !important;
+  border-radius: 16px !important;
+  box-shadow: var(--shadow-black-pure) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 52px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  white-space: nowrap !important;
+  transition: transform 0.08s ease, box-shadow 0.08s ease !important;
+}
+.ob-cta-button-monumental.clicked {
+  transform: translate(6px, 6px) !important;
+  box-shadow: 4px 4px 0px var(--black-pure) !important;
+}
+.ob-mouse-cursor {
+  position: absolute !important;
+  width: 64px !important;
+  height: 64px !important;
+  z-index: 100 !important;
+  pointer-events: none !important;
+  filter: drop-shadow(4px 4px 0px var(--black-pure)) !important;
+}

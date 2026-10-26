@@ -1,4 +1,4 @@
-// TIMELINE VIDÉO PROGRAMMATIQUE SUR-MESURE (14 SCÈNES)
+// TIMELINE VIDÉO PROGRAMMATIQUE SUR-MESURE (21 SCÈNES)
 // Généré automatiquement par build_master_timeline.py
 
 window.PROJECT_CONFIG = {
@@ -1043,7 +1043,7 @@ window.SCENES = [
       "avatar": "assets/avatars/laptop.png"
     },
     "caption_mode": "single_line_top",
-    "avatar_mode": "hero",
+    "avatar_mode": "duo_lymphe",
     "camera": {
       "target": {
         "zoom": 1.0,
@@ -1075,9 +1075,11 @@ window.SCENES = [
     "type": "ob_assets_stack",
     "start": 4.86,
     "end": 8.54,
-    "data": {},
+    "data": {
+      "avatar": "assets/avatars/happy.png"
+    },
     "caption_mode": "single_line_top",
-    "avatar_mode": "hidden",
+    "avatar_mode": "duo_lymphe",
     "camera": {
       "target": {
         "zoom": 1.03,
@@ -1089,8 +1091,27 @@ window.SCENES = [
   },
   {
     "id": "scene_04",
-    "type": "ob_camera_chaos",
+    "type": "ob_camera_sigh",
     "start": 8.54,
+    "end": 9.48,
+    "data": {
+      "avatar": "assets/avatars/facepalm.png"
+    },
+    "caption_mode": "single_line_top",
+    "avatar_mode": "solo",
+    "camera": {
+      "target": {
+        "zoom": 1.06,
+        "panX": 0,
+        "panY": 0
+      }
+    },
+    "title": "Mais dès qu'il faut"
+  },
+  {
+    "id": "scene_05",
+    "type": "ob_camera_chaos",
+    "start": 9.48,
     "end": 12.94,
     "data": {},
     "caption_mode": "single_line_top",
@@ -1102,10 +1123,10 @@ window.SCENES = [
         "panY": 0
       }
     },
-    "title": "Friction Tournage"
+    "title": "Friction Caméra Lumière Montage"
   },
   {
-    "id": "scene_05",
+    "id": "scene_06",
     "type": "ob_abandon_slam",
     "start": 12.94,
     "end": 13.96,
@@ -1113,7 +1134,7 @@ window.SCENES = [
       "avatar": "assets/avatars/facepalm.png"
     },
     "caption_mode": "single_line_top",
-    "avatar_mode": "hero",
+    "avatar_mode": "solo",
     "camera": {
       "target": {
         "zoom": 1.06,
@@ -1121,10 +1142,10 @@ window.SCENES = [
         "panY": 0
       }
     },
-    "title": "Abandon du Post"
+    "title": "Tu abandonnes"
   },
   {
-    "id": "scene_06",
+    "id": "scene_07",
     "type": "ob_refuse_clones",
     "start": 13.96,
     "end": 16.76,
@@ -1141,7 +1162,7 @@ window.SCENES = [
     "title": "Refus des Clones IA"
   },
   {
-    "id": "scene_07",
+    "id": "scene_08",
     "type": "ob_clone_grid",
     "start": 16.76,
     "end": 19.78,
@@ -1155,18 +1176,16 @@ window.SCENES = [
         "panY": 0
       }
     },
-    "title": "Effet Clone en B2B"
+    "title": "3 Écrans Clones"
   },
   {
-    "id": "scene_08",
+    "id": "scene_09",
     "type": "ob_trust_drop",
     "start": 19.78,
     "end": 22.06,
-    "data": {
-      "avatar": "assets/avatars/shock.png"
-    },
+    "data": {},
     "caption_mode": "single_line_top",
-    "avatar_mode": "hero",
+    "avatar_mode": "hidden",
     "camera": {
       "target": {
         "zoom": 1.05,
@@ -1174,18 +1193,16 @@ window.SCENES = [
         "panY": 0
       }
     },
-    "title": "Perte de Crédibilité"
+    "title": "Chute de Crédibilité"
   },
   {
-    "id": "scene_09",
+    "id": "scene_10",
     "type": "ob_not_content",
     "start": 22.06,
     "end": 24.02,
-    "data": {
-      "avatar": "assets/avatars/idea.png"
-    },
+    "data": {},
     "caption_mode": "single_line_top",
-    "avatar_mode": "hero",
+    "avatar_mode": "hidden",
     "camera": {
       "target": {
         "zoom": 1.02,
@@ -1193,10 +1210,10 @@ window.SCENES = [
         "panY": 0
       }
     },
-    "title": "Diagnostic Fond Excellent"
+    "title": "Le Diagnostic"
   },
   {
-    "id": "scene_10",
+    "id": "scene_11",
     "type": "ob_text_wall_stamp",
     "start": 24.02,
     "end": 27.4,
@@ -1210,32 +1227,13 @@ window.SCENES = [
         "panY": 0
       }
     },
-    "title": "Pavés de Texte"
-  },
-  {
-    "id": "scene_11",
-    "type": "ob_reverse_switch",
-    "start": 27.4,
-    "end": 29.0,
-    "data": {
-      "avatar": "assets/avatars/prof.png"
-    },
-    "caption_mode": "single_line_top",
-    "avatar_mode": "hero",
-    "camera": {
-      "target": {
-        "zoom": 1.03,
-        "panX": 0,
-        "panY": 0
-      }
-    },
-    "title": "Processus Inversé"
+    "title": "Pavé de Texte"
   },
   {
     "id": "scene_12",
-    "type": "ob_three_steps_cards",
-    "start": 29.0,
-    "end": 41.72,
+    "type": "ob_reverse_switch",
+    "start": 27.4,
+    "end": 29.0,
     "data": {},
     "caption_mode": "single_line_top",
     "avatar_mode": "hidden",
@@ -1246,12 +1244,82 @@ window.SCENES = [
         "panY": 0
       }
     },
-    "title": "Protocole 3 Étapes"
+    "title": "Processus Inversé"
   },
   {
     "id": "scene_13",
-    "type": "ob_four_palettes_grid",
+    "type": "ob_step_one_voice",
+    "start": 29.0,
+    "end": 33.68,
+    "data": {
+      "avatar": "assets/avatars/mic.png"
+    },
+    "caption_mode": "single_line_top",
+    "avatar_mode": "duo_lymphe",
+    "camera": {
+      "target": {
+        "zoom": 1.03,
+        "panX": 0,
+        "panY": 0
+      }
+    },
+    "title": "Étape 1 Note Vocale"
+  },
+  {
+    "id": "scene_14",
+    "type": "ob_step_two_structure",
+    "start": 33.68,
+    "end": 37.84,
+    "data": {},
+    "caption_mode": "single_line_top",
+    "avatar_mode": "hidden",
+    "camera": {
+      "target": {
+        "zoom": 1.03,
+        "panX": 0,
+        "panY": 0
+      }
+    },
+    "title": "Étape 2 Structure"
+  },
+  {
+    "id": "scene_15",
+    "type": "ob_step_three_proof",
+    "start": 37.84,
+    "end": 41.72,
+    "data": {},
+    "caption_mode": "single_line_top",
+    "avatar_mode": "hidden",
+    "camera": {
+      "target": {
+        "zoom": 1.04,
+        "panX": 0,
+        "panY": 0
+      }
+    },
+    "title": "Étape 3 Preuve Visuelle"
+  },
+  {
+    "id": "scene_16",
+    "type": "ob_unique_identity",
     "start": 41.72,
+    "end": 46.84,
+    "data": {},
+    "caption_mode": "single_line_top",
+    "avatar_mode": "hidden",
+    "camera": {
+      "target": {
+        "zoom": 1.03,
+        "panX": 0,
+        "panY": 0
+      }
+    },
+    "title": "Identité Unique"
+  },
+  {
+    "id": "scene_17",
+    "type": "ob_four_palettes_grid",
+    "start": 46.84,
     "end": 51.1,
     "data": {},
     "caption_mode": "single_line_top",
@@ -1266,16 +1334,68 @@ window.SCENES = [
     "title": "4 Chartes Visuelles"
   },
   {
-    "id": "scene_14",
-    "type": "ob_final_delivery_cta",
+    "id": "scene_18",
+    "type": "ob_chrono_48h",
     "start": 51.1,
+    "end": 54.26,
+    "data": {},
+    "caption_mode": "single_line_top",
+    "avatar_mode": "hidden",
+    "camera": {
+      "target": {
+        "zoom": 1.04,
+        "panX": 0,
+        "panY": 0
+      }
+    },
+    "title": "Compteur 48H Chrono"
+  },
+  {
+    "id": "scene_19",
+    "type": "ob_platforms_popin",
+    "start": 54.26,
+    "end": 57.68,
+    "data": {},
+    "caption_mode": "single_line_top",
+    "avatar_mode": "hidden",
+    "camera": {
+      "target": {
+        "zoom": 1.04,
+        "panX": 0,
+        "panY": 0
+      }
+    },
+    "title": "4 Plateformes"
+  },
+  {
+    "id": "scene_20",
+    "type": "ob_final_pitch",
+    "start": 57.68,
+    "end": 60.54,
+    "data": {
+      "avatar": "assets/avatars/idea.png"
+    },
+    "caption_mode": "single_line_top",
+    "avatar_mode": "solo",
+    "camera": {
+      "target": {
+        "zoom": 1.05,
+        "panX": 0,
+        "panY": 0
+      }
+    },
+    "title": "Offre Sur-Mesure"
+  },
+  {
+    "id": "scene_21",
+    "type": "ob_final_delivery_cta",
+    "start": 60.54,
     "end": 62.746,
     "data": {
-      "avatar": "assets/avatars/pointing.png",
       "keyword": "CLARTÉ"
     },
     "caption_mode": "single_line_top",
-    "avatar_mode": "hero",
+    "avatar_mode": "hidden",
     "camera": {
       "target": {
         "zoom": 1.02,
@@ -1283,6 +1403,6 @@ window.SCENES = [
         "panY": 0
       }
     },
-    "title": "Livraison & CTA"
+    "title": "Appel à l'Action"
   }
 ];

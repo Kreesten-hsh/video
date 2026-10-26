@@ -82,6 +82,7 @@
         "ob_post_counter",
         "ob_zero_stamp",
         "ob_assets_stack",
+        "ob_camera_sigh",
         "ob_camera_chaos",
         "ob_abandon_slam",
         "ob_refuse_clones",
@@ -90,17 +91,23 @@
         "ob_not_content",
         "ob_text_wall_stamp",
         "ob_reverse_switch",
-        "ob_three_steps_cards",
+        "ob_step_one_voice",
+        "ob_step_two_structure",
+        "ob_step_three_proof",
+        "ob_unique_identity",
         "ob_four_palettes_grid",
+        "ob_chrono_48h",
+        "ob_platforms_popin",
+        "ob_final_pitch",
         "ob_final_delivery_cta"
       ],
       "avatar_sequence": [
         "laptop",
+        "happy",
         "facepalm",
-        "shock",
-        "idea",
-        "prof",
-        "pointing"
+        "facepalm",
+        "mic",
+        "idea"
       ]
     }
   ]

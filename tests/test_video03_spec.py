@@ -64,12 +64,12 @@ class TestVideo03Spec(unittest.TestCase):
             self.assertEqual(matches, [], f"Prix détecté dans le script video_03 avec le motif '{pat}' : {matches}")
 
     def test_video03_cta_keyword_clarte(self):
-        """Vérifie que le CTA final et la scène face_to_dm_cta utilisent CLARTÉ."""
+        """Vérifie que le CTA final et la scène CTA utilisent CLARTÉ."""
         cta_keyword = self.project_data.get("cta_keyword")
         self.assertEqual(cta_keyword, "CLARTÉ")
 
-        cta_scene = [s for s in self.project_data.get("scenes", []) if s.get("type") == "face_to_dm_cta"]
-        self.assertTrue(len(cta_scene) >= 1, "Scène face_to_dm_cta introuvable")
+        cta_scene = [s for s in self.project_data.get("scenes", []) if s.get("type") in ["ob_final_delivery_cta", "face_to_dm_cta"]]
+        self.assertTrue(len(cta_scene) >= 1, "Scène CTA introuvable")
         self.assertEqual(cta_scene[0].get("data", {}).get("keyword"), "CLARTÉ")
 
     def test_video03_scenes_continuity_and_timing(self):
@@ -115,25 +115,36 @@ class TestVideo03Spec(unittest.TestCase):
                     f"Avatar introuvable pour la scène {sc['id']} : {avatar_path} ({full_path})"
                 )
 
-    def test_video03_six_blueprints_and_theme_switches_present(self):
-        """Vérifie la présence des blueprints clés et des changements de thèmes."""
+    def test_video03_obsidian_flame_micro_scenes_present(self):
+        """Vérifie la présence des 21 micro-scènes Néo-Brutalistes Obsidian & Flame."""
         scenes = self.project_data.get("scenes", [])
+        self.assertTrue(len(scenes) >= 20, f"Nombre de scènes insuffisant : {len(scenes)}")
         types = set(s.get("type") for s in scenes)
         expected_types = {
-            "blueprint_kinetic_type",
-            "blueprint_overwhelm",
-            "blueprint_compare_split",
-            "blueprint_spatial_pan",
-            "blueprint_cursor_ui",
-            "blueprint_delivery_grid",
-            "face_to_dm_cta"
+            "ob_post_counter",
+            "ob_zero_stamp",
+            "ob_assets_stack",
+            "ob_camera_sigh",
+            "ob_camera_chaos",
+            "ob_abandon_slam",
+            "ob_refuse_clones",
+            "ob_clone_grid",
+            "ob_trust_drop",
+            "ob_not_content",
+            "ob_text_wall_stamp",
+            "ob_reverse_switch",
+            "ob_step_one_voice",
+            "ob_step_two_structure",
+            "ob_step_three_proof",
+            "ob_unique_identity",
+            "ob_four_palettes_grid",
+            "ob_chrono_48h",
+            "ob_platforms_popin",
+            "ob_final_pitch",
+            "ob_final_delivery_cta"
         }
         for exp in expected_types:
-            self.assertIn(exp, types, f"Composant manquant dans les scènes de video_03 : {exp}")
-
-        themes = [s.get("switch_theme") for s in scenes if s.get("switch_theme")]
-        self.assertIn("claude", themes)
-        self.assertIn("cyber-mint", themes)
+            self.assertIn(exp, types, f"Micro-scène manquante dans video_03 : {exp}")
 
 
 if __name__ == "__main__":

@@ -43,9 +43,14 @@ Chaque nouvelle vidéo ($N+1$) doit impérativement surpasser la précédente ($
    Le choix des poses découle à 100 % du sens littéral et de l'émotion vocale de la réplique. Aucune obligation mécanique d'utiliser toutes les poses : la pertinence prime sur la variété forcée.
 4. **Synchronisation Millimétrée des Listes** :  
    Pour toute liste ou carte multi-canaux, chaque élément s'active ou s'illumine au moment précis où le mot clé correspondant est audible.
-5. **Occupation Safe Zone 9:16 & Standards Typographiques** :  
-   - **Gabarit des cartes centrales** : Largeur minimale de `840px` (plage cible `880px–940px`), hauteur minimale de `520px` (plage cible `620px–880px`) pour éliminer tout vide vertical sur écran 1080×1920.
-   - **Lisibilité mobile** : Aucun texte calculé sous `18px` dans `#scene-container` (recommandé : corps `22px–28px`, titres/KPIs `34px–56px`).
+5. **Liberté Scénographique 9:16 & Interdiction du Conteneur Unique Répétitif** :  
+   - **Interdiction formelle du gabarit unique répétitif** : BANNISSEMENT STRICT du template `<div class="card"><div class="header">TITRE + BADGE</div>...</div>` répété d'une scène à l'autre.
+   - **Compositions Débridées et Variées** : Autorisation et exigence de compositions variées adaptées au rythme narratif :
+     - *Textes Chocs Plein Écran* sans boîte englobante (ex: `ZÉRO VIDÉO`, `CE N'EST PAS / TON CONTENU`, `POURQUOI ?`).
+     - *Carrés de Numérotation Géants* (`[ÉTAPE 1]`, `[ÉTAPE 2]`, `[ÉTAPE 3]`) seuls au centre.
+     - *Post-its et Tuiles flottantes indépendantes* volant en diagonale en quinconce (style lymphe 0:01 et 0:05).
+     - *Schémas à flèches animées* (`[BLOC A] ━━▶ [BLOC B]`) posés directement sur le fond sans boîte englobante (style @ledevultime 0:58, 1:17).
+   - **Lisibilité mobile** : Aucun texte calculé sous `18px` dans `#scene-container` (recommandé : corps `22px–28px`, titres/KPIs `34px–56px`, textes chocs `72px–120px`).
    - **Anti-Orphelin & No-Wrap** : `white-space: nowrap` obligatoire sur badges `[ ... ]`, KPIs, résolutions géantes et étiquettes courtes, vérifié géométriquement par `scrollWidth <= clientWidth + 2`.
 6. **Thématisation 100 % Variables CSS** :  
    100 % des couleurs proviennent des variables de `:root` (`--bg-canvas`, `--surface-card`, `--accent-primary`, etc.) pour autoriser la thématisation instantanée sur les projets clients. 0 hex hardcodé hors `:root`.

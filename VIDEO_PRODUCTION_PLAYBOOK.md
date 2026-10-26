@@ -103,11 +103,14 @@ Garantir un impact visuel mobile d'élite avec des composants sur-mesure au form
 1. **Unicité totale des illustrations** :
    * Ouvrir `registry/video_memory.json` et consulter `used_illustrations` :
    * Toute illustration déjà listée est **strictement bannie** de réutilisation dans ce projet.
-2. **Cadrage & Safe Zone 9:16** :
-   * Les conteneurs d'illustrations centraux doivent occuper :
-     * Largeur : **`880px` à `940px`** (centré sur 1080px).
-     * Hauteur : **`620px` à `880px`** (centré verticalement dans la zone `scene-zone` de `top: 260px` à `bottom: 240px`).
-   * Tout conteneur $< 840 \times 520\text{px}$ est immédiatement rejeté par le Gatekeeper.
+2. **Cadrage & Safe Zone 9:16 (Liberté Scénographique Débridée)** :
+   * **Interdiction formelle du template répétitif** : Ne jamais répéter le patron `<div class="card"><div class="header">TITRE + BADGE</div>...</div>` de scène en scène.
+   * **Diversité des Compositions Autorisées** :
+     * Textes chocs plein écran sans boîte (`ZÉRO VIDÉO`, `CE N'EST PAS / TON CONTENU`).
+     * Carrés de numérotation géants (`[ÉTAPE 1]`, `[ÉTAPE 2]`, `[ÉTAPE 3]`) seuls au centre.
+     * Post-its et tuiles flottantes indépendantes volant en diagonale (style lymphe).
+     * Schémas à flèches animées (`[BLOC A] ━━▶ [BLOC B]`) posés directement sur le fond sans boîte englobante.
+   * Tous les éléments doivent respecter la safe-area 1080×1920 (zéro débordement hors écran).
 3. **Hiérarchie Typographique à 2 Niveaux** :
    * **Titre principal de chaque scène d'illustration** : $\ge 28\text{px}$ (recommandé : `32px` à `36px`).
    * **Textes descriptifs, badges, sous-titres, étapes** : $\ge 20\text{px}$ (recommandé : `22px` à `24px`).

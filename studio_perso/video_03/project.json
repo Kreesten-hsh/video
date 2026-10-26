@@ -218,6 +218,7 @@
     "LinkedIn,",
     "vidéo.",
     "méthodes.",
+    "faut",
     "heures,",
     "abandonnes.",
     "génériques.",
@@ -226,8 +227,14 @@
     "contenu.",
     "texte.",
     "processus.",
+    "écrit.",
+    "voix.",
     "l'écran.",
+    "identité.",
     "percutant.",
+    "précision",
+    "Shorts.",
+    "mesure?",
     "privés."
   ],
   "phonetic_map": {
@@ -244,129 +251,374 @@
   "scenes": [
     {
       "id": "scene_01",
-      "title": "Publication LinkedIn",
       "type": "ob_post_counter",
+      "start": 0.0,
+      "end": 2.52,
+      "data": {
+        "avatar": "assets/avatars/laptop.png"
+      },
       "caption_mode": "single_line_top",
-      "avatar_mode": "hero",
-      "camera": { "target": { "zoom": 1.0, "panX": 0, "panY": 0 } },
-      "data": { "avatar": "assets/avatars/laptop.png" }
+      "avatar_mode": "duo_lymphe",
+      "camera": {
+        "target": {
+          "zoom": 1.0,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Publication LinkedIn"
     },
     {
       "id": "scene_02",
-      "title": "Zéro Vidéo",
       "type": "ob_zero_stamp",
+      "start": 2.52,
+      "end": 4.86,
+      "data": {},
       "caption_mode": "single_line_top",
       "avatar_mode": "hidden",
-      "camera": { "target": { "zoom": 1.05, "panX": 0, "panY": 0 } },
-      "data": {}
+      "camera": {
+        "target": {
+          "zoom": 1.05,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Zéro Vidéo"
     },
     {
       "id": "scene_03",
-      "title": "Actifs Prêts",
       "type": "ob_assets_stack",
+      "start": 4.86,
+      "end": 8.54,
+      "data": {
+        "avatar": "assets/avatars/happy.png"
+      },
       "caption_mode": "single_line_top",
-      "avatar_mode": "hidden",
-      "camera": { "target": { "zoom": 1.03, "panX": 0, "panY": 0 } },
-      "data": {}
+      "avatar_mode": "duo_lymphe",
+      "camera": {
+        "target": {
+          "zoom": 1.03,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Actifs Prêts"
     },
     {
       "id": "scene_04",
-      "title": "Friction Tournage",
-      "type": "ob_camera_chaos",
+      "type": "ob_camera_sigh",
+      "start": 8.54,
+      "end": 9.48,
+      "data": {
+        "avatar": "assets/avatars/facepalm.png"
+      },
       "caption_mode": "single_line_top",
-      "avatar_mode": "hidden",
-      "camera": { "target": { "zoom": 1.04, "panX": 0, "panY": 0 } },
-      "data": {}
+      "avatar_mode": "solo",
+      "camera": {
+        "target": {
+          "zoom": 1.06,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Mais dès qu'il faut"
     },
     {
       "id": "scene_05",
-      "title": "Abandon du Post",
-      "type": "ob_abandon_slam",
+      "type": "ob_camera_chaos",
+      "start": 9.48,
+      "end": 12.94,
+      "data": {},
       "caption_mode": "single_line_top",
-      "avatar_mode": "hero",
-      "camera": { "target": { "zoom": 1.06, "panX": 0, "panY": 0 } },
-      "data": { "avatar": "assets/avatars/facepalm.png" }
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.04,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Friction Caméra Lumière Montage"
     },
     {
       "id": "scene_06",
-      "title": "Refus des Clones IA",
-      "type": "ob_refuse_clones",
+      "type": "ob_abandon_slam",
+      "start": 12.94,
+      "end": 13.96,
+      "data": {
+        "avatar": "assets/avatars/facepalm.png"
+      },
       "caption_mode": "single_line_top",
-      "avatar_mode": "hidden",
-      "camera": { "target": { "zoom": 1.02, "panX": 0, "panY": 0 } },
-      "data": {}
+      "avatar_mode": "solo",
+      "camera": {
+        "target": {
+          "zoom": 1.06,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Tu abandonnes"
     },
     {
       "id": "scene_07",
-      "title": "Effet Clone en B2B",
-      "type": "ob_clone_grid",
+      "type": "ob_refuse_clones",
+      "start": 13.96,
+      "end": 16.76,
+      "data": {},
       "caption_mode": "single_line_top",
       "avatar_mode": "hidden",
-      "camera": { "target": { "zoom": 1.03, "panX": 0, "panY": 0 } },
-      "data": {}
+      "camera": {
+        "target": {
+          "zoom": 1.02,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Refus des Clones IA"
     },
     {
       "id": "scene_08",
-      "title": "Perte de Crédibilité",
-      "type": "ob_trust_drop",
+      "type": "ob_clone_grid",
+      "start": 16.76,
+      "end": 19.78,
+      "data": {},
       "caption_mode": "single_line_top",
-      "avatar_mode": "hero",
-      "camera": { "target": { "zoom": 1.05, "panX": 0, "panY": 0 } },
-      "data": { "avatar": "assets/avatars/shock.png" }
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.03,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "3 Écrans Clones"
     },
     {
       "id": "scene_09",
-      "title": "Diagnostic Fond Excellent",
-      "type": "ob_not_content",
+      "type": "ob_trust_drop",
+      "start": 19.78,
+      "end": 22.06,
+      "data": {},
       "caption_mode": "single_line_top",
-      "avatar_mode": "hero",
-      "camera": { "target": { "zoom": 1.02, "panX": 0, "panY": 0 } },
-      "data": { "avatar": "assets/avatars/idea.png" }
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.05,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Chute de Crédibilité"
     },
     {
       "id": "scene_10",
-      "title": "Pavés de Texte",
-      "type": "ob_text_wall_stamp",
+      "type": "ob_not_content",
+      "start": 22.06,
+      "end": 24.02,
+      "data": {},
       "caption_mode": "single_line_top",
       "avatar_mode": "hidden",
-      "camera": { "target": { "zoom": 1.04, "panX": 0, "panY": 0 } },
-      "data": {}
+      "camera": {
+        "target": {
+          "zoom": 1.02,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Le Diagnostic"
     },
     {
       "id": "scene_11",
-      "title": "Processus Inversé",
-      "type": "ob_reverse_switch",
+      "type": "ob_text_wall_stamp",
+      "start": 24.02,
+      "end": 27.4,
+      "data": {},
       "caption_mode": "single_line_top",
-      "avatar_mode": "hero",
-      "camera": { "target": { "zoom": 1.03, "panX": 0, "panY": 0 } },
-      "data": { "avatar": "assets/avatars/prof.png" }
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.04,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Pavé de Texte"
     },
     {
       "id": "scene_12",
-      "title": "Protocole 3 Étapes",
-      "type": "ob_three_steps_cards",
+      "type": "ob_reverse_switch",
+      "start": 27.4,
+      "end": 29.0,
+      "data": {},
       "caption_mode": "single_line_top",
       "avatar_mode": "hidden",
-      "camera": { "target": { "zoom": 1.03, "panX": 0, "panY": 0 } },
-      "data": {}
+      "camera": {
+        "target": {
+          "zoom": 1.03,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Processus Inversé"
     },
     {
       "id": "scene_13",
-      "title": "4 Chartes Visuelles",
-      "type": "ob_four_palettes_grid",
+      "type": "ob_step_one_voice",
+      "start": 29.0,
+      "end": 33.68,
+      "data": {
+        "avatar": "assets/avatars/mic.png"
+      },
       "caption_mode": "single_line_top",
-      "avatar_mode": "hidden",
-      "camera": { "target": { "zoom": 1.04, "panX": 0, "panY": 0 } },
-      "data": {}
+      "avatar_mode": "duo_lymphe",
+      "camera": {
+        "target": {
+          "zoom": 1.03,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Étape 1 Note Vocale"
     },
     {
       "id": "scene_14",
-      "title": "Livraison & CTA",
-      "type": "ob_final_delivery_cta",
+      "type": "ob_step_two_structure",
+      "start": 33.68,
+      "end": 37.84,
+      "data": {},
       "caption_mode": "single_line_top",
-      "avatar_mode": "hero",
-      "camera": { "target": { "zoom": 1.02, "panX": 0, "panY": 0 } },
-      "data": { "avatar": "assets/avatars/pointing.png", "keyword": "CLARTÉ" }
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.03,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Étape 2 Structure"
+    },
+    {
+      "id": "scene_15",
+      "type": "ob_step_three_proof",
+      "start": 37.84,
+      "end": 41.72,
+      "data": {},
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.04,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Étape 3 Preuve Visuelle"
+    },
+    {
+      "id": "scene_16",
+      "type": "ob_unique_identity",
+      "start": 41.72,
+      "end": 46.84,
+      "data": {},
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.03,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Identité Unique"
+    },
+    {
+      "id": "scene_17",
+      "type": "ob_four_palettes_grid",
+      "start": 46.84,
+      "end": 51.1,
+      "data": {},
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.04,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "4 Chartes Visuelles"
+    },
+    {
+      "id": "scene_18",
+      "type": "ob_chrono_48h",
+      "start": 51.1,
+      "end": 54.26,
+      "data": {},
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.04,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Compteur 48H Chrono"
+    },
+    {
+      "id": "scene_19",
+      "type": "ob_platforms_popin",
+      "start": 54.26,
+      "end": 57.68,
+      "data": {},
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.04,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "4 Plateformes"
+    },
+    {
+      "id": "scene_20",
+      "type": "ob_final_pitch",
+      "start": 57.68,
+      "end": 60.54,
+      "data": {
+        "avatar": "assets/avatars/idea.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "solo",
+      "camera": {
+        "target": {
+          "zoom": 1.05,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Offre Sur-Mesure"
+    },
+    {
+      "id": "scene_21",
+      "type": "ob_final_delivery_cta",
+      "start": 60.54,
+      "end": 62.746,
+      "data": {
+        "keyword": "CLARTÉ"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.02,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Appel à l'Action"
     }
   ]
 }

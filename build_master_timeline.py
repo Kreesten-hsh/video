@@ -529,7 +529,7 @@ def run_pipeline(
     if "theme_preset" in project_data:
         proj_cfg["theme_preset"] = project_data["theme_preset"]
 
-    step3_build_timeline(
+    scenes = step3_build_timeline(
         words=words,
         scenes_configs=scenes_configs,
         scene_end_words=scene_end_words,
@@ -538,6 +538,15 @@ def run_pipeline(
         timeline_path=str(target_timeline_js),
         project_config=proj_cfg if proj_cfg else None
     )
+
+    # Synchroniser les scènes calculées avec project.json pour assurer la cohérence permanente
+    project_file = project_dir / "project.json"
+    if project_file.exists():
+        with open(project_file, "r", encoding="utf-8") as f:
+            p_data = json.load(f)
+        p_data["scenes"] = scenes
+        with open(project_file, "w", encoding="utf-8") as f:
+            json.dump(p_data, f, indent=2, ensure_ascii=False)
 
     print(f"✓ Pipeline timeline terminé avec succès pour {project_dir.name} ({total_dur:.2f}s).")
     return words, total_dur
