@@ -291,7 +291,7 @@
       "start": 4.86,
       "end": 8.54,
       "data": {
-        "avatar": "assets/avatars/happy.png"
+        "avatar": "assets/avatars/pointing.png"
       },
       "caption_mode": "single_line_top",
       "avatar_mode": "duo_lymphe",
@@ -312,7 +312,7 @@
       "data": {
         "avatar": "assets/avatars/facepalm.png"
       },
-      "caption_mode": "single_line_top",
+      "caption_mode": "hidden",
       "avatar_mode": "solo",
       "camera": {
         "target": {

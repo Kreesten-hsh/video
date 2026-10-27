@@ -556,8 +556,8 @@ def main():
     parser = argparse.ArgumentParser(description="Générateur de timeline vidéo programmatique AGENT404.")
     parser.add_argument(
         "--projet", "-p",
-        default="studio_perso/video_01",
-        help="Chemin vers le dossier du projet ou vers project.json (défaut: studio_perso/video_01)"
+        default="studio_perso/video_03" if os.path.exists("studio_perso/video_03") else "studio_perso/video_01",
+        help="Chemin vers le dossier du projet ou vers project.json (défaut: studio_perso/video_03)"
     )
     parser.add_argument(
         "--realigner",
