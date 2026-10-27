@@ -528,6 +528,8 @@ def run_pipeline(
         proj_cfg["theme"] = project_data["theme"]
     if "theme_preset" in project_data:
         proj_cfg["theme_preset"] = project_data["theme_preset"]
+    if "subtitle_overrides" in project_data:
+        proj_cfg["subtitle_overrides"] = project_data["subtitle_overrides"]
 
     scenes = step3_build_timeline(
         words=words,

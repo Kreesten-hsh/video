@@ -44,7 +44,7 @@
       return (window.SCENES || []).findIndex(s => time >= s.start && time < s.end);
     }
 
-    const chunks = [];
+    let chunks = [];
     let currentSlice = [];
     let currentMode = "legacy";
 
@@ -184,6 +184,34 @@
       }
       chunk.keywordIndex = bestIdx >= 0 ? bestIdx : 0;
     });
+
+    // Application des surcharges manuelles de sous-titres (subtitle_overrides)
+    if (window.PROJECT_CONFIG && Array.isArray(window.PROJECT_CONFIG.subtitle_overrides) && window.PROJECT_CONFIG.subtitle_overrides.length > 0) {
+      const overrides = window.PROJECT_CONFIG.subtitle_overrides;
+      chunks = chunks.filter(c => {
+        return !overrides.some(ov => !(c.end <= ov.start + 0.05 || c.start >= ov.end - 0.05));
+      });
+      overrides.forEach(ov => {
+        const ovWords = ov.words.map(w => ({
+          ...w,
+          word: (w.word || "").replace(/[.,;:]+$/, ""),
+          rawWord: w.word
+        }));
+        let kwIdx = ovWords.findIndex(w => w.word.toUpperCase() === (ov.keyword || "").toUpperCase());
+        if (kwIdx === -1) {
+          kwIdx = ovWords.findIndex(w => (ov.keyword || "").toUpperCase().includes(w.word.toUpperCase()));
+        }
+        if (kwIdx === -1) kwIdx = 0;
+        chunks.push({
+          start: ov.start,
+          end: ov.end,
+          words: ovWords,
+          mode: "single_line_top",
+          keywordIndex: kwIdx
+        });
+      });
+      chunks.sort((a, b) => a.start - b.start);
+    }
 
     return chunks;
   }
@@ -2238,7 +2266,9 @@
           <div class="vd1-obsession-stage" id="vd1-obsession-stage">
             <div class="vd1-obsession-badge" id="vd1-obsession-badge">OBSESSION FONDATRICE</div>
             <div class="vd1-obsession-card" id="vd1-obsession-card">
-              <div class="vd1-obsession-icon">${NEO_SVG.bolt}</div>
+              <div class="vd1-obsession-box">
+                <span class="vd1-obsession-qmark">?</span>
+              </div>
               <div class="vd1-obsession-title">1 QUESTION CENTRALE</div>
             </div>
           </div>
@@ -2259,12 +2289,14 @@
                 <div class="vd1-vault-textbar bar-2"></div>
                 <div class="vd1-vault-textbar bar-3"></div>
                 <div class="vd1-vault-textbar bar-4"></div>
-              </div>
-              <div class="vd1-chain-left" id="vd1-chain-left">${NEO_SVG.chain}</div>
-              <div class="vd1-chain-right" id="vd1-chain-right">${NEO_SVG.chain}</div>
-              <div class="vd1-vault-lock" id="vd1-vault-lock">
-                ${NEO_SVG.padlock}
-                <div class="vd1-vault-stamp" id="vd1-vault-stamp">ENFERMÉ</div>
+                <div class="vd1-vault-textbar bar-5"></div>
+                <div class="vd1-vault-textbar bar-6"></div>
+                <div class="vd1-vault-center-wrap">
+                  <div class="vd1-vault-lock-box" id="vd1-vault-lock">
+                    ${NEO_SVG.padlock}
+                  </div>
+                  <div class="vd1-vault-stamp neo-stamp" id="vd1-vault-stamp">ENFERMÉS À L'ÉCRIT !</div>
+                </div>
               </div>
             </div>
           </div>
@@ -2276,14 +2308,13 @@
             <div class="vd1-ignore-card" id="vd1-ignore-card">
               <div class="vd1-ignore-badge">AUDIENCE FROIDE</div>
               <div class="vd1-ignore-counter-wrap">
-                <span class="vd1-ignore-counter" id="vd1-ignore-counter">0%</span>
-                <span class="vd1-ignore-sub">DES PROSPECTS</span>
+                <span class="vd1-ignore-counter" id="vd1-ignore-counter">90%</span>
+                <span class="vd1-ignore-sub">DES PROSPECTS IGNORENT</span>
               </div>
               <div class="vd1-ignore-gauge-wrap">
                 <div class="vd1-ignore-gauge-bar" id="vd1-ignore-gauge-bar"></div>
-                <div class="vd1-ignore-timer" id="vd1-ignore-timer">3.0 SECONDES</div>
               </div>
-              <div class="vd1-ignore-stamp" id="vd1-ignore-stamp">SWIPE EN 3 SECONDES !</div>
+              <div class="vd1-ignore-stamp neo-stamp" id="vd1-ignore-stamp">SWIPE EN 3 SECONDES !</div>
             </div>
           </div>
         `;
@@ -2293,10 +2324,14 @@
           <div class="vd1-sigh-stage" id="vd1-sigh-stage">
             <div class="vd1-sigh-badge" id="vd1-sigh-badge">L'ÉPREUVE DU RÉEL</div>
             <div class="vd1-sigh-card" id="vd1-sigh-card">
-              <div class="vd1-sigh-title">LA MÉTHODE CLASSIQUE...</div>
-              <div class="vd1-sigh-sub">SORTIR LA CAMÉRA & ESPÉRER</div>
+              <div class="vd1-sigh-icon-box">
+                ${NEO_SVG.sweat}
+              </div>
+              <div class="vd1-sigh-text-block">
+                <div class="vd1-sigh-title">LA MÉTHODE CLASSIQUE...</div>
+                <div class="vd1-sigh-sub">SORTIR LA CAMÉRA & ESPÉRER</div>
+              </div>
             </div>
-            <div class="vd1-sigh-sweat" id="vd1-sigh-sweat">${NEO_SVG.sweat}</div>
           </div>
         `;
 
@@ -2314,7 +2349,7 @@
               <div class="vd1-struggle-cross" id="vd1-cross-2">${NEO_SVG.cross}</div>
             </div>
             <div class="vd1-struggle-card" id="vd1-struggle-3">
-              <div class="vd1-struggle-icon">${NEO_SVG.timer}</div>
+              <div class="vd1-struggle-icon">${NEO_SVG.clapper}</div>
               <div class="vd1-struggle-text">3. 20 PRISES BAFOUILLÉES</div>
               <div class="vd1-struggle-cross" id="vd1-cross-3">${NEO_SVG.cross}</div>
             </div>
@@ -2326,18 +2361,49 @@
           <div class="vd1-timeline-stage" id="vd1-timeline-stage">
             <div class="vd1-timeline-window">
               <div class="vd1-timeline-bar">
-                <span class="vd1-timeline-dot"></span>
+                <span class="vd1-timeline-dot dot-red"></span>
+                <span class="vd1-timeline-dot dot-yellow"></span>
+                <span class="vd1-timeline-dot dot-green"></span>
                 <span class="vd1-timeline-title">DIMANCHE_MONTAGE.PRPROJ</span>
               </div>
               <div class="vd1-timeline-tracks">
-                <div class="vd1-track-row"><div class="vd1-track-block b1"></div><div class="vd1-track-block b2"></div></div>
-                <div class="vd1-track-row"><div class="vd1-track-block b3"></div><div class="vd1-track-block b4"></div></div>
-                <div class="vd1-track-row"><div class="vd1-track-block b5"></div></div>
-                <div class="vd1-playhead" id="vd1-playhead"></div>
+                <div class="vd1-track-row">
+                  <span class="vd1-track-label">VIDEO 1</span>
+                  <div class="vd1-track-content">
+                    <div class="vd1-track-block b1"></div>
+                    <div class="vd1-track-block b2"></div>
+                  </div>
+                </div>
+                <div class="vd1-track-row">
+                  <span class="vd1-track-label">VIDEO 2</span>
+                  <div class="vd1-track-content">
+                    <div class="vd1-track-block b3"></div>
+                    <div class="vd1-track-block b4"></div>
+                  </div>
+                </div>
+                <div class="vd1-track-row">
+                  <span class="vd1-track-label">AUDIO 1</span>
+                  <div class="vd1-track-content">
+                    <div class="vd1-track-block b5"></div>
+                    <div class="vd1-track-block b6"></div>
+                  </div>
+                </div>
+                <div class="vd1-track-row">
+                  <span class="vd1-track-label">SFX</span>
+                  <div class="vd1-track-content">
+                    <div class="vd1-track-block b7"></div>
+                  </div>
+                </div>
+                <div class="vd1-playhead" id="vd1-playhead">
+                  <div class="vd1-playhead-needle"></div>
+                  <div class="vd1-playhead-line"></div>
+                </div>
               </div>
-            </div>
-            <div class="vd1-sunday-stamp" id="vd1-sunday-stamp">
-              DIMANCHE PERDU = RÉSULTAT AMATEUR
+              <div class="vd1-timeline-footer">
+                <div class="vd1-sunday-stamp neo-stamp" id="vd1-sunday-stamp">
+                  DIMANCHE PERDU = RÉSULTAT AMATEUR
+                </div>
+              </div>
             </div>
           </div>
         `;
@@ -2345,22 +2411,22 @@
       case "ob_logistic_scale_crash":
         return `
           <div class="vd1-scale-stage" id="vd1-scale-stage">
-            <div class="vd1-scale-beam" id="vd1-scale-beam">
-              <div class="vd1-pan-left" id="vd1-pan-left">
-                <div class="vd1-weight-heavy">
-                  <span class="vd1-weight-title">LOGISTIQUE VIDÉO</span>
-                  <span class="vd1-weight-val">8 HEURES PERDUES</span>
+            <div class="vd1-scale-card" id="vd1-scale-card">
+              <div class="vd1-scale-badge">BILAN LOGISTIQUE</div>
+              <div class="vd1-scale-rows">
+                <div class="vd1-scale-row row-loss">
+                  <span class="vd1-scale-tag tag-flame">[ 8H PERDUES ]</span>
+                  <span class="vd1-scale-text">LOGISTIQUE VIDÉO</span>
+                </div>
+                <div class="vd1-scale-row row-stopped">
+                  <span class="vd1-scale-tag tag-yellow">[ À L'ARRÊT ]</span>
+                  <span class="vd1-scale-text">TON ACTIVITÉ BUSINESS</span>
                 </div>
               </div>
-              <div class="vd1-pan-center">${NEO_SVG.scale}</div>
-              <div class="vd1-pan-right" id="vd1-pan-right">
-                <div class="vd1-weight-light">
-                  <span class="vd1-weight-title">TON BUSINESS</span>
-                  <span class="vd1-weight-val">À L'ARRÊT</span>
-                </div>
+              <div class="vd1-scale-stamp neo-stamp" id="vd1-scale-stamp">
+                GOUFFRE LOGISTIQUE INTENABLE
               </div>
             </div>
-            <div class="vd1-scale-stamp" id="vd1-scale-stamp">GOUFFRE INTENABLE</div>
           </div>
         `;
 
@@ -2394,23 +2460,26 @@
               <div class="vd1-clone-box" id="vd1-clone-1">
                 <div class="vd1-clone-avatar">${NEO_SVG.robot}</div>
                 <div class="vd1-clone-label">CLONE_A</div>
+                <div class="vd1-clone-cross" id="vd1-cross-clone-1">${NEO_SVG.cross}</div>
               </div>
               <div class="vd1-clone-box" id="vd1-clone-2">
                 <div class="vd1-clone-avatar">${NEO_SVG.robot}</div>
                 <div class="vd1-clone-label">CLONE_B</div>
+                <div class="vd1-clone-cross" id="vd1-cross-clone-2">${NEO_SVG.cross}</div>
               </div>
               <div class="vd1-clone-box" id="vd1-clone-3">
                 <div class="vd1-clone-avatar">${NEO_SVG.robot}</div>
                 <div class="vd1-clone-label">CLONE_C</div>
+                <div class="vd1-clone-cross" id="vd1-cross-clone-3">${NEO_SVG.cross}</div>
               </div>
+            </div>
+            <div class="vd1-clones-stamp neo-stamp" id="vd1-clones-stamp">
+              CLONES IA = CRÉDIBILITÉ DÉTRUITE
             </div>
             <div class="vd1-trust-wrap">
               <div class="vd1-trust-label">CONFIANCE PROSPECT :</div>
               <div class="vd1-trust-bar-bg"><div class="vd1-trust-bar-fill" id="vd1-trust-fill"></div></div>
-              <div class="vd1-trust-val" id="vd1-trust-val">100%</div>
-            </div>
-            <div class="vd1-clones-stamp" id="vd1-clones-stamp">
-              CLONES IA = CRÉDIBILITÉ DÉTRUITE
+              <div class="vd1-trust-val" id="vd1-trust-val">0%</div>
             </div>
           </div>
         `;
@@ -2420,13 +2489,12 @@
           <div class="vd1-breakthrough-stage" id="vd1-breakthrough-stage">
             <div class="vd1-breakthrough-badge" id="vd1-break-badge">LE DÉCLIC ARCHITECTURAL</div>
             <div class="vd1-breakthrough-box" id="vd1-break-box">
-              <div class="vd1-break-row row-strike" id="vd1-break-strike">
-                <span class="vd1-break-tag">0% TOURNAGE</span>
-                <span class="vd1-strike-line" id="vd1-strike-line"></span>
+              <div class="vd1-break-item item-strike" id="vd1-break-strike">
+                0% TOURNAGE CAMÉRA
               </div>
               <div class="vd1-break-plus">+</div>
-              <div class="vd1-break-row row-human" id="vd1-break-human">
-                <span class="vd1-break-tag-human">100% INCARNATION HUMAINE</span>
+              <div class="vd1-break-item item-human" id="vd1-break-human">
+                100% INCARNATION HUMAINE
               </div>
             </div>
           </div>
@@ -2437,7 +2505,9 @@
           <div class="vd1-engine-stage" id="vd1-engine-stage">
             <div class="vd1-engine-window">
               <div class="vd1-engine-header">
-                <span class="vd1-engine-dot"></span>
+                <span class="vd1-engine-dot dot-red"></span>
+                <span class="vd1-engine-dot dot-yellow"></span>
+                <span class="vd1-engine-dot dot-green"></span>
                 <span class="vd1-engine-name">AGENT404_ENGINE.PY</span>
               </div>
               <div class="vd1-engine-flow">
@@ -2468,19 +2538,23 @@
           <div class="vd1-meta-stage" id="vd1-meta-stage">
             <div class="vd1-meta-window">
               <div class="vd1-meta-header">
-                <span class="vd1-meta-dot"></span>
+                <span class="vd1-meta-dot dot-red"></span>
+                <span class="vd1-meta-dot dot-yellow"></span>
+                <span class="vd1-meta-dot dot-green"></span>
                 <span class="vd1-meta-title">build_scene_12.js</span>
               </div>
               <div class="vd1-meta-code" id="vd1-meta-code">
-                <div class="code-line"><span class="kwd">const</span> video = <span class="kwd">new</span> VideoEngine({</div>
-                <div class="code-line indent">logiciel_montage: <span class="num">0</span>,</div>
-                <div class="code-line indent">compilation_code: <span class="str">"100%"</span>,</div>
-                <div class="code-line indent">rendu_deterministe: <span class="bool">true</span></div>
-                <div class="code-line">});<span class="cursor" id="vd1-code-cursor">|</span></div>
+                <div class="code-line" id="vd1-codeline-1"><span class="kwd">const</span> video = <span class="kwd">await</span> engine.compile({</div>
+                <div class="code-line indent" id="vd1-codeline-2">source: <span class="str">"voix_off1.mp3"</span>,</div>
+                <div class="code-line indent" id="vd1-codeline-3">camera: <span class="kwd">null</span>, <span class="com">// ZÉRO TOURNAGE</span></div>
+                <div class="code-line indent" id="vd1-codeline-4">render: <span class="str">"video1.mp4"</span></div>
+                <div class="code-line" id="vd1-codeline-5">});<span class="cursor" id="vd1-code-cursor">█</span></div>
               </div>
-            </div>
-            <div class="vd1-meta-stamp" id="vd1-meta-stamp">
-              ZÉRO LOGICIEL DE MONTAGE
+              <div class="vd1-meta-footer">
+                <div class="vd1-meta-stamp neo-stamp" id="vd1-meta-stamp">
+                  ZÉRO LOGICIEL DE MONTAGE
+                </div>
+              </div>
             </div>
           </div>
         `;
@@ -2493,7 +2567,7 @@
                 <span class="vd1-sync-badge">CALIBRATION VOCALE</span>
                 <span class="vd1-sync-fps">60 FPS DÉTERMINISTE</span>
               </div>
-              <div class="vd1-sync-chrono" id="vd1-sync-chrono">00:43.500</div>
+              <div class="vd1-sync-chrono" id="vd1-sync-chrono">00:50.520</div>
               <div class="vd1-sync-eq-wrap" id="vd1-sync-eq-wrap">
                 ${Array.from({length: 18}).map((_, i) => `<div class="vd1-eq-bar" id="vd1-eq-${i}"></div>`).join("")}
               </div>
@@ -2503,28 +2577,22 @@
         `;
 
       case "ob_sliding_4_logos_rtl":
+        const channelsVd1 = [
+          { id: "linkedin", name: "LINKEDIN", svg: OFFICIAL_LOGOS_240.linkedin },
+          { id: "reels", name: "REELS", svg: OFFICIAL_LOGOS_240.reels },
+          { id: "shorts", name: "SHORTS", svg: OFFICIAL_LOGOS_240.shorts },
+          { id: "tiktok", name: "TIKTOK", svg: OFFICIAL_LOGOS_240.tiktok }
+        ];
         return `
           <div class="vd1-logos-stage" id="vd1-logos-stage">
             <div class="vd1-logos-badge">1 SEULE IDÉE = 4 CANAUX</div>
-            <div class="vd1-logos-viewport">
-              <div class="vd1-logos-track" id="vd1-logos-track">
-                <div class="vd1-logo-card card-li" id="vd1-lcard-1">
-                  <div class="vd1-logo-svg">${OFFICIAL_LOGOS_240.linkedin}</div>
-                  <div class="vd1-logo-name">LINKEDIN</div>
+            <div class="vd1-logos-viewport" id="vd1-logos-viewport">
+              ${channelsVd1.map((ch, idx) => `
+                <div class="vd1-logo-center-card" id="vd1-lcard-${idx}">
+                  <div class="vd1-logo-svg-wrap">${ch.svg}</div>
+                  <div class="vd1-logo-card-title">${ch.name}</div>
                 </div>
-                <div class="vd1-logo-card card-reels" id="vd1-lcard-2">
-                  <div class="vd1-logo-svg">${OFFICIAL_LOGOS_240.reels}</div>
-                  <div class="vd1-logo-name">REELS</div>
-                </div>
-                <div class="vd1-logo-card card-shorts" id="vd1-lcard-3">
-                  <div class="vd1-logo-svg">${OFFICIAL_LOGOS_240.shorts}</div>
-                  <div class="vd1-logo-name">SHORTS</div>
-                </div>
-                <div class="vd1-logo-card card-tiktok" id="vd1-lcard-4">
-                  <div class="vd1-logo-svg">${OFFICIAL_LOGOS_240.tiktok}</div>
-                  <div class="vd1-logo-name">TIKTOK</div>
-                </div>
-              </div>
+              `).join("")}
             </div>
           </div>
         `;
@@ -2571,7 +2639,7 @@
             </div>
             <div class="vd1-tzero-card" id="vd1-tzero-3">
               <div class="vd1-tzero-badge">0</div>
-              <div class="vd1-tzero-text">ZÉRO MONTEUR (3J DE BRIEF)</div>
+              <div class="vd1-tzero-text">ZÉRO MONTEUR (3 JOURS DE BRIEF)</div>
             </div>
           </div>
         `;
@@ -2583,11 +2651,11 @@
             <div class="vd1-doc-card" id="vd1-doc-card">
               <div class="vd1-doc-title">COULISSES AGENT404</div>
               <div class="vd1-doc-calendar">
-                <div class="vd1-cal-day active"><span>LUN</span><span class="check">✓</span></div>
-                <div class="vd1-cal-day active"><span>MAR</span><span class="check">✓</span></div>
-                <div class="vd1-cal-day active"><span>MER</span><span class="check">✓</span></div>
-                <div class="vd1-cal-day active"><span>JEU</span><span class="check">✓</span></div>
-                <div class="vd1-cal-day active"><span>VEN</span><span class="check">✓</span></div>
+                <div class="vd1-cal-day" id="vd1-cal-0"><span>LUN</span><span class="check" id="vd1-chk-0">✓</span></div>
+                <div class="vd1-cal-day" id="vd1-cal-1"><span>MAR</span><span class="check" id="vd1-chk-1">✓</span></div>
+                <div class="vd1-cal-day" id="vd1-cal-2"><span>MER</span><span class="check" id="vd1-chk-2">✓</span></div>
+                <div class="vd1-cal-day" id="vd1-cal-3"><span>JEU</span><span class="check" id="vd1-chk-3">✓</span></div>
+                <div class="vd1-cal-day" id="vd1-cal-4"><span>VEN</span><span class="check" id="vd1-chk-4">✓</span></div>
               </div>
             </div>
           </div>
@@ -2615,7 +2683,7 @@
           <div class="vd1-bridge-stage" id="vd1-bridge-stage">
             <div class="vd1-bridge-card card-write" id="vd1-br-top">
               <div class="vd1-br-icon">${NEO_SVG.doc}</div>
-              <div class="vd1-br-text">TU PUBLIES DÉJÀ À L'ÉCRIT</div>
+              <div class="vd1-br-text">TU PUBLIES DÉJÀ À L'ÉCRIT ?</div>
             </div>
             <div class="vd1-bridge-arrow" id="vd1-br-arrow">${NEO_SVG.arrowRight}</div>
             <div class="vd1-bridge-card card-video" id="vd1-br-bot">
@@ -2631,7 +2699,7 @@
             <div class="vd1-comment-box" id="vd1-comment-box">
               <div class="vd1-comment-prefix">COMMENTE :</div>
               <div class="vd1-comment-input">
-                <span id="vd1-typed-keyword">CLARTÉ</span><span class="vd1-caret" id="vd1-caret">|</span>
+                <span id="vd1-typed-keyword"></span><span class="vd1-caret" id="vd1-caret">|</span>
               </div>
               <div class="vd1-comment-btn" id="vd1-post-btn">POSTER</div>
               <svg class="vd1-mouse-cursor" id="vd1-cursor" width="80" height="80" viewBox="0 0 90 90" fill="none">
@@ -4608,49 +4676,38 @@
            ANIMATIONS DÉTERMINISTES : VIDÉO 01 — DÉCOUVERTE / MANIFESTE
            ====================================================================== */
         else if (type === "ob_obsession_question") {
-          const badge = document.getElementById("vd1-obsession-badge");
           const card = document.getElementById("vd1-obsession-card");
-          if (badge) {
-            const p = Math.min(1.0, elapsed / 0.25);
-            badge.style.transform = `scale(${easeOutBack(p)})`;
-          }
           if (card) {
-            const p = Math.min(1.0, Math.max(0, (elapsed - 0.15) / 0.3));
+            const p = Math.min(1.0, elapsed / 0.3);
             card.style.transform = `scale(${easeOutBack(p)})`;
           }
         }
         else if (type === "ob_locked_arguments_vault") {
           const win = document.getElementById("vd1-vault-window");
-          const chainL = document.getElementById("vd1-chain-left");
-          const chainR = document.getElementById("vd1-chain-right");
           const lock = document.getElementById("vd1-vault-lock");
           const stamp = document.getElementById("vd1-vault-stamp");
           if (win) {
             const p = Math.min(1.0, elapsed / 0.3);
-            win.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
-          }
-          if (chainL) {
-            const p = Math.min(1.0, Math.max(0, (elapsed - 0.2) / 0.25));
-            chainL.style.transform = `rotate(-25deg) scale(${easeOutBack(p)})`;
-          }
-          if (chainR) {
-            const p = Math.min(1.0, Math.max(0, (elapsed - 0.25) / 0.25));
-            chainR.style.transform = `rotate(25deg) scale(${easeOutBack(p)})`;
+            win.style.transform = `translateY(${Math.round((1 - easeOutBack(p)) * 40)}px) scale(${easeOutBack(p)})`;
           }
           if (lock) {
-            const p = Math.min(1.0, Math.max(0, (elapsed - 0.35) / 0.25));
+            const p = Math.min(1.0, Math.max(0, (elapsed - 0.2) / 0.25));
             lock.style.transform = `scale(${easeOutBack(p)})`;
           }
-          if (stamp && elapsed >= 0.5) {
-            const p = Math.min(1.0, (elapsed - 0.5) / 0.2);
-            stamp.style.transform = `rotate(-12deg) scale(${easeOutBack(p)})`;
-            stamp.style.opacity = "1";
+          if (stamp) {
+            if (elapsed >= 0.5) {
+              const sp = Math.min(1.0, (elapsed - 0.5) / 0.2);
+              stamp.style.transform = `rotate(-8deg) scale(${easeOutBack(sp)})`;
+              stamp.style.opacity = "1";
+            } else {
+              stamp.style.opacity = "0";
+              stamp.style.transform = "rotate(-8deg) scale(0.8)";
+            }
           }
         }
         else if (type === "ob_ninety_percent_ignore") {
           const counter = document.getElementById("vd1-ignore-counter");
           const gaugeBar = document.getElementById("vd1-ignore-gauge-bar");
-          const timer = document.getElementById("vd1-ignore-timer");
           const stamp = document.getElementById("vd1-ignore-stamp");
           if (counter) {
             const p = Math.min(1.0, elapsed / 1.5);
@@ -4662,29 +4719,22 @@
             const remaining = (1.0 - p) * 100;
             gaugeBar.style.width = `${remaining}%`;
           }
-          if (timer) {
-            const p = Math.min(1.0, elapsed / 2.0);
-            const sec = (3.0 * (1.0 - p)).toFixed(1);
-            timer.textContent = `${sec} SECONDES`;
-          }
-          if (stamp && elapsed >= 1.8) {
-            const p = Math.min(1.0, (elapsed - 1.8) / 0.2);
-            stamp.style.transform = `rotate(-8deg) scale(${easeOutBack(p)})`;
-            stamp.style.opacity = "1";
+          if (stamp) {
+            if (elapsed >= 1.5) {
+              const sp = Math.min(1.0, (elapsed - 1.5) / 0.2);
+              stamp.style.transform = `rotate(-8deg) scale(${easeOutBack(sp)})`;
+              stamp.style.opacity = "1";
+            } else {
+              stamp.style.opacity = "0";
+              stamp.style.transform = "rotate(-8deg) scale(0.8)";
+            }
           }
         }
         else if (type === "ob_classic_method_sigh") {
-          const sweat = document.getElementById("vd1-sigh-sweat");
           const card = document.getElementById("vd1-sigh-card");
           if (card) {
             const p = Math.min(1.0, elapsed / 0.3);
-            card.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
-          }
-          if (sweat && elapsed >= 0.4) {
-            const p = Math.min(1.0, (elapsed - 0.4) / 0.25);
-            const dropY = Math.sin(t * 6) * 6;
-            sweat.style.transform = `translateY(${dropY}px) scale(${easeOutBack(p)})`;
-            sweat.style.opacity = "1";
+            card.style.transform = `scale(${easeOutBack(p)})`;
           }
         }
         else if (type === "ob_three_struggles_stack") {
@@ -4697,35 +4747,53 @@
 
           if (s1) {
             const p = Math.min(1.0, elapsed / 0.25);
-            s1.style.transform = `translateX(${Math.round((1 - p) * -80)}px) scale(${easeOutBack(p)})`;
+            s1.style.transform = `translateY(${Math.round((1 - easeOutBack(p)) * 30)}px) scale(${easeOutBack(p)})`;
             s1.style.opacity = p > 0 ? "1" : "0";
           }
-          if (c1 && elapsed >= 0.3) {
-            const p = Math.min(1.0, (elapsed - 0.3) / 0.15);
+          if (c1 && elapsed >= 0.35) {
+            const p = Math.min(1.0, (elapsed - 0.35) / 0.15);
             c1.style.transform = `scale(${easeOutBack(p)})`;
             c1.style.opacity = "1";
           }
 
-          if (s2 && elapsed >= 1.0) {
-            const p = Math.min(1.0, (elapsed - 1.0) / 0.25);
-            s2.style.transform = `translateX(${Math.round((1 - p) * 80)}px) scale(${easeOutBack(p)})`;
-            s2.style.opacity = "1";
+          if (s2) {
+            if (elapsed >= 1.1) {
+              const p = Math.min(1.0, (elapsed - 1.1) / 0.25);
+              s2.style.transform = `translateY(${Math.round((1 - easeOutBack(p)) * 30)}px) scale(${easeOutBack(p)})`;
+              s2.style.opacity = "1";
+            } else {
+              s2.style.opacity = "0";
+              s2.style.transform = "translateY(30px) scale(0.9)";
+            }
           }
-          if (c2 && elapsed >= 1.3) {
-            const p = Math.min(1.0, (elapsed - 1.3) / 0.15);
-            c2.style.transform = `scale(${easeOutBack(p)})`;
-            c2.style.opacity = "1";
+          if (c2) {
+            if (elapsed >= 1.45) {
+              const p = Math.min(1.0, (elapsed - 1.45) / 0.15);
+              c2.style.transform = `scale(${easeOutBack(p)})`;
+              c2.style.opacity = "1";
+            } else {
+              c2.style.opacity = "0";
+            }
           }
 
-          if (s3 && elapsed >= 2.2) {
-            const p = Math.min(1.0, (elapsed - 2.2) / 0.25);
-            s3.style.transform = `translateX(${Math.round((1 - p) * -80)}px) scale(${easeOutBack(p)})`;
-            s3.style.opacity = "1";
+          if (s3) {
+            if (elapsed >= 2.4) {
+              const p = Math.min(1.0, (elapsed - 2.4) / 0.25);
+              s3.style.transform = `translateY(${Math.round((1 - easeOutBack(p)) * 30)}px) scale(${easeOutBack(p)})`;
+              s3.style.opacity = "1";
+            } else {
+              s3.style.opacity = "0";
+              s3.style.transform = "translateY(30px) scale(0.9)";
+            }
           }
-          if (c3 && elapsed >= 2.5) {
-            const p = Math.min(1.0, (elapsed - 2.5) / 0.15);
-            c3.style.transform = `scale(${easeOutBack(p)})`;
-            c3.style.opacity = "1";
+          if (c3) {
+            if (elapsed >= 2.75) {
+              const p = Math.min(1.0, (elapsed - 2.75) / 0.15);
+              c3.style.transform = `scale(${easeOutBack(p)})`;
+              c3.style.opacity = "1";
+            } else {
+              c3.style.opacity = "0";
+            }
           }
         }
         else if (type === "ob_sunday_timeline_hell") {
@@ -4733,33 +4801,25 @@
           const stamp = document.getElementById("vd1-sunday-stamp");
           if (playhead) {
             const p = Math.min(1.0, elapsed / 2.5);
-            playhead.style.left = `${Math.round(p * 85)}%`;
+            const jitter = Math.sin(t * 35) * 2;
+            playhead.style.left = `calc(${Math.round(p * 85)}% + ${jitter}px)`;
           }
-          if (stamp && elapsed >= 1.2) {
-            const p = Math.min(1.0, (elapsed - 1.2) / 0.2);
+          if (stamp && elapsed >= 1.0) {
+            const p = Math.min(1.0, (elapsed - 1.0) / 0.2);
             stamp.style.transform = `rotate(-6deg) scale(${easeOutBack(p)})`;
             stamp.style.opacity = "1";
           }
         }
         else if (type === "ob_logistic_scale_crash") {
-          const beam = document.getElementById("vd1-scale-beam");
-          const panL = document.getElementById("vd1-pan-left");
-          const panR = document.getElementById("vd1-pan-right");
+          const card = document.getElementById("vd1-scale-card");
           const stamp = document.getElementById("vd1-scale-stamp");
-          const p = Math.min(1.0, elapsed / 0.6);
-          const tilt = easeOutBack(p) * -16;
-          if (beam) {
-            beam.style.transform = `rotate(${tilt}deg)`;
+          if (card) {
+            const p = Math.min(1.0, elapsed / 0.3);
+            card.style.transform = `translateY(${Math.round((1 - easeOutBack(p)) * 30)}px) scale(${easeOutBack(p)})`;
           }
-          if (panL) {
-            panL.style.transform = `translateY(${Math.round(p * 40)}px) rotate(${-tilt}deg)`;
-          }
-          if (panR) {
-            panR.style.transform = `translateY(${Math.round(p * -50)}px) rotate(${-tilt}deg)`;
-          }
-          if (stamp && elapsed >= 0.7) {
-            const sp = Math.min(1.0, (elapsed - 0.7) / 0.2);
-            stamp.style.transform = `rotate(8deg) scale(${easeOutBack(sp)})`;
+          if (stamp && elapsed >= 0.5) {
+            const sp = Math.min(1.0, (elapsed - 0.5) / 0.2);
+            stamp.style.transform = `rotate(-6deg) scale(${easeOutBack(sp)})`;
             stamp.style.opacity = "1";
           }
         }
@@ -4768,47 +4828,79 @@
           const botCard = document.getElementById("vd1-plumb-bottom");
           if (topCard) {
             const p = Math.min(1.0, elapsed / 0.35);
-            topCard.style.transform = `translateX(${Math.round((1 - p) * -100)}px) scale(${easeOutBack(p)})`;
+            topCard.style.transform = `translateX(${Math.round((1 - easeOutBack(p)) * -60)}px) scale(${easeOutBack(p)})`;
             topCard.style.opacity = "1";
           }
-          if (botCard && elapsed >= 1.2) {
-            const p = Math.min(1.0, (elapsed - 1.2) / 0.35);
-            botCard.style.transform = `translateX(${Math.round((1 - p) * 100)}px) scale(${easeOutBack(p)})`;
-            botCard.style.opacity = "1";
+          if (botCard) {
+            if (elapsed >= 1.2) {
+              const p = Math.min(1.0, (elapsed - 1.2) / 0.35);
+              botCard.style.transform = `translateX(${Math.round((1 - easeOutBack(p)) * 60)}px) scale(${easeOutBack(p)})`;
+              botCard.style.opacity = "1";
+            } else {
+              botCard.style.opacity = "0";
+              botCard.style.transform = "translateX(60px) scale(0.9)";
+            }
           }
         }
         else if (type === "ob_ban_ai_clones_stamp") {
+          const c1 = document.getElementById("vd1-cross-clone-1");
+          const c2 = document.getElementById("vd1-cross-clone-2");
+          const c3 = document.getElementById("vd1-cross-clone-3");
           const fill = document.getElementById("vd1-trust-fill");
           const val = document.getElementById("vd1-trust-val");
           const stamp = document.getElementById("vd1-clones-stamp");
+
+          if (c1 && elapsed >= 0.2) {
+            const p = Math.min(1.0, (elapsed - 0.2) / 0.15);
+            c1.style.transform = `scale(${easeOutBack(p)})`;
+            c1.style.opacity = "1";
+          }
+          if (c2) {
+            if (elapsed >= 0.7) {
+              const p = Math.min(1.0, (elapsed - 0.7) / 0.15);
+              c2.style.transform = `scale(${easeOutBack(p)})`;
+              c2.style.opacity = "1";
+            } else {
+              c2.style.opacity = "0";
+            }
+          }
+          if (c3) {
+            if (elapsed >= 1.2) {
+              const p = Math.min(1.0, (elapsed - 1.2) / 0.15);
+              c3.style.transform = `scale(${easeOutBack(p)})`;
+              c3.style.opacity = "1";
+            } else {
+              c3.style.opacity = "0";
+            }
+          }
           if (fill && val) {
-            const p = Math.min(1.0, elapsed / 1.8);
+            const p = Math.min(1.0, elapsed / 1.5);
             const rem = Math.max(0, Math.round((1.0 - p) * 100));
             fill.style.width = `${rem}%`;
             val.textContent = `${rem}%`;
           }
-          if (stamp && elapsed >= 1.8) {
-            const sp = Math.min(1.0, (elapsed - 1.8) / 0.2);
+          if (stamp && elapsed >= 1.5) {
+            const sp = Math.min(1.0, (elapsed - 1.5) / 0.2);
             stamp.style.transform = `rotate(-6deg) scale(${easeOutBack(sp)})`;
             stamp.style.opacity = "1";
           }
         }
         else if (type === "ob_breakthrough_equation") {
           const strike = document.getElementById("vd1-break-strike");
-          const strikeLine = document.getElementById("vd1-strike-line");
           const human = document.getElementById("vd1-break-human");
           if (strike) {
             const p = Math.min(1.0, elapsed / 0.25);
             strike.style.transform = `scale(${easeOutBack(p)})`;
           }
-          if (strikeLine && elapsed >= 0.4) {
-            const p = Math.min(1.0, (elapsed - 0.4) / 0.3);
-            strikeLine.style.width = `${Math.round(p * 100)}%`;
-          }
-          if (human && elapsed >= 1.2) {
-            const p = Math.min(1.0, (elapsed - 1.2) / 0.3);
-            human.style.transform = `scale(${easeOutBack(p)})`;
-            human.style.opacity = "1";
+          if (human) {
+            if (elapsed >= 1.0) {
+              const p = Math.min(1.0, (elapsed - 1.0) / 0.3);
+              human.style.transform = `scale(${easeOutBack(p)})`;
+              human.style.opacity = "1";
+            } else {
+              human.style.opacity = "0";
+              human.style.transform = "scale(0.85)";
+            }
           }
         }
         else if (type === "ob_engine_architecture") {
@@ -4821,33 +4913,66 @@
             const p = Math.min(1.0, elapsed / 0.25);
             n1.style.transform = `scale(${easeOutBack(p)})`;
           }
-          if (a1 && elapsed >= 0.3) {
-            const p = Math.min(1.0, (elapsed - 0.3) / 0.2);
-            a1.style.opacity = String(p);
+          if (a1) {
+            if (elapsed >= 0.35) {
+              const p = Math.min(1.0, (elapsed - 0.35) / 0.2);
+              a1.style.opacity = String(p);
+            } else {
+              a1.style.opacity = "0";
+            }
           }
-          if (n2 && elapsed >= 0.6) {
-            const p = Math.min(1.0, (elapsed - 0.6) / 0.25);
-            n2.style.transform = `scale(${easeOutBack(p)})`;
+          if (n2) {
+            if (elapsed >= 0.7) {
+              const p = Math.min(1.0, (elapsed - 0.7) / 0.25);
+              n2.style.transform = `scale(${easeOutBack(p)})`;
+              n2.style.opacity = "1";
+            } else {
+              n2.style.opacity = "0";
+            }
           }
-          if (a2 && elapsed >= 0.9) {
-            const p = Math.min(1.0, (elapsed - 0.9) / 0.2);
-            a2.style.opacity = String(p);
+          if (a2) {
+            if (elapsed >= 1.0) {
+              const p = Math.min(1.0, (elapsed - 1.0) / 0.2);
+              a2.style.opacity = String(p);
+            } else {
+              a2.style.opacity = "0";
+            }
           }
-          if (n3 && elapsed >= 1.2) {
-            const p = Math.min(1.0, (elapsed - 1.2) / 0.25);
-            n3.style.transform = `scale(${easeOutBack(p)})`;
+          if (n3) {
+            if (elapsed >= 1.3) {
+              const p = Math.min(1.0, (elapsed - 1.3) / 0.25);
+              n3.style.transform = `scale(${easeOutBack(p)})`;
+              n3.style.opacity = "1";
+            } else {
+              n3.style.opacity = "0";
+            }
           }
         }
         else if (type === "ob_meta_live_code") {
+          for (let i = 1; i <= 5; i++) {
+            const line = document.getElementById(`vd1-codeline-${i}`);
+            if (line) {
+              const lineDelay = (i - 1) * 0.35;
+              if (elapsed >= lineDelay) {
+                line.style.opacity = "1";
+              } else {
+                line.style.opacity = "0";
+              }
+            }
+          }
           const cursor = document.getElementById("vd1-code-cursor");
           const stamp = document.getElementById("vd1-meta-stamp");
           if (cursor) {
             cursor.style.opacity = (Math.floor(t * 4) % 2 === 0) ? "1" : "0";
           }
-          if (stamp && elapsed >= 1.5) {
-            const sp = Math.min(1.0, (elapsed - 1.5) / 0.2);
-            stamp.style.transform = `rotate(5deg) scale(${easeOutBack(sp)})`;
-            stamp.style.opacity = "1";
+          if (stamp) {
+            if (elapsed >= 1.8) {
+              const sp = Math.min(1.0, (elapsed - 1.8) / 0.2);
+              stamp.style.transform = `rotate(5deg) scale(${easeOutBack(sp)})`;
+              stamp.style.opacity = "1";
+            } else {
+              stamp.style.opacity = "0";
+            }
           }
         }
         else if (type === "ob_millisecond_audio_sync") {
@@ -4861,17 +4986,51 @@
           for (let i = 0; i < 18; i++) {
             const bar = document.getElementById(`vd1-eq-${i}`);
             if (bar) {
-              const h = 20 + Math.sin(t * 12 + i * 0.7) * 45 + Math.cos(t * 8 + i * 1.1) * 30;
-              bar.style.height = `${Math.max(12, Math.min(110, Math.round(h)))}px`;
+              const h = 24 + Math.abs(Math.sin(t * 18 + i * 0.7)) * 90;
+              bar.style.height = `${Math.round(h)}px`;
             }
           }
         }
         else if (type === "ob_sliding_4_logos_rtl") {
-          const track = document.getElementById("vd1-logos-track");
-          if (track) {
-            const p = elapsed / 3.4;
-            const shiftX = Math.round(p * 500);
-            track.style.transform = `translateX(-${shiftX}px)`;
+          const easeCubicOut = (x) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
+          const slideDur = 0.22;
+          const beats = [54.50, 57.30, 58.05, 58.65];
+
+          for (let i = 0; i < 4; i++) {
+            const card = document.getElementById(`vd1-lcard-${i}`);
+            if (!card) continue;
+
+            const enterAt = beats[i];
+            const exitAt = (i < 3) ? beats[i + 1] : 9999;
+
+            let tx = 1100;
+            let op = 0;
+
+            if (i === 0 && t < enterAt) {
+              const pIn = easeCubicOut(Math.max(0, (t - (enterAt - slideDur)) / slideDur));
+              tx = 1100 * (1 - pIn);
+              op = 1;
+            } else if (t < enterAt) {
+              tx = 1100;
+              op = 0;
+            } else if (t >= enterAt && t < enterAt + slideDur) {
+              const pIn = easeCubicOut((t - enterAt) / slideDur);
+              tx = 1100 * (1 - pIn);
+              op = 1;
+            } else if (t >= enterAt + slideDur && t < exitAt) {
+              tx = 0;
+              op = 1;
+            } else if (t >= exitAt && t < exitAt + slideDur) {
+              const pOut = easeCubicOut((t - exitAt) / slideDur);
+              tx = -1100 * pOut;
+              op = 1;
+            } else {
+              tx = -1100;
+              op = 0;
+            }
+
+            card.style.transform = `translate(calc(-50% + ${Math.round(tx)}px), -50%)`;
+            card.style.opacity = String(op);
           }
         }
         else if (type === "ob_three_pillars_title") {
@@ -4891,23 +5050,43 @@
 
           if (b1) {
             const p = Math.min(1.0, elapsed / 0.25);
-            b1.style.transform = `translateY(${Math.round((1 - p) * 40)}px) scale(${easeOutBack(p)})`;
+            b1.style.transform = `translateY(${Math.round((1 - easeOutBack(p)) * 40)}px) scale(${easeOutBack(p)})`;
           }
-          if (op1 && elapsed >= 0.3) {
-            const p = Math.min(1.0, (elapsed - 0.3) / 0.15);
-            op1.style.opacity = String(p);
+          if (op1) {
+            if (elapsed >= 1.0) {
+              const p = Math.min(1.0, (elapsed - 1.0) / 0.15);
+              op1.style.opacity = String(p);
+            } else {
+              op1.style.opacity = "0";
+            }
           }
-          if (b2 && elapsed >= 1.5) {
-            const p = Math.min(1.0, (elapsed - 1.5) / 0.25);
-            b2.style.transform = `translateY(${Math.round((1 - p) * 40)}px) scale(${easeOutBack(p)})`;
+          if (b2) {
+            if (elapsed >= 1.4) {
+              const p = Math.min(1.0, (elapsed - 1.4) / 0.25);
+              b2.style.transform = `translateY(${Math.round((1 - easeOutBack(p)) * 40)}px) scale(${easeOutBack(p)})`;
+              b2.style.opacity = "1";
+            } else {
+              b2.style.opacity = "0";
+              b2.style.transform = "translateY(40px) scale(0.9)";
+            }
           }
-          if (op2 && elapsed >= 1.8) {
-            const p = Math.min(1.0, (elapsed - 1.8) / 0.15);
-            op2.style.opacity = String(p);
+          if (op2) {
+            if (elapsed >= 2.4) {
+              const p = Math.min(1.0, (elapsed - 2.4) / 0.15);
+              op2.style.opacity = String(p);
+            } else {
+              op2.style.opacity = "0";
+            }
           }
-          if (b3 && elapsed >= 3.2) {
-            const p = Math.min(1.0, (elapsed - 3.2) / 0.3);
-            b3.style.transform = `scale(${easeOutBack(p)})`;
+          if (b3) {
+            if (elapsed >= 2.9) {
+              const p = Math.min(1.0, (elapsed - 2.9) / 0.3);
+              b3.style.transform = `scale(${easeOutBack(p)})`;
+              b3.style.opacity = "1";
+            } else {
+              b3.style.opacity = "0";
+              b3.style.transform = "scale(0.85)";
+            }
           }
         }
         else if (type === "ob_triple_zero_checklist") {
@@ -4916,15 +5095,28 @@
           const z3 = document.getElementById("vd1-tzero-3");
           if (z1) {
             const p = Math.min(1.0, elapsed / 0.25);
-            z1.style.transform = `translateX(${Math.round((1 - p) * -80)}px) scale(${easeOutBack(p)})`;
+            z1.style.transform = `translateX(${Math.round((1 - easeOutBack(p)) * -80)}px) scale(${easeOutBack(p)})`;
+            z1.style.opacity = "1";
           }
-          if (z2 && elapsed >= 1.0) {
-            const p = Math.min(1.0, (elapsed - 1.0) / 0.25);
-            z2.style.transform = `translateX(${Math.round((1 - p) * 80)}px) scale(${easeOutBack(p)})`;
+          if (z2) {
+            if (elapsed >= 0.8) {
+              const p = Math.min(1.0, (elapsed - 0.8) / 0.25);
+              z2.style.transform = `translateX(${Math.round((1 - easeOutBack(p)) * 80)}px) scale(${easeOutBack(p)})`;
+              z2.style.opacity = "1";
+            } else {
+              z2.style.opacity = "0";
+              z2.style.transform = "translateX(80px) scale(0.9)";
+            }
           }
-          if (z3 && elapsed >= 2.2) {
-            const p = Math.min(1.0, (elapsed - 2.2) / 0.25);
-            z3.style.transform = `translateX(${Math.round((1 - p) * -80)}px) scale(${easeOutBack(p)})`;
+          if (z3) {
+            if (elapsed >= 2.0) {
+              const p = Math.min(1.0, (elapsed - 2.0) / 0.25);
+              z3.style.transform = `translateX(${Math.round((1 - easeOutBack(p)) * -80)}px) scale(${easeOutBack(p)})`;
+              z3.style.opacity = "1";
+            } else {
+              z3.style.opacity = "0";
+              z3.style.transform = "translateX(-80px) scale(0.9)";
+            }
           }
         }
         else if (type === "ob_agent404_weekly_doc") {
@@ -4933,16 +5125,45 @@
             const p = Math.min(1.0, elapsed / 0.3);
             card.style.transform = `scale(${easeOutBack(p)})`;
           }
+          for (let i = 0; i < 5; i++) {
+            const dayEl = document.getElementById(`vd1-cal-${i}`);
+            const chkEl = document.getElementById(`vd1-chk-${i}`);
+            const checkDelay = 0.3 + i * 0.45;
+            const isChecked = elapsed >= checkDelay;
+            if (dayEl) {
+              if (isChecked) {
+                dayEl.classList.add("checked");
+              } else {
+                dayEl.classList.remove("checked");
+              }
+            }
+            if (chkEl) {
+              if (isChecked) {
+                chkEl.style.opacity = "1";
+                chkEl.style.transform = "scale(1)";
+              } else {
+                chkEl.style.opacity = "0";
+                chkEl.style.transform = "scale(0.5)";
+              }
+            }
+          }
         }
         else if (type === "ob_market_dominance_chart") {
+          const card = document.getElementById("vd1-mkt-card");
+          if (card) {
+            const p = Math.min(1.0, elapsed / 0.3);
+            card.style.transform = `scale(${easeOutBack(p)})`;
+          }
           for (let i = 1; i <= 5; i++) {
             const bar = document.getElementById(`vd1-bar-${i}`);
             if (bar) {
-              const startDelay = (i - 1) * 0.3;
+              const startDelay = 0.2 + (i - 1) * 0.25;
               if (elapsed >= startDelay) {
-                const p = Math.min(1.0, (elapsed - startDelay) / 0.4);
-                const targetH = 30 + i * 22;
+                const p = Math.min(1.0, (elapsed - startDelay) / 0.35);
+                const targetH = 30 + i * 26;
                 bar.style.height = `${Math.round(p * targetH)}px`;
+              } else {
+                bar.style.height = "0px";
               }
             }
           }
@@ -4955,13 +5176,23 @@
             const p = Math.min(1.0, elapsed / 0.25);
             topC.style.transform = `scale(${easeOutBack(p)})`;
           }
-          if (arr && elapsed >= 0.6) {
-            const p = Math.min(1.0, (elapsed - 0.6) / 0.2);
-            arr.style.opacity = String(p);
+          if (arr) {
+            if (elapsed >= 0.5) {
+              const p = Math.min(1.0, (elapsed - 0.5) / 0.2);
+              arr.style.opacity = String(p);
+            } else {
+              arr.style.opacity = "0";
+            }
           }
-          if (botC && elapsed >= 1.5) {
-            const p = Math.min(1.0, (elapsed - 1.5) / 0.25);
-            botC.style.transform = `scale(${easeOutBack(p)})`;
+          if (botC) {
+            if (elapsed >= 1.0) {
+              const p = Math.min(1.0, (elapsed - 1.0) / 0.25);
+              botC.style.transform = `scale(${easeOutBack(p)})`;
+              botC.style.opacity = "1";
+            } else {
+              botC.style.opacity = "0";
+              botC.style.transform = "scale(0.85)";
+            }
           }
         }
         else if (type === "ob_two_door_cta_final") {
@@ -4970,15 +5201,28 @@
           const door1 = document.getElementById("vd1-door-1");
           const door2 = document.getElementById("vd1-door-2");
           const caret = document.getElementById("vd1-caret");
+          const typedEl = document.getElementById("vd1-typed-keyword");
+          const kw = "CLARTÉ";
 
+          // Frappe de CLARTÉ entre elapsed 0.0 et 0.9s
+          if (typedEl) {
+            const typeP = Math.min(1.0, Math.max(0, elapsed / 0.9));
+            const charCount = Math.max(0, Math.min(kw.length, Math.ceil(typeP * kw.length)));
+            typedEl.textContent = kw.slice(0, charCount);
+          }
           if (caret) {
             caret.style.opacity = (Math.floor(t * 4) % 2 === 0) ? "1" : "0";
           }
 
-          const clickP = Math.min(1.0, elapsed / 1.8);
-          const curX = Math.round(180 + clickP * 480);
-          const curY = Math.round(120 + Math.sin(clickP * Math.PI) * -30);
-          const isClicked = elapsed >= 1.8;
+          // Clic à elapsed >= 1.5s (86.22s)
+          const clickP = Math.min(1.0, elapsed / 1.5);
+          const startX = 200;
+          const startY = 140;
+          const targetX = 720;
+          const targetY = 55;
+          const curX = Math.round(startX + (targetX - startX) * easeInOutCubic(clickP));
+          const curY = Math.round(startY + (targetY - startY) * easeInOutCubic(clickP));
+          const isClicked = elapsed >= 1.5;
 
           if (cursor) {
             cursor.style.transform = `translate(${curX}px, ${curY}px) scale(${isClicked ? 0.88 : 1.0})`;
@@ -4986,30 +5230,38 @@
           if (btn) {
             if (isClicked) {
               btn.classList.add("clicked");
-              btn.style.transform = "translate(4px, 4px)";
             } else {
               btn.classList.remove("clicked");
-              btn.style.transform = "translate(0px, 0px)";
             }
           }
 
+          // Porte 1 : entre à t >= 87.28s (elapsed >= 2.56s)
           if (door1) {
-            if (elapsed >= 2.4 && elapsed < 5.8) {
-              door1.classList.add("active-door");
-              door1.style.transform = "scale(1.04)";
+            if (elapsed >= 2.56) {
+              const p = Math.min(1.0, (elapsed - 2.56) / 0.3);
+              door1.style.opacity = "1";
+              door1.style.transform = `translateY(${Math.round((1 - easeOutBack(p)) * 30)}px) scale(${easeOutBack(p)})`;
+              if (elapsed < 7.32) {
+                door1.classList.add("active-door");
+              } else {
+                door1.classList.remove("active-door");
+              }
             } else {
-              door1.classList.remove("active-door");
-              door1.style.transform = "scale(1.0)";
+              door1.style.opacity = "0";
+              door1.style.transform = "translateY(30px) scale(0.9)";
             }
           }
 
+          // Porte 2 : entre à t >= 92.04s (elapsed >= 7.32s)
           if (door2) {
-            if (elapsed >= 5.8) {
+            if (elapsed >= 7.32) {
+              const p = Math.min(1.0, (elapsed - 7.32) / 0.3);
+              door2.style.opacity = "1";
+              door2.style.transform = `translateY(${Math.round((1 - easeOutBack(p)) * 30)}px) scale(${easeOutBack(p)})`;
               door2.classList.add("active-door");
-              door2.style.transform = "scale(1.04)";
             } else {
-              door2.classList.remove("active-door");
-              door2.style.transform = "scale(1.0)";
+              door2.style.opacity = "0";
+              door2.style.transform = "translateY(30px) scale(0.9)";
             }
           }
         }

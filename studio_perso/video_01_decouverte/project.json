@@ -321,7 +321,7 @@
     "jours.",
     "système",
     "tourner.",
-    "pour:",
+    "tournage:",
     "toi."
   ],
   "phonetic_map": {
@@ -350,7 +350,7 @@
       "start": 0.0,
       "end": 3.76,
       "data": {
-        "avatar": "assets/avatars/question.png"
+        "avatar": "assets/avatars/idea.png"
       },
       "caption_mode": "single_line_top",
       "avatar_mode": "duo_lymphe",
@@ -455,9 +455,11 @@
       "type": "ob_logistic_scale_crash",
       "start": 22.12,
       "end": 26.68,
-      "data": {},
+      "data": {
+        "avatar": "assets/avatars/facepalm.png"
+      },
       "caption_mode": "single_line_top",
-      "avatar_mode": "hidden",
+      "avatar_mode": "duo_lymphe",
       "camera": {
         "target": {
           "zoom": 1.05,
@@ -525,9 +527,11 @@
       "type": "ob_engine_architecture",
       "start": 41.52,
       "end": 44.62,
-      "data": {},
+      "data": {
+        "avatar": "assets/avatars/laptop.png"
+      },
       "caption_mode": "single_line_top",
-      "avatar_mode": "hidden",
+      "avatar_mode": "duo_lymphe",
       "camera": {
         "target": {
           "zoom": 1.03,
@@ -683,7 +687,7 @@
       "id": "scene_20",
       "type": "ob_cta_bridge_solo",
       "start": 79.92,
-      "end": 87.28,
+      "end": 84.72,
       "data": {
         "avatar": "assets/avatars/idea.png"
       },
@@ -701,7 +705,7 @@
     {
       "id": "scene_21",
       "type": "ob_two_door_cta_final",
-      "start": 87.28,
+      "start": 84.72,
       "end": 95.791,
       "data": {},
       "caption_mode": "single_line_top",
@@ -714,6 +718,291 @@
         }
       },
       "title": "Le CTA à Double Porte"
+    }
+  ],
+  "subtitle_overrides": [
+    {
+      "start": 26.68,
+      "end": 27.34,
+      "words": [
+        {
+          "word": "J'AI",
+          "start": 26.68,
+          "end": 26.98
+        },
+        {
+          "word": "COMPRIS",
+          "start": 26.98,
+          "end": 27.2
+        },
+        {
+          "word": "QUE",
+          "start": 27.2,
+          "end": 27.34
+        }
+      ],
+      "keyword": "COMPRIS"
+    },
+    {
+      "start": 27.34,
+      "end": 28.2,
+      "words": [
+        {
+          "word": "LE",
+          "start": 27.34,
+          "end": 27.46
+        },
+        {
+          "word": "PROBLÈME",
+          "start": 27.46,
+          "end": 27.74
+        },
+        {
+          "word": "N'ÉTAIT",
+          "start": 27.74,
+          "end": 27.98
+        },
+        {
+          "word": "PAS",
+          "start": 27.98,
+          "end": 28.2
+        }
+      ],
+      "keyword": "PROBLÈME"
+    },
+    {
+      "start": 28.2,
+      "end": 29.74,
+      "words": [
+        {
+          "word": "MON",
+          "start": 28.2,
+          "end": 28.34
+        },
+        {
+          "word": "CONTENU",
+          "start": 28.34,
+          "end": 28.78
+        },
+        {
+          "word": "MAIS",
+          "start": 29.0,
+          "end": 29.1
+        },
+        {
+          "word": "LA",
+          "start": 29.1,
+          "end": 29.24
+        },
+        {
+          "word": "TUYAUTERIE",
+          "start": 29.24,
+          "end": 29.74
+        }
+      ],
+      "keyword": "TUYAUTERIE"
+    },
+    {
+      "start": 44.62,
+      "end": 45.5,
+      "words": [
+        {
+          "word": "LA",
+          "start": 44.62,
+          "end": 44.8
+        },
+        {
+          "word": "VIDÉO",
+          "start": 44.8,
+          "end": 45.04
+        },
+        {
+          "word": "QUE",
+          "start": 45.04,
+          "end": 45.18
+        },
+        {
+          "word": "TU",
+          "start": 45.18,
+          "end": 45.22
+        },
+        {
+          "word": "REGARDES",
+          "start": 45.22,
+          "end": 45.5
+        }
+      ],
+      "keyword": "VIDÉO"
+    },
+    {
+      "start": 45.5,
+      "end": 46.56,
+      "words": [
+        {
+          "word": "EN",
+          "start": 45.5,
+          "end": 45.58
+        },
+        {
+          "word": "CE",
+          "start": 45.58,
+          "end": 45.7
+        },
+        {
+          "word": "MOMENT",
+          "start": 45.7,
+          "end": 45.92
+        },
+        {
+          "word": "N'A",
+          "start": 45.92,
+          "end": 46.2
+        },
+        {
+          "word": "JAMAIS",
+          "start": 46.2,
+          "end": 46.56
+        }
+      ],
+      "keyword": "JAMAIS"
+    },
+    {
+      "start": 46.56,
+      "end": 47.74,
+      "words": [
+        {
+          "word": "TOUCHÉ",
+          "start": 46.56,
+          "end": 46.9
+        },
+        {
+          "word": "UN",
+          "start": 46.9,
+          "end": 47.02
+        },
+        {
+          "word": "LOGICIEL",
+          "start": 47.02,
+          "end": 47.36
+        },
+        {
+          "word": "DE",
+          "start": 47.36,
+          "end": 47.52
+        },
+        {
+          "word": "MONTAGE",
+          "start": 47.52,
+          "end": 47.74
+        }
+      ],
+      "keyword": "MONTAGE"
+    },
+    {
+      "start": 78.34,
+      "end": 79.92,
+      "words": [
+        {
+          "word": "SANS",
+          "start": 78.34,
+          "end": 78.7
+        },
+        {
+          "word": "JAMAIS",
+          "start": 78.7,
+          "end": 79.16
+        },
+        {
+          "word": "SE",
+          "start": 79.16,
+          "end": 79.3
+        },
+        {
+          "word": "FORCER",
+          "start": 79.3,
+          "end": 79.52
+        },
+        {
+          "word": "À",
+          "start": 79.52,
+          "end": 79.62
+        },
+        {
+          "word": "TOURNER",
+          "start": 79.62,
+          "end": 79.92
+        }
+      ],
+      "keyword": "JAMAIS"
+    },
+    {
+      "start": 87.28,
+      "end": 89.58,
+      "words": [
+        {
+          "word": "OPTION",
+          "start": 87.28,
+          "end": 87.4
+        },
+        {
+          "word": "1",
+          "start": 87.4,
+          "end": 87.94
+        },
+        {
+          "word": ":",
+          "start": 87.94,
+          "end": 88.46
+        },
+        {
+          "word": "RECEVOIR",
+          "start": 88.46,
+          "end": 88.7
+        },
+        {
+          "word": "LE",
+          "start": 88.7,
+          "end": 88.82
+        },
+        {
+          "word": "BLUEPRINT",
+          "start": 88.82,
+          "end": 89.58
+        }
+      ],
+      "keyword": "BLUEPRINT"
+    },
+    {
+      "start": 92.04,
+      "end": 93.34,
+      "words": [
+        {
+          "word": "OPTION",
+          "start": 92.04,
+          "end": 92.1
+        },
+        {
+          "word": "2",
+          "start": 92.1,
+          "end": 92.36
+        },
+        {
+          "word": ":",
+          "start": 92.36,
+          "end": 92.86
+        },
+        {
+          "word": "VOIR",
+          "start": 92.86,
+          "end": 92.98
+        },
+        {
+          "word": "DIRECTEMENT",
+          "start": 92.98,
+          "end": 93.34
+        }
+      ],
+      "keyword": "DIRECTEMENT"
     }
   ]
 }
