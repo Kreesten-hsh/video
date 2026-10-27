@@ -350,7 +350,7 @@
       "start": 0.0,
       "end": 3.76,
       "data": {
-        "avatar": "assets/avatars/idea.png"
+        "avatar": "assets/avatars/question.png"
       },
       "caption_mode": "single_line_top",
       "avatar_mode": "duo_lymphe",
@@ -615,7 +615,7 @@
       "start": 61.82,
       "end": 67.06,
       "data": {
-        "avatar": "assets/avatars/happy.png"
+        "avatar": "assets/avatars/pointing.png"
       },
       "caption_mode": "single_line_top",
       "avatar_mode": "duo_lymphe",
@@ -1003,6 +1003,103 @@
         }
       ],
       "keyword": "DIRECTEMENT"
+    },
+    {
+      "start": 54.5,
+      "end": 55.58,
+      "words": [
+        {
+          "word": "ET",
+          "start": 54.5,
+          "end": 54.86
+        },
+        {
+          "word": "UNE",
+          "start": 54.86,
+          "end": 55.12
+        },
+        {
+          "word": "SEULE",
+          "start": 55.12,
+          "end": 55.32
+        },
+        {
+          "word": "IDÉE",
+          "start": 55.32,
+          "end": 55.58
+        }
+      ],
+      "keyword": "IDÉE"
+    },
+    {
+      "start": 55.58,
+      "end": 56.7,
+      "words": [
+        {
+          "word": "ALIMENTE",
+          "start": 55.58,
+          "end": 56.04
+        },
+        {
+          "word": "SIMULTANÉMENT",
+          "start": 56.04,
+          "end": 56.7
+        }
+      ],
+      "keyword": "SIMULTANÉMENT"
+    },
+    {
+      "start": 56.7,
+      "end": 57.5,
+      "words": [
+        {
+          "word": "LINKEDIN",
+          "start": 56.7,
+          "end": 57.06
+        }
+      ],
+      "keyword": "LINKEDIN"
+    },
+    {
+      "start": 57.5,
+      "end": 58.15,
+      "words": [
+        {
+          "word": "REELS",
+          "start": 57.6,
+          "end": 57.9
+        }
+      ],
+      "keyword": "REELS"
+    },
+    {
+      "start": 58.15,
+      "end": 58.6,
+      "words": [
+        {
+          "word": "SHORTS",
+          "start": 58.22,
+          "end": 58.44
+        }
+      ],
+      "keyword": "SHORTS"
+    },
+    {
+      "start": 58.6,
+      "end": 59.2,
+      "words": [
+        {
+          "word": "ET",
+          "start": 58.44,
+          "end": 58.7
+        },
+        {
+          "word": "TIKTOK",
+          "start": 58.7,
+          "end": 58.98
+        }
+      ],
+      "keyword": "TIKTOK"
     }
   ]
 }

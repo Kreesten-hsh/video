@@ -426,10 +426,14 @@ def mix_sfx(
                 overlay_sfx(neo_whoosh, t_start)
                 overlay_sfx(neo_pop, t_start + 0.10)
             elif sc_type == "ob_sliding_4_logos_rtl":
-                for dt in (0.10, 0.80, 1.60, 2.40):
-                    if t_start + dt < t_end:
-                        overlay_sfx(neo_whoosh, t_start + dt)
-                        overlay_sfx(neo_pop, t_start + dt + 0.08, gain=0.75)
+                # Entrée de la carte source à 54.50s
+                overlay_sfx(neo_whoosh, t_start + 0.05)
+                overlay_sfx(neo_pop, t_start + 0.12, gain=0.75)
+                # Swipes calibrés sur l'audio (LinkedIn 56.70s, Reels 57.60s, Shorts 58.22s, TikTok 58.70s)
+                for t_swipe in (56.70, 57.60, 58.22, 58.70):
+                    if t_swipe < t_end:
+                        overlay_sfx(neo_whoosh, t_swipe - 0.05)
+                        overlay_sfx(neo_pop, t_swipe + 0.02, gain=0.85)
             elif sc_type == "ob_three_pillars_title":
                 overlay_sfx(neo_whoosh, t_start)
                 overlay_sfx(neo_stamp, t_start + 0.06)

@@ -7720,11 +7720,11 @@ html[data-theme="obsidian-flame"], body[data-theme="obsidian-flame"], #video-can
   background: var(--surface-card) !important;
   border: 4px solid var(--ink) !important;
   box-shadow: var(--shadow-brutal) !important;
-  padding: 28px 32px !important;
+  padding: 24px 32px !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  gap: 18px !important;
+  gap: 20px !important;
   box-sizing: border-box !important;
 }
 .vd1-market-title {
@@ -7733,13 +7733,14 @@ html[data-theme="obsidian-flame"], body[data-theme="obsidian-flame"], #video-can
   font-weight: 900 !important;
   color: var(--card-text) !important;
   text-transform: uppercase !important;
+  margin-bottom: 8px !important;
 }
 .vd1-chart-bars {
   display: flex !important;
   align-items: flex-end !important;
   justify-content: space-around !important;
   width: 100% !important;
-  height: 150px !important;
+  height: 180px !important;
   border-bottom: 4px solid var(--ink) !important;
   padding-bottom: 8px !important;
 }

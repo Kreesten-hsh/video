@@ -931,7 +931,7 @@
         return `
           <div class="comp-emotion comp-emotion-morph" id="comp-emotion-morph">
             <div class="emotion-stage">
-              <img src="assets/avatars/happy.png" alt="Avatar" class="emotion-img active morph-avatar" id="morph-avatar" />
+              <img src="assets/avatars/idea.png" alt="Avatar" class="emotion-img active morph-avatar" id="morph-avatar" />
             </div>
             <div class="emotion-label morph-badge" id="morph-badge">ÉMOTION : ENTHOUSIASTE</div>
           </div>
@@ -2578,6 +2578,18 @@
 
       case "ob_sliding_4_logos_rtl":
         const channelsVd1 = [
+          {
+            id: "source",
+            name: "1 CONTENU SOURCE",
+            svg: `<svg width="240" height="240" viewBox="0 0 240 240" fill="none">
+              <rect x="40" y="30" width="160" height="180" rx="8" fill="var(--surface-elevated, #FFFFFF)" stroke="var(--ink, #111111)" stroke-width="8"/>
+              <line x1="70" y1="75" x2="170" y2="75" stroke="var(--flame, #FF5500)" stroke-width="10" stroke-linecap="round"/>
+              <line x1="70" y1="110" x2="170" y2="110" stroke="var(--ink, #111111)" stroke-width="8" stroke-linecap="round"/>
+              <line x1="70" y1="140" x2="140" y2="140" stroke="var(--ink, #111111)" stroke-width="8" stroke-linecap="round"/>
+              <circle cx="160" cy="165" r="26" fill="var(--tile-yellow, #FFE600)" stroke="var(--ink, #111111)" stroke-width="6"/>
+              <path d="M160 148L163 159L174 165L163 171L160 182L157 171L146 165L157 159Z" fill="var(--ink, #111111)"/>
+            </svg>`
+          },
           { id: "linkedin", name: "LINKEDIN", svg: OFFICIAL_LOGOS_240.linkedin },
           { id: "reels", name: "REELS", svg: OFFICIAL_LOGOS_240.reels },
           { id: "shorts", name: "SHORTS", svg: OFFICIAL_LOGOS_240.shorts },
@@ -3314,7 +3326,7 @@
     } else if (type === "emotion_morph") {
       const avatar = document.getElementById("morph-avatar");
       const badge = document.getElementById("morph-badge");
-      let src = "assets/avatars/happy.png";
+      let src = "assets/avatars/idea.png";
       let text = "ÉMOTION : ENTHOUSIASTE";
       let badgeBg = "var(--accent-primary)";
       let badgeColor = "var(--bg-carbon)";
@@ -4993,15 +5005,15 @@
         }
         else if (type === "ob_sliding_4_logos_rtl") {
           const easeCubicOut = (x) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
-          const slideDur = 0.22;
-          const beats = [54.50, 57.30, 58.05, 58.65];
+          const slideDur = 0.16;
+          const beats = [54.50, 56.70, 57.60, 58.22, 58.70];
 
-          for (let i = 0; i < 4; i++) {
+          for (let i = 0; i < 5; i++) {
             const card = document.getElementById(`vd1-lcard-${i}`);
             if (!card) continue;
 
             const enterAt = beats[i];
-            const exitAt = (i < 3) ? beats[i + 1] : 9999;
+            const exitAt = (i < 4) ? beats[i + 1] : 9999;
 
             let tx = 1100;
             let op = 0;
@@ -5160,7 +5172,7 @@
               const startDelay = 0.2 + (i - 1) * 0.25;
               if (elapsed >= startDelay) {
                 const p = Math.min(1.0, (elapsed - startDelay) / 0.35);
-                const targetH = 30 + i * 26;
+                const targetH = 20 + i * 20; // S1=40px, S2=60px, S3=80px, S4=100px, S5=120px (clearance >60px from title)
                 bar.style.height = `${Math.round(p * targetH)}px`;
               } else {
                 bar.style.height = "0px";

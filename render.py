@@ -103,7 +103,7 @@ def setup_render_page(browser, html_abs_uri: str, timeline_path: str = None, ren
 
     # Pré-décodage dynamique de tous les avatars référencés dans le projet et attente des polices locales
     avatars_to_predecode = [
-        'assets/avatars/happy.png', 'assets/avatars/idea.png', 'assets/avatars/laptop.png',
+        'assets/avatars/question.png', 'assets/avatars/idea.png', 'assets/avatars/laptop.png',
         'assets/avatars/mic.png', 'assets/avatars/mini.png', 'assets/avatars/money.png',
         'assets/avatars/pointing.png', 'assets/avatars/prof.png', 'assets/avatars/scissors.png',
         'assets/avatars/shock.png', 'assets/avatars/skeptic.png', 'assets/avatars/stop.png',
