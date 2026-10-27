@@ -11,6 +11,7 @@ exécuté avant tout encodage vidéo pour bloquer immédiatement toute anomalie 
 """
 
 import os
+import re
 import sys
 import json
 import time
@@ -90,7 +91,8 @@ def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_pat
 
             for past_vid in memory.get("videos", []):
                 past_id = past_vid.get("video_id", "")
-                past_num = int(past_id.replace("video_", "")) if "video_" in past_id else 0
+                num_match = re.search(r'\d+', past_id)
+                past_num = int(num_match.group(0)) if num_match else 0
                 if cur_video_num > past_num:
                     past_illustrations = set(past_vid.get("used_illustrations", []))
                     collisions = cur_illustrations.intersection(past_illustrations)

@@ -27,6 +27,7 @@
 ## 2. Resource Affinity (Auto-Routed)
 - **Direction Artistique & Production Vidéo**:
   - `hypit`: Direction artistique, déconstruction de vidéos de référence virales, découpage SVML, ancrage sémantique mot-à-mot, A/B testing de hooks.
+  - `studio-script`: Scriptwriter vidéo formats courts (Shorts, TikTok, Reels, 30–60s), 22 formules de hooks scorées, funnels, making-of, recherche virale et passe humanize.
   - `watch`: Téléchargement et inspection vidéo via yt-dlp, extraction d'images par ffmpeg et transcription WhisperX.
   - `short-form-video`: Règles de rétention, pacing, hooks 0–3s, pattern interrupts toutes les 2.5s, safe-zones 9:16 (TikTok / Reels / Shorts).
   - `caption-animation`: Découpage et synchronisation des sous-titres mot-à-mot (clusters de 3–5 mots), surbrillance et contrastes Néo-brutalistes.

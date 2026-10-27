@@ -570,7 +570,13 @@
     coffee: `<svg width="84" height="84" viewBox="0 0 84 84" fill="none"><path d="M18 28H56V54C56 62 49 68 40 68H34C25 68 18 62 18 54V28Z" fill="#FFFFFF" stroke="#111111" stroke-width="3.5"/><path d="M56 34H64C68 34 72 38 72 42C72 46 68 50 64 50H56" stroke="#111111" stroke-width="3.5"/><line x1="14" y1="74" x2="62" y2="74" stroke="#111111" stroke-width="3.5" stroke-linecap="round"/></svg>`,
     rocket: `<svg width="84" height="84" viewBox="0 0 84 84" fill="none"><path d="M42 12C54 24 58 42 54 58H30C26 42 30 24 42 12Z" fill="#FFFFFF" stroke="#111111" stroke-width="3.5" stroke-linejoin="round"/><circle cx="42" cy="38" r="7" fill="#FEF08A" stroke="#111111" stroke-width="3.5"/><path d="M30 48L18 58H30M54 48L66 58H54" fill="#111111" stroke="#111111" stroke-width="3.5" stroke-linejoin="round"/><path d="M36 58L42 72L48 58" fill="#FEF08A" stroke="#111111" stroke-width="3.5" stroke-linejoin="round"/></svg>`,
     arrowRight: `<svg width="72" height="48" viewBox="0 0 72 48" fill="none"><line x1="6" y1="24" x2="52" y2="24" stroke="#111111" stroke-width="5"/><polygon points="48,10 68,24 48,38" fill="#FF4F18" stroke="#111111" stroke-width="3.5" stroke-linejoin="round"/></svg>`,
-    scissors: `<svg width="84" height="84" viewBox="0 0 84 84" fill="none"><circle cx="24" cy="26" r="10" fill="#FEF08A" stroke="#111111" stroke-width="3.5"/><circle cx="24" cy="58" r="10" fill="#FEF08A" stroke="#111111" stroke-width="3.5"/><line x1="32" y1="32" x2="68" y2="62" stroke="#111111" stroke-width="3.5" stroke-linecap="round"/><line x1="32" y1="52" x2="68" y2="22" stroke="#111111" stroke-width="3.5" stroke-linecap="round"/></svg>`
+    scissors: `<svg width="84" height="84" viewBox="0 0 84 84" fill="none"><circle cx="24" cy="26" r="10" fill="#FEF08A" stroke="#111111" stroke-width="3.5"/><circle cx="24" cy="58" r="10" fill="#FEF08A" stroke="#111111" stroke-width="3.5"/><line x1="32" y1="32" x2="68" y2="62" stroke="#111111" stroke-width="3.5" stroke-linecap="round"/><line x1="32" y1="52" x2="68" y2="22" stroke="#111111" stroke-width="3.5" stroke-linecap="round"/></svg>`,
+    chain: `<svg width="84" height="84" viewBox="0 0 84 84" fill="none"><rect x="18" y="18" width="48" height="24" rx="12" fill="none" stroke="#111111" stroke-width="4"/><rect x="18" y="42" width="48" height="24" rx="12" fill="none" stroke="#FF4F18" stroke-width="4"/></svg>`,
+    padlock: `<svg width="84" height="84" viewBox="0 0 84 84" fill="none"><rect x="22" y="36" width="40" height="36" fill="#FF4F18" stroke="#111111" stroke-width="3.5"/><path d="M30 36V26C30 19.37 35.37 14 42 14C48.63 14 54 19.37 54 26V36" stroke="#111111" stroke-width="4"/><circle cx="42" cy="50" r="4" fill="#111111"/><line x1="42" y1="54" x2="42" y2="62" stroke="#111111" stroke-width="3.5"/></svg>`,
+    scale: `<svg width="84" height="84" viewBox="0 0 84 84" fill="none"><line x1="16" y1="28" x2="68" y2="28" stroke="#111111" stroke-width="4"/><polygon points="42,16 38,28 46,28" fill="#FF4F18" stroke="#111111" stroke-width="2"/><line x1="42" y1="28" x2="42" y2="68" stroke="#111111" stroke-width="4"/><line x1="28" y1="68" x2="56" y2="68" stroke="#111111" stroke-width="4"/><path d="M16 28L10 46H26L20 28" fill="#FEF08A" stroke="#111111" stroke-width="2.5"/><path d="M68 28L62 46H78L72 28" fill="#BFDBFE" stroke="#111111" stroke-width="2.5"/></svg>`,
+    gear: `<svg width="84" height="84" viewBox="0 0 84 84" fill="none"><circle cx="42" cy="42" r="16" fill="#FEF08A" stroke="#111111" stroke-width="3.5"/><circle cx="42" cy="42" r="7" fill="#FFFFFF" stroke="#111111" stroke-width="3"/><path d="M42 14V22M42 62V70M14 42H22M62 42H70M22 22L28 28M56 56L62 62M22 62L28 56M56 28L62 22" stroke="#111111" stroke-width="4" stroke-linecap="square"/></svg>`,
+    terminal: `<svg width="84" height="84" viewBox="0 0 84 84" fill="none"><rect x="12" y="18" width="60" height="48" fill="#111111" stroke="#111111" stroke-width="3.5"/><circle cx="20" cy="26" r="2.5" fill="#FF4F18"/><circle cx="28" cy="26" r="2.5" fill="#FEF08A"/><circle cx="36" cy="26" r="2.5" fill="#A7F3D0"/><path d="M22 42L32 48L22 54" stroke="#A7F3D0" stroke-width="3.5" stroke-linecap="square"/><line x1="38" y1="54" x2="50" y2="54" stroke="#FFFFFF" stroke-width="3.5"/></svg>`,
+    blueprint: `<svg width="84" height="84" viewBox="0 0 84 84" fill="none"><rect x="14" y="14" width="56" height="56" fill="#BFDBFE" stroke="#111111" stroke-width="3.5"/><line x1="14" y1="32" x2="70" y2="32" stroke="#111111" stroke-width="2" stroke-dasharray="4 3"/><line x1="14" y1="50" x2="70" y2="50" stroke="#111111" stroke-width="2" stroke-dasharray="4 3"/><line x1="32" y1="14" x2="32" y2="70" stroke="#111111" stroke-width="2" stroke-dasharray="4 3"/><line x1="50" y1="14" x2="50" y2="70" stroke="#111111" stroke-width="2" stroke-dasharray="4 3"/><rect x="24" y="24" width="36" height="36" fill="#FFFFFF" stroke="#111111" stroke-width="3"/></svg>`
   };
 
   /**
@@ -2221,6 +2227,429 @@
             <svg class="ob-mouse-cursor" id="ob-mouse-cursor" width="90" height="90" viewBox="0 0 90 90" fill="none">
               <path d="M12 10L34 78L47 51L76 38L12 10Z" fill="#FFFFFF" stroke="#111111" stroke-width="4" stroke-linejoin="round"/>
             </svg>
+          </div>
+        `;
+
+      /* ======================================================================
+         VIDÉO 01 — DÉCOUVERTE / MANIFESTE AGENT404 (21 SCÈNES NÉO-BRUTALISTES)
+         ====================================================================== */
+      case "ob_obsession_question":
+        return `
+          <div class="vd1-obsession-stage" id="vd1-obsession-stage">
+            <div class="vd1-obsession-badge" id="vd1-obsession-badge">OBSESSION FONDATRICE</div>
+            <div class="vd1-obsession-card" id="vd1-obsession-card">
+              <div class="vd1-obsession-icon">${NEO_SVG.bolt}</div>
+              <div class="vd1-obsession-title">1 QUESTION CENTRALE</div>
+            </div>
+          </div>
+        `;
+
+      case "ob_locked_arguments_vault":
+        return `
+          <div class="vd1-vault-stage" id="vd1-vault-stage">
+            <div class="vd1-vault-window" id="vd1-vault-window">
+              <div class="vd1-vault-header">
+                <span class="vd1-vault-dot dot-red"></span>
+                <span class="vd1-vault-dot dot-yellow"></span>
+                <span class="vd1-vault-dot dot-green"></span>
+                <span class="vd1-vault-filename">ARGUMENTS_BUSINESS.TXT</span>
+              </div>
+              <div class="vd1-vault-body">
+                <div class="vd1-vault-textbar bar-1"></div>
+                <div class="vd1-vault-textbar bar-2"></div>
+                <div class="vd1-vault-textbar bar-3"></div>
+                <div class="vd1-vault-textbar bar-4"></div>
+              </div>
+              <div class="vd1-chain-left" id="vd1-chain-left">${NEO_SVG.chain}</div>
+              <div class="vd1-chain-right" id="vd1-chain-right">${NEO_SVG.chain}</div>
+              <div class="vd1-vault-lock" id="vd1-vault-lock">
+                ${NEO_SVG.padlock}
+                <div class="vd1-vault-stamp" id="vd1-vault-stamp">ENFERMÉ</div>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_ninety_percent_ignore":
+        return `
+          <div class="vd1-ignore-stage" id="vd1-ignore-stage">
+            <div class="vd1-ignore-card" id="vd1-ignore-card">
+              <div class="vd1-ignore-badge">AUDIENCE FROIDE</div>
+              <div class="vd1-ignore-counter-wrap">
+                <span class="vd1-ignore-counter" id="vd1-ignore-counter">0%</span>
+                <span class="vd1-ignore-sub">DES PROSPECTS</span>
+              </div>
+              <div class="vd1-ignore-gauge-wrap">
+                <div class="vd1-ignore-gauge-bar" id="vd1-ignore-gauge-bar"></div>
+                <div class="vd1-ignore-timer" id="vd1-ignore-timer">3.0 SECONDES</div>
+              </div>
+              <div class="vd1-ignore-stamp" id="vd1-ignore-stamp">SWIPE EN 3 SECONDES !</div>
+            </div>
+          </div>
+        `;
+
+      case "ob_classic_method_sigh":
+        return `
+          <div class="vd1-sigh-stage" id="vd1-sigh-stage">
+            <div class="vd1-sigh-badge" id="vd1-sigh-badge">L'ÉPREUVE DU RÉEL</div>
+            <div class="vd1-sigh-card" id="vd1-sigh-card">
+              <div class="vd1-sigh-title">LA MÉTHODE CLASSIQUE...</div>
+              <div class="vd1-sigh-sub">SORTIR LA CAMÉRA & ESPÉRER</div>
+            </div>
+            <div class="vd1-sigh-sweat" id="vd1-sigh-sweat">${NEO_SVG.sweat}</div>
+          </div>
+        `;
+
+      case "ob_three_struggles_stack":
+        return `
+          <div class="vd1-struggles-stage" id="vd1-struggles-stage">
+            <div class="vd1-struggle-card" id="vd1-struggle-1">
+              <div class="vd1-struggle-icon">${NEO_SVG.camera}</div>
+              <div class="vd1-struggle-text">1. SORTIR LA CAMÉRA</div>
+              <div class="vd1-struggle-cross" id="vd1-cross-1">${NEO_SVG.cross}</div>
+            </div>
+            <div class="vd1-struggle-card" id="vd1-struggle-2">
+              <div class="vd1-struggle-icon">${NEO_SVG.bulb}</div>
+              <div class="vd1-struggle-text">2. RÉGLER L'ÉCLAIRAGE (1H)</div>
+              <div class="vd1-struggle-cross" id="vd1-cross-2">${NEO_SVG.cross}</div>
+            </div>
+            <div class="vd1-struggle-card" id="vd1-struggle-3">
+              <div class="vd1-struggle-icon">${NEO_SVG.timer}</div>
+              <div class="vd1-struggle-text">3. 20 PRISES BAFOUILLÉES</div>
+              <div class="vd1-struggle-cross" id="vd1-cross-3">${NEO_SVG.cross}</div>
+            </div>
+          </div>
+        `;
+
+      case "ob_sunday_timeline_hell":
+        return `
+          <div class="vd1-timeline-stage" id="vd1-timeline-stage">
+            <div class="vd1-timeline-window">
+              <div class="vd1-timeline-bar">
+                <span class="vd1-timeline-dot"></span>
+                <span class="vd1-timeline-title">DIMANCHE_MONTAGE.PRPROJ</span>
+              </div>
+              <div class="vd1-timeline-tracks">
+                <div class="vd1-track-row"><div class="vd1-track-block b1"></div><div class="vd1-track-block b2"></div></div>
+                <div class="vd1-track-row"><div class="vd1-track-block b3"></div><div class="vd1-track-block b4"></div></div>
+                <div class="vd1-track-row"><div class="vd1-track-block b5"></div></div>
+                <div class="vd1-playhead" id="vd1-playhead"></div>
+              </div>
+            </div>
+            <div class="vd1-sunday-stamp" id="vd1-sunday-stamp">
+              DIMANCHE PERDU = RÉSULTAT AMATEUR
+            </div>
+          </div>
+        `;
+
+      case "ob_logistic_scale_crash":
+        return `
+          <div class="vd1-scale-stage" id="vd1-scale-stage">
+            <div class="vd1-scale-beam" id="vd1-scale-beam">
+              <div class="vd1-pan-left" id="vd1-pan-left">
+                <div class="vd1-weight-heavy">
+                  <span class="vd1-weight-title">LOGISTIQUE VIDÉO</span>
+                  <span class="vd1-weight-val">8 HEURES PERDUES</span>
+                </div>
+              </div>
+              <div class="vd1-pan-center">${NEO_SVG.scale}</div>
+              <div class="vd1-pan-right" id="vd1-pan-right">
+                <div class="vd1-weight-light">
+                  <span class="vd1-weight-title">TON BUSINESS</span>
+                  <span class="vd1-weight-val">À L'ARRÊT</span>
+                </div>
+              </div>
+            </div>
+            <div class="vd1-scale-stamp" id="vd1-scale-stamp">GOUFFRE INTENABLE</div>
+          </div>
+        `;
+
+      case "ob_plumbing_vs_content":
+        return `
+          <div class="vd1-plumbing-stage" id="vd1-plumbing-stage">
+            <div class="vd1-plumb-card card-content" id="vd1-plumb-top">
+              <div class="vd1-plumb-header">
+                <span class="vd1-plumb-badge badge-green">LE CONSTAT RÉEL</span>
+                <div class="vd1-plumb-icon">${NEO_SVG.check}</div>
+              </div>
+              <div class="vd1-plumb-text">TON CONTENU : EXCELLENT</div>
+            </div>
+            <div class="vd1-plumb-card card-plumbing" id="vd1-plumb-bottom">
+              <div class="vd1-plumb-header">
+                <span class="vd1-plumb-badge badge-flame">LE VRAI PROBLÈME</span>
+                <div class="vd1-plumb-icon">${NEO_SVG.cross}</div>
+              </div>
+              <div class="vd1-plumb-text text-flame">LA TUYAUTERIE : CASSÉE</div>
+            </div>
+          </div>
+        `;
+
+      case "ob_ban_ai_clones_stamp":
+        return `
+          <div class="vd1-clones-stage" id="vd1-clones-stage">
+            <div class="vd1-clones-header">
+              <div class="vd1-clones-badge">FAUX AVATARS CLONÉS PAR IA</div>
+            </div>
+            <div class="vd1-clones-grid">
+              <div class="vd1-clone-box" id="vd1-clone-1">
+                <div class="vd1-clone-avatar">${NEO_SVG.robot}</div>
+                <div class="vd1-clone-label">CLONE_A</div>
+              </div>
+              <div class="vd1-clone-box" id="vd1-clone-2">
+                <div class="vd1-clone-avatar">${NEO_SVG.robot}</div>
+                <div class="vd1-clone-label">CLONE_B</div>
+              </div>
+              <div class="vd1-clone-box" id="vd1-clone-3">
+                <div class="vd1-clone-avatar">${NEO_SVG.robot}</div>
+                <div class="vd1-clone-label">CLONE_C</div>
+              </div>
+            </div>
+            <div class="vd1-trust-wrap">
+              <div class="vd1-trust-label">CONFIANCE PROSPECT :</div>
+              <div class="vd1-trust-bar-bg"><div class="vd1-trust-bar-fill" id="vd1-trust-fill"></div></div>
+              <div class="vd1-trust-val" id="vd1-trust-val">100%</div>
+            </div>
+            <div class="vd1-clones-stamp" id="vd1-clones-stamp">
+              CLONES IA = CRÉDIBILITÉ DÉTRUITE
+            </div>
+          </div>
+        `;
+
+      case "ob_breakthrough_equation":
+        return `
+          <div class="vd1-breakthrough-stage" id="vd1-breakthrough-stage">
+            <div class="vd1-breakthrough-badge" id="vd1-break-badge">LE DÉCLIC ARCHITECTURAL</div>
+            <div class="vd1-breakthrough-box" id="vd1-break-box">
+              <div class="vd1-break-row row-strike" id="vd1-break-strike">
+                <span class="vd1-break-tag">0% TOURNAGE</span>
+                <span class="vd1-strike-line" id="vd1-strike-line"></span>
+              </div>
+              <div class="vd1-break-plus">+</div>
+              <div class="vd1-break-row row-human" id="vd1-break-human">
+                <span class="vd1-break-tag-human">100% INCARNATION HUMAINE</span>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_engine_architecture":
+        return `
+          <div class="vd1-engine-stage" id="vd1-engine-stage">
+            <div class="vd1-engine-window">
+              <div class="vd1-engine-header">
+                <span class="vd1-engine-dot"></span>
+                <span class="vd1-engine-name">AGENT404_ENGINE.PY</span>
+              </div>
+              <div class="vd1-engine-flow">
+                <div class="vd1-engine-node node-1" id="vd1-node-1">
+                  <div class="vd1-node-icon">${NEO_SVG.mic}</div>
+                  <div class="vd1-node-text">AUDIO.WAV</div>
+                </div>
+                <div class="vd1-engine-arrow" id="vd1-arrow-1">${NEO_SVG.arrowRight}</div>
+                <div class="vd1-engine-node node-2" id="vd1-node-2">
+                  <div class="vd1-node-icon">${NEO_SVG.gear}</div>
+                  <div class="vd1-node-text">VIDEO.JS</div>
+                </div>
+                <div class="vd1-engine-arrow" id="vd1-arrow-2">${NEO_SVG.arrowRight}</div>
+                <div class="vd1-engine-node node-3" id="vd1-node-3">
+                  <div class="vd1-node-icon">${NEO_SVG.bolt}</div>
+                  <div class="vd1-node-text">RENDER.MP4</div>
+                </div>
+              </div>
+              <div class="vd1-engine-footer">
+                <div class="vd1-engine-badge">MOTEUR PROGRAMMATIQUE DÉTERMINISTE</div>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_meta_live_code":
+        return `
+          <div class="vd1-meta-stage" id="vd1-meta-stage">
+            <div class="vd1-meta-window">
+              <div class="vd1-meta-header">
+                <span class="vd1-meta-dot"></span>
+                <span class="vd1-meta-title">build_scene_12.js</span>
+              </div>
+              <div class="vd1-meta-code" id="vd1-meta-code">
+                <div class="code-line"><span class="kwd">const</span> video = <span class="kwd">new</span> VideoEngine({</div>
+                <div class="code-line indent">logiciel_montage: <span class="num">0</span>,</div>
+                <div class="code-line indent">compilation_code: <span class="str">"100%"</span>,</div>
+                <div class="code-line indent">rendu_deterministe: <span class="bool">true</span></div>
+                <div class="code-line">});<span class="cursor" id="vd1-code-cursor">|</span></div>
+              </div>
+            </div>
+            <div class="vd1-meta-stamp" id="vd1-meta-stamp">
+              ZÉRO LOGICIEL DE MONTAGE
+            </div>
+          </div>
+        `;
+
+      case "ob_millisecond_audio_sync":
+        return `
+          <div class="vd1-sync-stage" id="vd1-sync-stage">
+            <div class="vd1-sync-card">
+              <div class="vd1-sync-header">
+                <span class="vd1-sync-badge">CALIBRATION VOCALE</span>
+                <span class="vd1-sync-fps">60 FPS DÉTERMINISTE</span>
+              </div>
+              <div class="vd1-sync-chrono" id="vd1-sync-chrono">00:43.500</div>
+              <div class="vd1-sync-eq-wrap" id="vd1-sync-eq-wrap">
+                ${Array.from({length: 18}).map((_, i) => `<div class="vd1-eq-bar" id="vd1-eq-${i}"></div>`).join("")}
+              </div>
+              <div class="vd1-sync-footer">SYNCHRONISATION AU MILLIÈME DE SECONDE</div>
+            </div>
+          </div>
+        `;
+
+      case "ob_sliding_4_logos_rtl":
+        return `
+          <div class="vd1-logos-stage" id="vd1-logos-stage">
+            <div class="vd1-logos-badge">1 SEULE IDÉE = 4 CANAUX</div>
+            <div class="vd1-logos-viewport">
+              <div class="vd1-logos-track" id="vd1-logos-track">
+                <div class="vd1-logo-card card-li" id="vd1-lcard-1">
+                  <div class="vd1-logo-svg">${OFFICIAL_LOGOS_240.linkedin}</div>
+                  <div class="vd1-logo-name">LINKEDIN</div>
+                </div>
+                <div class="vd1-logo-card card-reels" id="vd1-lcard-2">
+                  <div class="vd1-logo-svg">${OFFICIAL_LOGOS_240.reels}</div>
+                  <div class="vd1-logo-name">REELS</div>
+                </div>
+                <div class="vd1-logo-card card-shorts" id="vd1-lcard-3">
+                  <div class="vd1-logo-svg">${OFFICIAL_LOGOS_240.shorts}</div>
+                  <div class="vd1-logo-name">SHORTS</div>
+                </div>
+                <div class="vd1-logo-card card-tiktok" id="vd1-lcard-4">
+                  <div class="vd1-logo-svg">${OFFICIAL_LOGOS_240.tiktok}</div>
+                  <div class="vd1-logo-name">TIKTOK</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_three_pillars_title":
+        return `
+          <div class="vd1-pillars-stage" id="vd1-pillars-stage">
+            <div class="vd1-pillars-badge">LA FORMULE CLÉ</div>
+            <div class="vd1-pillars-giant" id="vd1-pillars-giant">LES 3 PILIERS</div>
+            <div class="vd1-pillars-sub">DU SYSTÈME AGENT404</div>
+          </div>
+        `;
+
+      case "ob_formula_cascade_equation":
+        return `
+          <div class="vd1-formula-stage" id="vd1-formula-stage">
+            <div class="vd1-formula-block block-1" id="vd1-fblock-1">
+              <span class="vd1-f-num">PILIER 1</span>
+              <span class="vd1-f-text">NOTE VOCALE (2 MIN)</span>
+            </div>
+            <div class="vd1-formula-op" id="vd1-fop-plus">+</div>
+            <div class="vd1-formula-block block-2" id="vd1-fblock-2">
+              <span class="vd1-f-num">PILIER 2</span>
+              <span class="vd1-f-text">MOTEUR PROGRAMMATIQUE</span>
+            </div>
+            <div class="vd1-formula-op" id="vd1-fop-eq">=</div>
+            <div class="vd1-formula-block block-3" id="vd1-fblock-3">
+              <span class="vd1-f-num">PILIER 3</span>
+              <span class="vd1-f-text">8 VIDÉOS / MOIS PRÊTES</span>
+            </div>
+          </div>
+        `;
+
+      case "ob_triple_zero_checklist":
+        return `
+          <div class="vd1-triple-zero-stage" id="vd1-triple-zero-stage">
+            <div class="vd1-tzero-card" id="vd1-tzero-1">
+              <div class="vd1-tzero-badge">0</div>
+              <div class="vd1-tzero-text">ZÉRO STUDIO</div>
+            </div>
+            <div class="vd1-tzero-card" id="vd1-tzero-2">
+              <div class="vd1-tzero-badge">0</div>
+              <div class="vd1-tzero-text">ZÉRO CAMÉRA</div>
+            </div>
+            <div class="vd1-tzero-card" id="vd1-tzero-3">
+              <div class="vd1-tzero-badge">0</div>
+              <div class="vd1-tzero-text">ZÉRO MONTEUR (3J DE BRIEF)</div>
+            </div>
+          </div>
+        `;
+
+      case "ob_agent404_weekly_doc":
+        return `
+          <div class="vd1-doc-stage" id="vd1-doc-stage">
+            <div class="vd1-doc-badge" id="vd1-doc-badge">DOCUMENTATION ACTIVE</div>
+            <div class="vd1-doc-card" id="vd1-doc-card">
+              <div class="vd1-doc-title">COULISSES AGENT404</div>
+              <div class="vd1-doc-calendar">
+                <div class="vd1-cal-day active"><span>LUN</span><span class="check">✓</span></div>
+                <div class="vd1-cal-day active"><span>MAR</span><span class="check">✓</span></div>
+                <div class="vd1-cal-day active"><span>MER</span><span class="check">✓</span></div>
+                <div class="vd1-cal-day active"><span>JEU</span><span class="check">✓</span></div>
+                <div class="vd1-cal-day active"><span>VEN</span><span class="check">✓</span></div>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_market_dominance_chart":
+        return `
+          <div class="vd1-market-stage" id="vd1-market-stage">
+            <div class="vd1-market-badge" id="vd1-mkt-badge">DOMINATION MARCHÉ</div>
+            <div class="vd1-market-card" id="vd1-mkt-card">
+              <div class="vd1-market-title">AUTORITÉ VIDÉO CONTINUE</div>
+              <div class="vd1-chart-bars">
+                <div class="vd1-cbar-col"><div class="vd1-cbar" id="vd1-bar-1"></div><span>S1</span></div>
+                <div class="vd1-cbar-col"><div class="vd1-cbar" id="vd1-bar-2"></div><span>S2</span></div>
+                <div class="vd1-cbar-col"><div class="vd1-cbar" id="vd1-bar-3"></div><span>S3</span></div>
+                <div class="vd1-cbar-col"><div class="vd1-cbar" id="vd1-bar-4"></div><span>S4</span></div>
+                <div class="vd1-cbar-col"><div class="vd1-cbar" id="vd1-bar-5"></div><span>S5</span></div>
+              </div>
+            </div>
+          </div>
+        `;
+
+      case "ob_cta_bridge_solo":
+        return `
+          <div class="vd1-bridge-stage" id="vd1-bridge-stage">
+            <div class="vd1-bridge-card card-write" id="vd1-br-top">
+              <div class="vd1-br-icon">${NEO_SVG.doc}</div>
+              <div class="vd1-br-text">TU PUBLIES DÉJÀ À L'ÉCRIT</div>
+            </div>
+            <div class="vd1-bridge-arrow" id="vd1-br-arrow">${NEO_SVG.arrowRight}</div>
+            <div class="vd1-bridge-card card-video" id="vd1-br-bot">
+              <div class="vd1-br-icon">${NEO_SVG.clapper}</div>
+              <div class="vd1-br-text">PASSE AU FORMAT VIDÉO</div>
+            </div>
+          </div>
+        `;
+
+      case "ob_two_door_cta_final":
+        return `
+          <div class="vd1-doors-stage" id="vd1-doors-stage">
+            <div class="vd1-comment-box" id="vd1-comment-box">
+              <div class="vd1-comment-prefix">COMMENTE :</div>
+              <div class="vd1-comment-input">
+                <span id="vd1-typed-keyword">CLARTÉ</span><span class="vd1-caret" id="vd1-caret">|</span>
+              </div>
+              <div class="vd1-comment-btn" id="vd1-post-btn">POSTER</div>
+              <svg class="vd1-mouse-cursor" id="vd1-cursor" width="80" height="80" viewBox="0 0 90 90" fill="none">
+                <path d="M12 10L34 78L47 51L76 38L12 10Z" fill="#FFFFFF" stroke="#111111" stroke-width="4" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="vd1-doors-container">
+              <div class="vd1-door door-1" id="vd1-door-1">
+                <div class="vd1-door-badge badge-yellow">PORTE 1 : BLUEPRINT GRATUIT</div>
+                <div class="vd1-door-title">DÉCOUVRIR LE MOTEUR</div>
+                <div class="vd1-door-sub">Le code source & les coulisses techniques</div>
+              </div>
+              <div class="vd1-door door-2" id="vd1-door-2">
+                <div class="vd1-door-badge badge-mint">PORTE 2 : OFFRE STUDIO</div>
+                <div class="vd1-door-title">ON PRODUIT TES VIDÉOS</div>
+                <div class="vd1-door-sub">8 vidéos par mois clé en main prêtes à poster</div>
+              </div>
+            </div>
           </div>
         `;
 
@@ -4172,6 +4601,415 @@
               ctaBtn.classList.remove("clicked");
               ctaBtn.style.transform = "translate(0px, 0px)";
               ctaBtn.style.boxShadow = "10px 10px 0px #111111";
+            }
+          }
+        }
+        /* ======================================================================
+           ANIMATIONS DÉTERMINISTES : VIDÉO 01 — DÉCOUVERTE / MANIFESTE
+           ====================================================================== */
+        else if (type === "ob_obsession_question") {
+          const badge = document.getElementById("vd1-obsession-badge");
+          const card = document.getElementById("vd1-obsession-card");
+          if (badge) {
+            const p = Math.min(1.0, elapsed / 0.25);
+            badge.style.transform = `scale(${easeOutBack(p)})`;
+          }
+          if (card) {
+            const p = Math.min(1.0, Math.max(0, (elapsed - 0.15) / 0.3));
+            card.style.transform = `scale(${easeOutBack(p)})`;
+          }
+        }
+        else if (type === "ob_locked_arguments_vault") {
+          const win = document.getElementById("vd1-vault-window");
+          const chainL = document.getElementById("vd1-chain-left");
+          const chainR = document.getElementById("vd1-chain-right");
+          const lock = document.getElementById("vd1-vault-lock");
+          const stamp = document.getElementById("vd1-vault-stamp");
+          if (win) {
+            const p = Math.min(1.0, elapsed / 0.3);
+            win.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+          }
+          if (chainL) {
+            const p = Math.min(1.0, Math.max(0, (elapsed - 0.2) / 0.25));
+            chainL.style.transform = `rotate(-25deg) scale(${easeOutBack(p)})`;
+          }
+          if (chainR) {
+            const p = Math.min(1.0, Math.max(0, (elapsed - 0.25) / 0.25));
+            chainR.style.transform = `rotate(25deg) scale(${easeOutBack(p)})`;
+          }
+          if (lock) {
+            const p = Math.min(1.0, Math.max(0, (elapsed - 0.35) / 0.25));
+            lock.style.transform = `scale(${easeOutBack(p)})`;
+          }
+          if (stamp && elapsed >= 0.5) {
+            const p = Math.min(1.0, (elapsed - 0.5) / 0.2);
+            stamp.style.transform = `rotate(-12deg) scale(${easeOutBack(p)})`;
+            stamp.style.opacity = "1";
+          }
+        }
+        else if (type === "ob_ninety_percent_ignore") {
+          const counter = document.getElementById("vd1-ignore-counter");
+          const gaugeBar = document.getElementById("vd1-ignore-gauge-bar");
+          const timer = document.getElementById("vd1-ignore-timer");
+          const stamp = document.getElementById("vd1-ignore-stamp");
+          if (counter) {
+            const p = Math.min(1.0, elapsed / 1.5);
+            const val = Math.round(p * 90);
+            counter.textContent = `${val}%`;
+          }
+          if (gaugeBar) {
+            const p = Math.min(1.0, elapsed / 2.0);
+            const remaining = (1.0 - p) * 100;
+            gaugeBar.style.width = `${remaining}%`;
+          }
+          if (timer) {
+            const p = Math.min(1.0, elapsed / 2.0);
+            const sec = (3.0 * (1.0 - p)).toFixed(1);
+            timer.textContent = `${sec} SECONDES`;
+          }
+          if (stamp && elapsed >= 1.8) {
+            const p = Math.min(1.0, (elapsed - 1.8) / 0.2);
+            stamp.style.transform = `rotate(-8deg) scale(${easeOutBack(p)})`;
+            stamp.style.opacity = "1";
+          }
+        }
+        else if (type === "ob_classic_method_sigh") {
+          const sweat = document.getElementById("vd1-sigh-sweat");
+          const card = document.getElementById("vd1-sigh-card");
+          if (card) {
+            const p = Math.min(1.0, elapsed / 0.3);
+            card.style.transform = `translateY(${spring.ty}px) scale(${spring.scale})`;
+          }
+          if (sweat && elapsed >= 0.4) {
+            const p = Math.min(1.0, (elapsed - 0.4) / 0.25);
+            const dropY = Math.sin(t * 6) * 6;
+            sweat.style.transform = `translateY(${dropY}px) scale(${easeOutBack(p)})`;
+            sweat.style.opacity = "1";
+          }
+        }
+        else if (type === "ob_three_struggles_stack") {
+          const s1 = document.getElementById("vd1-struggle-1");
+          const s2 = document.getElementById("vd1-struggle-2");
+          const s3 = document.getElementById("vd1-struggle-3");
+          const c1 = document.getElementById("vd1-cross-1");
+          const c2 = document.getElementById("vd1-cross-2");
+          const c3 = document.getElementById("vd1-cross-3");
+
+          if (s1) {
+            const p = Math.min(1.0, elapsed / 0.25);
+            s1.style.transform = `translateX(${Math.round((1 - p) * -80)}px) scale(${easeOutBack(p)})`;
+            s1.style.opacity = p > 0 ? "1" : "0";
+          }
+          if (c1 && elapsed >= 0.3) {
+            const p = Math.min(1.0, (elapsed - 0.3) / 0.15);
+            c1.style.transform = `scale(${easeOutBack(p)})`;
+            c1.style.opacity = "1";
+          }
+
+          if (s2 && elapsed >= 1.0) {
+            const p = Math.min(1.0, (elapsed - 1.0) / 0.25);
+            s2.style.transform = `translateX(${Math.round((1 - p) * 80)}px) scale(${easeOutBack(p)})`;
+            s2.style.opacity = "1";
+          }
+          if (c2 && elapsed >= 1.3) {
+            const p = Math.min(1.0, (elapsed - 1.3) / 0.15);
+            c2.style.transform = `scale(${easeOutBack(p)})`;
+            c2.style.opacity = "1";
+          }
+
+          if (s3 && elapsed >= 2.2) {
+            const p = Math.min(1.0, (elapsed - 2.2) / 0.25);
+            s3.style.transform = `translateX(${Math.round((1 - p) * -80)}px) scale(${easeOutBack(p)})`;
+            s3.style.opacity = "1";
+          }
+          if (c3 && elapsed >= 2.5) {
+            const p = Math.min(1.0, (elapsed - 2.5) / 0.15);
+            c3.style.transform = `scale(${easeOutBack(p)})`;
+            c3.style.opacity = "1";
+          }
+        }
+        else if (type === "ob_sunday_timeline_hell") {
+          const playhead = document.getElementById("vd1-playhead");
+          const stamp = document.getElementById("vd1-sunday-stamp");
+          if (playhead) {
+            const p = Math.min(1.0, elapsed / 2.5);
+            playhead.style.left = `${Math.round(p * 85)}%`;
+          }
+          if (stamp && elapsed >= 1.2) {
+            const p = Math.min(1.0, (elapsed - 1.2) / 0.2);
+            stamp.style.transform = `rotate(-6deg) scale(${easeOutBack(p)})`;
+            stamp.style.opacity = "1";
+          }
+        }
+        else if (type === "ob_logistic_scale_crash") {
+          const beam = document.getElementById("vd1-scale-beam");
+          const panL = document.getElementById("vd1-pan-left");
+          const panR = document.getElementById("vd1-pan-right");
+          const stamp = document.getElementById("vd1-scale-stamp");
+          const p = Math.min(1.0, elapsed / 0.6);
+          const tilt = easeOutBack(p) * -16;
+          if (beam) {
+            beam.style.transform = `rotate(${tilt}deg)`;
+          }
+          if (panL) {
+            panL.style.transform = `translateY(${Math.round(p * 40)}px) rotate(${-tilt}deg)`;
+          }
+          if (panR) {
+            panR.style.transform = `translateY(${Math.round(p * -50)}px) rotate(${-tilt}deg)`;
+          }
+          if (stamp && elapsed >= 0.7) {
+            const sp = Math.min(1.0, (elapsed - 0.7) / 0.2);
+            stamp.style.transform = `rotate(8deg) scale(${easeOutBack(sp)})`;
+            stamp.style.opacity = "1";
+          }
+        }
+        else if (type === "ob_plumbing_vs_content") {
+          const topCard = document.getElementById("vd1-plumb-top");
+          const botCard = document.getElementById("vd1-plumb-bottom");
+          if (topCard) {
+            const p = Math.min(1.0, elapsed / 0.35);
+            topCard.style.transform = `translateX(${Math.round((1 - p) * -100)}px) scale(${easeOutBack(p)})`;
+            topCard.style.opacity = "1";
+          }
+          if (botCard && elapsed >= 1.2) {
+            const p = Math.min(1.0, (elapsed - 1.2) / 0.35);
+            botCard.style.transform = `translateX(${Math.round((1 - p) * 100)}px) scale(${easeOutBack(p)})`;
+            botCard.style.opacity = "1";
+          }
+        }
+        else if (type === "ob_ban_ai_clones_stamp") {
+          const fill = document.getElementById("vd1-trust-fill");
+          const val = document.getElementById("vd1-trust-val");
+          const stamp = document.getElementById("vd1-clones-stamp");
+          if (fill && val) {
+            const p = Math.min(1.0, elapsed / 1.8);
+            const rem = Math.max(0, Math.round((1.0 - p) * 100));
+            fill.style.width = `${rem}%`;
+            val.textContent = `${rem}%`;
+          }
+          if (stamp && elapsed >= 1.8) {
+            const sp = Math.min(1.0, (elapsed - 1.8) / 0.2);
+            stamp.style.transform = `rotate(-6deg) scale(${easeOutBack(sp)})`;
+            stamp.style.opacity = "1";
+          }
+        }
+        else if (type === "ob_breakthrough_equation") {
+          const strike = document.getElementById("vd1-break-strike");
+          const strikeLine = document.getElementById("vd1-strike-line");
+          const human = document.getElementById("vd1-break-human");
+          if (strike) {
+            const p = Math.min(1.0, elapsed / 0.25);
+            strike.style.transform = `scale(${easeOutBack(p)})`;
+          }
+          if (strikeLine && elapsed >= 0.4) {
+            const p = Math.min(1.0, (elapsed - 0.4) / 0.3);
+            strikeLine.style.width = `${Math.round(p * 100)}%`;
+          }
+          if (human && elapsed >= 1.2) {
+            const p = Math.min(1.0, (elapsed - 1.2) / 0.3);
+            human.style.transform = `scale(${easeOutBack(p)})`;
+            human.style.opacity = "1";
+          }
+        }
+        else if (type === "ob_engine_architecture") {
+          const n1 = document.getElementById("vd1-node-1");
+          const n2 = document.getElementById("vd1-node-2");
+          const n3 = document.getElementById("vd1-node-3");
+          const a1 = document.getElementById("vd1-arrow-1");
+          const a2 = document.getElementById("vd1-arrow-2");
+          if (n1) {
+            const p = Math.min(1.0, elapsed / 0.25);
+            n1.style.transform = `scale(${easeOutBack(p)})`;
+          }
+          if (a1 && elapsed >= 0.3) {
+            const p = Math.min(1.0, (elapsed - 0.3) / 0.2);
+            a1.style.opacity = String(p);
+          }
+          if (n2 && elapsed >= 0.6) {
+            const p = Math.min(1.0, (elapsed - 0.6) / 0.25);
+            n2.style.transform = `scale(${easeOutBack(p)})`;
+          }
+          if (a2 && elapsed >= 0.9) {
+            const p = Math.min(1.0, (elapsed - 0.9) / 0.2);
+            a2.style.opacity = String(p);
+          }
+          if (n3 && elapsed >= 1.2) {
+            const p = Math.min(1.0, (elapsed - 1.2) / 0.25);
+            n3.style.transform = `scale(${easeOutBack(p)})`;
+          }
+        }
+        else if (type === "ob_meta_live_code") {
+          const cursor = document.getElementById("vd1-code-cursor");
+          const stamp = document.getElementById("vd1-meta-stamp");
+          if (cursor) {
+            cursor.style.opacity = (Math.floor(t * 4) % 2 === 0) ? "1" : "0";
+          }
+          if (stamp && elapsed >= 1.5) {
+            const sp = Math.min(1.0, (elapsed - 1.5) / 0.2);
+            stamp.style.transform = `rotate(5deg) scale(${easeOutBack(sp)})`;
+            stamp.style.opacity = "1";
+          }
+        }
+        else if (type === "ob_millisecond_audio_sync") {
+          const chrono = document.getElementById("vd1-sync-chrono");
+          if (chrono) {
+            const ms = Math.floor((t % 1) * 1000);
+            const s = Math.floor(t % 60);
+            const m = Math.floor(t / 60);
+            chrono.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}.${String(ms).padStart(3, '0')}`;
+          }
+          for (let i = 0; i < 18; i++) {
+            const bar = document.getElementById(`vd1-eq-${i}`);
+            if (bar) {
+              const h = 20 + Math.sin(t * 12 + i * 0.7) * 45 + Math.cos(t * 8 + i * 1.1) * 30;
+              bar.style.height = `${Math.max(12, Math.min(110, Math.round(h)))}px`;
+            }
+          }
+        }
+        else if (type === "ob_sliding_4_logos_rtl") {
+          const track = document.getElementById("vd1-logos-track");
+          if (track) {
+            const p = elapsed / 3.4;
+            const shiftX = Math.round(p * 500);
+            track.style.transform = `translateX(-${shiftX}px)`;
+          }
+        }
+        else if (type === "ob_three_pillars_title") {
+          const giant = document.getElementById("vd1-pillars-giant");
+          if (giant) {
+            const p = Math.min(1.0, elapsed / 0.3);
+            const scale = 1.0 + Math.min(0.08, elapsed * 0.04);
+            giant.style.transform = `scale(${scale * easeOutBack(p)})`;
+          }
+        }
+        else if (type === "ob_formula_cascade_equation") {
+          const b1 = document.getElementById("vd1-fblock-1");
+          const b2 = document.getElementById("vd1-fblock-2");
+          const b3 = document.getElementById("vd1-fblock-3");
+          const op1 = document.getElementById("vd1-fop-plus");
+          const op2 = document.getElementById("vd1-fop-eq");
+
+          if (b1) {
+            const p = Math.min(1.0, elapsed / 0.25);
+            b1.style.transform = `translateY(${Math.round((1 - p) * 40)}px) scale(${easeOutBack(p)})`;
+          }
+          if (op1 && elapsed >= 0.3) {
+            const p = Math.min(1.0, (elapsed - 0.3) / 0.15);
+            op1.style.opacity = String(p);
+          }
+          if (b2 && elapsed >= 1.5) {
+            const p = Math.min(1.0, (elapsed - 1.5) / 0.25);
+            b2.style.transform = `translateY(${Math.round((1 - p) * 40)}px) scale(${easeOutBack(p)})`;
+          }
+          if (op2 && elapsed >= 1.8) {
+            const p = Math.min(1.0, (elapsed - 1.8) / 0.15);
+            op2.style.opacity = String(p);
+          }
+          if (b3 && elapsed >= 3.2) {
+            const p = Math.min(1.0, (elapsed - 3.2) / 0.3);
+            b3.style.transform = `scale(${easeOutBack(p)})`;
+          }
+        }
+        else if (type === "ob_triple_zero_checklist") {
+          const z1 = document.getElementById("vd1-tzero-1");
+          const z2 = document.getElementById("vd1-tzero-2");
+          const z3 = document.getElementById("vd1-tzero-3");
+          if (z1) {
+            const p = Math.min(1.0, elapsed / 0.25);
+            z1.style.transform = `translateX(${Math.round((1 - p) * -80)}px) scale(${easeOutBack(p)})`;
+          }
+          if (z2 && elapsed >= 1.0) {
+            const p = Math.min(1.0, (elapsed - 1.0) / 0.25);
+            z2.style.transform = `translateX(${Math.round((1 - p) * 80)}px) scale(${easeOutBack(p)})`;
+          }
+          if (z3 && elapsed >= 2.2) {
+            const p = Math.min(1.0, (elapsed - 2.2) / 0.25);
+            z3.style.transform = `translateX(${Math.round((1 - p) * -80)}px) scale(${easeOutBack(p)})`;
+          }
+        }
+        else if (type === "ob_agent404_weekly_doc") {
+          const card = document.getElementById("vd1-doc-card");
+          if (card) {
+            const p = Math.min(1.0, elapsed / 0.3);
+            card.style.transform = `scale(${easeOutBack(p)})`;
+          }
+        }
+        else if (type === "ob_market_dominance_chart") {
+          for (let i = 1; i <= 5; i++) {
+            const bar = document.getElementById(`vd1-bar-${i}`);
+            if (bar) {
+              const startDelay = (i - 1) * 0.3;
+              if (elapsed >= startDelay) {
+                const p = Math.min(1.0, (elapsed - startDelay) / 0.4);
+                const targetH = 30 + i * 22;
+                bar.style.height = `${Math.round(p * targetH)}px`;
+              }
+            }
+          }
+        }
+        else if (type === "ob_cta_bridge_solo") {
+          const topC = document.getElementById("vd1-br-top");
+          const arr = document.getElementById("vd1-br-arrow");
+          const botC = document.getElementById("vd1-br-bot");
+          if (topC) {
+            const p = Math.min(1.0, elapsed / 0.25);
+            topC.style.transform = `scale(${easeOutBack(p)})`;
+          }
+          if (arr && elapsed >= 0.6) {
+            const p = Math.min(1.0, (elapsed - 0.6) / 0.2);
+            arr.style.opacity = String(p);
+          }
+          if (botC && elapsed >= 1.5) {
+            const p = Math.min(1.0, (elapsed - 1.5) / 0.25);
+            botC.style.transform = `scale(${easeOutBack(p)})`;
+          }
+        }
+        else if (type === "ob_two_door_cta_final") {
+          const cursor = document.getElementById("vd1-cursor");
+          const btn = document.getElementById("vd1-post-btn");
+          const door1 = document.getElementById("vd1-door-1");
+          const door2 = document.getElementById("vd1-door-2");
+          const caret = document.getElementById("vd1-caret");
+
+          if (caret) {
+            caret.style.opacity = (Math.floor(t * 4) % 2 === 0) ? "1" : "0";
+          }
+
+          const clickP = Math.min(1.0, elapsed / 1.8);
+          const curX = Math.round(180 + clickP * 480);
+          const curY = Math.round(120 + Math.sin(clickP * Math.PI) * -30);
+          const isClicked = elapsed >= 1.8;
+
+          if (cursor) {
+            cursor.style.transform = `translate(${curX}px, ${curY}px) scale(${isClicked ? 0.88 : 1.0})`;
+          }
+          if (btn) {
+            if (isClicked) {
+              btn.classList.add("clicked");
+              btn.style.transform = "translate(4px, 4px)";
+            } else {
+              btn.classList.remove("clicked");
+              btn.style.transform = "translate(0px, 0px)";
+            }
+          }
+
+          if (door1) {
+            if (elapsed >= 2.4 && elapsed < 5.8) {
+              door1.classList.add("active-door");
+              door1.style.transform = "scale(1.04)";
+            } else {
+              door1.classList.remove("active-door");
+              door1.style.transform = "scale(1.0)";
+            }
+          }
+
+          if (door2) {
+            if (elapsed >= 5.8) {
+              door2.classList.add("active-door");
+              door2.style.transform = "scale(1.04)";
+            } else {
+              door2.classList.remove("active-door");
+              door2.style.transform = "scale(1.0)";
             }
           }
         }

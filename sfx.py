@@ -378,6 +378,89 @@ def mix_sfx(
                 # Clic mécanique franc à 01:01.3 (61.30s) sur ENVOYER "CLARTÉ"
                 click_moment = 61.30 if (t_start <= 61.30 <= t_end) else (t_start + 0.76)
                 overlay_sfx(neo_click, click_moment, gain=1.0)
+            # --- Scènes Vidéo 01 Découverte ---
+            elif sc_type == "ob_obsession_question":
+                overlay_sfx(neo_pop, t_start + 0.05)
+                overlay_sfx(neo_pop, t_start + 0.20)
+            elif sc_type == "ob_locked_arguments_vault":
+                overlay_sfx(neo_whoosh, t_start)
+                overlay_sfx(neo_stamp, t_start + 0.50)
+            elif sc_type == "ob_ninety_percent_ignore":
+                overlay_sfx(neo_whoosh, t_start)
+                overlay_sfx(neo_stamp, t_start + 1.80)
+            elif sc_type == "ob_classic_method_sigh":
+                overlay_sfx(neo_pop, t_start + 0.04)
+            elif sc_type == "ob_three_struggles_stack":
+                for dt in (0.10, 1.00, 2.20):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_pop, t_start + dt)
+                for dt in (0.30, 1.30, 2.50):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_stamp, t_start + dt)
+            elif sc_type == "ob_sunday_timeline_hell":
+                overlay_sfx(neo_whoosh, t_start)
+                overlay_sfx(neo_stamp, t_start + 1.20)
+            elif sc_type == "ob_logistic_scale_crash":
+                overlay_sfx(neo_whoosh, t_start)
+                overlay_sfx(neo_stamp, t_start + 0.70)
+            elif sc_type == "ob_plumbing_vs_content":
+                overlay_sfx(neo_pop, t_start + 0.10)
+                overlay_sfx(neo_stamp, t_start + 1.20)
+            elif sc_type == "ob_ban_ai_clones_stamp":
+                overlay_sfx(neo_pop, t_start + 0.10)
+                overlay_sfx(neo_stamp, t_start + 1.80)
+            elif sc_type == "ob_breakthrough_equation":
+                overlay_sfx(neo_pop, t_start + 0.10)
+                overlay_sfx(neo_pop, t_start + 1.20)
+            elif sc_type == "ob_engine_architecture":
+                overlay_sfx(neo_whoosh, t_start)
+                for dt in (0.30, 0.60, 0.90, 1.20):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_click, t_start + dt)
+            elif sc_type == "ob_meta_live_code":
+                overlay_sfx(neo_whoosh, t_start)
+                for dt in np.arange(0.20, min(t_end - t_start, 2.0), 0.15):
+                    overlay_sfx(neo_click, t_start + float(dt), gain=0.60)
+                overlay_sfx(neo_stamp, t_start + 1.50)
+            elif sc_type == "ob_millisecond_audio_sync":
+                overlay_sfx(neo_whoosh, t_start)
+                overlay_sfx(neo_pop, t_start + 0.10)
+            elif sc_type == "ob_sliding_4_logos_rtl":
+                for dt in (0.10, 0.80, 1.60, 2.40):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_whoosh, t_start + dt)
+                        overlay_sfx(neo_pop, t_start + dt + 0.08, gain=0.75)
+            elif sc_type == "ob_three_pillars_title":
+                overlay_sfx(neo_whoosh, t_start)
+                overlay_sfx(neo_stamp, t_start + 0.06)
+            elif sc_type == "ob_formula_cascade_equation":
+                overlay_sfx(neo_pop, t_start + 0.10)
+                overlay_sfx(neo_pop, t_start + 1.50)
+                overlay_sfx(neo_pop, t_start + 3.20)
+            elif sc_type == "ob_triple_zero_checklist":
+                for dt in (0.10, 1.00, 2.20):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_stamp, t_start + dt)
+            elif sc_type == "ob_agent404_weekly_doc":
+                overlay_sfx(neo_pop, t_start + 0.05)
+                for dt in (0.40, 0.80, 1.20, 1.60, 2.00):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_click, t_start + dt, gain=0.7)
+            elif sc_type == "ob_market_dominance_chart":
+                overlay_sfx(neo_whoosh, t_start)
+                for dt in (0.30, 0.60, 0.90, 1.20, 1.50):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_pop, t_start + dt)
+            elif sc_type == "ob_cta_bridge_solo":
+                overlay_sfx(neo_pop, t_start + 0.10)
+                overlay_sfx(neo_pop, t_start + 1.50)
+            elif sc_type == "ob_two_door_cta_final":
+                overlay_sfx(neo_pop, t_start + 0.04)
+                for dt in (0.10, 0.17, 0.24, 0.31, 0.38, 0.45):
+                    overlay_sfx(neo_click, t_start + dt, gain=0.60)
+                overlay_sfx(neo_click, t_start + 1.80, gain=1.0)
+                overlay_sfx(neo_pop, t_start + 2.40)
+                overlay_sfx(neo_pop, t_start + 5.80)
             continue
 
         # 1. Pop organique mat sur apparitions visuelles & rupture rouge

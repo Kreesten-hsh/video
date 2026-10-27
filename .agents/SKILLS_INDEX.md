@@ -6,6 +6,7 @@
 | **Direction Vidéo & Déconstruction** | Analyse de références virales, découpage SVML, mise en scène | `hypit` | `watch` | - | High |
 | **Ingestion Vidéo & Transcription** | Téléchargement vidéo yt-dlp, extraction frames, WhisperX | `watch` | `hypit` | - | High |
 | **Scripting Reels & Beat Sheet** | Écriture Reels, 26 formules de hooks, 0 temps mort > 4s | `ig-reel` | `short-form-video` | - | High |
+| **Scripting Studio & Formats Courts** | Scripts Shorts/TikTok/Reels, 22 formules de hooks, funnels, making-of | `studio-script` | `short-form-video`, `ig-reel` | - | High |
 | **Linter & Caption Instagram** | Boîte 125 car., vérification des 5 hashtags max, humanize | `ig-caption` | `ig-human` | - | High |
 | **Veille Virale & Outliers** | Détection des vidéos battant leur médiane de 10x à 50x | `ig-viral` | `watch` | - | Standard |
 | **Conversion & DMs Instagram** | Funnel DM mot-clé CTA (« CLARTÉ », « DÉMO ») | `ig-dm` | `ig-reply` | - | High |

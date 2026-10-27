@@ -36,7 +36,7 @@ class TestPreflightAndRatchet(unittest.TestCase):
         """Garantit que 100% des couleurs hors :root dans tous les fichiers style.css utilisent des variables CSS sémantiques."""
         style_files = [
             REPO_ROOT / "style.css",
-            REPO_ROOT / "studio_perso" / "video_02" / "style.css",
+            REPO_ROOT / "studio_perso" / "video_01_decouverte" / "style.css",
             REPO_ROOT / "studio_perso" / "video_03" / "style.css"
         ]
 
@@ -60,7 +60,7 @@ class TestPreflightAndRatchet(unittest.TestCase):
         """Règle d'or : bannissement absolu et perpétuel de #FF2A5F dans l'ensemble du projet."""
         style_files = [
             REPO_ROOT / "style.css",
-            REPO_ROOT / "studio_perso" / "video_02" / "style.css",
+            REPO_ROOT / "studio_perso" / "video_01_decouverte" / "style.css",
             REPO_ROOT / "studio_perso" / "video_03" / "style.css"
         ]
         for style_path in style_files:
@@ -135,13 +135,13 @@ class TestPreflightAndRatchet(unittest.TestCase):
         overlap = v1_ills.intersection(v2_ills)
         self.assertEqual(overlap, set(), f"Recyclage d'illustrations détecté entre video_01 et video_02 : {overlap}")
 
-    def test_preflight_check_passes_on_video02(self):
-        """Exécute run_preflight_check sur video_02 et valide le succès complet à 100% sur les 5 axes."""
+    def test_preflight_check_passes_on_video03(self):
+        """Exécute run_preflight_check sur video_03 et valide le succès complet à 100% sur les 5 axes."""
         from preflight_check import run_preflight_check
-        report = run_preflight_check(project_dir="studio_perso/video_02")
+        report = run_preflight_check(project_dir="studio_perso/video_03")
         self.assertTrue(
             report.get("success", False),
-            f"Le contrôle preflight a échoué sur video_02 : {report.get('errors')}"
+            f"Le contrôle preflight a échoué sur video_03 : {report.get('errors')}"
         )
         self.assertEqual(report.get("checks_passed"), 5, "Les 5 axes de contrôle doivent être validés.")
 

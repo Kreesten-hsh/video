@@ -109,6 +109,45 @@
         "mic",
         "idea"
       ]
+    },
+    {
+      "video_id": "video_01_decouverte",
+      "target": "studio_perso",
+      "title": "Le Moteur Sans Caméra (Manifeste AGENT404)",
+      "topic": "Créer 8 vidéos B2B par mois sans caméra ni logiciel de montage",
+      "cta_keyword": "CLARTÉ",
+      "used_illustrations": [
+        "ob_obsession_question",
+        "ob_locked_arguments_vault",
+        "ob_ninety_percent_ignore",
+        "ob_classic_method_sigh",
+        "ob_three_struggles_stack",
+        "ob_sunday_timeline_hell",
+        "ob_logistic_scale_crash",
+        "ob_plumbing_vs_content",
+        "ob_ban_ai_clones_stamp",
+        "ob_breakthrough_equation",
+        "ob_engine_architecture",
+        "ob_meta_live_code",
+        "ob_millisecond_audio_sync",
+        "ob_sliding_4_logos_rtl",
+        "ob_three_pillars_title",
+        "ob_formula_cascade_equation",
+        "ob_triple_zero_checklist",
+        "ob_agent404_weekly_doc",
+        "ob_market_dominance_chart",
+        "ob_cta_bridge_solo",
+        "ob_two_door_cta_final"
+      ],
+      "avatar_sequence": [
+        "question",
+        "facepalm",
+        "idea",
+        "happy",
+        "mic",
+        "money",
+        "idea"
+      ]
     }
   ]
 }
