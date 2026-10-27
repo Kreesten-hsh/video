@@ -64,6 +64,129 @@ def generate_micro_click(sr=44100, duration=0.008, rng=None) -> np.ndarray:
     click = (sine + noise) * envelope * 0.050  # -26 dB
     return click.astype(np.float32)
 
+def generate_neo_pop_60ms(sr=44100) -> np.ndarray:
+    """
+    Pop percussif doux (60ms) :
+    Glissement sinusoïdal 190Hz -> 55Hz avec attaque douce et décroissance exponentielle.
+    """
+    duration = 0.060
+    n_samples = int(sr * duration)
+    t = np.linspace(0, duration, n_samples, endpoint=False)
+    freq = np.linspace(190.0, 55.0, n_samples)
+    phase = 2 * np.pi * np.cumsum(freq) / sr
+    envelope = np.sin(np.pi * np.minimum(t / 0.006, 1.0) * 0.5) * np.exp(-t * 48.0)
+    wave_arr = np.sin(phase) * envelope
+    peak = np.max(np.abs(wave_arr)) or 1.0
+    return (wave_arr / peak).astype(np.float32)
+
+
+def generate_neo_whoosh_140ms(sr=44100, rng=None) -> np.ndarray:
+    """
+    Souffle rapide de transition et slide RTL (140ms) :
+    Bruit filtré passe-bande/passe-bas avec enveloppe Hann asymétrique.
+    """
+    duration = 0.140
+    n_samples = int(sr * duration)
+    t = np.linspace(0, duration, n_samples, endpoint=False)
+    if rng is not None:
+        noise = rng.uniform(-1.0, 1.0, n_samples)
+    else:
+        det_rng = np.random.default_rng(404)
+        noise = det_rng.uniform(-1.0, 1.0, n_samples)
+    kernel = np.hanning(28)
+    kernel = kernel / np.sum(kernel)
+    filtered = np.convolve(noise, kernel, mode="same")
+    sweep_tone = np.sin(2 * np.pi * np.cumsum(np.linspace(260.0, 95.0, n_samples)) / sr) * 0.35
+    envelope = (np.sin(np.pi * t / duration) ** 1.6)
+    wave_arr = (filtered * 0.65 + sweep_tone) * envelope
+    peak = np.max(np.abs(wave_arr)) or 1.0
+    return (wave_arr / peak).astype(np.float32)
+
+
+def generate_neo_stamp_120ms(sr=44100, rng=None) -> np.ndarray:
+    """
+    Impact sourd de tampon Néo-Brutaliste (120ms) :
+    Sub-punch 115Hz -> 34Hz + transitoire mat d'impact papier/bois.
+    """
+    duration = 0.120
+    n_samples = int(sr * duration)
+    t = np.linspace(0, duration, n_samples, endpoint=False)
+    freq = np.linspace(115.0, 34.0, n_samples)
+    phase = 2 * np.pi * np.cumsum(freq) / sr
+    body = np.sin(phase) * np.exp(-t * 28.0)
+    if rng is not None:
+        noise = rng.uniform(-1.0, 1.0, n_samples)
+    else:
+        det_rng = np.random.default_rng(808)
+        noise = det_rng.uniform(-1.0, 1.0, n_samples)
+    kernel = np.ones(10) / 10.0
+    thud_transient = np.convolve(noise, kernel, mode="same") * np.exp(-t * 95.0) * 0.45
+    wave_arr = np.tanh((body + thud_transient) * 1.4)
+    peak = np.max(np.abs(wave_arr)) or 1.0
+    return (wave_arr / peak).astype(np.float32)
+
+
+def generate_neo_click_40ms(sr=44100, rng=None) -> np.ndarray:
+    """
+    Clic mécanique franc de souris / bouton Néo-Brutaliste (40ms) :
+    Double transitoire mécanique (press + release court) amorti.
+    """
+    duration = 0.040
+    n_samples = int(sr * duration)
+    t = np.linspace(0, duration, n_samples, endpoint=False)
+    if rng is not None:
+        noise = rng.uniform(-1.0, 1.0, n_samples)
+    else:
+        det_rng = np.random.default_rng(101)
+        noise = det_rng.uniform(-1.0, 1.0, n_samples)
+    click1 = (np.sin(2 * np.pi * 880.0 * t) * 0.7 + noise * 0.3) * np.exp(-t * 260.0)
+    t2 = np.maximum(0.0, t - 0.016)
+    mask2 = (t >= 0.016).astype(np.float32)
+    click2 = (np.sin(2 * np.pi * 620.0 * t2) * 0.5) * np.exp(-t2 * 320.0) * mask2
+    wave_arr = click1 + click2
+    peak = np.max(np.abs(wave_arr)) or 1.0
+    return (wave_arr / peak).astype(np.float32)
+
+
+def _write_mono_wav(path_str: str, samples: np.ndarray, sr: int = 44100):
+    os.makedirs(os.path.dirname(path_str), exist_ok=True)
+    pcm = np.clip(samples * 32767.0 * 0.90, -32767.0, 32767.0).astype(np.int16)
+    with wave.open(path_str, "wb") as wf:
+        wf.setnchannels(1)
+        wf.setsampwidth(2)
+        wf.setframerate(sr)
+        wf.writeframes(pcm.tobytes())
+
+
+def ensure_sfx_files(sfx_dir: str = "assets/audio/sfx", sr: int = 44100) -> dict:
+    """
+    Garantit la présence des 4 fichiers WAV de Sound Design dans assets/audio/sfx/ :
+      - pop.wav (60ms)
+      - whoosh.wav (140ms)
+      - stamp.wav (120ms)
+      - click.wav (40ms)
+    """
+    from pathlib import Path
+    repo_root = Path(__file__).resolve().parent
+    base_dir = Path(sfx_dir)
+    if not base_dir.is_absolute():
+        base_dir = repo_root / base_dir
+    base_dir.mkdir(parents=True, exist_ok=True)
+
+    specs = {
+        "pop": (base_dir / "pop.wav", lambda: generate_neo_pop_60ms(sr)),
+        "whoosh": (base_dir / "whoosh.wav", lambda: generate_neo_whoosh_140ms(sr)),
+        "stamp": (base_dir / "stamp.wav", lambda: generate_neo_stamp_120ms(sr)),
+        "click": (base_dir / "click.wav", lambda: generate_neo_click_40ms(sr)),
+    }
+    paths = {}
+    for key, (f_path, gen_fn) in specs.items():
+        if not f_path.exists():
+            _write_mono_wav(str(f_path), gen_fn(), sr=sr)
+        paths[key] = str(f_path)
+    return paths
+
+
 def load_scenes_from_timeline(timeline_path="timeline.js"):
     if not os.path.exists(timeline_path):
         return []
@@ -77,6 +200,7 @@ def load_scenes_from_timeline(timeline_path="timeline.js"):
     except Exception:
         return []
 
+
 def mix_sfx(
     voix_path: str = None,
     out_path: str = None,
@@ -85,6 +209,8 @@ def mix_sfx(
     seed: int = None
 ):
     from pathlib import Path
+
+    ensure_sfx_files()
 
     p_dir = None
     rendu_deterministe = None
@@ -142,19 +268,199 @@ def mix_sfx(
 
     total_samples = len(audio)
 
-    # Génération des banques acoustiques douces
+    # Banques historiques (video_01 / video_02)
     whoosh_sfx = generate_soft_whoosh(framerate, rng=rng)
     pop_sfx = generate_organic_pop(framerate)
     click_sfx = generate_micro_click(framerate, rng=rng)
 
+    # Banques Néo-Brutalistes à -14 dB (amplitude linéaire = 10^(-14/20) ≈ 0.1995)
+    amp_minus_14db = float(10.0 ** (-14.0 / 20.0))
+    neo_pop = generate_neo_pop_60ms(framerate) * amp_minus_14db
+    neo_whoosh = generate_neo_whoosh_140ms(framerate, rng=rng) * amp_minus_14db
+    neo_stamp = generate_neo_stamp_120ms(framerate, rng=rng) * amp_minus_14db
+    neo_click = generate_neo_click_40ms(framerate, rng=rng) * amp_minus_14db
+
+    def overlay_sfx(sfx_arr: np.ndarray, timestamp_sec: float, gain: float = 1.0):
+        idx_s = int(round(timestamp_sec * framerate))
+        if idx_s < 0 or idx_s >= total_samples:
+            return
+        idx_e = min(total_samples, idx_s + len(sfx_arr))
+        seg_len = idx_e - idx_s
+        if seg_len > 0:
+            audio[idx_s:idx_e] += (sfx_arr[:seg_len, np.newaxis] * gain * 32767.0)
+
     for sc in scenes:
-        t_start = sc.get("start", 0.0)
-        t_end = sc.get("end", t_start + 1.0)
+        t_start = float(sc.get("start", 0.0))
+        t_end = float(sc.get("end", t_start + 1.0))
         sc_type = sc.get("type", "")
         bg = sc.get("data", {}).get("bg", "")
 
         idx_start = int(t_start * framerate)
         if idx_start >= total_samples:
+            continue
+
+        # --- Scènes Néo-Brutalistes (ob_*) mixées à -14 dB ---
+        if sc_type.startswith("ob_"):
+            if sc_type == "ob_post_counter":
+                for dt in (0.02, 0.45, 0.90, 1.35):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_pop, t_start + dt)
+            elif sc_type == "ob_zero_stamp":
+                overlay_sfx(neo_whoosh, t_start)
+                overlay_sfx(neo_stamp, t_start + 0.06)
+            elif sc_type == "ob_assets_stack":
+                for dt in (0.20, 1.20, 2.20):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_pop, t_start + dt)
+            elif sc_type == "ob_camera_sigh":
+                overlay_sfx(neo_pop, t_start + 0.04)
+            elif sc_type == "ob_camera_chaos":
+                for dt in (0.10, 0.90, 1.80):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_pop, t_start + dt)
+            elif sc_type == "ob_abandon_slam":
+                overlay_sfx(neo_stamp, t_start + 0.05)
+            elif sc_type == "ob_refuse_clones":
+                overlay_sfx(neo_pop, t_start + 0.05)
+                overlay_sfx(neo_stamp, t_start + 0.70)
+                overlay_sfx(neo_stamp, t_start + 1.50)
+            elif sc_type == "ob_clone_grid":
+                for dt in (0.05, 0.25, 0.45):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_pop, t_start + dt)
+            elif sc_type == "ob_trust_drop":
+                overlay_sfx(neo_whoosh, t_start)
+                overlay_sfx(neo_stamp, t_start + 1.20)
+            elif sc_type == "ob_not_content":
+                overlay_sfx(neo_pop, t_start + 0.05)
+            elif sc_type == "ob_text_wall_stamp":
+                overlay_sfx(neo_pop, t_start + 0.05)
+                overlay_sfx(neo_stamp, t_start + 0.45)
+            elif sc_type == "ob_reverse_switch":
+                overlay_sfx(neo_whoosh, t_start + 0.05)
+                overlay_sfx(neo_click, t_start + 0.35)
+            elif sc_type == "ob_step_one_voice":
+                overlay_sfx(neo_pop, t_start + 0.05)
+                overlay_sfx(neo_pop, t_start + 1.20)
+            elif sc_type == "ob_step_two_structure":
+                for dt in (0.40, 1.40, 2.30):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_pop, t_start + dt)
+            elif sc_type == "ob_step_three_proof":
+                overlay_sfx(neo_whoosh, t_start)
+                for dt in np.arange(0.40, min(t_end - t_start, 2.0), 0.22):
+                    overlay_sfx(neo_click, t_start + float(dt), gain=0.65)
+                overlay_sfx(neo_pop, t_start + 2.30)
+            elif sc_type == "ob_unique_identity":
+                overlay_sfx(neo_whoosh, t_start)
+                for dt in np.arange(0.25, min(t_end - t_start, 1.8), 0.22):
+                    overlay_sfx(neo_click, t_start + float(dt), gain=0.65)
+            elif sc_type == "ob_four_palettes_grid":
+                for dt in (0.20, 1.10, 2.10, 3.10):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_pop, t_start + dt)
+            elif sc_type == "ob_chrono_48h":
+                overlay_sfx(neo_whoosh, t_start)
+                overlay_sfx(neo_pop, t_start + 0.30)
+            elif sc_type == "ob_platforms_popin":
+                # 4 slides RTL des logos officiels : 54.26s, 54.90s, 55.60s, 56.20s
+                for slide_t in (54.26, 54.90, 55.60, 56.20):
+                    if t_start - 0.05 <= slide_t <= t_end:
+                        overlay_sfx(neo_whoosh, slide_t)
+                        overlay_sfx(neo_pop, slide_t + 0.08, gain=0.75)
+            elif sc_type == "ob_final_pitch":
+                overlay_sfx(neo_whoosh, t_start)
+                overlay_sfx(neo_pop, t_start + 0.06)
+            elif sc_type == "ob_final_delivery_cta":
+                overlay_sfx(neo_pop, t_start + 0.04)
+                for dt in (0.10, 0.17, 0.24, 0.31, 0.38, 0.45):
+                    overlay_sfx(neo_click, t_start + dt, gain=0.60)
+                # Clic mécanique franc à 01:01.3 (61.30s) sur ENVOYER "CLARTÉ"
+                click_moment = 61.30 if (t_start <= 61.30 <= t_end) else (t_start + 0.76)
+                overlay_sfx(neo_click, click_moment, gain=1.0)
+            # --- Scènes Vidéo 01 Découverte ---
+            elif sc_type == "ob_obsession_question":
+                overlay_sfx(neo_pop, t_start + 0.05)
+                overlay_sfx(neo_pop, t_start + 0.20)
+            elif sc_type == "ob_locked_arguments_vault":
+                overlay_sfx(neo_whoosh, t_start)
+                overlay_sfx(neo_stamp, t_start + 0.50)
+            elif sc_type == "ob_ninety_percent_ignore":
+                overlay_sfx(neo_whoosh, t_start)
+                overlay_sfx(neo_stamp, t_start + 1.80)
+            elif sc_type == "ob_classic_method_sigh":
+                overlay_sfx(neo_pop, t_start + 0.04)
+            elif sc_type == "ob_three_struggles_stack":
+                for dt in (0.10, 1.00, 2.20):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_pop, t_start + dt)
+                for dt in (0.30, 1.30, 2.50):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_stamp, t_start + dt)
+            elif sc_type == "ob_sunday_timeline_hell":
+                overlay_sfx(neo_whoosh, t_start)
+                overlay_sfx(neo_stamp, t_start + 1.20)
+            elif sc_type == "ob_logistic_scale_crash":
+                overlay_sfx(neo_whoosh, t_start)
+                overlay_sfx(neo_stamp, t_start + 0.70)
+            elif sc_type == "ob_plumbing_vs_content":
+                overlay_sfx(neo_pop, t_start + 0.10)
+                overlay_sfx(neo_stamp, t_start + 1.20)
+            elif sc_type == "ob_ban_ai_clones_stamp":
+                overlay_sfx(neo_pop, t_start + 0.10)
+                overlay_sfx(neo_stamp, t_start + 1.80)
+            elif sc_type == "ob_breakthrough_equation":
+                overlay_sfx(neo_pop, t_start + 0.10)
+                overlay_sfx(neo_pop, t_start + 1.20)
+            elif sc_type == "ob_engine_architecture":
+                overlay_sfx(neo_whoosh, t_start)
+                for dt in (0.30, 0.60, 0.90, 1.20):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_click, t_start + dt)
+            elif sc_type == "ob_meta_live_code":
+                overlay_sfx(neo_whoosh, t_start)
+                for dt in np.arange(0.20, min(t_end - t_start, 2.0), 0.15):
+                    overlay_sfx(neo_click, t_start + float(dt), gain=0.60)
+                overlay_sfx(neo_stamp, t_start + 1.50)
+            elif sc_type == "ob_millisecond_audio_sync":
+                overlay_sfx(neo_whoosh, t_start)
+                overlay_sfx(neo_pop, t_start + 0.10)
+            elif sc_type == "ob_sliding_4_logos_rtl":
+                for dt in (0.10, 0.80, 1.60, 2.40):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_whoosh, t_start + dt)
+                        overlay_sfx(neo_pop, t_start + dt + 0.08, gain=0.75)
+            elif sc_type == "ob_three_pillars_title":
+                overlay_sfx(neo_whoosh, t_start)
+                overlay_sfx(neo_stamp, t_start + 0.06)
+            elif sc_type == "ob_formula_cascade_equation":
+                overlay_sfx(neo_pop, t_start + 0.10)
+                overlay_sfx(neo_pop, t_start + 1.50)
+                overlay_sfx(neo_pop, t_start + 3.20)
+            elif sc_type == "ob_triple_zero_checklist":
+                for dt in (0.10, 1.00, 2.20):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_stamp, t_start + dt)
+            elif sc_type == "ob_agent404_weekly_doc":
+                overlay_sfx(neo_pop, t_start + 0.05)
+                for dt in (0.40, 0.80, 1.20, 1.60, 2.00):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_click, t_start + dt, gain=0.7)
+            elif sc_type == "ob_market_dominance_chart":
+                overlay_sfx(neo_whoosh, t_start)
+                for dt in (0.30, 0.60, 0.90, 1.20, 1.50):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_pop, t_start + dt)
+            elif sc_type == "ob_cta_bridge_solo":
+                overlay_sfx(neo_pop, t_start + 0.10)
+                overlay_sfx(neo_pop, t_start + 1.50)
+            elif sc_type == "ob_two_door_cta_final":
+                overlay_sfx(neo_pop, t_start + 0.04)
+                for dt in (0.10, 0.17, 0.24, 0.31, 0.38, 0.45):
+                    overlay_sfx(neo_click, t_start + dt, gain=0.60)
+                overlay_sfx(neo_click, t_start + 1.80, gain=1.0)
+                overlay_sfx(neo_pop, t_start + 2.40)
+                overlay_sfx(neo_pop, t_start + 5.80)
             continue
 
         # 1. Pop organique mat sur apparitions visuelles & rupture rouge
@@ -209,8 +515,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     default_proj = args.projet
-    if default_proj is None and not args.voix and os.path.exists("studio_perso/video_01"):
-        default_proj = "studio_perso/video_01"
+    if default_proj is None and not args.voix:
+        if os.path.exists("studio_perso/video_03"):
+            default_proj = "studio_perso/video_03"
+        elif os.path.exists("studio_perso/video_01"):
+            default_proj = "studio_perso/video_01"
 
     mix_sfx(
         voix_path=args.voix,

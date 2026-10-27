@@ -1,0 +1,13 @@
+/* ==========================================================================
+   FEUILLE DE STYLE PROGRAMMATIQUE : video_01_decouverte
+   Format : 1080 x 1920 (9:16 Vertical)
+   Règles :
+     - 100% de variables CSS sémantiques depuis :root (Zéro hex hors :root)
+     - Safe Zone 9:16 respectée (Top 190px, Bottom 380px)
+   ========================================================================== */
+
+@import "../../style.css";
+
+:root {
+  --project-video-id: "video_01_decouverte";
+}

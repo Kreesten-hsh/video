@@ -134,12 +134,31 @@ flowchart TD
   1. *Whoosh feutré (40 ms)* : Bruit filtré passe-bas avec enveloppe en cloche de Hann sur les transitions majeures. Atténuation : $-24\text{ dB}$.
   2. *Pop organique mat (35 ms)* : Glissement sinusoïdal grave (90 Hz vers 40 Hz) avec enveloppe amortie pour les apparitions de cartes et d'avatars. Atténuation : $-22\text{ dB}$.
   3. *Micro-clics typewriter (8 ms)* : Impulsions amorties à 650 Hz injectées toutes les 120 ms pendant l'animation de la fenêtre terminal. Atténuation : $-26\text{ dB}$.
+  4. *Carte impact & Slams (50 ms)* : Transitoires de choc amorties pour les tampons géants (`ZÉRO VIDÉO`, `ABANDON`, `CLARTÉ`).
+- **Normalisation Audio Automatique** : Le mixage s'assure que la piste combinée voix + SFX est systématiquement normalisée à $-14\text{ dBFS}$ (norme court-format mobile pour Instagram Reels et TikTok), sans saturation ni écrêtage.
 - **Reproductibilité déterministe** : Lorsque `rendu_deterministe: true` (par défaut), une graine stable dérivée de l'identifiant du projet (`zlib.crc32`) alimente un générateur `np.random.default_rng(seed)`. Deux mixages successifs produisent des fichiers WAV identiques octet par octet (SHA-256 rigoureusement identiques). Si `rendu_deterministe: false` (cas de `video_01`), le comportement historique sans graine est préservé.
 - **Mixage** : Superpose les formes d'ondes au signal vocal, applique un clamp strict $[-32767, 32767]$ pour éviter tout écrêtage, et exporte [audio_final.wav](../audio_final.wav).
 
 ### C. Moteur Graphique et Composants Visuels : [video.js](../video.js)
 - **Rôle** : Interface de rendu DOM fonctionnant sans horloge asynchrone (`Date.now()`, `requestAnimationFrame` ou `setInterval` proscrits).
 - **Point d'entrée déterministe** : Fonction globale `window.setTime(t)` où $t$ est le temps absolu en secondes.
+- **Thématisation & Preset Néo-Brutaliste Obsidian Flame** :
+  - **Fond Beige Mat Uni** (`--bg-primary: #F5F2EB`) : 100% aplat sans quadrillage ni grille de points parasite.
+  - **Encre Carbone** (`--ink: #111111`) : Bordures épaisses de 3.5px à 4px, ombres portées nettes et contrastées (`8px 8px 0px var(--ink)`).
+  - **Accent Flamme** (`--flame-accent: #FF4F18`) : Coloration des mots-clés sémantiques et points focaux.
+  - **Nuances Pastel** : Jaune solaire (`#FEF08A`) et Bleu acier (`#BFDBFE`) pour les badges et cartes secondaires.
+  - **Zéro Hex hors :root** : 100% du CSS est dérivé de variables sémantiques strictes.
+- **Bibliothèque Vectorielle Néo-Brutaliste (`NEO_SVG`)** :
+  - Interdiction absolue des émojis Unicode (📸, 💡, 🤖, ☕, ⚡, 🚀, 🎬, etc.).
+  - 100% des icônes sont rendues via des `<svg>` vectoriels haute fidélité (`stroke: #111111`, `stroke-width: 3.5`, `stroke-linejoin: round`), garantissant une netteté absolue en 1080x1920.
+- **Système de Sous-titres Multi-Zones & Anti-Collision** :
+  - `single_line_top` : Bannière supérieure (Y: 220px) avec 1 mot-clé porteur coloré par chunk.
+  - `center_slam` : Titre central géant (88px) avec karaoké actif mot par mot.
+  - `dynamic_band` : Bandeau dynamique contrasté.
+  - `hidden` : Masquage total des sous-titres lors de transitions dramatiques (ex. `MAIS... 💧` sur la scène 4 de `video_03`), évitant toute redondance textuelle à l'écran.
+- **Chorégraphie Spatiale d'Avatar** :
+  - Modes `solo`, `duo_lymphe`, `hidden`, `inset`.
+  - Maintien rigoureux d'un espace de respiration $> 150\text{px}$ entre la tête de l'avatar et les cartes/titres (zéro collision).
 - **Composants implémentés** :
   1. `face` : Avatar sticker animé avec physique d'overshoot au démarrage, flottement sinusoïdal vertical continu ($\sin(5t) \times 10\text{px}$), inclinaison ($\sin(2.5t) \times 1.5^\circ$) et badge textuel à $-2^\circ$.
   2. `big` : Typographie d'impact grand format (56px ou 68px) avec sous-titre et animation de rebond élastique.
@@ -154,6 +173,10 @@ flowchart TD
   11. `speed_counter` : Comparateur de performance graphique avec double barre de chargement.
   12. `audio_wave` : Oscilloscope de 28 barres avec simulation d'extinction de silences.
   13. `rpg` : Boîte de dialogue de jeu de rôle.
+  14. `ob_assets_stack` : Piles de tuiles d'actifs (Expertise, Cas Clients, Méthodes) cadencées avec avatar duo.
+  15. `ob_camera_sigh` / `ob_camera_chaos` : Friction du matériel et soupir expressif.
+  16. `ob_platforms_popin` : Logos officiels des 4 plateformes (LinkedIn, TikTok, Reels, Shorts) défilant en translation dynamique.
+  17. `ob_final_delivery_cta` : Boîte CTA monumentale avec bouton interactif et curseur vectoriel de clic.
 
 ### D. Capture Headless et Compilation Vidéo : [render.py](../render.py)
 - **Rôle** : Orchestre Playwright Headless pour capturer chaque frame à 30 FPS et les injecter directement dans le pipe d'entrée de FFmpeg.

@@ -279,7 +279,7 @@ def install_whisperx():
     windows = platform.system() == 'Windows'
     python = venv / ('Scripts/python.exe' if windows else 'bin/python')
     executable = venv / ('Scripts/whisperx.exe' if windows else 'bin/whisperx')
-    ready = sentinel.is_file() and python.is_file() and executable.is_file()
+    ready = python.is_file() and executable.is_file()
     if not ready:
         if venv.is_symlink():
             raise SystemExit('Managed WhisperX venv is a symlink; choose a regular managed directory before installing.')
@@ -291,6 +291,7 @@ def install_whisperx():
             _install_step([uv, 'pip', 'install', '--python', python, 'torch==2.8.0', 'torchaudio==2.8.0',
                            '--index-url', 'https://download.pytorch.org/whl/cpu'], 'Install CPU PyTorch wheels')
         _install_step([uv, 'pip', 'install', '--python', python, f'whisperx=={WHISPERX_VERSION}'], 'Install WhisperX')
+        _install_step([uv, 'pip', 'uninstall', '--python', python, 'torchvision'], 'Remove conflicting torchvision')
     # Invalidate before warm-up: an interrupted repair is always safe to rerun.
     sentinel.unlink(missing_ok=True)
     cfg['whisperx_bin'] = str(executable)

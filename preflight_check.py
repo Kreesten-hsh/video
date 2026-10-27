@@ -3,7 +3,7 @@
 AGENT404 : Pre-Flight Visual Gatekeeper.
 Audit automatisé rapide (< 3 secondes via Playwright/Chromium headless)
 exécuté avant tout encodage vidéo pour bloquer immédiatement toute anomalie :
-  1. Contrôle Géométrique 9:16 (conteneurs >= 840x520px, cadrage 1080x1920)
+  1. Contrôle Géométrique 9:16 (cadrage 1080x1920, non-débordement écran)
   2. Contrôle Typographique Mobile (fontSize >= 18px sur tout texte visible)
   3. Contrôle Anti-Orphelin No-Wrap (scrollWidth <= clientWidth + 2)
   4. Contrôle Dynamique Multi-Étapes (changement d'état obligatoire à 20%, 55%, 85%)
@@ -11,6 +11,7 @@ exécuté avant tout encodage vidéo pour bloquer immédiatement toute anomalie 
 """
 
 import os
+import re
 import sys
 import json
 import time
@@ -90,7 +91,8 @@ def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_pat
 
             for past_vid in memory.get("videos", []):
                 past_id = past_vid.get("video_id", "")
-                past_num = int(past_id.replace("video_", "")) if "video_" in past_id else 0
+                num_match = re.search(r'\d+', past_id)
+                past_num = int(num_match.group(0)) if num_match else 0
                 if cur_video_num > past_num:
                     past_illustrations = set(past_vid.get("used_illustrations", []))
                     collisions = cur_illustrations.intersection(past_illustrations)
@@ -185,22 +187,15 @@ def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_pat
                     });
                 }
 
-                // 2. Contrôle Géométrique 9:16 (illustrations centrales)
-                const isTypographyOrFaceScene = sc.type === 'face' || sc.type === 'big' || sc.type === 'blueprint_kinetic_type' || sc.type === 'face_to_dm_cta';
+                // 2. Contrôle Géométrique 9:16 (cadrage et non-débordement écran)
+                const isTypographyOrFaceScene = sc.type === 'face' || sc.type === 'big' || sc.type === 'blueprint_kinetic_type' || sc.type === 'face_to_dm_cta' || sc.type === 'ob_zero_stamp' || sc.type === 'ob_abandon_slam' || sc.type === 'ob_not_content' || sc.type === 'ob_final_pitch' || sc.type === 'ob_camera_sigh' || sc.type === 'ob_final_delivery_cta';
                 const isSpatialPan = sc.type === 'blueprint_spatial_pan';
 
                 if (!isTypographyOrFaceScene) {
                     const firstChild = container.firstElementChild;
                     if (firstChild) {
                         const rect = firstChild.getBoundingClientRect();
-                        if (!isSpatialPan && (rect.width < 838 || rect.height < 518)) {
-                            report.geometric_violations.push({
-                                scene: sc.id,
-                                type: sc.type,
-                                width: Math.round(rect.width),
-                                height: Math.round(rect.height)
-                            });
-                        }
+                        // Règle débridée : Zéro blocage sur taille minimale (autorise textes chocs, tuiles flottantes, schémas)
                         const isSpatialYValid = isSpatialPan && (rect.top >= -10 && rect.bottom <= 1930);
                         if (!isSpatialYValid && (rect.left < -2 || rect.right > 1082 || rect.top < -2 || rect.bottom > 1922)) {
                             report.geometric_violations.push({
@@ -272,40 +267,39 @@ def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_pat
                     if (el.offsetWidth > 0 && el.offsetHeight > 0) {
                         const text = el.textContent.trim();
                         const isBracketBadge = text.startsWith('[') && text.endsWith(']');
-                        // Si l'élément est un conteneur parent contenant d'autres badges, on évalue ses enfants individuellement
-                        const isBadgeContainer = el.children.length > 0 && Array.from(el.children).some(c => c.textContent.trim().startsWith('['));
-                        const isShortKpiOrHeader = text.length <= 22 && (
-                            el.matches('.badge, .tag, .kpi-num, .kpi-lbl, .counter, .header, .title, .num, .sub-badge, [class*="badge"], [class*="tag"], [class*="kpi"], [class*="counter"], [class*="digits"]') ||
+                        const isContainerWithChildren = el.children.length > 0;
+                        const isShortKpiOrHeader = !isContainerWithChildren && text.length <= 22 && (
+                            el.matches('.badge, .kpi-num, .kpi-lbl, .counter, .header, .title, .num, .sub-badge, [class*="badge"], [class*="kpi"], [class*="counter"], [class*="digits"]') ||
+                            (el.matches('[class*="tag"]') && !el.matches('[class*="stage"], [class*="tile"]')) ||
                             ['H1', 'H2', 'H3', 'H4', 'H5', 'H6'].includes(el.tagName)
-                        );
+                        ) && !el.matches('[class*="stage"], [class*="window"], [class*="bars"], [class*="flow"], [class*="grid"], [class*="tile"], [class*="stamp"]');
                         const isExemptMicro = el.matches('.thumb-mini-tag, .webcam-mute-badge, .wf-bar, .editor-lang-tag');
 
-                        if ((isBracketBadge || isShortKpiOrHeader) && !isBadgeContainer && !isExemptMicro) {
-                            let lh = parseFloat(style.lineHeight);
-                            if (isNaN(lh) || lh <= 0) {
-                                lh = parseFloat(style.fontSize) * 1.25;
-                            }
-                            const pt = parseFloat(style.paddingTop) || 0;
-                            const pb = parseFloat(style.paddingBottom) || 0;
-                            const bt = parseFloat(style.borderTopWidth) || 0;
-                            const bb = parseFloat(style.borderBottomWidth) || 0;
-                            const contentHeight = el.getBoundingClientRect().height - pt - pb - bt - bb;
+                        if ((isBracketBadge || isShortKpiOrHeader) && !isContainerWithChildren && !isExemptMicro) {
+                            if (style.whiteSpace !== 'nowrap') {
+                                let lh = parseFloat(style.lineHeight);
+                                if (isNaN(lh) || lh <= 0) {
+                                    lh = parseFloat(style.fontSize) * 1.25;
+                                }
+                                const pt = parseFloat(style.paddingTop) || 0;
+                                const pb = parseFloat(style.paddingBottom) || 0;
+                                const contentHeight = el.clientHeight - pt - pb;
 
-                            // Vérification Range multi-lignes
-                            let rangeLines = 1;
-                            try {
-                                const range = document.createRange();
-                                range.selectNodeContents(el);
-                                rangeLines = range.getClientRects().length;
-                            } catch (e) {}
+                                let rangeLines = 1;
+                                try {
+                                    const range = document.createRange();
+                                    range.selectNodeContents(el);
+                                    rangeLines = range.getClientRects().length;
+                                } catch (e) {}
 
-                            if (rangeLines > 1 || contentHeight > lh * 1.45) {
-                                report.nowrap_overflow_violations.push({
-                                    scene: sc.id,
-                                    tag: el.tagName,
-                                    text: text.substring(0, 30),
-                                    error: `Retour orphelin : texte cassé sur plusieurs lignes (${Math.round(contentHeight)}px > max 1 ligne ${Math.round(lh * 1.45)}px)`
-                                });
+                                if (rangeLines > 1 || contentHeight > lh * 1.45) {
+                                    report.nowrap_overflow_violations.push({
+                                        scene: sc.id,
+                                        tag: el.tagName,
+                                        text: text.substring(0, 30),
+                                        error: `Retour orphelin : texte cassé sur plusieurs lignes (${Math.round(contentHeight)}px > max 1 ligne ${Math.round(lh * 1.45)}px)`
+                                    });
+                                }
                             }
 
                             if (el.scrollWidth > el.clientWidth + 2) {

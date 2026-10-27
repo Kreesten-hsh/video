@@ -212,6 +212,8 @@ def validate_timeline(words, scenes, total_audio_dur, reference_words, scene_end
         sc_s = float(sc["start"])
         sc_e = float(sc["end"])
         dur = sc_e - sc_s
+        if dur > 4.5:
+            print(f"⚠️  AVERTISSEMENT RYTHME : Scène {sc['id']} durée {dur:.2f}s (> 4.5s) ! Cible recommandée pour le dynamisme Néo-Brutaliste : 2.0s à 3.5s.")
         end_w = scene_end_words[i]
         sc_type = sc["type"]
         sc_bg = sc["data"].get("bg", "default")
@@ -524,8 +526,12 @@ def run_pipeline(
     proj_cfg = {}
     if "theme" in project_data:
         proj_cfg["theme"] = project_data["theme"]
+    if "theme_preset" in project_data:
+        proj_cfg["theme_preset"] = project_data["theme_preset"]
+    if "subtitle_overrides" in project_data:
+        proj_cfg["subtitle_overrides"] = project_data["subtitle_overrides"]
 
-    step3_build_timeline(
+    scenes = step3_build_timeline(
         words=words,
         scenes_configs=scenes_configs,
         scene_end_words=scene_end_words,
@@ -535,6 +541,15 @@ def run_pipeline(
         project_config=proj_cfg if proj_cfg else None
     )
 
+    # Synchroniser les scènes calculées avec project.json pour assurer la cohérence permanente
+    project_file = project_dir / "project.json"
+    if project_file.exists():
+        with open(project_file, "r", encoding="utf-8") as f:
+            p_data = json.load(f)
+        p_data["scenes"] = scenes
+        with open(project_file, "w", encoding="utf-8") as f:
+            json.dump(p_data, f, indent=2, ensure_ascii=False)
+
     print(f"✓ Pipeline timeline terminé avec succès pour {project_dir.name} ({total_dur:.2f}s).")
     return words, total_dur
 
@@ -543,8 +558,8 @@ def main():
     parser = argparse.ArgumentParser(description="Générateur de timeline vidéo programmatique AGENT404.")
     parser.add_argument(
         "--projet", "-p",
-        default="studio_perso/video_01",
-        help="Chemin vers le dossier du projet ou vers project.json (défaut: studio_perso/video_01)"
+        default="studio_perso/video_03" if os.path.exists("studio_perso/video_03") else "studio_perso/video_01",
+        help="Chemin vers le dossier du projet ou vers project.json (défaut: studio_perso/video_03)"
     )
     parser.add_argument(
         "--realigner",

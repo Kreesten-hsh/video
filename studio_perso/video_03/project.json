@@ -2,6 +2,7 @@
   "video_number": 3,
   "title": "L'Entrée Agnostique pour Créateurs B2B",
   "topic": "Transformer des posts LinkedIn en vidéos haute précision",
+  "theme_preset": "obsidian-flame",
   "cta_keyword": "CLARTÉ",
   "audio_path": "voix.wav",
   "gele": false,
@@ -214,14 +215,26 @@
     "privés."
   ],
   "scene_end_words": [
+    "LinkedIn,",
     "vidéo.",
     "méthodes.",
+    "faut",
+    "heures,",
     "abandonnes.",
+    "génériques.",
+    "monde",
     "secondes.",
+    "contenu.",
     "texte.",
+    "processus.",
+    "écrit.",
+    "voix.",
     "l'écran.",
+    "identité.",
     "percutant.",
+    "précision",
     "Shorts.",
+    "mesure?",
     "privés."
   ],
   "phonetic_map": {
@@ -238,204 +251,374 @@
   "scenes": [
     {
       "id": "scene_01",
-      "title": "Hook Kinetic Slam",
+      "type": "ob_post_counter",
       "start": 0.0,
-      "end": 4.42,
-      "type": "blueprint_kinetic_type",
-      "caption_mode": "center_slam",
-      "switch_theme": "default",
-      "avatar_mode": "hidden",
-      "camera": {
-        "keyframes": [
-          { "at": 0.0, "zoom": 1.15, "panX": 0, "panY": 0 },
-          { "at": 0.6, "zoom": 1.0, "panX": 0, "panY": 0 },
-          { "at": 3.2, "zoom": 1.12, "panX": 0, "panY": 0 }
-        ]
-      },
+      "end": 2.52,
       "data": {
-        "tag": "[ DIAGNOSTIC LINKEDIN B2B ]",
-        "text": ""
-      }
+        "avatar": "assets/avatars/laptop.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "duo_lymphe",
+      "camera": {
+        "target": {
+          "zoom": 1.0,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Publication LinkedIn"
     },
     {
-      "id": "scene_02a",
-      "title": "Tes 3 Actifs Prêts",
-      "start": 4.42,
-      "end": 7.86,
-      "type": "list",
+      "id": "scene_02",
+      "type": "ob_zero_stamp",
+      "start": 2.52,
+      "end": 4.86,
+      "data": {},
       "caption_mode": "single_line_top",
-      "switch_theme": "default",
       "avatar_mode": "hidden",
       "camera": {
-        "target": { "zoom": 1.05, "panX": 0, "panY": 0 }
+        "target": {
+          "zoom": 1.05,
+          "panX": 0,
+          "panY": 0
+        }
       },
-      "data": {
-        "header": "TES 3 ACTIFS DÉJÀ PRÊTS",
-        "items": [
-          "TON EXPERTISE MÉTIER",
-          "TES CAS CLIENTS PROUVÉS",
-          "TES MÉTHODES ÉCRITES"
-        ],
-        "beats": [5.58, 6.78, 7.50]
-      }
-    },
-    {
-      "id": "scene_02b",
-      "title": "Le Mur du Tournage Manuel",
-      "start": 7.86,
-      "end": 13.54,
-      "type": "blueprint_overwhelm",
-      "caption_mode": "single_line_top",
-      "switch_theme": "default",
-      "avatar_mode": "hidden",
-      "camera": {
-        "target": { "zoom": 1.08, "panX": 0, "panY": 15 }
-      },
-      "data": {
-        "title": "LE MUR DU TOURNAGE MANUEL",
-        "avatar": "assets/avatars/facepalm.png",
-        "cards": [
-          "Allumer la Caméra",
-          "Régler la Lumière",
-          "4h de Montage",
-          "Abandon du Post"
-        ],
-        "beats": [9.84, 10.88, 11.78, 13.06]
-      }
+      "title": "Zéro Vidéo"
     },
     {
       "id": "scene_03",
-      "title": "Rejet des Clones IA Génériques",
-      "start": 13.54,
-      "end": 21.66,
-      "type": "blueprint_compare_split",
-      "caption_mode": "single_line_top",
-      "switch_theme": "default",
-      "avatar_mode": "hidden",
-      "camera": {
-        "keyframes": [
-          { "at": 13.54, "zoom": 1.02, "panX": -25, "panY": 0 },
-          { "at": 17.5, "zoom": 1.06, "panX": 25, "panY": 0 }
-        ]
-      },
+      "type": "ob_assets_stack",
+      "start": 4.86,
+      "end": 8.54,
       "data": {
-        "badge_avant": "❌ CLONE IA GÉNÉRIQUE",
-        "title_avant": "Visage Robotique",
-        "desc_avant": "Même template que tout le monde = Crédibilité détruite en 3s",
-        "badge_apres": "✓ STUDIO SUR-MESURE",
-        "title_apres": "Direction Artistique B2B",
-        "desc_apres": "Ton identité visuelle codée au centième de seconde",
-        "reveal_at": 17.5
-      }
+        "avatar": "assets/avatars/pointing.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "duo_lymphe",
+      "camera": {
+        "target": {
+          "zoom": 1.03,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Actifs Prêts"
     },
     {
       "id": "scene_04",
-      "title": "Le Vrai Blocage",
-      "start": 21.66,
-      "end": 27.14,
-      "type": "blueprint_kinetic_type",
-      "caption_mode": "center_slam",
-      "switch_theme": "default",
-      "avatar_mode": "hero",
-      "camera": {
-        "initial": { "zoom": 1.25, "panX": 0, "panY": 0 },
-        "target": { "zoom": 1.0, "panX": 0, "panY": 0 },
-        "easing": "easeOutExpo",
-        "duration": 0.55
-      },
+      "type": "ob_camera_sigh",
+      "start": 8.54,
+      "end": 9.48,
       "data": {
-        "tag": "[ LE VRAI BLOCAGE ]",
-        "text": "",
-        "avatar": "assets/avatars/stop.png"
-      }
+        "avatar": "assets/avatars/facepalm.png"
+      },
+      "caption_mode": "hidden",
+      "avatar_mode": "solo",
+      "camera": {
+        "target": {
+          "zoom": 1.06,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Mais dès qu'il faut"
     },
     {
       "id": "scene_05",
-      "title": "Workflow 3 Étapes Synchronisées",
-      "start": 27.14,
-      "end": 41.36,
-      "type": "blueprint_spatial_pan",
+      "type": "ob_camera_chaos",
+      "start": 9.48,
+      "end": 12.94,
+      "data": {},
       "caption_mode": "single_line_top",
-      "switch_theme": "default",
       "avatar_mode": "hidden",
       "camera": {
-        "keyframes": [
-          { "at": 27.14, "zoom": 1.05, "panX": 0, "panY": 120 },
-          { "at": 33.68, "zoom": 1.05, "panX": 0, "panY": 0 },
-          { "at": 37.84, "zoom": 1.05, "panX": 0, "panY": -120 }
-        ]
+        "target": {
+          "zoom": 1.04,
+          "panX": 0,
+          "panY": 0
+        }
       },
-      "data": {
-        "stations": [
-          { "title": "1. Note Vocale 2 min ou Post Écrit", "desc": "Tu envoies ta matière brute sans tourner" },
-          { "title": "2. Extraction & Structure Rythmique", "desc": "Découpage chirurgical calé sur ta voix" },
-          { "title": "3. Preuve Visuelle Mot-à-Mot", "desc": "Chaque argument déclenche son animation" }
-        ],
-        "beats": [29.0, 33.68, 37.84]
-      }
+      "title": "Friction Caméra Lumière Montage"
     },
     {
       "id": "scene_06",
-      "title": "L'Effet Caméléon - 4 Chartes en Direct",
-      "start": 41.36,
-      "end": 50.80,
-      "type": "blueprint_cursor_ui",
-      "caption_mode": "single_line_top",
-      "switch_theme": "claude",
-      "avatar_mode": "hidden",
-      "camera": {
-        "target": { "zoom": 1.04, "panX": 0, "panY": 0 }
-      },
+      "type": "ob_abandon_slam",
+      "start": 12.94,
+      "end": 13.96,
       "data": {
-        "title": "EFFET CAMÉLÉON : 4 CHARTES",
-        "theme_beats": [47.0, 48.0, 49.0, 50.1]
-      }
+        "avatar": "assets/avatars/facepalm.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "solo",
+      "camera": {
+        "target": {
+          "zoom": 1.06,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Tu abandonnes"
     },
     {
       "id": "scene_07",
-      "title": "1 Idée = 4 Plateformes en 48h",
-      "start": 50.80,
-      "end": 57.24,
-      "type": "blueprint_delivery_grid",
+      "type": "ob_refuse_clones",
+      "start": 13.96,
+      "end": 16.76,
+      "data": {},
       "caption_mode": "single_line_top",
-      "switch_theme": "cyber-mint",
       "avatar_mode": "hidden",
       "camera": {
-        "target": { "zoom": 1.05, "panX": 0, "panY": 0 }
+        "target": {
+          "zoom": 1.02,
+          "panX": 0,
+          "panY": 0
+        }
       },
-      "data": {
-        "header": "LIVRAISON 48H : 1 VIDÉO = 4 RÉSEAUX",
-        "channels": [
-          "01. LINKEDIN B2B",
-          "02. TIKTOK",
-          "03. INSTAGRAM REELS",
-          "04. YOUTUBE SHORTS"
-        ],
-        "beats": [55.04, 55.82, 56.46, 56.90]
-      }
+      "title": "Refus des Clones IA"
     },
     {
       "id": "scene_08",
-      "title": "CTA Final Clarté",
-      "start": 57.24,
-      "end": 62.746,
-      "type": "face_to_dm_cta",
+      "type": "ob_clone_grid",
+      "start": 16.76,
+      "end": 19.78,
+      "data": {},
       "caption_mode": "single_line_top",
-      "switch_theme": "default",
       "avatar_mode": "hidden",
       "camera": {
-        "target": { "zoom": 1.0, "panX": 0, "panY": 0 }
+        "target": {
+          "zoom": 1.03,
+          "panX": 0,
+          "panY": 0
+        }
       },
+      "title": "3 Écrans Clones"
+    },
+    {
+      "id": "scene_09",
+      "type": "ob_trust_drop",
+      "start": 19.78,
+      "end": 22.06,
+      "data": {},
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.05,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Chute de Crédibilité"
+    },
+    {
+      "id": "scene_10",
+      "type": "ob_not_content",
+      "start": 22.06,
+      "end": 24.02,
+      "data": {},
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.02,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Le Diagnostic"
+    },
+    {
+      "id": "scene_11",
+      "type": "ob_text_wall_stamp",
+      "start": 24.02,
+      "end": 27.4,
+      "data": {},
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.04,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Pavé de Texte"
+    },
+    {
+      "id": "scene_12",
+      "type": "ob_reverse_switch",
+      "start": 27.4,
+      "end": 29.0,
+      "data": {},
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.03,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Processus Inversé"
+    },
+    {
+      "id": "scene_13",
+      "type": "ob_step_one_voice",
+      "start": 29.0,
+      "end": 33.68,
       "data": {
-        "keyword": "CLARTÉ",
-        "hero_title": "TON POST ÉCRIT EN VIDÉO",
-        "highlight_word": "VIDÉO",
-        "instruction_label": "ENVOIE CE MOT-CLÉ EN MESSAGE PRIVÉ :",
-        "button_label": "[ ENVOYER « CLARTÉ » EN MESSAGE PRIVÉ ↗ ]",
-        "cta_at": 59.5,
-        "spoken_at": 61.44,
-        "avatar": "assets/avatars/pointing.png"
-      }
+        "avatar": "assets/avatars/mic.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "duo_lymphe",
+      "camera": {
+        "target": {
+          "zoom": 1.03,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Étape 1 Note Vocale"
+    },
+    {
+      "id": "scene_14",
+      "type": "ob_step_two_structure",
+      "start": 33.68,
+      "end": 37.84,
+      "data": {},
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.03,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Étape 2 Structure"
+    },
+    {
+      "id": "scene_15",
+      "type": "ob_step_three_proof",
+      "start": 37.84,
+      "end": 41.72,
+      "data": {},
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.04,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Étape 3 Preuve Visuelle"
+    },
+    {
+      "id": "scene_16",
+      "type": "ob_unique_identity",
+      "start": 41.72,
+      "end": 46.84,
+      "data": {},
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.03,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Identité Unique"
+    },
+    {
+      "id": "scene_17",
+      "type": "ob_four_palettes_grid",
+      "start": 46.84,
+      "end": 51.1,
+      "data": {},
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.04,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "4 Chartes Visuelles"
+    },
+    {
+      "id": "scene_18",
+      "type": "ob_chrono_48h",
+      "start": 51.1,
+      "end": 54.26,
+      "data": {},
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.04,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Compteur 48H Chrono"
+    },
+    {
+      "id": "scene_19",
+      "type": "ob_platforms_popin",
+      "start": 54.26,
+      "end": 57.68,
+      "data": {},
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.04,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "4 Plateformes"
+    },
+    {
+      "id": "scene_20",
+      "type": "ob_final_pitch",
+      "start": 57.68,
+      "end": 60.54,
+      "data": {
+        "avatar": "assets/avatars/idea.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "solo",
+      "camera": {
+        "target": {
+          "zoom": 1.05,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Offre Sur-Mesure"
+    },
+    {
+      "id": "scene_21",
+      "type": "ob_final_delivery_cta",
+      "start": 60.54,
+      "end": 62.746,
+      "data": {
+        "keyword": "CLARTÉ"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "camera": {
+        "target": {
+          "zoom": 1.02,
+          "panX": 0,
+          "panY": 0
+        }
+      },
+      "title": "Appel à l'Action"
     }
   ]
 }

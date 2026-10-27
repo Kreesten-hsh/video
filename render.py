@@ -258,6 +258,12 @@ def render_video(
 ):
     check_dependencies()
 
+    try:
+        from sfx import ensure_sfx_files, mix_sfx
+        ensure_sfx_files()
+    except Exception:
+        mix_sfx = None
+
     if project_path:
         p_dir = Path(project_path)
         if p_dir.is_file():
@@ -277,11 +283,21 @@ def render_video(
                 pass
 
         output_path = output_path or str(p_dir / f"video{video_num}.mp4")
+        timeline_path = timeline_path or str(p_dir / "timeline.js")
         if not audio_path:
             cand_final = p_dir / "audio_final.wav"
             cand_voix = p_dir / "voix.wav"
+            if cand_voix.exists() and Path(timeline_path).exists() and mix_sfx is not None:
+                try:
+                    mix_sfx(
+                        voix_path=str(cand_voix),
+                        out_path=str(cand_final),
+                        timeline_path=str(timeline_path),
+                        project_path=str(p_dir)
+                    )
+                except Exception as exc:
+                    print(f"[SFX] Avertissement mixage SFX : {exc}")
             audio_path = str(cand_final) if cand_final.exists() else str(cand_voix)
-        timeline_path = timeline_path or str(p_dir / "timeline.js")
 
     if rendu_deterministe is None:
         rendu_deterministe = True
@@ -415,8 +431,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     default_proj = args.projet
-    if default_proj is None and not args.output and os.path.exists("studio_perso/video_01"):
-        default_proj = "studio_perso/video_01"
+    if default_proj is None and not args.output:
+        if os.path.exists("studio_perso/video_03"):
+            default_proj = "studio_perso/video_03"
+        elif os.path.exists("studio_perso/video_01"):
+            default_proj = "studio_perso/video_01"
 
     selected_preset = "veryfast" if args.fast else args.preset
 
