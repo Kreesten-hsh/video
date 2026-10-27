@@ -566,93 +566,75 @@ html[data-theme="obsidian-flame"], body[data-theme="obsidian-flame"], #video-can
   background: transparent !important;
 }
 
-/* Mode 1 : CENTER_SLAM (Plein Centre Y: 50%, 88px, Slam In) */
-#subtitles-zone.mode-center-slam {
-  top: 50% !important;
-  transform: translateY(-50%) !important;
+/* ==========================================================================
+   ZONE SOUS-TITRES MULTI-ZONES SUR FOND BEIGE (VERROUILLAGE HAUT STRICT)
+   ========================================================================== */
+#subtitles-zone,
+#subtitles-zone.mode-center-slam,
+#subtitles-zone.mode-dynamic-band,
+#subtitles-zone.mode-single-line-top {
+  position: absolute !important;
+  top: 200px !important;
+  bottom: auto !important;
+  left: 60px !important;
+  right: 60px !important;
+  width: auto !important;
+  max-width: 960px !important;
+  margin: 0 auto !important;
+  transform: none !important;
   height: auto !important;
-  padding: 0 40px !important;
-  z-index: 100 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  z-index: 50 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
 }
-#subtitles-zone.mode-center-slam.has-avatar-hero,
-#video-canvas:has(#global-avatar-wrapper.avatar-hero) #subtitles-zone.mode-center-slam,
-#video-canvas:has(#global-avatar-wrapper.avatar-solo) #subtitles-zone.mode-center-slam {
-  top: 36% !important;
-}
-#subtitles-zone.mode-center-slam .sub-line {
+
+#subtitles-zone .sub-line,
+#subtitles-zone.mode-center-slam .sub-line,
+#subtitles-zone.mode-dynamic-band .sub-line,
+#subtitles-zone.mode-single-line-top .sub-line {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
-  max-width: 1000px !important;
+  max-width: 960px !important;
+  text-align: center !important;
 }
-#subtitles-zone.mode-center-slam .sub-word {
-  font-size: 86px !important;
+
+#subtitles-zone .sub-word,
+#subtitles-zone.mode-center-slam .sub-word,
+#subtitles-zone.mode-dynamic-band .sub-word,
+#subtitles-zone.mode-single-line-top .sub-word {
+  font-family: 'Montserrat', 'Inter', sans-serif !important;
+  font-size: 54px !important;
+  font-weight: 900 !important;
+  line-height: 1.15 !important;
   color: var(--ink) !important;
   text-transform: uppercase !important;
-  letter-spacing: -2px !important;
-  padding: 4px 14px !important;
-}
-#subtitles-zone.mode-center-slam .sub-word.active {
-  background: var(--flame) !important;
-  color: var(--white) !important;
-  padding: 6px 18px !important;
-  border-radius: 0px !important;
-  transform: scale(1.08) !important;
-  box-shadow: var(--shadow-brutal-sm) !important;
-  text-shadow: none !important;
-  display: inline-block !important;
-}
-
-/* Mode 2 : DYNAMIC_BAND (Bande centrale-basse Y: 66%, 52px) */
-#subtitles-zone.mode-dynamic-band {
-  top: 66% !important;
-  transform: translateY(-50%) !important;
-  height: auto !important;
-  z-index: 100 !important;
-}
-#subtitles-zone.mode-dynamic-band .sub-line {
-  background: var(--surface-card) !important;
-  border: 4px solid var(--ink) !important;
-  box-shadow: var(--shadow-brutal-sm) !important;
-  border-radius: 0px !important;
-  padding: 14px 28px !important;
-}
-#subtitles-zone.mode-dynamic-band .sub-word {
-  font-size: 50px !important;
-  color: var(--card-text) !important;
-  text-shadow: none !important;
-}
-#subtitles-zone.mode-dynamic-band .sub-word.active {
-  background: var(--flame) !important;
-  color: var(--white) !important;
-  padding: 4px 12px !important;
-  border-radius: 0px !important;
-  text-decoration: none !important;
-}
-
-/* Mode 3 : SINGLE_LINE_TOP (Sous-titres Directs Éditoriaux Haut) */
-#subtitles-zone.mode-single-line-top,
-#subtitles-zone {
-  top: 190px !important;
-  transform: none !important;
-  height: auto !important;
-  z-index: 50 !important;
-}
-#subtitles-zone:not(.mode-center-slam) .sub-line,
-.sub-line {
+  letter-spacing: -1px !important;
+  padding: 0 4px !important;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
-  padding: 0 !important;
-}
-#subtitles-zone:not(.mode-center-slam) .sub-word.active {
-  background: transparent !important;
-  box-shadow: none !important;
-  transform: none !important;
 }
 
-/* Mode 4 : HIDDEN / UI_EMBEDDED */
+#subtitles-zone .sub-word.active,
+#subtitles-zone.mode-center-slam .sub-word.active,
+#subtitles-zone.mode-dynamic-band .sub-word.active,
+#subtitles-zone.mode-single-line-top .sub-word.active {
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--flame) !important;
+  padding: 0 4px !important;
+  transform: none !important;
+  text-shadow: none !important;
+}
+
 #subtitles-zone.mode-hidden {
   opacity: 0 !important;
   pointer-events: none !important;
@@ -7921,34 +7903,50 @@ html[data-theme="obsidian-flame"], body[data-theme="obsidian-flame"], #video-can
 /* ==========================================================================
    LES 8 BLUEPRINTS UNIVERSELS DU STUDIO MULTI-TENANT (.bp-*)
    ========================================================================== */
+.bp-stage,
+.bp-stage * {
+  font-family: 'Montserrat', 'Inter', sans-serif !important;
+  box-sizing: border-box !important;
+}
+
 .bp-stage {
   width: 960px !important;
   max-width: 960px !important;
   height: auto !important;
   min-height: 480px !important;
-  box-sizing: border-box !important;
   position: relative !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
   margin: 0 auto !important;
+  opacity: 1 !important;
 }
 
 .bp-stage-hook.duo-lymphe-spacing {
   margin-bottom: 80px !important;
 }
 
-.bp-card {
-  box-sizing: border-box !important;
+.bp-card,
+.bp-card-hook,
+.bp-friction-item,
+.bp-card-stat,
+.bp-versus-card,
+.bp-window-frame,
+.bp-grid-tile,
+.bp-carousel-card,
+.bp-plat-big-card,
+.bp-input-mockup,
+.bp-door-card {
+  opacity: 1 !important;
+  background: var(--surface-card) !important;
+  border: 4px solid var(--ink) !important;
+  box-shadow: var(--shadow-brutal) !important;
 }
 
 .bp-card-hook {
   width: 880px !important;
-  background: var(--surface-card) !important;
-  border: 4px solid var(--ink) !important;
-  box-shadow: var(--shadow-brutal) !important;
-  padding: 48px !important;
+  padding: 44px !important;
   position: relative !important;
 }
 
@@ -8079,11 +8077,12 @@ html[data-theme="obsidian-flame"], body[data-theme="obsidian-flame"], #video-can
 
 .bp-friction-text {
   flex: 1 !important;
-  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
-  font-size: 28px !important;
-  font-weight: 800 !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 30px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
   color: var(--ink) !important;
-  line-height: 1.3 !important;
+  line-height: 1.2 !important;
 }
 
 .bp-friction-badge {
@@ -8261,18 +8260,20 @@ html[data-theme="obsidian-flame"], body[data-theme="obsidian-flame"], #video-can
 }
 
 .bp-versus-stamp {
-  margin-top: 36px !important;
+  position: relative !important;
+  margin-top: 28px !important;
   border: 4px solid var(--flame) !important;
   color: var(--flame) !important;
   background: var(--surface-card) !important;
-  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
-  font-size: 30px !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 32px !important;
   font-weight: 900 !important;
   text-transform: uppercase !important;
-  padding: 10px 30px !important;
+  padding: 10px 32px !important;
   transform: rotate(-4deg) !important;
   box-shadow: var(--shadow-brutal) !important;
   white-space: nowrap !important;
+  align-self: center !important;
 }
 
 /* 5. Code Window */
@@ -8468,59 +8469,70 @@ html[data-theme="obsidian-flame"], body[data-theme="obsidian-flame"], #video-can
   white-space: nowrap !important;
 }
 
-/* 7. Logo Carousel RTL */
-.bp-carousel-viewport {
-  width: 960px !important;
-  max-width: 960px !important;
-  height: 560px !important;
+/* 7. Logo Carousel RTL (Style video_03 00:54-00:57) */
+.bp-carousel-viewport,
+.bp-plat-slider-stage {
   position: relative !important;
-  overflow: hidden !important;
+  width: 960px !important;
+  height: 560px !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
 }
 
-.bp-carousel-card {
-  width: 480px !important;
-  height: 480px !important;
-  background: var(--surface-card) !important;
-  border: 4px solid var(--ink) !important;
-  box-shadow: var(--shadow-brutal) !important;
+.bp-carousel-card,
+.bp-plat-big-card {
   position: absolute !important;
   top: 50% !important;
   left: 50% !important;
-  transform: translate(-50%, -50%) !important;
+  width: 480px !important;
+  height: 480px !important;
+  margin-left: -240px !important;
+  margin-top: -240px !important;
+  background: var(--surface-card) !important;
+  border: 5px solid var(--ink) !important;
+  border-radius: 0px !important;
+  box-shadow: 10px 10px 0px var(--ink) !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 24px !important;
+  gap: 32px !important;
   box-sizing: border-box !important;
+  opacity: 1 !important;
+  will-change: transform !important;
 }
 
-.bp-carousel-logo-box {
-  width: 120px !important;
-  height: 120px !important;
+.bp-carousel-logo-box,
+.bp-plat-logo-svg {
+  width: 200px !important;
+  height: 200px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
 }
 
-.bp-carousel-label {
-  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
-  font-size: 36px !important;
+.bp-carousel-logo-box svg,
+.bp-plat-logo-svg svg {
+  width: 180px !important;
+  height: 180px !important;
+}
+
+.bp-carousel-label,
+.bp-plat-big-name {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 40px !important;
   font-weight: 900 !important;
   color: var(--ink) !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
   letter-spacing: 1px !important;
 }
 
 .bp-carousel-badge {
-  background: var(--tile-yellow) !important;
-  border: 3px solid var(--ink) !important;
-  padding: 8px 24px !important;
-  font-size: 22px !important;
-  font-weight: 800 !important;
-  text-transform: uppercase !important;
-  white-space: nowrap !important;
-  box-shadow: var(--shadow-brutal-sm) !important;
-  color: var(--ink) !important;
+  display: none !important;
 }
 
 /* 8. CTA Conversion */
@@ -8582,27 +8594,32 @@ html[data-theme="obsidian-flame"], body[data-theme="obsidian-flame"], #video-can
 
 .bp-mouse-cursor {
   position: absolute !important;
-  z-index: 50 !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 90px !important;
+  height: 90px !important;
+  z-index: 100 !important;
   pointer-events: none !important;
+  filter: drop-shadow(6px 6px 0px var(--ink)) !important;
 }
 
 .bp-doors-container {
-  width: 900px !important;
+  width: 880px !important;
   display: flex !important;
-  gap: 24px !important;
+  flex-direction: column !important;
+  gap: 20px !important;
   margin-top: 36px !important;
 }
 
 .bp-door-card {
-  flex: 1 !important;
+  width: 880px !important;
   border: 4px solid var(--ink) !important;
   box-shadow: var(--shadow-brutal) !important;
-  padding: 32px 24px !important;
-  text-align: center !important;
+  padding: 24px 32px !important;
   display: flex !important;
   flex-direction: column !important;
-  align-items: center !important;
-  gap: 12px !important;
+  align-items: flex-start !important;
+  gap: 8px !important;
   box-sizing: border-box !important;
 }
 
@@ -8610,8 +8627,9 @@ html[data-theme="obsidian-flame"], body[data-theme="obsidian-flame"], #video-can
   background: var(--surface-card) !important;
   border: 3px solid var(--ink) !important;
   padding: 6px 18px !important;
-  font-size: 20px !important;
-  font-weight: 800 !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 900 !important;
   text-transform: uppercase !important;
   white-space: nowrap !important;
   box-shadow: var(--shadow-brutal-sm) !important;
@@ -8619,8 +8637,8 @@ html[data-theme="obsidian-flame"], body[data-theme="obsidian-flame"], #video-can
 }
 
 .bp-door-title {
-  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
-  font-size: 32px !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 34px !important;
   font-weight: 900 !important;
   color: var(--ink) !important;
   text-transform: uppercase !important;
@@ -8628,10 +8646,11 @@ html[data-theme="obsidian-flame"], body[data-theme="obsidian-flame"], #video-can
 }
 
 .bp-door-subtitle {
-  font-family: var(--font-body, 'Inter', sans-serif) !important;
-  font-size: 22px !important;
-  font-weight: 600 !important;
+  font-family: 'Montserrat', 'Inter', sans-serif !important;
+  font-size: 24px !important;
+  font-weight: 800 !important;
   color: var(--card-text-muted) !important;
+  text-transform: uppercase !important;
   line-height: 1.3 !important;
 }
 

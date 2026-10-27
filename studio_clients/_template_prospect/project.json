@@ -140,17 +140,19 @@
       "type": "bp_hook_question",
       "start": 0.0,
       "end": 5.14,
-      "data": {},
-      "caption_mode": "center_slam",
+      "data": {
+        "avatar": "assets/avatars/idea.png"
+      },
+      "caption_mode": "single_line_top",
       "avatar_mode": "duo_lymphe",
       "params": {
-        "top_badge": "L'OBSESSION",
+        "top_badge": "LE PARADOXE",
         "box_color": "var(--tile-yellow)",
         "icon": "question",
-        "title": "POURQUOI TES VIDÉOS NE MARCHENT PAS ?",
-        "subtitle": "Le problème n'est pas ton contenu, c'est la friction.",
-        "stamp_text": "OBSESSION",
-        "avatar": "question"
+        "title": "4 POSTS ÉCRITS PAR SEMAINE. 0 VIDÉO.",
+        "subtitle": "Ton expertise reste invisible pour 90% de ton audience.",
+        "stamp_text": "ZÉRO VIDÉO",
+        "avatar": "idea"
       }
     },
     {
@@ -159,34 +161,37 @@
       "start": 5.14,
       "end": 11.06,
       "data": {},
-      "caption_mode": "dynamic_band",
+      "caption_mode": "single_line_top",
       "avatar_mode": "hidden",
       "params": {
-        "header_badge": "LES 3 BLOCAGES MAJEURS",
+        "header_badge": "3 BLOCAGES MATÉRIELS",
         "items": [
           {
-            "icon": "clock",
-            "box_color": "var(--tile-yellow)",
-            "text": "4 heures passées à régler le décor et la lumière",
-            "status": "cross",
-            "appear_at_offset": 0.3
-          },
-          {
             "icon": "camera",
-            "box_color": "var(--tile-blue)",
-            "text": "Le stress de parler face à l'objectif sans bafouiller",
+            "box_color": "var(--tile-yellow)",
+            "text": "ALLUMER UNE CAMÉRA",
+            "right_badge": "CAMÉRA",
             "status": "cross",
-            "appear_at_offset": 1.2
+            "appear_at_offset": 0.0
           },
           {
-            "icon": "chart",
-            "box_color": "var(--tile-green)",
-            "text": "Zéro rendez-vous qualifié généré en retour",
+            "icon": "bulb",
+            "box_color": "var(--surface-card)",
+            "text": "RÉGLER LA LUMIÈRE",
+            "right_badge": "SETUP",
             "status": "cross",
-            "appear_at_offset": 2.2
+            "appear_at_offset": 1.8
+          },
+          {
+            "icon": "clock",
+            "box_color": "var(--tile-blue)",
+            "text": "MONTER PENDANT 4 HEURES",
+            "right_badge": "4 HEURES",
+            "status": "cross",
+            "appear_at_offset": 3.6
           }
         ],
-        "connectors": "plus_equal"
+        "connectors": "none"
       }
     },
     {
@@ -195,16 +200,16 @@
       "start": 11.06,
       "end": 17.52,
       "data": {},
-      "caption_mode": "center_slam",
+      "caption_mode": "single_line_top",
       "avatar_mode": "hidden",
       "params": {
-        "top_badge": "IMPACT BUSINESS",
+        "top_badge": "LE PIÈGE DES CLONES IA",
         "stat_from": 0,
-        "stat_to": 78,
-        "stat_suffix": "%",
-        "label": "DES DÉCIDEURS VEULENT DE LA CLARTÉ IMMÉDIATE",
+        "stat_to": 3,
+        "stat_suffix": "s",
+        "label": "POUR DÉTRUIRE TA CRÉDIBILITÉ EN B2B",
         "progress_bar": true,
-        "footer_stamp": "PROUVÉ"
+        "footer_stamp": "REFUSE LES CLONES"
       }
     },
     {
@@ -213,22 +218,22 @@
       "start": 17.52,
       "end": 22.84,
       "data": {},
-      "caption_mode": "dynamic_band",
+      "caption_mode": "single_line_top",
       "avatar_mode": "hidden",
       "params": {
         "layout": "vertical",
         "left_or_top": {
-          "badge": "MÉTHODE OBSOLÈTE",
-          "title": "Face caméra fatiguant, 10h de montage, zéro lead",
-          "icon": "cross",
+          "badge": "AVATAR ROBOTIQUE",
+          "title": "Le même clone générique que tout le monde",
+          "icon": "robot",
           "color": "var(--surface-card)",
           "status": "cross"
         },
         "right_or_bottom": {
-          "badge": "MOTEUR VIDEO-AS-CODE",
-          "title": "Script pur, injection vectorielle, diffusion 48h",
+          "badge": "HUMAIN + CODE",
+          "title": "Ton acting réel avec animation sur-mesure",
           "icon": "check",
-          "color": "var(--tile-green)",
+          "color": "var(--tile-yellow)",
           "status": "check"
         },
         "footer_stamp": "VERDICT"
@@ -240,34 +245,30 @@
       "start": 22.84,
       "end": 29.0,
       "data": {},
-      "caption_mode": "center_slam",
+      "caption_mode": "single_line_top",
       "avatar_mode": "hidden",
       "params": {
-        "top_badge": "DIFFUSION MULTI-CANAL",
+        "top_badge": "1 CONTENU -> 4 CANAUX",
         "items": [
           {
             "logo": "linkedin",
             "label": "LINKEDIN",
-            "badge": "RÉSEAU LEADERSHIP",
-            "at_time": 23.0
+            "at_time": 0.0
           },
           {
             "logo": "tiktok",
             "label": "TIKTOK",
-            "badge": "PORTÉE VIRALE",
-            "at_time": 24.5
+            "at_time": 1.5
           },
           {
             "logo": "reels",
-            "label": "INSTAGRAM",
-            "badge": "ENGAGEMENT",
-            "at_time": 26.0
+            "label": "REELS",
+            "at_time": 3.0
           },
           {
             "logo": "shorts",
-            "label": "YOUTUBE",
-            "badge": "RÉFÉRENCEMENT",
-            "at_time": 27.5
+            "label": "SHORTS",
+            "at_time": 4.5
           }
         ]
       }
@@ -282,21 +283,21 @@
       "avatar_mode": "hidden",
       "params": {
         "variant": "two_door",
-        "keyword": "CLARTÉ",
+        "keyword": "NOTE VOCALE",
         "button_label": "ENVOYER",
-        "click_at_offset": 1.5,
+        "click_at_offset": 1.4,
         "doors": [
           {
-            "badge": "PORTE 1 : RESSOURCE",
-            "title": "BLUEPRINT GRATUIT",
-            "subtitle": "Envoie CLARTÉ en message privé",
+            "badge": "ÉTAPE 1",
+            "title": "NOTE VOCALE 2 MIN",
+            "subtitle": "OU TON MEILLEUR POST ÉCRIT",
             "color": "var(--tile-yellow)",
             "appear_at_offset": 1.8
           },
           {
-            "badge": "PORTE 2 : PRESTATION",
-            "title": "DÉLÉGATION TOTALE",
-            "subtitle": "On produit 4 vidéos par semaine pour toi",
+            "badge": "ÉTAPE 2",
+            "title": "CAPSULE VIDÉO PRO",
+            "subtitle": "EXTRACTION DE TA PÉPITE EN 48H",
             "color": "var(--tile-green)",
             "appear_at_offset": 2.4
           }

@@ -530,36 +530,23 @@
       return;
     }
 
-    let mode = (activeScene && activeScene.caption_mode) || "legacy";
-    if (activeScene && activeScene.type === "blueprint_kinetic_type" && mode !== "center_slam" && mode !== "hidden") {
-      mode = "single_line_top";
+    let mode = "single_line_top";
+    if (activeScene && (activeScene.caption_mode === "hidden" || activeScene.caption_mode === "ui_embedded")) {
+      mode = "hidden";
     }
 
-    if (mode === "center_slam") {
-      subtitlesZone.className = "mode-center-slam";
-      if (activeScene && activeScene.avatar_mode === "hero") {
-        subtitlesZone.classList.add("has-avatar-hero");
-      }
-    } else if (mode === "dynamic_band") {
-      subtitlesZone.className = "mode-dynamic-band";
-    } else if (mode === "single_line_top") {
-      subtitlesZone.className = "mode-single-line-top";
-    } else if (mode === "hidden" || mode === "ui_embedded") {
+    // Verrouillage absolu : les sous-titres restent TOUJOURS en haut (mode-single-line-top),
+    // interdisant tout écrasement ou déplacement au centre par-dessus les cartes
+    if (mode === "hidden") {
       subtitlesZone.className = "mode-hidden";
     } else {
-      subtitlesZone.className = ""; // legacy mode
+      subtitlesZone.className = "mode-single-line-top";
     }
 
-    // Anti-collision : si center_slam et que la scène n'est pas kinetic_type,
-    // on masque ou abaisse la carte centrale de #scene-container
+    // ZÉRO opacité fantôme sur les scènes et cartes
     if (sceneContainer) {
-      if (mode === "center_slam" && activeScene && activeScene.type !== "blueprint_kinetic_type") {
-        sceneContainer.style.opacity = "0.15";
-        sceneContainer.style.transform = "scale(0.88)";
-      } else {
-        sceneContainer.style.opacity = "";
-        sceneContainer.style.transform = "";
-      }
+      sceneContainer.style.opacity = "1";
+      sceneContainer.style.transform = "none";
     }
 
     if (subtitleChunks.length === 0) return;
@@ -589,26 +576,17 @@
         .join(" ");
     }
 
-    // Karaoké actif uniquement en mode center_slam ou dynamic_band (désactivé en single_line_top pour un affichage stable)
-    if (mode === "center_slam" || mode === "dynamic_band") {
-      chunk.words.forEach((w, idx) => {
-        const el = document.getElementById(`sw-${idx}`);
-        if (!el) return;
-        if (t >= w.start && t <= w.end) {
-          el.classList.add("active");
-        } else {
-          el.classList.remove("active");
-        }
-      });
-    }
+    chunk.words.forEach((w, idx) => {
+      const el = document.getElementById(`sw-${idx}`);
+      if (!el) return;
+      if (t >= w.start && t <= w.end) {
+        el.classList.add("active");
+      } else {
+        el.classList.remove("active");
+      }
+    });
 
-    if (mode === "center_slam") {
-      const chunkElapsed = Math.max(0, t - chunk.start);
-      const slamSpring = calcSpringOvershoot(chunkElapsed);
-      subtitlesBox.style.transform = `scale(${slamSpring.scale})`;
-    } else {
-      subtitlesBox.style.transform = "";
-    }
+    subtitlesBox.style.transform = "";
   }
 
   function updateScenes(t) {
@@ -973,7 +951,7 @@
             </div>
           </div>
         </div>
-        ${footerStamp ? `<div class="bp-stamp bp-versus-stamp" id="bp-versus-stamp">${footerStamp}</div>` : ""}
+        ${footerStamp ? `<div class="bp-versus-stamp" id="bp-versus-stamp">${footerStamp}</div>` : ""}
       </div>
     `;
   }
@@ -1156,16 +1134,27 @@
   }
 
   function renderBpLogoCarouselRtl(p, sc) {
-    const topBadge = p.top_badge || "DIFFUSION MULTI-CANAL";
+    const items = p.items || [
+      { logo: "linkedin", label: "LINKEDIN" },
+      { logo: "tiktok", label: "TIKTOK" },
+      { logo: "reels", label: "REELS" },
+      { logo: "shorts", label: "SHORTS" }
+    ];
+
     return `
       <div class="bp-stage bp-stage-carousel">
-        ${topBadge ? `<div class="bp-section-badge">${topBadge}</div>` : ""}
-        <div class="bp-carousel-viewport">
-          <div class="bp-carousel-card" id="bp-carousel-card">
-            <div class="bp-carousel-logo-box" id="bp-carousel-logo"></div>
-            <div class="bp-carousel-label" id="bp-carousel-label"></div>
-            <div class="bp-carousel-badge" id="bp-carousel-badge"></div>
-          </div>
+        <div class="bp-plat-slider-stage" id="bp-carousel-viewport">
+          ${items.map((item, idx) => {
+            const logoSvg = (typeof OFFICIAL_LOGOS_240 !== "undefined" && OFFICIAL_LOGOS_240[item.logo])
+              ? OFFICIAL_LOGOS_240[item.logo]
+              : getSvgIcon(item.logo, 180);
+            return `
+              <div class="bp-plat-big-card" id="bp-plat-${idx}" style="transform: translateX(${idx === 0 ? 0 : 1100}px); opacity: ${idx === 0 ? 1 : 0};">
+                <div class="bp-plat-logo-svg">${logoSvg}</div>
+                <div class="bp-plat-big-name">${(item.label || item.logo).toUpperCase()}</div>
+              </div>
+            `;
+          }).join("")}
         </div>
       </div>
     `;
@@ -1173,54 +1162,63 @@
 
   function animateBpLogoCarouselRtl(p, progress, elapsed, t, sc) {
     const items = p.items || [
-      { logo: "linkedin", label: "LINKEDIN", badge: "B2B AUTORITÉ", at_time: sc.start + 0.1 },
-      { logo: "tiktok", label: "TIKTOK", badge: "PORTÉE VIRALE", at_time: sc.start + 1.2 },
-      { logo: "reels", label: "INSTAGRAM", badge: "ENGAGEMENT", at_time: sc.start + 2.3 },
-      { logo: "shorts", label: "YOUTUBE", badge: "RÉFÉRENCEMENT", at_time: sc.start + 3.4 }
+      { logo: "linkedin", label: "LINKEDIN", at_time: 0.0 },
+      { logo: "tiktok", label: "TIKTOK", at_time: 1.5 },
+      { logo: "reels", label: "REELS", at_time: 3.0 },
+      { logo: "shorts", label: "SHORTS", at_time: 4.5 }
     ];
+    if (items.length === 0) return;
 
-    let activeIdx = 0;
-    for (let i = items.length - 1; i >= 0; i--) {
-      const at = items[i].at_time !== undefined ? items[i].at_time : (sc.start + i * 1.0);
-      if (t >= at) {
-        activeIdx = i;
-        break;
-      }
-    }
+    const easeCubicOut = (x) => 1 - Math.pow(1 - Math.min(1, Math.max(0, x)), 3);
+    const slideDur = 0.22; // 220ms
 
-    const curItem = items[activeIdx];
-    const atTime = curItem.at_time !== undefined ? curItem.at_time : (sc.start + activeIdx * 1.0);
-    const timeSinceTransition = Math.max(0, t - atTime);
-    const transitionDuration = 0.16;
+    for (let i = 0; i < items.length; i++) {
+      const card = document.getElementById(`bp-plat-${i}`);
+      if (!card) continue;
 
-    const card = document.getElementById("bp-carousel-card");
-    const logoBox = document.getElementById("bp-carousel-logo");
-    const labelBox = document.getElementById("bp-carousel-label");
-    const badgeBox = document.getElementById("bp-carousel-badge");
+      const enterAt = items[i].at_time !== undefined ? items[i].at_time : (i * 1.5);
+      const exitAt = (i < items.length - 1)
+        ? (items[i + 1].at_time !== undefined ? items[i + 1].at_time : ((i + 1) * 1.5))
+        : 9999;
 
-    if (logoBox && card) {
-      logoBox.innerHTML = getSvgIcon(curItem.logo, 100);
-      if (labelBox) labelBox.textContent = curItem.label || "";
-      if (badgeBox) badgeBox.textContent = curItem.badge || "";
+      let tx = 1100;
+      let op = 0;
 
-      if (timeSinceTransition < transitionDuration) {
-        const pTrans = timeSinceTransition / transitionDuration;
-        const tx = Math.round(350 * (1 - easeOutBack(pTrans)));
-        card.style.transform = `translate(calc(-50% + ${tx}px), -50%)`;
-        card.style.opacity = String(0.3 + 0.7 * pTrans);
+      if (i === 0 && elapsed < enterAt) {
+        const pIn = easeCubicOut(Math.max(0, (elapsed - (enterAt - slideDur)) / slideDur));
+        tx = 1100 * (1 - pIn);
+        op = 1;
+      } else if (elapsed < enterAt) {
+        tx = 1100;
+        op = 0;
+      } else if (elapsed >= enterAt && elapsed < enterAt + slideDur) {
+        const pIn = easeCubicOut((elapsed - enterAt) / slideDur);
+        tx = 1100 * (1 - pIn);
+        op = 1;
+      } else if (elapsed >= enterAt + slideDur && elapsed < exitAt) {
+        tx = 0;
+        op = 1;
+      } else if (elapsed >= exitAt && elapsed < exitAt + slideDur) {
+        const pOut = easeCubicOut((elapsed - exitAt) / slideDur);
+        tx = -1100 * pOut;
+        op = 1;
       } else {
-        card.style.transform = "translate(-50%, -50%)";
-        card.style.opacity = "1";
+        tx = -1100;
+        op = 0;
       }
+
+      card.style.opacity = String(op);
+      card.style.transform = `translateX(${Math.round(tx)}px)`;
     }
   }
 
   function renderBpCtaConversion(p, sc) {
     const variant = p.variant || "two_door";
     const buttonLabel = p.button_label || "ENVOYER";
+    const keyword = p.keyword || "NOTE VOCALE";
     const doors = p.doors || [
-      { badge: "PORTE 1 : RESSOURCE", title: "BLUEPRINT GRATUIT", subtitle: "Reçois la méthode en DM", color: "var(--tile-yellow)", appear_at_offset: 2.0 },
-      { badge: "PORTE 2 : STUDIO", title: "ON PRODUIT POUR TOI", subtitle: "Délégation totale 48h", color: "var(--tile-green)", appear_at_offset: 2.6 }
+      { badge: "ÉTAPE 1", title: "NOTE VOCALE 2 MIN", subtitle: "OU TON MEILLEUR POST ÉCRIT", color: "var(--tile-yellow)", appear_at_offset: 1.8 },
+      { badge: "ÉTAPE 2", title: "CAPSULE VIDÉO PRO", subtitle: "EXTRACTION DE TA PÉPITE EN 48H", color: "var(--tile-green)", appear_at_offset: 2.4 }
     ];
 
     return `
@@ -1228,16 +1226,14 @@
         <div class="bp-input-mockup" id="bp-cta-input-box">
           <div class="bp-input-field">
             <span class="bp-input-prefix">MESSAGE &gt; </span>
-            <span class="bp-input-text" id="bp-cta-typed-text"></span>
+            <span class="bp-input-text" id="bp-cta-typed-text">${keyword}</span>
             <span class="bp-input-cursor" id="bp-cta-cursor">|</span>
           </div>
           <div class="bp-input-button" id="bp-cta-btn">${buttonLabel}</div>
         </div>
-        <div class="bp-mouse-cursor" id="bp-mouse-cursor">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
-            <polygon points="3,2 3,20 8,15 13,22 16,20 11,13 18,13" fill="#111111" stroke="#FFFFFF" stroke-width="2"/>
-          </svg>
-        </div>
+        <svg class="bp-mouse-cursor" id="bp-mouse-cursor" width="90" height="90" viewBox="0 0 90 90" fill="none">
+          <path d="M12 10L34 78L47 51L76 38L12 10Z" fill="#FFFFFF" stroke="#111111" stroke-width="4" stroke-linejoin="round"/>
+        </svg>
         ${variant === "two_door" && doors ? `
           <div class="bp-doors-container" id="bp-doors-container">
             ${doors.map((door, dIdx) => `
@@ -1254,36 +1250,36 @@
   }
 
   function animateBpCtaConversion(p, progress, elapsed, t, sc) {
-    const keyword = p.keyword || "CLARTÉ";
-    const clickAt = p.click_at_offset !== undefined ? p.click_at_offset : 1.5;
+    const keyword = p.keyword || "NOTE VOCALE";
+    const clickAt = p.click_at_offset !== undefined ? p.click_at_offset : 1.4;
     const typedEl = document.getElementById("bp-cta-typed-text");
     const cursorEl = document.getElementById("bp-cta-cursor");
     const btnEl = document.getElementById("bp-cta-btn");
     const mouseEl = document.getElementById("bp-mouse-cursor");
 
     // Frappe lettre par lettre
-    const typeDuration = Math.max(0.2, clickAt - 0.2);
+    const typeDuration = Math.max(0.3, clickAt - 0.2);
     const typeProgress = Math.min(1.0, elapsed / typeDuration);
     const numChars = Math.floor(typeProgress * keyword.length);
     if (typedEl) {
       typedEl.textContent = keyword.substring(0, numChars);
     }
     if (cursorEl) {
-      cursorEl.style.opacity = Math.floor(elapsed * 4) % 2 === 0 ? "1" : "0";
+      cursorEl.style.opacity = Math.floor(elapsed * 5) % 2 === 0 ? "1" : "0";
     }
 
-    // Animation curseur de souris
+    // Animation curseur de souris vers le bouton ENVOYER
     if (mouseEl && btnEl) {
       const isClicked = elapsed >= clickAt;
-      const startX = 300;
-      const startY = 800;
-      const targetX = 720;
-      const targetY = 700;
-      const moveP = Math.min(1.0, elapsed / clickAt);
-      const curX = Math.round(startX + (targetX - startX) * easeInOutCubic(moveP));
-      const curY = Math.round(startY + (targetY - startY) * easeInOutCubic(moveP));
+      const startX = 400;
+      const startY = 320;
+      const targetX = 760;
+      const targetY = 50;
+      const moveP = easeInOutCubic(Math.min(1.0, elapsed / clickAt));
+      const curX = Math.round(startX + (targetX - startX) * moveP);
+      const curY = Math.round(startY + (targetY - startY) * moveP);
 
-      mouseEl.style.transform = `translate(${curX}px, ${curY}px) scale(${isClicked ? 0.85 : 1.0})`;
+      mouseEl.style.transform = `translate(${curX}px, ${curY}px) scale(${isClicked ? 0.88 : 1.0})`;
 
       if (isClicked) {
         btnEl.style.transform = "translate(4px, 4px)";
@@ -1301,8 +1297,8 @@
       if (!doorEl) return;
       const appearAt = d.appear_at_offset !== undefined ? d.appear_at_offset : (clickAt + 0.3 + idx * 0.4);
       if (elapsed < appearAt) {
-        doorEl.style.opacity = "0.15";
-        doorEl.style.transform = "translateY(24px) scale(0.95)";
+        doorEl.style.opacity = "0";
+        doorEl.style.transform = "translateY(30px) scale(0.95)";
       } else {
         const s = calcSpringOvershoot(elapsed - appearAt);
         doorEl.style.opacity = "1";
