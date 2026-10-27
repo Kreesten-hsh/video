@@ -17,6 +17,12 @@ import json
 import time
 import argparse
 from pathlib import Path
+
+# Résolution des dépendances locales du dépôt si nécessaire
+_local_venv_pkg = Path(__file__).resolve().parent / ".venv" / "lib" / f"python{sys.version_info.major}.{sys.version_info.minor}" / "site-packages"
+if _local_venv_pkg.is_dir() and str(_local_venv_pkg) not in sys.path:
+    sys.path.insert(0, str(_local_venv_pkg))
+
 from playwright.sync_api import sync_playwright
 
 REPO_ROOT = Path(__file__).resolve().parent
@@ -340,10 +346,10 @@ def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_pat
                 // 5. Contrôle Dynamique Multi-Étapes (Axe 4 : balayage par pas de 0.3s et activation de CHAQUE carte)
                 const duration = sc.end - sc.start;
                 if (duration > 3.5) {
-                    const cardSelectors = '.delivery-channel-row, .flaw-card, .step-box, .channel-card, .saas-step, .perception-stage, .step-card, .workflow-step';
+                    const cardSelectors = '.delivery-channel-row, .flaw-card, .step-box, .channel-card, .saas-step, .perception-stage, .step-card, .workflow-step, .bp-friction-item, .bp-grid-tile, .bp-door-card';
                     let multiCards = Array.from(container.querySelectorAll(cardSelectors));
                     if (multiCards.length < 2) {
-                        const listContainers = container.querySelectorAll('.steps-list, .cards-list, .channels-vertical-stack, .delivery-channels-vertical-stack, .saas-steps-row');
+                        const listContainers = container.querySelectorAll('.steps-list, .cards-list, .channels-vertical-stack, .delivery-channels-vertical-stack, .saas-steps-row, .bp-friction-items-container, .bp-grid-tiles-wrap, .bp-doors-container');
                         for (const lc of listContainers) {
                             if (lc.children.length >= 2) {
                                 multiCards = Array.from(lc.children);
@@ -468,7 +474,7 @@ def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_pat
 
 def main():
     parser = argparse.ArgumentParser(description="Pre-Flight Visual Gatekeeper AGENT404.")
-    parser.add_argument("--projet", "-p", default="studio_perso/video_02", help="Dossier du projet vidéo")
+    parser.add_argument("--projet", "--project", "-p", default="studio_perso/video_02", help="Dossier du projet vidéo")
     parser.add_argument("--html", default="index.html", help="Fichier HTML maître")
     args = parser.parse_args()
 

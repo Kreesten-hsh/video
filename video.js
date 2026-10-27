@@ -357,6 +357,86 @@
     }
   }
 
+  let brandConfigApplied = false;
+
+  function applyBrandConfig(brand) {
+    if (!brand) return;
+    const root = document.documentElement;
+    if (brand.theme) {
+      const th = brand.theme;
+      if (th.bg_canvas) {
+        root.style.setProperty("--bg-canvas", th.bg_canvas);
+        root.style.setProperty("--bg-beige", th.bg_canvas);
+        root.style.setProperty("--bg-obsidian", th.bg_canvas);
+        root.style.setProperty("--bg-dark", th.bg_canvas);
+      }
+      if (th.surface_card) {
+        root.style.setProperty("--surface-card", th.surface_card);
+        root.style.setProperty("--slate-card", th.surface_card);
+      }
+      if (th.ink) {
+        root.style.setProperty("--ink", th.ink);
+        root.style.setProperty("--card-text", th.ink);
+      }
+      if (th.accent_primary) {
+        root.style.setProperty("--accent-primary", th.accent_primary);
+        root.style.setProperty("--flame", th.accent_primary);
+        root.style.setProperty("--mint", th.accent_primary);
+      }
+      const y = th.tile_1 || th.tile_yellow;
+      if (y) root.style.setProperty("--tile-yellow", y);
+      const b = th.tile_2 || th.tile_blue;
+      if (b) root.style.setProperty("--tile-blue", b);
+      const g = th.tile_3 || th.tile_green;
+      if (g) root.style.setProperty("--tile-green", g);
+    }
+    if (brand.typography) {
+      const ty = brand.typography;
+      if (ty.font_heading) root.style.setProperty("--font-heading", ty.font_heading);
+      if (ty.font_body) root.style.setProperty("--font-body", ty.font_body);
+      if (ty.font_mono) root.style.setProperty("--font-mono", ty.font_mono);
+    }
+  }
+
+  function resolveAvatarSrc(avatarRef, scene) {
+    if (!avatarRef && scene && scene.params && scene.params.avatar) {
+      avatarRef = scene.params.avatar;
+    }
+    if (!avatarRef && scene && scene.data && scene.data.avatar) {
+      avatarRef = scene.data.avatar;
+    }
+    if (!avatarRef) {
+      avatarRef = "idea";
+    }
+
+    const brand = window.BRAND_CONFIG;
+    if (brand && brand.avatars) {
+      const basePath = brand.avatars.base_path || "assets/avatars/";
+      const poses = brand.avatars.poses || {};
+      const cleanKey = String(avatarRef).replace(/^assets\/avatars\//, "").replace(/\.png$/, "");
+      if (poses[cleanKey]) {
+        const file = poses[cleanKey];
+        if (file.startsWith("http") || file.startsWith("/") || file.includes("/")) {
+          return file;
+        }
+        return (basePath.endsWith("/") ? basePath : basePath + "/") + file;
+      }
+      if (brand.avatars.default) {
+        const defFile = brand.avatars.default;
+        if (defFile.startsWith("http") || defFile.startsWith("/") || defFile.includes("/")) {
+          return defFile;
+        }
+        return (basePath.endsWith("/") ? basePath : basePath + "/") + defFile;
+      }
+    }
+
+    if (String(avatarRef).startsWith("http") || String(avatarRef).startsWith("/") || String(avatarRef).includes("/")) {
+      return avatarRef;
+    }
+    const filename = String(avatarRef).endsWith(".png") ? avatarRef : avatarRef + ".png";
+    return "assets/avatars/" + filename;
+  }
+
   /**
    * Chorégraphie de l'Avatar Global selon scene.avatar_mode ("solo", "duo_lymphe", "hero", "inset", "hidden")
    */
@@ -395,9 +475,11 @@
       img.style.removeProperty("max-height");
     }
 
-    if (scene.data && scene.data.avatar && mode !== "hidden") {
-      if (img.getAttribute("src") !== scene.data.avatar) {
-        img.setAttribute("src", scene.data.avatar);
+    const rawAvatar = (scene.params && scene.params.avatar) || (scene.data && scene.data.avatar);
+    if (rawAvatar && mode !== "hidden") {
+      const resolved = resolveAvatarSrc(rawAvatar, scene);
+      if (img.getAttribute("src") !== resolved) {
+        img.setAttribute("src", resolved);
       }
     }
 
@@ -420,6 +502,10 @@
    * Fonction globale de rendu instantané à l'instant t (en secondes)
    */
   window.setTime = function (t) {
+    if (!brandConfigApplied && window.BRAND_CONFIG) {
+      applyBrandConfig(window.BRAND_CONFIG);
+      brandConfigApplied = true;
+    }
     if (subtitleChunks.length === 0 && window.WORDS && window.WORDS.length > 0) {
       initData();
     }
@@ -556,10 +642,12 @@
       if (canvas) canvas.setAttribute("data-theme", scene.switch_theme);
     }
 
-    // Injection DOM au changement de scène (support des 6 blueprints ou des scènes legacy)
+    // Injection DOM au changement de scène (support des 8 blueprints universels, des 6 blueprints ou des scènes legacy)
     if (sceneIdx !== activeSceneIndex) {
       activeSceneIndex = sceneIdx;
-      if (scene.type && scene.type.startsWith("blueprint_")) {
+      if (scene.type && scene.type.startsWith("bp_") && BLUEPRINT_RENDERERS[scene.type]) {
+        sceneContainer.innerHTML = BLUEPRINT_RENDERERS[scene.type](scene.params || scene.data || {}, scene);
+      } else if (scene.type && scene.type.startsWith("blueprint_")) {
         sceneContainer.innerHTML = renderBlueprint(scene.type, scene.data || {}, scene);
       } else {
         sceneContainer.innerHTML = renderComponent(scene.type, scene.data);
@@ -567,7 +655,9 @@
     }
 
     // Animation continue déterministe avec physique d'overshoot et beats sémantiques
-    if (scene.type && scene.type.startsWith("blueprint_")) {
+    if (scene.type && scene.type.startsWith("bp_") && BLUEPRINT_ANIMATORS[scene.type]) {
+      BLUEPRINT_ANIMATORS[scene.type](scene.params || scene.data || {}, progress, elapsed, t, scene);
+    } else if (scene.type && scene.type.startsWith("blueprint_")) {
       animateBlueprint(scene.type, scene.data || {}, progress, elapsed, t, scene);
     } else {
       animateComponent(scene.type, scene.data, progress, elapsed, t, scene);
@@ -622,6 +712,627 @@
    * LES 6 BLUEPRINTS SIGNATURES DU STUDIO AGENT404
    * ==========================================================================
    */
+  /**
+   * ==========================================================================
+   * REGISTRE VECTORIEL UNIVERSEL DE 22 ICÔNES NÉO-BRUTALISTES (viewBox 0 0 24 24)
+   * Traits épais de 2.5px, fond transparent ou aplats sémantiques.
+   * ZÉRO ROSE BANNI DANS LE CODE
+   * ==========================================================================
+   */
+  const SVG_ICONS = {
+    question: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9.5" fill="#FEF08A" stroke="#111111" stroke-width="2.5"/><path d="M9.5 9.5C9.5 8.1 10.6 7 12 7C13.4 7 14.5 8.1 14.5 9.5C14.5 11 12 11.8 12 13.5" stroke="#111111" stroke-width="2.5" stroke-linecap="round"/><circle cx="12" cy="16.5" r="1.2" fill="#111111"/></svg>`,
+    lock: `<svg viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" fill="#FFFFFF" stroke="#111111" stroke-width="2.5"/><path d="M8 11V7C8 4.8 9.8 3 12 3C14.2 3 16 4.8 16 7V11" stroke="#111111" stroke-width="2.5" stroke-linecap="round"/><circle cx="12" cy="15.5" r="1.2" fill="#111111"/><path d="M12 16.5V18.5" stroke="#111111" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+    camera: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 8H7L8.5 5.5H15.5L17 8H20C21.1 8 22 8.9 22 10V19C22 20.1 21.1 21 20 21H4C2.9 21 2 20.1 2 19V10C2 8.9 2.9 8 4 8Z" fill="#FFFFFF" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"/><circle cx="12" cy="14.5" r="4" fill="#BFDBFE" stroke="#111111" stroke-width="2.5"/><circle cx="12" cy="14.5" r="1.5" fill="#111111"/></svg>`,
+    bulb: `<svg viewBox="0 0 24 24" fill="none"><path d="M9 18H15M10 21H14M12 3C7.58 3 4 6.58 4 11C4 13.77 5.4 16.2 7.5 17.6V18H16.5V17.6C18.6 16.2 20 13.77 20 11C20 6.58 16.42 3 12 3Z" fill="#FEF08A" stroke="#111111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    clapper: `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="8" width="18" height="13" rx="1.5" fill="#FFFFFF" stroke="#111111" stroke-width="2.5"/><path d="M3 8L6.5 3H20.5L17 8H3Z" fill="#FEF08A" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"/><path d="M8 3L6 8M13 3L11 8M18 3L16 8" stroke="#111111" stroke-width="2.5" stroke-linecap="round"/><polygon points="10,12 10,17 15,14.5" fill="#FF4F18" stroke="#111111" stroke-width="2"/></svg>`,
+    clock: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9.5" fill="#FFFFFF" stroke="#111111" stroke-width="2.5"/><path d="M12 7V12L15.5 14" stroke="#FF4F18" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+    scale: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 3V21M6 21H18M4 7H20M4 7L2 13H8L6 7ZM20 7L18 13H24L22 7" stroke="#111111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="3" r="1.5" fill="#FF4F18"/></svg>`,
+    check: `<svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="3" fill="#A7F3D0" stroke="#111111" stroke-width="2.5"/><path d="M6 12L10 16L18 8" stroke="#111111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    cross: `<svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="3" fill="#FEE2E2" stroke="#111111" stroke-width="2.5"/><path d="M7 7L17 17M17 7L7 17" stroke="#FF4F18" stroke-width="3" stroke-linecap="round"/></svg>`,
+    robot: `<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="8" width="16" height="13" rx="2" fill="#FFFFFF" stroke="#111111" stroke-width="2.5"/><path d="M12 3V8M12 3C11 3 10.5 4 12 5" stroke="#111111" stroke-width="2.5" stroke-linecap="round"/><circle cx="12" cy="3" r="1.5" fill="#FF4F18"/><rect x="7" y="11" width="3" height="3" fill="#111111"/><rect x="14" y="11" width="3" height="3" fill="#111111"/><path d="M8 17H16" stroke="#111111" stroke-width="2.5" stroke-linecap="round"/><path d="M2 13H4M20 13H22" stroke="#111111" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+    mic: `<svg viewBox="0 0 24 24" fill="none"><rect x="8" y="3" width="8" height="12" rx="4" fill="#FF4F18" stroke="#111111" stroke-width="2.5"/><path d="M5 11C5 14.87 8.13 18 12 18C15.87 18 19 14.87 19 11M12 18V21M8 21H16" stroke="#111111" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+    code: `<svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="3.5" width="19" height="17" rx="2" fill="#FFFFFF" stroke="#111111" stroke-width="2.5"/><path d="M8 9L5 12L8 15M16 9L19 12L16 15M13 8L11 16" stroke="#111111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    bolt: `<svg viewBox="0 0 24 24" fill="none"><polygon points="13,2 4,14 11,14 9,22 20,10 13,10" fill="#FEF08A" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"/></svg>`,
+    file: `<svg viewBox="0 0 24 24" fill="none"><path d="M5 3H14L19 8V21H5V3Z" fill="#FFFFFF" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"/><path d="M14 3V8H19" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"/><path d="M8 13H16M8 17H13" stroke="#111111" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+    chart: `<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="14" width="4" height="7" fill="#BFDBFE" stroke="#111111" stroke-width="2"/><rect x="10" y="9" width="4" height="12" fill="#FEF08A" stroke="#111111" stroke-width="2"/><rect x="16" y="4" width="4" height="17" fill="#FF4F18" stroke="#111111" stroke-width="2"/><path d="M3 21H21" stroke="#111111" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+    calendar: `<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" fill="#FFFFFF" stroke="#111111" stroke-width="2.5"/><path d="M3 10H21M8 3V6M16 3V6" stroke="#111111" stroke-width="2.5" stroke-linecap="round"/><circle cx="8" cy="14" r="1.2" fill="#111111"/><circle cx="12" cy="14" r="1.2" fill="#111111"/><circle cx="16" cy="14" r="1.2" fill="#111111"/><circle cx="8" cy="17.5" r="1.2" fill="#111111"/><circle cx="12" cy="17.5" r="1.2" fill="#111111"/><circle cx="16" cy="17.5" r="1.2" fill="#FF4F18"/></svg>`,
+    rocket: `<svg viewBox="0 0 24 24" fill="none"><path d="M12 2.5C15.5 6 17 11 16 16H8C7 11 8.5 6 12 2.5Z" fill="#FFFFFF" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2" fill="#FEF08A" stroke="#111111" stroke-width="2"/><path d="M8 13L4 16H8M16 13L20 16H16" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"/><path d="M10 16L12 21.5L14 16" fill="#FF4F18" stroke="#111111" stroke-width="2.5" stroke-linejoin="round"/></svg>`,
+    gear: `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3.5" fill="#FEF08A" stroke="#111111" stroke-width="2.5"/><path d="M12 2V4.5M12 19.5V22M2 12H4.5M19.5 12H22M4.93 4.93L6.7 6.7M17.3 17.3L19.07 19.07M4.93 19.07L6.7 17.3M17.3 6.7L19.07 4.93" stroke="#111111" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+    linkedin: `<svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#0A66C2" stroke="#111111" stroke-width="2"/><path d="M7 9.5H9.5V17H7V9.5ZM8.25 6C7.45 6 6.8 6.65 6.8 7.45C6.8 8.25 7.45 8.9 8.25 8.9C9.05 8.9 9.7 8.25 9.7 7.45C9.7 6.65 9.05 6 8.25 6Z" fill="#FFFFFF"/><path d="M11 9.5H13.4V10.6H13.45C13.8 9.95 14.65 9.25 15.9 9.25C18.5 9.25 19 10.95 19 13.2V17H16.5V13.05C16.5 12.1 16.5 10.9 15.15 10.9C13.8 10.9 13.6 11.95 13.6 12.95V17H11V9.5Z" fill="#FFFFFF"/></svg>`,
+    tiktok: `<svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#000000" stroke="#111111" stroke-width="2"/><path d="M15.5 9C14.5 9 13.65 8.55 13 7.85V14.15C13 16.85 10.8 19 8.15 19C5.45 19 3.25 16.8 3.25 14.15C3.25 11.45 5.45 9.25 8.15 9.25C8.4 9.25 8.65 9.28 8.9 9.33V11.7C8.65 11.63 8.4 11.58 8.15 11.58C6.75 11.58 5.6 12.73 5.6 14.13C5.6 15.53 6.75 16.68 8.65 16.68C9.55 16.68 10.65 15.53 10.65 14.13V5H13C13 6.4 14.1 7.5 15.5 7.5V9Z" fill="#FE2C55"/><path d="M15 8.5C14 8.5 13.15 8.05 12.5 7.35V13.65C12.5 16.35 10.3 18.5 7.65 18.5C4.95 18.5 2.75 16.3 2.75 13.65C2.75 10.95 4.95 8.75 7.65 8.75C7.9 8.75 8.15 8.78 8.4 8.83V11.2C8.15 11.13 7.9 11.08 7.65 11.08C6.25 11.08 5.1 12.23 5.1 13.63C5.1 15.03 6.25 16.18 8.15 16.18C9.05 16.18 10.15 15.03 10.15 13.63V4.5H12.5C12.5 5.9 13.6 7 15 7V8.5Z" fill="#25F4EE"/><path d="M14.7 8.2C13.8 8.2 13 7.8 12.4 7.1V13.4C12.4 16.1 10.2 18.2 7.6 18.2C4.9 18.2 2.7 16 2.7 13.4C2.7 10.7 4.9 8.5 7.6 8.5C7.8 8.5 8.1 8.53 8.3 8.58V10.95C8.1 10.88 7.8 10.83 7.6 10.83C6.2 10.83 5.1 12 5.1 13.4C5.1 14.8 6.2 15.9 8.1 15.9C9 15.9 10.1 14.8 10.1 13.4V4.2H12.4C12.4 5.6 13.5 6.7 14.7 6.7V8.2Z" fill="#FFFFFF"/></svg>`,
+    reels: `<svg viewBox="0 0 24 24" fill="none"><defs><linearGradient id="svg-reels-grad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#F58529"/><stop offset="50%" stop-color="#DD2A7B"/><stop offset="100%" stop-color="#8134AF"/></linearGradient></defs><rect width="24" height="24" rx="5" fill="url(#svg-reels-grad)" stroke="#111111" stroke-width="2"/><rect x="5.5" y="5.5" width="13" height="13" rx="2.5" stroke="#FFFFFF" stroke-width="1.8" fill="none"/><line x1="5.5" y1="9.5" x2="18.5" y2="9.5" stroke="#FFFFFF" stroke-width="1.8"/><polygon points="10,12 10,16 14,14" fill="#FFFFFF"/></svg>`,
+    shorts: `<svg viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="4" fill="#FF0000" stroke="#111111" stroke-width="2"/><path d="M15.2 6.5C14.2 5.8 12.8 5.8 11.6 6.5L8.5 8.5C7.2 9.3 6.7 11 7.5 12.3C7.9 13 8.6 13.5 9.4 13.6L8.4 14.2C7.1 15 6.6 16.7 7.4 18C8.2 19.3 9.9 19.7 11.2 19L14.3 17C15.6 16.2 16.1 14.5 15.3 13.2C14.9 12.5 14.2 12 13.4 11.9L14.4 11.3C15.7 10.5 16.2 8.8 15.4 7.5C15.3 7.1 15 6.8 14.7 6.5H15.2Z" fill="#FFFFFF"/><polygon points="10.5,10 10.5,14 14,12" fill="#FF0000"/></svg>`
+  };
+
+  function getSvgIcon(name, size = 48, className = "") {
+    if (!name) return "";
+    const key = String(name).toLowerCase().trim();
+    let svg = SVG_ICONS[key];
+    if (!svg && typeof NEO_SVG !== "undefined" && NEO_SVG[key]) {
+      svg = NEO_SVG[key];
+    }
+    if (!svg) {
+      svg = SVG_ICONS["bulb"] || `<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#111111" stroke-width="2.5"/></svg>`;
+    }
+    return svg.replace(/<svg\b([^>]*)>/, (match, attrs) => {
+      let cleanAttrs = attrs.replace(/\s*(width|height|class)="[^"]*"/g, "");
+      const classAttr = className ? ` class="${className}"` : "";
+      return `<svg width="${size}" height="${size}"${classAttr} ${cleanAttrs}>`;
+    });
+  }
+
+  /**
+   * ==========================================================================
+   * LES 8 BLUEPRINTS UNIVERSELS INDUSTRIALISÉS (bp_*)
+   * Pilotés à 100% par scene.params dans project.json
+   * ==========================================================================
+   */
+  function renderBpHookQuestion(p, sc) {
+    const topBadge = p.top_badge || "ACCROCHE";
+    const boxColor = p.box_color || "var(--tile-yellow)";
+    const icon = p.icon || "question";
+    const title = p.title || "";
+    const subtitle = p.subtitle || "";
+    const stampText = p.stamp_text || "";
+    const avatarMode = sc.avatar_mode || "hidden";
+    const duoClass = avatarMode === "duo_lymphe" ? " duo-lymphe-spacing" : (avatarMode === "hidden" ? " centered-stage" : "");
+
+    return `
+      <div class="bp-stage bp-stage-hook${duoClass}">
+        <div class="bp-card bp-card-hook" id="bp-hook-card">
+          <div class="bp-top-badge">${topBadge}</div>
+          <div class="bp-hook-content">
+            <div class="bp-icon-box" style="background: ${boxColor};">
+              ${getSvgIcon(icon, 52)}
+            </div>
+            <div class="bp-hook-text-col">
+              <div class="bp-title">${title}</div>
+              ${subtitle ? `<div class="bp-subtitle">${subtitle}</div>` : ""}
+            </div>
+          </div>
+          ${stampText ? `<div class="bp-stamp" id="bp-hook-stamp">${stampText}</div>` : ""}
+        </div>
+      </div>
+    `;
+  }
+
+  function animateBpHookQuestion(p, progress, elapsed, t, sc) {
+    const card = document.getElementById("bp-hook-card");
+    const stamp = document.getElementById("bp-hook-stamp");
+    if (card) {
+      const s = calcSpringOvershoot(elapsed);
+      card.style.transform = `scale(${s.scale})`;
+    }
+    if (stamp) {
+      if (elapsed >= 0.6) {
+        const s = calcSpringOvershoot(elapsed - 0.6);
+        stamp.style.opacity = "1";
+        stamp.style.transform = `rotate(-8deg) scale(${s.scale})`;
+      } else {
+        stamp.style.opacity = "0";
+        stamp.style.transform = "rotate(10deg) scale(2.0)";
+      }
+    }
+  }
+
+  function renderBpFrictionStack(p, sc) {
+    const headerBadge = p.header_badge || "";
+    const items = p.items || [];
+    const connectors = p.connectors || "none";
+
+    let itemsHtml = "";
+    items.forEach((item, idx) => {
+      const icon = item.icon || "cross";
+      const boxColor = item.box_color || "var(--tile-yellow)";
+      const text = item.text || "";
+      const rightBadge = item.right_badge || "";
+      const status = item.status || "none";
+
+      let statusHtml = "";
+      if (status === "cross") {
+        statusHtml = `<div class="bp-status-cross">${getSvgIcon("cross", 36)}</div>`;
+      } else if (status === "check") {
+        statusHtml = `<div class="bp-status-check">${getSvgIcon("check", 36)}</div>`;
+      }
+
+      itemsHtml += `
+        <div class="bp-friction-item" id="bp-friction-item-${idx}">
+          <div class="bp-friction-icon-box" style="background: ${boxColor};">
+            ${getSvgIcon(icon, 44)}
+          </div>
+          <div class="bp-friction-text">${text}</div>
+          ${rightBadge ? `<div class="bp-friction-badge">${rightBadge}</div>` : ""}
+          ${statusHtml}
+        </div>
+      `;
+
+      if (idx < items.length - 1 && connectors !== "none") {
+        const connSymbol = connectors === "plus_equal" ? (idx === items.length - 2 ? "=" : "+") : "↓";
+        itemsHtml += `<div class="bp-connector">${connSymbol}</div>`;
+      }
+    });
+
+    return `
+      <div class="bp-stage bp-stage-friction">
+        ${headerBadge ? `<div class="bp-section-badge">${headerBadge}</div>` : ""}
+        <div class="bp-friction-items-container">
+          ${itemsHtml}
+        </div>
+      </div>
+    `;
+  }
+
+  function animateBpFrictionStack(p, progress, elapsed, t, sc) {
+    const items = p.items || [];
+    items.forEach((item, idx) => {
+      const el = document.getElementById(`bp-friction-item-${idx}`);
+      if (!el) return;
+      const appearAt = item.appear_at_offset !== undefined ? item.appear_at_offset : (idx * 0.45);
+      if (elapsed < appearAt) {
+        el.style.opacity = "0.15";
+        el.style.transform = "translateY(24px) scale(0.96)";
+        el.style.borderColor = "var(--ink)";
+      } else {
+        const s = calcSpringOvershoot(elapsed - appearAt);
+        el.style.opacity = "1";
+        el.style.transform = `translateY(0px) scale(${s.scale})`;
+        el.style.borderColor = "var(--ink)";
+      }
+    });
+  }
+
+  function renderBpStatShock(p, sc) {
+    const topBadge = p.top_badge || "PREUVE CHIFFRÉE";
+    const statFrom = p.stat_from !== undefined ? p.stat_from : 0;
+    const statSuffix = p.stat_suffix || "";
+    const label = p.label || "";
+    const progressBar = p.progress_bar !== false;
+    const footerStamp = p.footer_stamp || "";
+
+    return `
+      <div class="bp-stage bp-stage-stat">
+        <div class="bp-card bp-card-stat" id="bp-stat-card">
+          ${topBadge ? `<div class="bp-top-badge">${topBadge}</div>` : ""}
+          <div class="bp-stat-main">
+            <div class="bp-stat-number" id="bp-stat-num">${statFrom}${statSuffix}</div>
+            <div class="bp-stat-label">${label}</div>
+          </div>
+          ${progressBar ? `
+            <div class="bp-progress-bar-wrap">
+              <div class="bp-progress-bar-fill" id="bp-stat-bar" style="width: 0%;"></div>
+            </div>
+          ` : ""}
+          ${footerStamp ? `<div class="bp-stamp bp-stamp-footer" id="bp-stat-stamp">${footerStamp}</div>` : ""}
+        </div>
+      </div>
+    `;
+  }
+
+  function animateBpStatShock(p, progress, elapsed, t, sc) {
+    const fromVal = p.stat_from !== undefined ? p.stat_from : 0;
+    const toVal = p.stat_to !== undefined ? p.stat_to : 100;
+    const suffix = p.stat_suffix || "";
+    const numEl = document.getElementById("bp-stat-num");
+    const barEl = document.getElementById("bp-stat-bar");
+    const stampEl = document.getElementById("bp-stat-stamp");
+
+    const interpP = easeOutExpo(Math.min(1.0, elapsed / 1.2));
+    const currentVal = Math.round(fromVal + (toVal - fromVal) * interpP);
+    if (numEl) {
+      numEl.textContent = currentVal + suffix;
+    }
+    if (barEl) {
+      barEl.style.width = Math.round(interpP * 100) + "%";
+    }
+    if (stampEl) {
+      if (elapsed >= 0.8) {
+        const s = calcSpringOvershoot(elapsed - 0.8);
+        stampEl.style.opacity = "1";
+        stampEl.style.transform = `rotate(-5deg) scale(${s.scale})`;
+      } else {
+        stampEl.style.opacity = "0";
+        stampEl.style.transform = "rotate(10deg) scale(2.0)";
+      }
+    }
+  }
+
+  function renderBpVersusCompare(p, sc) {
+    const layout = p.layout || "vertical";
+    const left = p.left_or_top || { badge: "AVANT", title: "Problème", icon: "cross", color: "var(--surface-card)", status: "cross" };
+    const right = p.right_or_bottom || { badge: "APRÈS", title: "Solution", icon: "check", color: "var(--tile-green)", status: "check" };
+    const footerStamp = p.footer_stamp || "";
+
+    return `
+      <div class="bp-stage bp-stage-versus">
+        <div class="bp-versus-container layout-${layout}">
+          <div class="bp-versus-card card-left" id="bp-versus-card-left" style="background: ${left.color || 'var(--surface-card)'};">
+            <div class="bp-versus-card-header">
+              <div class="bp-versus-card-badge">${left.badge || "AVANT"}</div>
+              ${left.status === "cross" ? `<div class="bp-status-cross">${getSvgIcon("cross", 36)}</div>` : ""}
+              ${left.status === "check" ? `<div class="bp-status-check">${getSvgIcon("check", 36)}</div>` : ""}
+            </div>
+            <div class="bp-versus-icon-row">
+              <div class="bp-versus-icon">${getSvgIcon(left.icon || "cross", 64)}</div>
+              <div class="bp-versus-title">${left.title || ""}</div>
+            </div>
+          </div>
+
+          <div class="bp-versus-divider">
+            <div class="bp-versus-badge">VS</div>
+          </div>
+
+          <div class="bp-versus-card card-right" id="bp-versus-card-right" style="background: ${right.color || 'var(--tile-green)'};">
+            <div class="bp-versus-card-header">
+              <div class="bp-versus-card-badge">${right.badge || "APRÈS"}</div>
+              ${right.status === "check" ? `<div class="bp-status-check">${getSvgIcon("check", 36)}</div>` : ""}
+              ${right.status === "cross" ? `<div class="bp-status-cross">${getSvgIcon("cross", 36)}</div>` : ""}
+            </div>
+            <div class="bp-versus-icon-row">
+              <div class="bp-versus-icon">${getSvgIcon(right.icon || "check", 64)}</div>
+              <div class="bp-versus-title">${right.title || ""}</div>
+            </div>
+          </div>
+        </div>
+        ${footerStamp ? `<div class="bp-stamp bp-versus-stamp" id="bp-versus-stamp">${footerStamp}</div>` : ""}
+      </div>
+    `;
+  }
+
+  function animateBpVersusCompare(p, progress, elapsed, t, sc) {
+    const left = document.getElementById("bp-versus-card-left");
+    const right = document.getElementById("bp-versus-card-right");
+    const stamp = document.getElementById("bp-versus-stamp");
+
+    if (left) {
+      const s = calcSpringOvershoot(elapsed);
+      left.style.transform = `scale(${s.scale})`;
+    }
+
+    if (right) {
+      if (elapsed < 0.6) {
+        right.style.opacity = "0.15";
+        right.style.transform = "translateY(20px) scale(0.95)";
+      } else {
+        const s = calcSpringOvershoot(elapsed - 0.6);
+        right.style.opacity = "1";
+        right.style.transform = `translateY(0px) scale(${s.scale})`;
+      }
+    }
+
+    if (stamp) {
+      if (elapsed >= 1.2) {
+        const s = calcSpringOvershoot(elapsed - 1.2);
+        stamp.style.opacity = "1";
+        stamp.style.transform = `rotate(-4deg) scale(${s.scale})`;
+      } else {
+        stamp.style.opacity = "0";
+        stamp.style.transform = "rotate(10deg) scale(2.0)";
+      }
+    }
+  }
+
+  function renderBpCodeWindow(p, sc) {
+    const windowTitle = p.window_title || "terminal.sh";
+    const theme = p.theme || "dark";
+    const mode = p.mode || "code";
+    const lines = p.lines || ["echo 'Hello world'"];
+    const footerStamp = p.footer_stamp || "";
+
+    let bodyHtml = "";
+    if (mode === "waveform" || mode === "bars") {
+      bodyHtml = `
+        <div class="bp-waveform-container" id="bp-waveform">
+          ${Array.from({ length: 18 }).map((_, i) => `<div class="bp-waveform-bar" id="bp-bar-${i}"></div>`).join("")}
+        </div>
+      `;
+    } else {
+      bodyHtml = `
+        <div class="bp-code-content" id="bp-code-lines">
+          ${lines.map((l, i) => `
+            <div class="bp-code-line" id="bp-code-line-${i}">
+              <span class="bp-code-num">${i + 1}</span>
+              <span class="bp-code-text" id="bp-code-text-${i}">${l}</span>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    return `
+      <div class="bp-stage bp-stage-code">
+        <div class="bp-window-frame theme-${theme}" id="bp-code-window">
+          <div class="bp-window-header">
+            <div class="bp-window-dots">
+              <span class="bp-dot dot-red"></span>
+              <span class="bp-dot dot-yellow"></span>
+              <span class="bp-dot dot-green"></span>
+            </div>
+            <div class="bp-window-title">${windowTitle}</div>
+            <div class="bp-window-dots-dummy"></div>
+          </div>
+          <div class="bp-window-body">
+            ${bodyHtml}
+          </div>
+        </div>
+        ${footerStamp ? `<div class="bp-stamp bp-code-stamp" id="bp-code-stamp">${footerStamp}</div>` : ""}
+      </div>
+    `;
+  }
+
+  function animateBpCodeWindow(p, progress, elapsed, t, sc) {
+    const mode = p.mode || "code";
+    const stamp = document.getElementById("bp-code-stamp");
+    const stampOffset = p.stamp_offset !== undefined ? p.stamp_offset : 1.2;
+
+    if (mode === "waveform" || mode === "bars") {
+      for (let i = 0; i < 18; i++) {
+        const bar = document.getElementById(`bp-bar-${i}`);
+        if (bar) {
+          const h = Math.round(40 + 160 * (0.5 + 0.5 * Math.sin(t * 8.0 + i * 0.75)));
+          bar.style.height = `${h}px`;
+        }
+      }
+    } else {
+      const lines = p.lines || [];
+      const activeLineCount = Math.min(lines.length, Math.floor(elapsed / 0.35) + 1);
+      lines.forEach((_, i) => {
+        const lineEl = document.getElementById(`bp-code-line-${i}`);
+        if (lineEl) {
+          if (i < activeLineCount) {
+            lineEl.style.opacity = "1";
+          } else {
+            lineEl.style.opacity = "0.2";
+          }
+        }
+      });
+    }
+
+    if (stamp) {
+      if (elapsed >= stampOffset) {
+        const s = calcSpringOvershoot(elapsed - stampOffset);
+        stamp.style.opacity = "1";
+        stamp.style.transform = `rotate(-6deg) scale(${s.scale})`;
+      } else {
+        stamp.style.opacity = "0";
+        stamp.style.transform = "rotate(10deg) scale(2.0)";
+      }
+    }
+  }
+
+  function renderBpGrid2x2(p, sc) {
+    const topBadge = p.top_badge || "4 PILIERS";
+    const cards = p.cards || [];
+    const bottomMeter = p.bottom_meter;
+
+    return `
+      <div class="bp-stage bp-stage-grid">
+        ${topBadge ? `<div class="bp-section-badge">${topBadge}</div>` : ""}
+        <div class="bp-grid-tiles-wrap">
+          ${cards.map((c, idx) => `
+            <div class="bp-grid-tile" id="bp-grid-tile-${idx}" style="background: ${c.color || 'var(--surface-card)'};">
+              <div class="bp-grid-icon-box">
+                ${getSvgIcon(c.icon || "bulb", 52)}
+              </div>
+              <div class="bp-grid-title">${c.title || ""}</div>
+            </div>
+          `).join("")}
+        </div>
+        ${bottomMeter ? `
+          <div class="bp-grid-meter" id="bp-grid-meter">
+            <div class="bp-grid-meter-label">${bottomMeter.label || ""}</div>
+            <div class="bp-grid-meter-val" id="bp-grid-meter-val">${bottomMeter.from || 0}</div>
+          </div>
+        ` : ""}
+      </div>
+    `;
+  }
+
+  function animateBpGrid2x2(p, progress, elapsed, t, sc) {
+    const cards = p.cards || [];
+    cards.forEach((c, idx) => {
+      const tile = document.getElementById(`bp-grid-tile-${idx}`);
+      if (!tile) return;
+      const appearAt = c.appear_at_offset !== undefined ? c.appear_at_offset : (idx * 0.35);
+      if (elapsed < appearAt) {
+        tile.style.opacity = "0.15";
+        tile.style.transform = "scale(0.92)";
+      } else {
+        const s = calcSpringOvershoot(elapsed - appearAt);
+        tile.style.opacity = "1";
+        tile.style.transform = `scale(${s.scale})`;
+      }
+    });
+
+    if (p.bottom_meter) {
+      const valEl = document.getElementById("bp-grid-meter-val");
+      if (valEl) {
+        const fromVal = p.bottom_meter.from || 0;
+        const toVal = p.bottom_meter.to || 100;
+        const interpP = easeOutExpo(Math.min(1.0, elapsed / 1.5));
+        const cur = Math.round(fromVal + (toVal - fromVal) * interpP);
+        valEl.textContent = cur + (p.bottom_meter.suffix || "");
+      }
+    }
+  }
+
+  function renderBpLogoCarouselRtl(p, sc) {
+    const topBadge = p.top_badge || "DIFFUSION MULTI-CANAL";
+    return `
+      <div class="bp-stage bp-stage-carousel">
+        ${topBadge ? `<div class="bp-section-badge">${topBadge}</div>` : ""}
+        <div class="bp-carousel-viewport">
+          <div class="bp-carousel-card" id="bp-carousel-card">
+            <div class="bp-carousel-logo-box" id="bp-carousel-logo"></div>
+            <div class="bp-carousel-label" id="bp-carousel-label"></div>
+            <div class="bp-carousel-badge" id="bp-carousel-badge"></div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function animateBpLogoCarouselRtl(p, progress, elapsed, t, sc) {
+    const items = p.items || [
+      { logo: "linkedin", label: "LINKEDIN", badge: "B2B AUTORITÉ", at_time: sc.start + 0.1 },
+      { logo: "tiktok", label: "TIKTOK", badge: "PORTÉE VIRALE", at_time: sc.start + 1.2 },
+      { logo: "reels", label: "INSTAGRAM", badge: "ENGAGEMENT", at_time: sc.start + 2.3 },
+      { logo: "shorts", label: "YOUTUBE", badge: "RÉFÉRENCEMENT", at_time: sc.start + 3.4 }
+    ];
+
+    let activeIdx = 0;
+    for (let i = items.length - 1; i >= 0; i--) {
+      const at = items[i].at_time !== undefined ? items[i].at_time : (sc.start + i * 1.0);
+      if (t >= at) {
+        activeIdx = i;
+        break;
+      }
+    }
+
+    const curItem = items[activeIdx];
+    const atTime = curItem.at_time !== undefined ? curItem.at_time : (sc.start + activeIdx * 1.0);
+    const timeSinceTransition = Math.max(0, t - atTime);
+    const transitionDuration = 0.16;
+
+    const card = document.getElementById("bp-carousel-card");
+    const logoBox = document.getElementById("bp-carousel-logo");
+    const labelBox = document.getElementById("bp-carousel-label");
+    const badgeBox = document.getElementById("bp-carousel-badge");
+
+    if (logoBox && card) {
+      logoBox.innerHTML = getSvgIcon(curItem.logo, 100);
+      if (labelBox) labelBox.textContent = curItem.label || "";
+      if (badgeBox) badgeBox.textContent = curItem.badge || "";
+
+      if (timeSinceTransition < transitionDuration) {
+        const pTrans = timeSinceTransition / transitionDuration;
+        const tx = Math.round(350 * (1 - easeOutBack(pTrans)));
+        card.style.transform = `translate(calc(-50% + ${tx}px), -50%)`;
+        card.style.opacity = String(0.3 + 0.7 * pTrans);
+      } else {
+        card.style.transform = "translate(-50%, -50%)";
+        card.style.opacity = "1";
+      }
+    }
+  }
+
+  function renderBpCtaConversion(p, sc) {
+    const variant = p.variant || "two_door";
+    const buttonLabel = p.button_label || "ENVOYER";
+    const doors = p.doors || [
+      { badge: "PORTE 1 : RESSOURCE", title: "BLUEPRINT GRATUIT", subtitle: "Reçois la méthode en DM", color: "var(--tile-yellow)", appear_at_offset: 2.0 },
+      { badge: "PORTE 2 : STUDIO", title: "ON PRODUIT POUR TOI", subtitle: "Délégation totale 48h", color: "var(--tile-green)", appear_at_offset: 2.6 }
+    ];
+
+    return `
+      <div class="bp-stage bp-stage-cta">
+        <div class="bp-input-mockup" id="bp-cta-input-box">
+          <div class="bp-input-field">
+            <span class="bp-input-prefix">MESSAGE &gt; </span>
+            <span class="bp-input-text" id="bp-cta-typed-text"></span>
+            <span class="bp-input-cursor" id="bp-cta-cursor">|</span>
+          </div>
+          <div class="bp-input-button" id="bp-cta-btn">${buttonLabel}</div>
+        </div>
+        <div class="bp-mouse-cursor" id="bp-mouse-cursor">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+            <polygon points="3,2 3,20 8,15 13,22 16,20 11,13 18,13" fill="#111111" stroke="#FFFFFF" stroke-width="2"/>
+          </svg>
+        </div>
+        ${variant === "two_door" && doors ? `
+          <div class="bp-doors-container" id="bp-doors-container">
+            ${doors.map((door, dIdx) => `
+              <div class="bp-door-card door-${dIdx + 1}" id="bp-door-${dIdx}" style="background: ${door.color || (dIdx === 0 ? 'var(--tile-yellow)' : 'var(--tile-green)')};">
+                <div class="bp-door-badge">${door.badge || ""}</div>
+                <div class="bp-door-title">${door.title || ""}</div>
+                ${door.subtitle ? `<div class="bp-door-subtitle">${door.subtitle}</div>` : ""}
+              </div>
+            `).join("")}
+          </div>
+        ` : ""}
+      </div>
+    `;
+  }
+
+  function animateBpCtaConversion(p, progress, elapsed, t, sc) {
+    const keyword = p.keyword || "CLARTÉ";
+    const clickAt = p.click_at_offset !== undefined ? p.click_at_offset : 1.5;
+    const typedEl = document.getElementById("bp-cta-typed-text");
+    const cursorEl = document.getElementById("bp-cta-cursor");
+    const btnEl = document.getElementById("bp-cta-btn");
+    const mouseEl = document.getElementById("bp-mouse-cursor");
+
+    // Frappe lettre par lettre
+    const typeDuration = Math.max(0.2, clickAt - 0.2);
+    const typeProgress = Math.min(1.0, elapsed / typeDuration);
+    const numChars = Math.floor(typeProgress * keyword.length);
+    if (typedEl) {
+      typedEl.textContent = keyword.substring(0, numChars);
+    }
+    if (cursorEl) {
+      cursorEl.style.opacity = Math.floor(elapsed * 4) % 2 === 0 ? "1" : "0";
+    }
+
+    // Animation curseur de souris
+    if (mouseEl && btnEl) {
+      const isClicked = elapsed >= clickAt;
+      const startX = 300;
+      const startY = 800;
+      const targetX = 720;
+      const targetY = 700;
+      const moveP = Math.min(1.0, elapsed / clickAt);
+      const curX = Math.round(startX + (targetX - startX) * easeInOutCubic(moveP));
+      const curY = Math.round(startY + (targetY - startY) * easeInOutCubic(moveP));
+
+      mouseEl.style.transform = `translate(${curX}px, ${curY}px) scale(${isClicked ? 0.85 : 1.0})`;
+
+      if (isClicked) {
+        btnEl.style.transform = "translate(4px, 4px)";
+        btnEl.style.boxShadow = "2px 2px 0px var(--ink)";
+      } else {
+        btnEl.style.transform = "none";
+        btnEl.style.boxShadow = "var(--shadow-brutal-sm)";
+      }
+    }
+
+    // Portes de conversion
+    const doors = p.doors || [];
+    doors.forEach((d, idx) => {
+      const doorEl = document.getElementById(`bp-door-${idx}`);
+      if (!doorEl) return;
+      const appearAt = d.appear_at_offset !== undefined ? d.appear_at_offset : (clickAt + 0.3 + idx * 0.4);
+      if (elapsed < appearAt) {
+        doorEl.style.opacity = "0.15";
+        doorEl.style.transform = "translateY(24px) scale(0.95)";
+      } else {
+        const s = calcSpringOvershoot(elapsed - appearAt);
+        doorEl.style.opacity = "1";
+        doorEl.style.transform = `translateY(0px) scale(${s.scale})`;
+      }
+    });
+  }
+
+  const BLUEPRINT_RENDERERS = {
+    bp_hook_question: renderBpHookQuestion,
+    bp_friction_stack: renderBpFrictionStack,
+    bp_stat_shock: renderBpStatShock,
+    bp_versus_compare: renderBpVersusCompare,
+    bp_code_window: renderBpCodeWindow,
+    bp_grid_2x2: renderBpGrid2x2,
+    bp_logo_carousel_rtl: renderBpLogoCarouselRtl,
+    bp_cta_conversion: renderBpCtaConversion
+  };
+
+  const BLUEPRINT_ANIMATORS = {
+    bp_hook_question: animateBpHookQuestion,
+    bp_friction_stack: animateBpFrictionStack,
+    bp_stat_shock: animateBpStatShock,
+    bp_versus_compare: animateBpVersusCompare,
+    bp_code_window: animateBpCodeWindow,
+    bp_grid_2x2: animateBpGrid2x2,
+    bp_logo_carousel_rtl: animateBpLogoCarouselRtl,
+    bp_cta_conversion: animateBpCtaConversion
+  };
+
   const SVG_LINKEDIN = `<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="10" fill="#0A66C2"/><path d="M14.5 19H19.5V35H14.5V19ZM17 12C15.4 12 14 13.4 14 15C14 16.6 15.4 18 17 18C18.6 18 20 16.6 20 15C20 13.4 18.6 12 17 12Z" fill="white"/><path d="M22.5 19H27.3V21.2H27.4C28.1 19.9 29.8 18.5 32.3 18.5C37.5 18.5 38.5 21.9 38.5 26.4V35H33.5V27.1C33.5 25.2 33.5 22.8 30.8 22.8C28.1 22.8 27.7 24.9 27.7 26.9V35H22.5V19Z" fill="white"/></svg>`;
 
   const SVG_TIKTOK = `<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="10" fill="#000000"/><path d="M33.5 17.5C31.5 17.5 29.8 16.6 28.5 15.2V27.8C28.5 33.2 24.1 37.5 18.8 37.5C13.4 37.5 9 33.1 9 27.8C9 22.4 13.4 18 18.8 18C19.3 18 19.8 18.05 20.3 18.15V22.9C19.8 22.75 19.3 22.65 18.8 22.65C16 22.65 13.7 24.95 13.7 27.75C13.7 30.55 16 32.85 18.8 32.85C21.6 32.85 23.8 30.55 23.8 27.75V9.5H28.5C28.5 12.3 30.7 14.5 33.5 14.5V17.5Z" fill="#25F4EE"/><path d="M34.5 16.5C32.5 16.5 30.8 15.6 29.5 14.2V26.8C29.5 32.2 25.1 36.5 19.8 36.5C14.4 36.5 10 32.1 10 26.8C10 21.4 14.4 17 19.8 17C20.3 17 20.8 17.05 21.3 17.15V21.9C20.8 21.75 20.3 21.65 19.8 21.65C17 21.65 14.7 23.95 14.7 26.75C14.7 29.55 17 31.85 19.8 31.85C22.6 31.85 24.8 29.55 24.8 26.75V8.5H29.5C29.5 11.3 31.7 13.5 34.5 13.5V16.5Z" fill="#FE2C55"/><path d="M34 17C32 17 30.3 16.1 29 14.7V27.3C29 32.7 24.6 37 19.3 37C13.9 37 9.5 32.6 9.5 27.3C9.5 21.9 13.9 17.5 19.3 17.5C19.8 17.5 20.3 17.55 20.8 17.65V22.4C20.3 22.25 19.8 22.15 19.3 22.15C16.5 22.15 14.2 24.45 14.2 27.25C14.2 30.05 16.5 32.35 19.3 32.35C22.1 32.35 24.3 30.05 24.3 27.25V9H29C29 11.8 31.2 14 34 14V17Z" fill="white"/></svg>`;
@@ -5279,6 +5990,14 @@
         }
       }
     }
+
+  // Exposition globale pour tests et architecture universelle
+  window.SVG_ICONS = SVG_ICONS;
+  window.getSvgIcon = getSvgIcon;
+  window.BLUEPRINT_RENDERERS = BLUEPRINT_RENDERERS;
+  window.BLUEPRINT_ANIMATORS = BLUEPRINT_ANIMATORS;
+  window.applyBrandConfig = applyBrandConfig;
+  window.resolveAvatarSrc = resolveAvatarSrc;
 
   // Initialisation à l'évaluation du script
   initData();

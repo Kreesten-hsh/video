@@ -1,0 +1,30 @@
+{
+  "brand_name": "ACME CORP",
+  "theme": {
+    "bg_canvas": "#F5F2EB",
+    "surface_card": "#FFFFFF",
+    "ink": "#111111",
+    "accent_primary": "#FF4F18",
+    "tile_1": "#FEF08A",
+    "tile_2": "#BFDBFE",
+    "tile_3": "#A7F3D0"
+  },
+  "typography": {
+    "font_heading": "Montserrat",
+    "font_body": "Inter",
+    "font_mono": "JetBrains Mono"
+  },
+  "avatars": {
+    "base_path": "assets/avatars/",
+    "default": "idea.png",
+    "poses": {
+      "question": "question.png",
+      "idea": "idea.png",
+      "pointing": "pointing.png",
+      "facepalm": "facepalm.png",
+      "laptop": "laptop.png",
+      "mic": "mic.png",
+      "money": "money.png"
+    }
+  }
+}

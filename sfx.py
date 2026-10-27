@@ -467,6 +467,51 @@ def mix_sfx(
                 overlay_sfx(neo_pop, t_start + 5.80)
             continue
 
+        # --- Nouveaux Blueprints Universels (bp_*) mixés à -14 dB ---
+        elif sc_type.startswith("bp_"):
+            if sc_type == "bp_hook_question":
+                overlay_sfx(neo_pop, t_start + 0.05)
+                overlay_sfx(neo_stamp, t_start + 0.60)
+            elif sc_type == "bp_friction_stack":
+                items = sc.get("params", {}).get("items", []) or sc.get("data", {}).get("items", [])
+                for idx, itm in enumerate(items):
+                    dt = itm.get("appear_at_offset", idx * 0.45)
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_pop, t_start + dt)
+            elif sc_type == "bp_stat_shock":
+                overlay_sfx(neo_whoosh, t_start + 0.04)
+                overlay_sfx(neo_stamp, t_start + 0.80)
+            elif sc_type == "bp_versus_compare":
+                overlay_sfx(neo_pop, t_start + 0.05)
+                overlay_sfx(neo_pop, t_start + 0.60)
+                overlay_sfx(neo_stamp, t_start + 1.20)
+            elif sc_type == "bp_code_window":
+                overlay_sfx(neo_pop, t_start + 0.05)
+                duration = t_end - t_start
+                for dt in np.arange(0.12, min(duration, 1.6), 0.14):
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_click, t_start + dt)
+                stamp_off = sc.get("params", {}).get("stamp_offset", 1.2)
+                overlay_sfx(neo_stamp, t_start + stamp_off)
+            elif sc_type == "bp_grid_2x2":
+                cards = sc.get("params", {}).get("cards", []) or sc.get("data", {}).get("cards", [])
+                for idx, c in enumerate(cards):
+                    dt = c.get("appear_at_offset", idx * 0.35)
+                    if t_start + dt < t_end:
+                        overlay_sfx(neo_pop, t_start + dt)
+            elif sc_type == "bp_logo_carousel_rtl":
+                items = sc.get("params", {}).get("items", []) or sc.get("data", {}).get("items", [])
+                for idx, itm in enumerate(items):
+                    at = itm.get("at_time", t_start + idx * 1.0)
+                    if at < t_end:
+                        overlay_sfx(neo_whoosh, at)
+            elif sc_type == "bp_cta_conversion":
+                click_at = sc.get("params", {}).get("click_at_offset", 1.5)
+                overlay_sfx(neo_click, t_start + click_at)
+                overlay_sfx(neo_pop, t_start + click_at + 0.3)
+                overlay_sfx(neo_pop, t_start + click_at + 0.7)
+            continue
+
         # 1. Pop organique mat sur apparitions visuelles & rupture rouge
         if sc_type in ["face", "cards", "split", "audio_wave", "blueprint_overwhelm", "blueprint_compare_split", "blueprint_spatial_pan", "face_to_dm_cta"]:
             end_idx = min(total_samples, idx_start + len(pop_sfx))

@@ -221,7 +221,7 @@ def validate_timeline(words, scenes, total_audio_dur, reference_words, scene_end
     print("-" * 88 + "\n")
 
 
-def step3_build_timeline(words, scenes_configs, scene_end_words, reference_words, total_audio_dur, timeline_path="timeline.js", project_config=None):
+def step3_build_timeline(words, scenes_configs, scene_end_words, reference_words, total_audio_dur, timeline_path="timeline.js", project_config=None, brand_config=None):
     num_scenes = len(scenes_configs)
     print(f"[Timeline] Génération des {num_scenes} scènes synchronisées dans {timeline_path}...")
 
@@ -266,7 +266,7 @@ def step3_build_timeline(words, scenes_configs, scene_end_words, reference_words
             "end": round(sc_end, 3),
             "data": cfg.get("data", {})
         }
-        for extra_key in ["caption_mode", "avatar_mode", "camera", "switch_theme", "title"]:
+        for extra_key in ["caption_mode", "avatar_mode", "camera", "switch_theme", "title", "params"]:
             if extra_key in cfg:
                 scene_dict[extra_key] = cfg[extra_key]
         scenes.append(scene_dict)
@@ -277,6 +277,8 @@ def step3_build_timeline(words, scenes_configs, scene_end_words, reference_words
     # Export JS
     js_content = f"// TIMELINE VIDÉO PROGRAMMATIQUE SUR-MESURE ({num_scenes} SCÈNES)\n"
     js_content += f"// Généré automatiquement par build_master_timeline.py\n\n"
+    if brand_config:
+        js_content += f"window.BRAND_CONFIG = {json.dumps(brand_config, indent=2, ensure_ascii=False)};\n\n"
     if project_config:
         js_content += f"window.PROJECT_CONFIG = {json.dumps(project_config, indent=2, ensure_ascii=False)};\n\n"
     js_content += f"window.WORDS = {json.dumps(words, indent=2, ensure_ascii=False)};\n\n"
@@ -531,6 +533,16 @@ def run_pipeline(
     if "subtitle_overrides" in project_data:
         proj_cfg["subtitle_overrides"] = project_data["subtitle_overrides"]
 
+    brand_file = project_dir / "brand.json"
+    brand_config = None
+    if brand_file.exists():
+        try:
+            with open(brand_file, "r", encoding="utf-8") as f:
+                brand_config = json.load(f)
+            print(f"[Brand] Configuration de marque chargée depuis {brand_file.name}.")
+        except Exception as exc:
+            print(f"[Brand] Avertissement chargement brand.json : {exc}")
+
     scenes = step3_build_timeline(
         words=words,
         scenes_configs=scenes_configs,
@@ -538,7 +550,8 @@ def run_pipeline(
         reference_words=ref_words,
         total_audio_dur=total_dur,
         timeline_path=str(target_timeline_js),
-        project_config=proj_cfg if proj_cfg else None
+        project_config=proj_cfg if proj_cfg else None,
+        brand_config=brand_config
     )
 
     # Synchroniser les scènes calculées avec project.json pour assurer la cohérence permanente
@@ -557,7 +570,7 @@ def run_pipeline(
 def main():
     parser = argparse.ArgumentParser(description="Générateur de timeline vidéo programmatique AGENT404.")
     parser.add_argument(
-        "--projet", "-p",
+        "--projet", "--project", "-p",
         default="studio_perso/video_03" if os.path.exists("studio_perso/video_03") else "studio_perso/video_01",
         help="Chemin vers le dossier du projet ou vers project.json (défaut: studio_perso/video_03)"
     )

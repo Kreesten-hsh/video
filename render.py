@@ -8,6 +8,12 @@ import subprocess
 import re
 from typing import Union
 from pathlib import Path
+
+# Résolution des dépendances locales du dépôt si nécessaire
+_local_venv_pkg = Path(__file__).resolve().parent / ".venv" / "lib" / f"python{sys.version_info.major}.{sys.version_info.minor}" / "site-packages"
+if _local_venv_pkg.is_dir() and str(_local_venv_pkg) not in sys.path:
+    sys.path.insert(0, str(_local_venv_pkg))
+
 from playwright.sync_api import sync_playwright
 
 # Ajout dynamique du répertoire bin local du dépôt au PATH si présent
@@ -160,8 +166,12 @@ def verify_rendered_avatars(video_path: str, scenes: Union[list, str, Path] = No
         print("[Vérification] Aucune scène exploitable pour validation des avatars.")
         return True
 
-    import cv2
-    import numpy as np
+    try:
+        import cv2
+        import numpy as np
+    except (ImportError, ModuleNotFoundError) as exc:
+        print(f"[Vérification] OpenCV / NumPy non disponibles ({exc}). Validation visuelle des avatars ignorée.")
+        return True
 
     cap = cv2.VideoCapture(str(video_path))
     if not cap.isOpened():
@@ -282,7 +292,10 @@ def render_video(
             except Exception:
                 pass
 
-        output_path = output_path or str(p_dir / f"video{video_num}.mp4")
+        if "studio_clients" in str(p_dir):
+            output_path = output_path or str(p_dir / "output_final.mp4")
+        else:
+            output_path = output_path or str(p_dir / f"video{video_num}.mp4")
         timeline_path = timeline_path or str(p_dir / "timeline.js")
         if not audio_path:
             cand_final = p_dir / "audio_final.wav"
@@ -417,7 +430,7 @@ def render_video(
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description="Moteur de rendu vidéo headless AGENT404.")
-    parser.add_argument("--projet", "-p", default=None, help="Chemin du dossier projet")
+    parser.add_argument("--projet", "--project", "-p", default=None, help="Chemin du dossier projet")
     parser.add_argument("--output", "-o", default=None, help="Chemin du fichier MP4 de sortie")
     parser.add_argument("--audio", "-a", default=None, help="Chemin du fichier audio")
     parser.add_argument("--timeline", "-t", default=None, help="Chemin de timeline.js")

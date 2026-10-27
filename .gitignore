@@ -23,6 +23,7 @@ output.*.mp4
 
 # Rendus vidéo générés
 studio_perso/**/video*.mp4
+studio_clients/**/*.mp4
 # Exception absolue : Préservation du Golden Master vidéo 1 pour les tests de non-régression
 !studio_perso/video_01/video1.mp4
 

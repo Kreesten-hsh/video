@@ -7918,4 +7918,721 @@ html[data-theme="obsidian-flame"], body[data-theme="obsidian-flame"], #video-can
   color: var(--card-text-muted) !important;
 }
 
+/* ==========================================================================
+   LES 8 BLUEPRINTS UNIVERSELS DU STUDIO MULTI-TENANT (.bp-*)
+   ========================================================================== */
+.bp-stage {
+  width: 960px !important;
+  max-width: 960px !important;
+  height: auto !important;
+  min-height: 480px !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 auto !important;
+}
+
+.bp-stage-hook.duo-lymphe-spacing {
+  margin-bottom: 80px !important;
+}
+
+.bp-card {
+  box-sizing: border-box !important;
+}
+
+.bp-card-hook {
+  width: 880px !important;
+  background: var(--surface-card) !important;
+  border: 4px solid var(--ink) !important;
+  box-shadow: var(--shadow-brutal) !important;
+  padding: 48px !important;
+  position: relative !important;
+}
+
+.bp-top-badge {
+  position: absolute !important;
+  top: -24px !important;
+  left: 40px !important;
+  background: var(--tile-yellow) !important;
+  border: 3px solid var(--ink) !important;
+  padding: 8px 24px !important;
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  box-shadow: var(--shadow-brutal-sm) !important;
+  color: var(--ink) !important;
+}
+
+.bp-section-badge {
+  background: var(--tile-yellow) !important;
+  border: 3px solid var(--ink) !important;
+  padding: 10px 28px !important;
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 24px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  box-shadow: var(--shadow-brutal-sm) !important;
+  color: var(--ink) !important;
+  margin-bottom: 36px !important;
+}
+
+.bp-icon-box {
+  width: 90px !important;
+  height: 90px !important;
+  border: 3px solid var(--ink) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  box-shadow: var(--shadow-brutal-sm) !important;
+  box-sizing: border-box !important;
+}
+
+.bp-hook-content {
+  display: flex !important;
+  align-items: center !important;
+  gap: 32px !important;
+}
+
+.bp-hook-text-col {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  flex: 1 !important;
+}
+
+.bp-title {
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 44px !important;
+  font-weight: 900 !important;
+  line-height: 1.25 !important;
+  color: var(--ink) !important;
+  text-transform: uppercase !important;
+}
+
+.bp-subtitle {
+  font-family: var(--font-body, 'Inter', sans-serif) !important;
+  font-size: 26px !important;
+  font-weight: 600 !important;
+  line-height: 1.35 !important;
+  color: var(--card-text-muted) !important;
+}
+
+.bp-stamp {
+  position: absolute !important;
+  bottom: -28px !important;
+  right: 36px !important;
+  border: 4px solid var(--flame) !important;
+  color: var(--flame) !important;
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 32px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  padding: 8px 24px !important;
+  transform: rotate(-8deg) !important;
+  letter-spacing: 2px !important;
+  white-space: nowrap !important;
+  background: var(--surface-card) !important;
+  box-shadow: var(--shadow-brutal-sm) !important;
+}
+
+/* 2. Friction Stack */
+.bp-friction-items-container {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
+  align-items: center !important;
+  width: 920px !important;
+}
+
+.bp-friction-item {
+  width: 900px !important;
+  height: 140px !important;
+  background: var(--surface-card) !important;
+  border: 4px solid var(--ink) !important;
+  box-shadow: var(--shadow-brutal) !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 28px !important;
+  gap: 24px !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+}
+
+.bp-friction-icon-box {
+  width: 76px !important;
+  height: 76px !important;
+  border: 3px solid var(--ink) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  box-shadow: var(--shadow-brutal-sm) !important;
+  box-sizing: border-box !important;
+}
+
+.bp-friction-text {
+  flex: 1 !important;
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 28px !important;
+  font-weight: 800 !important;
+  color: var(--ink) !important;
+  line-height: 1.3 !important;
+}
+
+.bp-friction-badge {
+  background: var(--surface-card) !important;
+  border: 3px solid var(--ink) !important;
+  padding: 6px 18px !important;
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  box-shadow: var(--shadow-brutal-sm) !important;
+  color: var(--ink) !important;
+}
+
+.bp-status-cross,
+.bp-status-check {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+
+.bp-connector {
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 36px !important;
+  font-weight: 900 !important;
+  color: var(--ink) !important;
+  margin: -10px 0 !important;
+}
+
+/* 3. Stat Shock */
+.bp-card-stat {
+  width: 880px !important;
+  background: var(--surface-card) !important;
+  border: 4px solid var(--ink) !important;
+  box-shadow: var(--shadow-brutal) !important;
+  padding: 56px 48px !important;
+  position: relative !important;
+  text-align: center !important;
+}
+
+.bp-stat-number {
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 140px !important;
+  font-weight: 900 !important;
+  line-height: 1.0 !important;
+  color: var(--flame) !important;
+  margin-bottom: 20px !important;
+  letter-spacing: -2px !important;
+}
+
+.bp-stat-label {
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 42px !important;
+  font-weight: 800 !important;
+  line-height: 1.25 !important;
+  color: var(--ink) !important;
+  margin-bottom: 24px !important;
+}
+
+.bp-progress-bar-wrap {
+  width: 100% !important;
+  height: 32px !important;
+  background: var(--surface-hover) !important;
+  border: 3px solid var(--ink) !important;
+  border-radius: 6px !important;
+  overflow: hidden !important;
+  margin-top: 16px !important;
+  box-sizing: border-box !important;
+}
+
+.bp-progress-bar-fill {
+  height: 100% !important;
+  background: var(--flame) !important;
+  border-right: 3px solid var(--ink) !important;
+}
+
+.bp-stamp-footer {
+  position: absolute !important;
+  bottom: -28px !important;
+  right: 40px !important;
+  border: 4px solid var(--ink) !important;
+  color: var(--ink) !important;
+  background: var(--tile-yellow) !important;
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 28px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  padding: 8px 24px !important;
+  transform: rotate(-5deg) !important;
+  white-space: nowrap !important;
+  box-shadow: var(--shadow-brutal-sm) !important;
+}
+
+/* 4. Versus Compare */
+.bp-versus-container {
+  display: flex !important;
+  align-items: center !important;
+  gap: 24px !important;
+  width: 900px !important;
+}
+
+.bp-versus-container.layout-vertical {
+  flex-direction: column !important;
+}
+
+.bp-versus-card {
+  width: 880px !important;
+  min-height: 240px !important;
+  border: 4px solid var(--ink) !important;
+  box-shadow: var(--shadow-brutal) !important;
+  padding: 32px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+}
+
+.bp-versus-card-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.bp-versus-card-badge {
+  border: 3px solid var(--ink) !important;
+  padding: 6px 20px !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  background: var(--surface-card) !important;
+  box-shadow: var(--shadow-brutal-sm) !important;
+  color: var(--ink) !important;
+}
+
+.bp-versus-icon-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 24px !important;
+}
+
+.bp-versus-title {
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 34px !important;
+  font-weight: 800 !important;
+  color: var(--ink) !important;
+  line-height: 1.25 !important;
+}
+
+.bp-versus-divider {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: -8px 0 !important;
+}
+
+.bp-versus-badge {
+  width: 76px !important;
+  height: 76px !important;
+  border-radius: 50% !important;
+  background: var(--ink) !important;
+  color: var(--surface-card) !important;
+  border: 4px solid var(--surface-card) !important;
+  box-shadow: var(--shadow-brutal-sm) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 32px !important;
+  font-weight: 900 !important;
+  white-space: nowrap !important;
+  line-height: 1 !important;
+}
+
+.bp-versus-stamp {
+  margin-top: 36px !important;
+  border: 4px solid var(--flame) !important;
+  color: var(--flame) !important;
+  background: var(--surface-card) !important;
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 30px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  padding: 10px 30px !important;
+  transform: rotate(-4deg) !important;
+  box-shadow: var(--shadow-brutal) !important;
+  white-space: nowrap !important;
+}
+
+/* 5. Code Window */
+.bp-window-frame {
+  width: 900px !important;
+  border: 4px solid var(--ink) !important;
+  box-shadow: var(--shadow-brutal) !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+.bp-window-frame.theme-dark {
+  background: var(--ink) !important;
+  color: var(--bg-canvas) !important;
+}
+
+.bp-window-frame.theme-light {
+  background: var(--surface-card) !important;
+  color: var(--ink) !important;
+}
+
+.bp-window-header {
+  height: 52px !important;
+  background: var(--ink) !important;
+  color: var(--bg-canvas) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 20px !important;
+  border-bottom: 4px solid var(--ink) !important;
+}
+
+.bp-window-dots {
+  display: flex !important;
+  gap: 10px !important;
+}
+
+.bp-dot {
+  width: 16px !important;
+  height: 16px !important;
+  border-radius: 50% !important;
+  border: 2px solid var(--ink) !important;
+  display: inline-block !important;
+}
+
+.bp-dot.dot-red { background: var(--flame) !important; }
+.bp-dot.dot-yellow { background: var(--tile-yellow) !important; }
+.bp-dot.dot-green { background: var(--tile-green) !important; }
+
+.bp-window-title {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace) !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: var(--bg-canvas) !important;
+  text-transform: lowercase !important;
+  white-space: nowrap !important;
+}
+
+.bp-window-body {
+  padding: 36px 32px !important;
+  min-height: 380px !important;
+  box-sizing: border-box !important;
+}
+
+.bp-waveform-container {
+  height: 240px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 18px !important;
+}
+
+.bp-waveform-bar {
+  width: 24px !important;
+  min-height: 30px !important;
+  background: var(--flame) !important;
+  border: 3px solid var(--ink) !important;
+  box-shadow: var(--shadow-brutal-sm) !important;
+  border-radius: 4px !important;
+}
+
+.bp-code-content {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
+
+.bp-code-line {
+  display: flex !important;
+  gap: 20px !important;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace) !important;
+  font-size: 24px !important;
+  line-height: 1.4 !important;
+  font-weight: 600 !important;
+}
+
+.bp-code-num {
+  color: var(--card-text-muted) !important;
+  width: 32px !important;
+  user-select: none !important;
+}
+
+.bp-code-text {
+  flex: 1 !important;
+}
+
+.bp-code-stamp {
+  margin-top: 36px !important;
+  border: 4px solid var(--ink) !important;
+  background: var(--tile-yellow) !important;
+  color: var(--ink) !important;
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 28px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  padding: 10px 28px !important;
+  transform: rotate(-5deg) !important;
+  box-shadow: var(--shadow-brutal) !important;
+  white-space: nowrap !important;
+}
+
+/* 6. Grid 2x2 */
+.bp-grid-tiles-wrap {
+  display: grid !important;
+  grid-template-columns: repeat(2, 420px) !important;
+  gap: 24px !important;
+  justify-content: center !important;
+}
+
+.bp-grid-tile {
+  width: 420px !important;
+  height: 320px !important;
+  border: 4px solid var(--ink) !important;
+  box-shadow: var(--shadow-brutal) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 24px !important;
+  padding: 24px !important;
+  box-sizing: border-box !important;
+}
+
+.bp-grid-icon-box {
+  width: 80px !important;
+  height: 80px !important;
+  border: 3px solid var(--ink) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: var(--shadow-brutal-sm) !important;
+  background: var(--surface-card) !important;
+  box-sizing: border-box !important;
+}
+
+.bp-grid-title {
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 28px !important;
+  font-weight: 800 !important;
+  color: var(--ink) !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+}
+
+.bp-grid-meter {
+  width: 864px !important;
+  height: 90px !important;
+  border: 4px solid var(--ink) !important;
+  box-shadow: var(--shadow-brutal) !important;
+  background: var(--surface-card) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 36px !important;
+  margin-top: 28px !important;
+  box-sizing: border-box !important;
+}
+
+.bp-grid-meter-label {
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 26px !important;
+  font-weight: 800 !important;
+  color: var(--ink) !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+}
+
+.bp-grid-meter-val {
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 36px !important;
+  font-weight: 900 !important;
+  color: var(--flame) !important;
+  white-space: nowrap !important;
+}
+
+/* 7. Logo Carousel RTL */
+.bp-carousel-viewport {
+  width: 960px !important;
+  max-width: 960px !important;
+  height: 560px !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.bp-carousel-card {
+  width: 480px !important;
+  height: 480px !important;
+  background: var(--surface-card) !important;
+  border: 4px solid var(--ink) !important;
+  box-shadow: var(--shadow-brutal) !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 24px !important;
+  box-sizing: border-box !important;
+}
+
+.bp-carousel-logo-box {
+  width: 120px !important;
+  height: 120px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.bp-carousel-label {
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 36px !important;
+  font-weight: 900 !important;
+  color: var(--ink) !important;
+  letter-spacing: 1px !important;
+}
+
+.bp-carousel-badge {
+  background: var(--tile-yellow) !important;
+  border: 3px solid var(--ink) !important;
+  padding: 8px 24px !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  box-shadow: var(--shadow-brutal-sm) !important;
+  color: var(--ink) !important;
+}
+
+/* 8. CTA Conversion */
+.bp-input-mockup {
+  width: 900px !important;
+  height: 110px !important;
+  background: var(--surface-card) !important;
+  border: 4px solid var(--ink) !important;
+  box-shadow: var(--shadow-brutal) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 24px !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+}
+
+.bp-input-field {
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+.bp-input-prefix {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace) !important;
+  font-size: 26px !important;
+  font-weight: 800 !important;
+  color: var(--card-text-muted) !important;
+  white-space: nowrap !important;
+}
+
+.bp-input-text {
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 36px !important;
+  font-weight: 900 !important;
+  color: var(--ink) !important;
+  letter-spacing: 2px !important;
+}
+
+.bp-input-cursor {
+  font-family: var(--font-mono, 'JetBrains Mono', monospace) !important;
+  font-size: 36px !important;
+  font-weight: 900 !important;
+  color: var(--flame) !important;
+}
+
+.bp-input-button {
+  background: var(--flame) !important;
+  color: var(--surface-card) !important;
+  border: 3px solid var(--ink) !important;
+  padding: 12px 28px !important;
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 24px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  box-shadow: var(--shadow-brutal-sm) !important;
+  white-space: nowrap !important;
+}
+
+.bp-mouse-cursor {
+  position: absolute !important;
+  z-index: 50 !important;
+  pointer-events: none !important;
+}
+
+.bp-doors-container {
+  width: 900px !important;
+  display: flex !important;
+  gap: 24px !important;
+  margin-top: 36px !important;
+}
+
+.bp-door-card {
+  flex: 1 !important;
+  border: 4px solid var(--ink) !important;
+  box-shadow: var(--shadow-brutal) !important;
+  padding: 32px 24px !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 12px !important;
+  box-sizing: border-box !important;
+}
+
+.bp-door-badge {
+  background: var(--surface-card) !important;
+  border: 3px solid var(--ink) !important;
+  padding: 6px 18px !important;
+  font-size: 20px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  box-shadow: var(--shadow-brutal-sm) !important;
+  color: var(--ink) !important;
+}
+
+.bp-door-title {
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 32px !important;
+  font-weight: 900 !important;
+  color: var(--ink) !important;
+  text-transform: uppercase !important;
+  line-height: 1.2 !important;
+}
+
+.bp-door-subtitle {
+  font-family: var(--font-body, 'Inter', sans-serif) !important;
+  font-size: 22px !important;
+  font-weight: 600 !important;
+  color: var(--card-text-muted) !important;
+  line-height: 1.3 !important;
+}
+
 

@@ -16,7 +16,8 @@ Tout agent ou développeur intervenant sur la chaîne de production **doit exéc
 7. [PHASE 6 — Validation Pre-Flight Bloquante (< 3s) AVANT Rendu](#phase-6--validation-pre-flight-bloquante--3s-avant-rendu)
 8. [PHASE 7 — Rendu Final 30 FPS, Inspection Visuelle & Clôture Registre](#phase-7--rendu-final-30-fps-inspection-visuelle--cl%C3%B4ture-registre)
 9. [PHASE 8 — Distribution Ciblée (LinkedIn & Instagram) & Golden Hour](#phase-8--distribution-cibl%C3%A9e-linkedin--instagram--golden-hour)
-10. [Matrice d'Audit Rapide (Checklist de Clôture)](#matrice-daudit-rapide-checklist-de-cl%C3%B4ture)
+10. [Catalogue Officiel des 8 Blueprints Universels & Multi-Tenant Studio](#catalogue-officiel-des-8-blueprints-universels--multi-tenant-studio)
+11. [Matrice d'Audit Rapide (Checklist de Clôture)](#matrice-daudit-rapide-checklist-de-cl%C3%B4ture)
 
 ---
 
@@ -247,6 +248,291 @@ Transformer le master vidéo en vues qualifiées et en leads B2B en publiant exc
    - *Minute 05* : Partager le Reel en Story Instagram avec sticker masquant le bas pour forcer le clic vers le post original.
    - *Minutes 05 à 45* : Répondre à 100% des commentaires reçus avec une phrase de plus de 5 mots et une question de relance.
    - *Interdictions absolues* : Ne jamais regarder la vidéo 50 fois en boucle depuis le même compte, ne jamais supprimer/re-publier dans les 24h, ne jamais éditer le texte dans les 20 premières minutes.
+
+---
+
+### Catalogue Officiel des 8 Blueprints Universels & Multi-Tenant Studio
+
+Le studio AGENT404 dispose d'un moteur de production industrialisé "Video-as-Code" multi-tenant. Chaque vidéo client est isolée dans son propre répertoire sous `studio_clients/<client_id>/` et est pilotée **à 100% par `scene.params` dans `project.json`** (ZÉRO nouvelle ligne de JS nécessaire, temps de production divisé par 4 : $< 2\text{ h}$ par vidéo).
+
+#### 1. Architecture Multi-Tenant & Fichier `brand.json`
+
+Chaque dossier client (`studio_clients/<client_id>/`) possède un fichier `brand.json` qui personnalise instantanément la charte graphique sans toucher au cœur du moteur :
+
+```json
+{
+  "brand_name": "ACME CORP",
+  "theme": {
+    "bg_canvas": "#F5F2EB",
+    "surface_card": "#FFFFFF",
+    "ink": "#111111",
+    "accent_primary": "#FF4F18",
+    "tile_1": "#FEF08A",
+    "tile_2": "#BFDBFE",
+    "tile_3": "#A7F3D0"
+  },
+  "typography": {
+    "font_heading": "Montserrat",
+    "font_body": "Inter",
+    "font_mono": "JetBrains Mono"
+  },
+  "avatars": {
+    "base_path": "assets/avatars/",
+    "default": "idea.png",
+    "poses": {
+      "idea": "idea.png",
+      "pointing": "pointing.png",
+      "facepalm": "facepalm.png",
+      "laptop": "laptop.png",
+      "mic": "mic.png",
+      "money": "money.png"
+    }
+  }
+}
+```
+
+*Le moteur applique dynamiquement ces valeurs sur les variables `:root` (`--bg-canvas`, `--surface-card`, `--ink`, `--accent-primary`, etc.) et résout les poses d'avatars déclarées dans `brand.json` avec fallback transparent vers la base universelle.*
+
+---
+
+#### 2. Registre Vectoriel Universel `SVG_ICONS`
+
+22 icônes vectorielles standardisées (`viewBox="0 0 24 24"`, traits épais de `2.5px`, fond transparent ou aplats sémantiques) sont disponibles et injectables dans n'importe quel blueprint via leur clé :
+
+* **Symboles Sémantiques (18)** : `question`, `lock`, `camera`, `bulb`, `clapper`, `clock`, `scale`, `check`, `cross`, `robot`, `mic`, `code`, `bolt`, `file`, `chart`, `calendar`, `rocket`, `gear`.
+* **Réseaux Sociaux Officiels (4)** : `linkedin`, `tiktok`, `reels`, `shorts`.
+
+---
+
+#### 3. Schémas JSON des 8 Blueprints Universels (`bp_*`)
+
+##### 1. `bp_hook_question` (Accroche / Obsession / Rupture)
+* **Usage** : Première scène de captation d'attention, question provocatrice ou énoncé d'un problème criant.
+```json
+{
+  "id": "scene_01",
+  "type": "bp_hook_question",
+  "avatar_mode": "duo_lymphe",
+  "params": {
+    "top_badge": "LE PROBLÈME",
+    "box_color": "var(--tile-yellow)",
+    "icon": "question",
+    "title": "POURQUOI 90% DES PROSPECTS IGNORENT VOS MESSAGES ?",
+    "subtitle": "Le modèle traditionnel de prospection est mort.",
+    "stamp_text": "BLOQUÉ"
+  }
+}
+```
+
+##### 2. `bp_friction_stack` (Liste de galères / Piliers / Arguments)
+* **Usage** : Énumération de 2 à 4 frictions, empilement de points de douleur ou piliers d'une méthode.
+```json
+{
+  "id": "scene_02",
+  "type": "bp_friction_stack",
+  "avatar_mode": "solo",
+  "params": {
+    "header_badge": "3 FRICTIONS CRITIQUES",
+    "items": [
+      {
+        "icon": "clock",
+        "box_color": "var(--tile-yellow)",
+        "text": "15 heures perdues par semaine",
+        "right_badge": "TEMPS",
+        "status": "cross",
+        "appear_at_offset": 0.0
+      },
+      {
+        "icon": "cross",
+        "box_color": "var(--surface-card)",
+        "text": "Taux de réponse inférieur à 2%",
+        "right_badge": "SILENCE",
+        "status": "cross",
+        "appear_at_offset": 0.6
+      },
+      {
+        "icon": "bolt",
+        "box_color": "var(--tile-blue)",
+        "text": "Fatigue mentale et zéro pipeline",
+        "right_badge": "IMPACT",
+        "status": "cross",
+        "appear_at_offset": 1.2
+      }
+    ],
+    "connectors": "none"
+  }
+}
+```
+
+##### 3. `bp_stat_shock` (Chiffre choc / Compteur métrique / Preuve)
+* **Usage** : Preuve d'autorité ou métrique saillante avec jauge animée et compteur dynamique.
+```json
+{
+  "id": "scene_03",
+  "type": "bp_stat_shock",
+  "avatar_mode": "hidden",
+  "params": {
+    "top_badge": "RÉSULTAT CHIFFRÉ",
+    "stat_from": 0,
+    "stat_to": 78,
+    "stat_suffix": "%",
+    "label": "DE TEMPS GAGNÉ DÈS LA PREMIÈRE SEMAINE",
+    "progress_bar": true,
+    "footer_stamp": "MESURÉ"
+  }
+}
+```
+
+##### 4. `bp_versus_compare` (Avant / Après, Clones IA vs Humain, Problème vs Solution)
+* **Usage** : Comparaison radicale entre une ancienne approche inefficace et la nouvelle solution.
+```json
+{
+  "id": "scene_04",
+  "type": "bp_versus_compare",
+  "avatar_mode": "solo",
+  "params": {
+    "layout": "vertical",
+    "left_or_top": {
+      "badge": "MÉTHODE OBSOLÈTE",
+      "title": "Copier-coller manuel & relances à l'aveugle",
+      "icon": "cross",
+      "color": "var(--surface-card)",
+      "status": "cross"
+    },
+    "right_or_bottom": {
+      "badge": "MOTEUR AUTOMATISÉ",
+      "title": "Ingestion agnostique & personnalisation hyper-ciblée",
+      "icon": "check",
+      "color": "var(--tile-yellow)",
+      "status": "check"
+    },
+    "footer_stamp": "SANS APPEL"
+  }
+}
+```
+
+##### 5. `bp_code_window` (Preuve technique / Terminal / Workflow)
+* **Usage** : Fenêtre Mac/Linux Néo-Brutaliste montrant du code, une transcription dynamique ou un waveform audio.
+```json
+{
+  "id": "scene_05",
+  "type": "bp_code_window",
+  "avatar_mode": "hidden",
+  "params": {
+    "window_title": "pipeline_execution.py",
+    "theme": "dark",
+    "mode": "code",
+    "lines": [
+      "def run_growth_engine(client):",
+      "    target = analyze_prospect(client)",
+      "    return generate_hyper_targeted_video(target)"
+    ],
+    "footer_stamp": "DÉTERMINISTE",
+    "stamp_offset": 1.2
+  }
+}
+```
+
+##### 6. `bp_grid_2x2` (4 styles / 4 assets / Multi-cartes)
+* **Usage** : Déploiement de 4 caractéristiques, 4 livrables ou 4 piliers d'offre sous forme de tuiles carrées.
+```json
+{
+  "id": "scene_06",
+  "type": "bp_grid_2x2",
+  "avatar_mode": "hidden",
+  "params": {
+    "top_badge": "LE PACK COMPLET",
+    "cards": [
+      { "icon": "camera", "title": "Vidéo 9:16 Haute Densité", "color": "var(--tile-yellow)", "appear_at_offset": 0.0 },
+      { "icon": "file", "title": "Post LinkedIn Clé en Main", "color": "var(--tile-blue)", "appear_at_offset": 0.3 },
+      { "icon": "mic", "title": "Audio Studio & Sound Design", "color": "var(--tile-green)", "appear_at_offset": 0.6 },
+      { "icon": "rocket", "title": "Distribution & Golden Hour", "color": "var(--surface-card)", "appear_at_offset": 0.9 }
+    ],
+    "bottom_meter": {
+      "label": "Taux d'automatisation",
+      "from": 0,
+      "to": 100
+    }
+  }
+}
+```
+
+##### 7. `bp_logo_carousel_rtl` (Carrousel 1 à 1 centré Droite $\rightarrow$ Gauche)
+* **Usage** : Défilement centré et percutant de logos de réseaux sociaux ou de plateformes partenaires.
+```json
+{
+  "id": "scene_07",
+  "type": "bp_logo_carousel_rtl",
+  "avatar_mode": "solo",
+  "params": {
+    "top_badge": "DIFFUSION MULTI-CANAL",
+    "items": [
+      { "logo": "linkedin", "label": "LINKEDIN", "badge": "B2B LEADS", "at_time": 0.0 },
+      { "logo": "reels", "label": "INSTAGRAM", "badge": "VITRINE", "at_time": 1.2 },
+      { "logo": "tiktok", "label": "TIKTOK", "badge": "VIRALITÉ", "at_time": 2.4 },
+      { "logo": "shorts", "label": "SHORTS", "badge": "NOTORIÉTÉ", "at_time": 3.6 }
+    ]
+  }
+}
+```
+
+##### 8. `bp_cta_conversion` (Conversion finale Simple ou Double Porte)
+* **Usage** : Clôture avec saisie simulée du mot-clé en message privé, clic vectoriel et présentation des portes de conversion.
+```json
+{
+  "id": "scene_08",
+  "type": "bp_cta_conversion",
+  "avatar_mode": "solo",
+  "params": {
+    "variant": "two_door",
+    "keyword": "STUDIO",
+    "button_label": "ENVOYER",
+    "click_at_offset": 1.2,
+    "doors": [
+      {
+        "badge": "PORTE 1 : GRATUIT",
+        "title": "Guide Video-as-Code",
+        "subtitle": "Le playbook complet offert en DM",
+        "color": "var(--surface-card)",
+        "appear_at_offset": 1.8
+      },
+      {
+        "badge": "PORTE 2 : STUDIO",
+        "title": "Production Sur-Mesure",
+        "subtitle": "4 capsules prêtes à diffuser / mois",
+        "color": "var(--tile-yellow)",
+        "appear_at_offset": 2.4
+      }
+    ]
+  }
+}
+```
+
+---
+
+#### 4. Workflow Client Standardisé (Zéro JS)
+
+1. **Création du projet client** :
+   ```bash
+   cp -r studio_clients/_template_prospect/ studio_clients/<client_id>/
+   ```
+2. **Configuration de marque** :
+   Adapter `studio_clients/<client_id>/brand.json` (palette, polices, avatars).
+3. **Rédaction du scénario** :
+   Remplir `project.json` avec les scènes `bp_*` adaptées au message.
+4. **Génération de la timeline** :
+   ```bash
+   python3 build_master_timeline.py -p studio_clients/<client_id>
+   ```
+5. **Validation Pre-Flight (< 3s)** :
+   ```bash
+   python3 preflight_check.py -p studio_clients/<client_id>
+   ```
+6. **Rendu Master 30 FPS** :
+   ```bash
+   python3 render.py -p studio_clients/<client_id>
+   ```
+   *Le fichier final est automatiquement généré sous `studio_clients/<client_id>/output_final.mp4`.*
 
 ---
 

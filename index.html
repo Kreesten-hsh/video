@@ -38,9 +38,16 @@
   </div>
 
   <script>
-    // Chargement dynamique de la timeline si spécifiée en paramètre d'URL (?timeline=...)
+    // Chargement dynamique multi-tenant (?project=..., ?timeline=..., ?brand=...)
     const urlParams = new URLSearchParams(window.location.search);
-    const timelineParam = urlParams.get('timeline');
+    const projectParam = urlParams.get('project');
+    const timelineParam = urlParams.get('timeline') || (projectParam ? (projectParam.endsWith('/') ? projectParam + 'timeline.js' : projectParam + '/timeline.js') : null);
+    const brandParam = urlParams.get('brand') || (projectParam ? (projectParam.endsWith('/') ? projectParam + 'brand.json' : projectParam + '/brand.json') : null);
+
+    if (brandParam) {
+      window.BRAND_URL = brandParam;
+    }
+
     if (timelineParam) {
       document.write('<script src="' + encodeURI(timelineParam) + '"><\/script>');
     } else if (typeof window.WORDS === 'undefined') {
