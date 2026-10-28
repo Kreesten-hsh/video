@@ -1,6 +1,6 @@
 # AGENT404 : GRILLE DES OFFRES COMMERCIALES ACTIVES
 
-Date de référence : 21 octobre 2026 (révisé après validation marché en direct sur LinkedIn)  
+Date de référence : 28 octobre 2026  
 Propriétaire : Kreesten AGBOTON (Abomey-Calavi, Bénin)  
 Positionnement : Studio de production vidéo court-format néo-brutaliste **« Zero-Camera, Zero-Studio & Zero-Montage »**.  
 Promesse : Dominer son marché B2B avec des vidéos verticales percutantes (1080x1920 @ 30 FPS) sans matériel, sans tournage et sans compétences de montage. **1 seule vidéo produite = 4 plateformes arrosées simultanément** (LinkedIn, TikTok, Instagram Reels, YouTube Shorts).
@@ -79,7 +79,7 @@ L'architecture tarifaire repose sur l'effet d'ancrage psychologique haute valeur
   - Ingestion continue de vos notes vocales, posts ou schémas au fil du mois.
   - Découpage et scénarisation de 8 capsules narratives complètes.
   - Bibliothèque d'avatars et chartes graphiques client dédiées.
-  - Priorité absolue dans le pipeline de production (livraison continue sous 48-72h par lot).
+  - Priorité absolue dans le pipeline de production (livraison par lot sous 72 h ouvrées).
   - Sound design broadcast complet sur chaque capsule.
   - 1 passe de retouche par vidéo.
 
@@ -89,4 +89,4 @@ L'architecture tarifaire repose sur l'effet d'ancrage psychologique haute valeur
 
 - **Test Découverte (150 €)** : 100 % à la commande avant démarrage de la production.
 - **Abonnement Studio (750 €/m)** : Paiement d'avance à l'ouverture de chaque période mensuelle.
-- **Moyens de paiement acceptés** : Virement bancaire SEPA direct vers compte professionnel ou intermédiaire sécurisé.
+- **Moyens de paiement acceptés** : Paiement Stripe ou virement bancaire SEPA d'avance vers compte professionnel.

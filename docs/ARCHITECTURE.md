@@ -1,7 +1,7 @@
 # AGENT404 : SPÉCIFICATIONS TECHNIQUES DE L'ARCHITECTURE DU MOTEUR
 
 Statut de gouvernance : DOCUMENTATION TECHNIQUE DE RÉFÉRENCE  
-Date de référence : 21 octobre 2026 (révisé après validation marché en direct sur LinkedIn)  
+Date de référence : 28 octobre 2026  
 Type de système : Moteur vidéo programmatique déterministe (1080x1920 @ 30 FPS, vertical 9:16)  
 Positionnement stratégique : Studio de production vidéo court-format néo-brutaliste **« Zero-Camera, Zero-Studio & Zero-Montage »**.  
 Mission : Résoudre définitivement la corvée du tournage vidéo pour les professionnels B2B qui écrivent déjà sur LinkedIn. Transformer n'importe quel matériau brut en une capsule vidéo chirurgicale (~60s) avec avatar incarné, voix studio et sous-titres karaoké au mot près, diffusée simultanément sur 4 plateformes (LinkedIn, TikTok, Instagram Reels, YouTube Shorts).
@@ -28,7 +28,7 @@ L'ensemble de l'architecture logicielle est rigoureusement aligné sur 5 concept
    - **Refus des frameworks lourds** : Aucun runtime React, Node.js, Next.js ou Remotion dans le moteur de rendu.
    - **Refus du non-déterminisme** : Proscription de toute animation CSS temps réel ou interpolation asynchrone (`Date.now()`, `requestAnimationFrame`).
    - **Refus du HUD** : Suppression définitive et irrévocable de tout bandeau HUD (`#agent-hud`) dans le DOM.
-   - **Refus du jargon technique et des prix dans les vidéos** : Aucun terme technique d'ingénierie (Python, FFmpeg, Whisper) ni montant commercial (150 €, 200 €, 250 €, 500 €, 750 €) n'apparaît dans les scripts, sous-titres ou éléments visuels publics.
+   - **Refus du jargon technique et des prix dans les vidéos** : Aucun terme technique d'ingénierie (Python, FFmpeg, Whisper) ni montant commercial (150 €, 200 €, 750 €) n'apparaît dans les scripts, sous-titres ou éléments visuels publics.
 4. **Concept 4 : Remplacer « ça ne marche pas » par un constat précis mesuré**  
    *« Identifie l'écart entre le résultat attendu et le résultat obtenu. »*  
    - Les écarts sont systématiquement quantifiés par des sondes techniques :
@@ -93,7 +93,7 @@ flowchart TD
     subgraph PHASE_3["Phase 3 : Moteur Graphique DOM Déterministe"]
         TL --> DOM["index.html + style.css + video.js"]
         STK["assets/avatars/*.png (Stickers néo-brutalistes)"] --> DOM
-        CLK["Pilote temporel externe : window.setTime(t)"] --> DOM
+        CLK["Contrôleur temporel externe : window.setTime(t)"] --> DOM
     end
 
     subgraph PHASE_4["Phase 4 : Rendu Frame-par-Frame & Encodage"]
@@ -116,7 +116,7 @@ flowchart TD
 ## 3. DÉTAIL DES MODULES LOGICIELS ET SCRIPTS
 
 ### A. Ingestion et Alignement Forcé : [build_master_timeline.py](../build_master_timeline.py)
-- **Rôle** : Convertit l'audio brut en PCM standardisé, force l'alignement acoustique mot-à-mot via Whisper, découpe la narration en scènes continues et génère [timeline.js](../timeline.js).
+- **Rôle** : Convertit l'audio brut en PCM standardisé, force l'alignement acoustique mot-à-mot via Whisper, découpe la narration en scènes continues et génère `timeline.js` dans le dossier projet.
 - **Fonctionnement interne** :
   1. *Conversion audio* : Appelle FFmpeg pour convertir le MP3 source en `voix.wav` (PCM 16-bit mono à 44 100 Hz).
   2. *Inférence Whisper* : Exécute `faster-whisper` (modèle `small`, CPU, calcul quantifié `int8`, 2 threads) pour extraire les timestamps bruts de chaque token audio.
@@ -137,7 +137,8 @@ flowchart TD
   4. *Carte impact & Slams (50 ms)* : Transitoires de choc amorties pour les tampons géants (`ZÉRO VIDÉO`, `ABANDON`, `CLARTÉ`).
 - **Normalisation Audio Automatique** : Le mixage s'assure que la piste combinée voix + SFX est systématiquement normalisée à $-14\text{ dBFS}$ (norme court-format mobile pour Instagram Reels et TikTok), sans saturation ni écrêtage.
 - **Reproductibilité déterministe** : Lorsque `rendu_deterministe: true` (par défaut), une graine stable dérivée de l'identifiant du projet (`zlib.crc32`) alimente un générateur `np.random.default_rng(seed)`. Deux mixages successifs produisent des fichiers WAV identiques octet par octet (SHA-256 rigoureusement identiques). Si `rendu_deterministe: false` (cas de `video_01`), le comportement historique sans graine est préservé.
-- **Mixage** : Superpose les formes d'ondes au signal vocal, applique un clamp strict $[-32767, 32767]$ pour éviter tout écrêtage, et exporte [audio_final.wav](../audio_final.wav).
+- **Sound Cues Déclaratifs** : Table déclarative `SFX_CUES` associant chaque type de scène à ses bruitages avec décalages relatifs stricts (`get_scene_cues` et `get_absolute_scene_cues`). Découplage temporel total : déplacer une scène dans le temps translate automatiquement ses cues sans altérer le moteur.
+- **Mixage** : Superpose les formes d'ondes au signal vocal, applique un clamp strict $[-32767, 32767]$ pour éviter tout écrêtage, et exporte `audio_final.wav` dans le dossier projet.
 
 ### C. Moteur Graphique et Composants Visuels : [video.js](../video.js)
 - **Rôle** : Interface de rendu DOM fonctionnant sans horloge asynchrone (`Date.now()`, `requestAnimationFrame` ou `setInterval` proscrits).
@@ -159,6 +160,15 @@ flowchart TD
 - **Chorégraphie Spatiale d'Avatar** :
   - Modes `solo`, `duo_lymphe`, `hidden`, `inset`.
   - Maintien rigoureux d'un espace de respiration $> 150\text{px}$ entre la tête de l'avatar et les cartes/titres (zéro collision).
+- **Les 8 Blueprints Universels Réutilisables (`bp_*`)** :
+  1. `bp_hook_question` : Question provocatrice avec tampon géant et avatar expressif.
+  2. `bp_friction_stack` : Pile de 3 cartes de friction avec allumage séquentiel individuel.
+  3. `bp_stat_shock` : Chiffre choc avec compteur progressif et barre de progression.
+  4. `bp_versus_compare` : Comparaison visuelle bipartite (clone IA vs méthode incarnée).
+  5. `bp_code_window` : Fenêtre terminal style OS avec frappe de code caractère par caractère.
+  6. `bp_grid_2x2` : Grille de 4 piliers méthodologiques à activation cadencée.
+  7. `bp_logo_carousel_rtl` : Carrousel dynamique défilant de droite à gauche.
+  8. `bp_cta_conversion` : Appel à l'action final invitant à commenter le mot-clé unique.
 - **Composants implémentés** :
   1. `face` : Avatar sticker animé avec physique d'overshoot au démarrage, flottement sinusoïdal vertical continu ($\sin(5t) \times 10\text{px}$), inclinaison ($\sin(2.5t) \times 1.5^\circ$) et badge textuel à $-2^\circ$.
   2. `big` : Typographie d'impact grand format (56px ou 68px) avec sous-titre et animation de rebond élastique.
@@ -211,10 +221,11 @@ flowchart TD
 
 ---
 
-## 5. ARCHITECTURE MULTI-PROJETS (STUDIO PERSO & CLIENTS)
+## 5. ARCHITECTURE MULTI-PROJETS ET MULTI-TENANT (STUDIO PERSO & CLIENTS)
 
 La séparation des studios est effective et élimine tout contenu en dur dans le moteur :
-- **Studio Perso (`studio_perso/`)** : Dédié aux vidéos propres d'AGENT404 (vitrine, démonstrations, acquisition client).
-- **Studio Clients (`studio_clients/`)** : Dédié aux productions des clients, chaque client disposant de son dossier et de sa configuration propre.
+- **Moteur Multi-Tenant à Racine Partagée** : Les fichiers moteur (`index.html`, `style.css`, `video.js`) résident exclusivement à la racine du dépôt. Les projets ne contiennent que leurs données (`project.json`, `brand.json`, `scenes.json`, `timeline.js`, assets). Aucune duplication des fichiers moteur dans les sous-dossiers.
+- **Studio Perso (`studio_perso/`)** : Dédié aux vidéos propres d'AGENT404 (vitrine, démonstrations, acquisition client). Contient `video_01_decouverte` et `video_03`.
+- **Studio Clients (`studio_clients/`)** : Dédié aux productions des clients, chaque client disposant de son dossier et de sa configuration propre. Gabarit de référence : `_template_prospect`.
 - **Configuration unifiée (`project.json`)** : Chaque projet définit son numéro de vidéo, titre, audio, texte de référence, scènes, mots terminaux et variantes phonétiques.
-- **Orchestrateur universel (`make_video.py`)** : Pilote de bout en bout la génération de timeline, le mixage SFX, le rendu déterministe, la vérification des avatars et le contrôle technique ffprobe.
+- **Orchestrateur universel (`make_video.py`)** : Orchestre de bout en bout la génération de timeline, le mixage SFX, le rendu déterministe, la vérification des avatars et le contrôle technique ffprobe.

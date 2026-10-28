@@ -8,14 +8,14 @@ Tout agent ou développeur intervenant sur la chaîne de production **doit exéc
 
 ### SOMMAIRE
 1. [Principes Directeurs & Effet Cliquet](#principes-directeurs--effet-cliquet)
-2. [PHASE 1 — Lecture du Script Tagué & Audit Éditorial](#phase-1--lecture-du-script-tagu%C3%A9--audit-%C3%A9ditorial)
-3. [PHASE 2 — Récupération de l'Audio ElevenLabs & Alignement Millimétré](#phase-2--r%C3%A9cup%C3%A9ration-de-laudio-elevenlabs--alignement-millim%C3%A9tr%C3%A9)
-4. [PHASE 3 — Direction d'Acteur & Poses d'Avatars (Arbitrage Strict)](#phase-3--direction-dacteur--poses-davatars-arbitrage-strict)
-5. [PHASE 4 — Conception du Storyboard & Illustrations 100% Inédites](#phase-4--conception-du-storyboard--illustrations-100-in%C3%A9dites)
-6. [PHASE 5 — Scaffolding CLI & Implémentation CSS/JS Propre](#phase-5--scaffolding-cli--impl%C3%A9mentation-cssjs-propre)
-7. [PHASE 6 — Validation Pre-Flight Bloquante (< 3s) AVANT Rendu](#phase-6--validation-pre-flight-bloquante--3s-avant-rendu)
-8. [PHASE 7 — Rendu Final 30 FPS, Inspection Visuelle & Clôture Registre](#phase-7--rendu-final-30-fps-inspection-visuelle--cl%C3%B4ture-registre)
-9. [PHASE 8 — Distribution Ciblée (LinkedIn & Instagram) & Golden Hour](#phase-8--distribution-cibl%C3%A9e-linkedin--instagram--golden-hour)
+2. [PHASE 1 : Lecture du Script Tagué & Audit Éditorial](#phase-1--lecture-du-script-tagu%C3%A9--audit-%C3%A9ditorial)
+3. [PHASE 2 : Récupération de l'Audio ElevenLabs & Alignement Millimétré](#phase-2--r%C3%A9cup%C3%A9ration-de-laudio-elevenlabs--alignement-millim%C3%A9tr%C3%A9)
+4. [PHASE 3 : Direction d'Acteur & Poses d'Avatars (Arbitrage Strict)](#phase-3--direction-dacteur--poses-davatars-arbitrage-strict)
+5. [PHASE 4 : Conception du Storyboard & Illustrations 100% Inédites](#phase-4--conception-du-storyboard--illustrations-100-in%C3%A9dites)
+6. [PHASE 5 : Scaffolding CLI & Implémentation CSS/JS Propre](#phase-5--scaffolding-cli--impl%C3%A9mentation-cssjs-propre)
+7. [PHASE 6 : Validation Pre-Flight Bloquante (< 3s) AVANT Rendu](#phase-6--validation-pre-flight-bloquante--3s-avant-rendu)
+8. [PHASE 7 : Rendu Final 30 FPS, Inspection Visuelle & Clôture Registre](#phase-7--rendu-final-30-fps-inspection-visuelle--cl%C3%B4ture-registre)
+9. [PHASE 8 : Distribution Ciblée (LinkedIn & Instagram) & Golden Hour](#phase-8--distribution-cibl%C3%A9e-linkedin--instagram--golden-hour)
 10. [Catalogue Officiel des 8 Blueprints Universels & Multi-Tenant Studio](#catalogue-officiel-des-8-blueprints-universels--multi-tenant-studio)
 11. [Matrice d'Audit Rapide (Checklist de Clôture)](#matrice-daudit-rapide-checklist-de-cl%C3%B4ture)
 
@@ -30,11 +30,11 @@ Tout agent ou développeur intervenant sur la chaîne de production **doit exéc
    - `#FF2A5F` (rose banni) : interdit sur 100% du projet.
    - `#agent-hud` : bandeau supérieur HUD définitivement banni.
    - Jargon technique d'ingénierie dans les scripts (Python, FFmpeg, Whisper, JavaScript, etc.).
-   - Prix chiffrés et symboles monétaires dans les scripts et sous-titres publics (150 €, 200 €, 250 €, 500 €, 750 €, etc.).
+   - Prix chiffrés et symboles monétaires dans les scripts et sous-titres publics (150 €, 200 €, 750 €, etc.).
 
 ---
 
-### PHASE 1 — Ingestion Agnostique, Extraction de Joyau & Audit Éditorial
+### PHASE 1 : Ingestion Agnostique, Extraction de Joyau & Audit Éditorial
 
 #### 1. Objectifs
 Opérer en **Entrée Agnostique (Input Agnostic)** : recevoir n'importe quel matériau brut fourni par le client (note vocale WhatsApp de 2 min, post LinkedIn écrit, documentation technique, schéma Make/n8n, cas client, ou Loom trop long), en extraire la pépite / le joyau intellectuel, et le structurer en un script d'acting captivant au format étalon de ~60 secondes (amplitude 45s à 90s) avec flux de sous-titres épuré.
@@ -48,12 +48,12 @@ Opérer en **Entrée Agnostique (Input Agnostic)** : recevoir n'importe quel mat
      ["whisper", "faster-whisper", "ffmpeg", "playwright", "chromium", "codebase", "python", "javascript"]
      ```
    * Vérifier que ni le script parlé, ni les sous-titres, ni les overlays textuels ne contiennent ces termes.
-   * Vérifier qu'aucun chiffre tarifaire (150, 200, 250, 500, 750, euro, €) ne figure dans le script (les tarifs sont strictement réservés aux DM et contrats).
+   * Vérifier qu'aucun chiffre tarifaire (150, 200, 750, euro, €) ne figure dans le script (les tarifs sont strictement réservés aux DM et contrats).
 4. **Définition du mot-clé CTA** : Confirmer le mot-clé unique pour l'appel à l'action final (ex. `"DEMO"`, `"CODE"`, `"TARIF"`, `"AUDIT"`). Il doit être unique et différer des vidéos précédentes.
 
 ---
 
-### PHASE 2 — Récupération de l'Audio ElevenLabs & Alignement Millimétré
+### PHASE 2 : Récupération de l'Audio ElevenLabs & Alignement Millimétré
 
 #### 1. Objectifs
 Obtenir la piste audio master, mesurer sa durée exacte et générer la transcription mot à mot au centième de seconde (`0.01s`) pour synchroniser les animations sur la voix.
@@ -78,15 +78,15 @@ Obtenir la piste audio master, mesurer sa durée exacte et générer la transcri
 
 ---
 
-### PHASE 3 — Direction d'Acteur & Poses d'Avatars (Arbitrage Strict)
+### PHASE 3 : Direction d'Acteur & Poses d'Avatars (Arbitrage Strict)
 
 #### 1. Objectifs
 Donner une présence humaine et rythmée sans tomber dans la monotonie ni le recyclage paresseux des mêmes avatars.
 
 #### 2. Règle d'Arbitrage des Poses
 * **Interdiction d'utilisation mécanique** : Il est interdit de rejouer systématiquement la même séquence d'avatars sur toutes les vidéos.
-* **Option A — Pose existante** : Si une pose présente dans `assets/avatars/` (`stop.png`, `pointing.png`, `idea.png`, `shock.png`, `skeptic.png`, `mic.png`, etc.) correspond à 100% au ton littéral du propos, la réemployer.
-* **Option B — Création d'une nouvelle pose dédiée** : Si le propos exprime une attitude neuve (regarder sa montre face à la lenteur, hausser les épaules face au manque de transparence, tenir un contrat, croiser les bras, etc.) :
+* **Option A (Pose existante)** : Si une pose présente dans `assets/avatars/` (`stop.png`, `pointing.png`, `idea.png`, `shock.png`, `skeptic.png`, `mic.png`, etc.) correspond à 100% au ton littéral du propos, la réemployer.
+* **Option B (Création d'une nouvelle pose dédiée)** : Si le propos exprime une attitude neuve (regarder sa montre face à la lenteur, hausser les épaules face au manque de transparence, tenir un contrat, croiser les bras, etc.) :
   1. Générer le visuel ou le sticker vectoriel cel-shaded.
   2. Supprimer tout fond (`background transparent`).
   3. Appliquer le **contour sticker blanc opaque de `8px`** caractéristique de la marque.
@@ -95,7 +95,7 @@ Donner une présence humaine et rythmée sans tomber dans la monotonie ni le rec
 
 ---
 
-### PHASE 4 — Conception du Storyboard & Illustrations 100% Inédites
+### PHASE 4 : Conception du Storyboard & Illustrations 100% Inédites
 
 #### 1. Objectifs
 Garantir un impact visuel mobile d'élite avec des composants sur-mesure au format 9:16, parfaitement animés et exempts de tout recyclage.
@@ -139,7 +139,7 @@ Garantir un impact visuel mobile d'élite avec des composants sur-mesure au form
 
 ---
 
-### PHASE 5 — Scaffolding CLI & Implémentation CSS/JS Propre
+### PHASE 5 : Scaffolding CLI & Implémentation CSS/JS Propre
 
 #### 1. Objectifs
 Générer l'arborescence standardisée du projet sans erreur manuelle et avec héritage automatique du design system.
@@ -163,7 +163,7 @@ Générer l'arborescence standardisée du projet sans erreur manuelle et avec h�
 
 ---
 
-### PHASE 6 — Validation Pre-Flight Bloquante (< 3s) AVANT Rendu
+### PHASE 6 : Validation Pre-Flight Bloquante (< 3s) AVANT Rendu
 
 #### 1. Objectifs
 Vérifier automatiquement et instantanément l'absence totale de défauts visuels, géométriques, typographiques ou dynamiques avant d'investir du temps GPU dans l'encodage vidéo.
@@ -185,7 +185,7 @@ Vérifier automatiquement et instantanément l'absence totale de défauts visuel
 
 ---
 
-### PHASE 7 — Rendu Final 30 FPS, Inspection Visuelle & Clôture Registre
+### PHASE 7 : Rendu Final 30 FPS, Inspection Visuelle & Clôture Registre
 
 #### 1. Objectifs
 Produire le master vidéo MP4 (H.264 / AAC 30 FPS), vérifier la conformité visuelle frame par frame et sceller le registre d'unicité.
@@ -231,7 +231,7 @@ Produire le master vidéo MP4 (H.264 / AAC 30 FPS), vérifier la conformité vis
 
 ---
 
-### PHASE 8 — Distribution Ciblée (LinkedIn & Instagram) & Golden Hour
+### PHASE 8 : Distribution Ciblée (LinkedIn & Instagram) & Golden Hour
 
 #### 1. Objectifs
 Transformer le master vidéo en vues qualifiées et en leads B2B en publiant exclusivement sur les deux canaux rentables (**LinkedIn** en priorité de vente et **Instagram Reels** avec recommandation Facebook en vitrine), tout en éliminant la dispersion sur les réseaux secondaires.

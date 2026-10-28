@@ -4,7 +4,7 @@
 Portée : Tous projets vidéo (`studio_perso/` et `studio_clients/`)  
 Gouvernance : Kreesten AGBOTON  
 Positionnement : Studio vidéo court-format néo-brutaliste « Zero-Camera, Zero-Studio & Zero-Montage ». Résout la corvée du tournage pour les professionnels B2B qui écrivent déjà sur LinkedIn.  
-Ciblage : (1) Agences B2B & Studios productisés, (2) Formateurs & Créateurs Tech, (3) Consultants & Solopreneurs actifs (critère éliminatoire : 3–5 posts écrits/semaine, 0 vidéo). Exclusion des inactifs, freelances sans budget et licornes internalisées.
+Ciblage : (1) Agences B2B & Studios productisés, (2) Formateurs & Créateurs Tech, (3) Consultants & Solopreneurs actifs (critère éliminatoire : 3 à 5 posts écrits/semaine, 0 vidéo). Exclusion des inactifs, freelances sans budget et licornes internalisées.
 
 ---
 
@@ -18,10 +18,10 @@ Toute capsule vidéo applique obligatoirement les 5 concepts suivants :
    Chaque argument est séquencé en étapes visuelles vérifiables : 1 proposition = 1 scène avec simulation concrète de l'objet métier. Règle « 1 Mot Prononcé = 1 Action Visuelle » : toute énumération s'anime au centième de seconde exact où le mot est prononcé.
 3. **Définir explicitement ce qu'on refuse (Non-objectifs & Zéro Recyclage)**  
    - **Zéro jargon technique** : Proscription de Python, FFmpeg, Whisper, codebase dans les scripts et sous-titres.
-   - **Zéro prix dans les vidéos** : Aucun montant (150 €, 200 €, 250 €, 500 €, 750 €) ni symbole tarifaire dans les vidéos publiques.
+   - **Zéro prix dans les vidéos** : Aucun montant (150 €, 200 €, 750 €) ni symbole tarifaire dans les vidéos publiques.
    - **Zéro HUD** : Le bandeau supérieur (`#agent-hud`) est banni définitivement.
-   - **Zéro rouge/rose (#FF2A5F)** : Zéro `bg: "alert"` et zéro `bg: "mint"`. Pour les erreurs/blocages, utiliser fond ardoise `#161B22`, bordures `#30363D`, texte `#8B949E` et accents ambre `#F59E0B`.
-   - **Zéro inter-recyclage** : Interdiction totale de réutiliser un composant, une carte, un texte d'écran ou un terminal d'une vidéo antérieure (ex. carte `00:21.466 ms`, spectre `vocal1.m4a`, barre `COMPILATION FFmpeg` de la Vidéo 1 bannis de la Vidéo 2).
+   - **Zéro rouge/rose (#FF2A5F)** : Zéro `bg: "alert"` et zéro `bg: "mint"`. Rendu exclusif sur la palette Obsidian Flame.
+   - **Zéro inter-recyclage** : Interdiction totale de réutiliser un composant, une carte, un texte d'écran ou un terminal d'une vidéo antérieure (ex. carte `00:21.466 ms`, spectre `vocal1.m4a`, barre `COMPILATION FFmpeg` de la Vidéo 1 bannis des vidéos ultérieures).
    - **Zéro duplication interne** : Aucun composant ou animation identique dupliqué au sein d'un même clip.
 4. **Remplacer « ça ne marche pas » par un constat précis mesuré**  
    Tout écart est audité avec des valeurs métriques précises : durée de transition, écart de luminance de l'avatar (> 32 sur zone sticker via OpenCV), marges safe-area (> 280px en bas, > 80px à droite).
@@ -50,7 +50,7 @@ Chaque nouvelle vidéo ($N+1$) doit impérativement surpasser la précédente ($
      - *Carrés de Numérotation Géants* (`[ÉTAPE 1]`, `[ÉTAPE 2]`, `[ÉTAPE 3]`) seuls au centre.
      - *Post-its et Tuiles flottantes indépendantes* volant en diagonale en quinconce (style lymphe 0:01 et 0:05).
      - *Schémas à flèches animées* (`[BLOC A] ━━▶ [BLOC B]`) posés directement sur le fond sans boîte englobante (style @ledevultime 0:58, 1:17).
-   - **Lisibilité mobile** : Aucun texte calculé sous `18px` dans `#scene-container` (recommandé : corps `22px–28px`, titres/KPIs `34px–56px`, textes chocs `72px–120px`).
+   - **Lisibilité mobile** : Aucun texte calculé sous `18px` dans `#scene-container` (recommandé : corps `22px à 28px`, titres/KPIs `34px à 56px`, textes chocs `72px à 120px`).
    - **Anti-Orphelin & No-Wrap** : `white-space: nowrap` obligatoire sur badges `[ ... ]`, KPIs, résolutions géantes et étiquettes courtes, vérifié géométriquement par `scrollWidth <= clientWidth + 2`.
 6. **Thématisation 100 % Variables CSS** :  
    100 % des couleurs proviennent des variables de `:root` (`--bg-canvas`, `--surface-card`, `--accent-primary`, etc.) pour autoriser la thématisation instantanée sur les projets clients. 0 hex hardcodé hors `:root`.
@@ -77,7 +77,7 @@ Chaque nouvelle vidéo ($N+1$) doit impérativement surpasser la précédente ($
 ### D. Cinétique Déterministe et Standards Graphiques
 - **Mouvements physiques** : Exploiter des courbes dynamiques (spring overshoot) plutôt que des déplacements linéaires rigides.
 - **Safe-Area 9:16** : Zone de sécurité centrale ($900 \times 1400\text{ px}$). Marge basse de 280px à 380px sans texte critique (réservée à l'UI TikTok/Reels/Shorts).
-- **Contraste maximal** : Fond sombre `#0D1117`, texte blanc `#FFFFFF` ou vert menthe `#00F5A0`, bordures néo-brutalistes franches, zéro `#FF2A5F`.
+- **Contraste maximal** : Thème Obsidian Flame (fond beige uni #F5F2EB, encre #111111, accent orange flamme #FF4F18, pastels jaune/bleu/vert, bordures néo-brutalistes franches, zéro fond sombre ni grille, zéro `#FF2A5F`).
 
 ---
 

@@ -14,16 +14,16 @@ Consulter le guide complet dans [`VIDEO_PRODUCTION_PLAYBOOK.md`](../../VIDEO_PRO
 
 ## Les 7 Phases Obligatoires
 
-### PHASE 1 — Ingestion Agnostique, Extraction de Joyau & Audit Éditorial
+### PHASE 1 : Ingestion Agnostique, Extraction de Joyau & Audit Éditorial
 1. **Entrée Agnostique (Input Agnostic)** : Ingestion de n'importe quel matériau brut (note vocale WhatsApp 2 min, post LinkedIn écrit, documentation technique, schéma Make/n8n, cas client, ou Loom trop long).
-2. **Extraction de Joyau & Scripting** : Extraire la pépite et formuler un script d'acting captivant au format étalon de ~60s (amplitude 45s–90s) avec balises d'acting ElevenLabs v3 (`[sighs]`, `[pause]`, `[confident]`, `[whispers]`, etc.).
+2. **Extraction de Joyau & Scripting** : Extraire la pépite et formuler un script d'acting captivant au format étalon de ~60s (amplitude 45s à 90s) avec balises d'acting ElevenLabs v3 (`[sighs]`, `[pause]`, `[confident]`, `[whispers]`, etc.).
 3. **Nettoyage sous-titres** : Extraire une version épurée sans balises entre crochets `[...]` pour l'affichage textuel à l'écran (uniquement les mots prononcés).
 4. **Audit Jargon & Prix** :
    - Vérifier dans `registry/video_memory.json` qu'aucun terme de `banned_global_jargon` (`python`, `javascript`, `ffmpeg`, `whisper`, etc.) n'apparaît dans le script parlé ou les sous-titres.
-   - Vérifier qu'aucun chiffre tarifaire (150, 200, 250, 500, 750, euro, €) ne figure dans le script (tarifs strictement réservés aux DM et contrats).
+   - Vérifier qu'aucun chiffre tarifaire (150, 200, 750, euro, €) ne figure dans le script (tarifs strictement réservés aux DM et contrats).
 5. **Mot-clé CTA** : Confirmer le mot-clé d'appel à l'action unique en message privé (ex. `"DEMO"`, `"CODE"`, `"TARIF"`, `"AUDIT"`).
 
-### PHASE 2 — Récupération de l'Audio ElevenLabs & Alignement Millimétré
+### PHASE 2 : Récupération de l'Audio ElevenLabs & Alignement Millimétré
 1. **Fichier audio** : Déposer le fichier master dans le dossier projet (`voiceover.mp3` ou `voix.wav`).
 2. **Mesure de durée exacte** :
    ```bash
@@ -32,7 +32,7 @@ Consulter le guide complet dans [`VIDEO_PRODUCTION_PLAYBOOK.md`](../../VIDEO_PRO
 3. **Transcription mot à mot (0.01s)** : Exécuter `faster-whisper` (ou le script d'alignement du studio) pour obtenir `words.json` et peupler `window.WORDS` dans `timeline.js`.
 4. **Horodatage des listes** : Noter précisément les timestamps de début et de fin de chaque élément d'une énumération ou liste de cartes (ex. Carte 1 à `t1`, Carte 2 à `t2`, Carte 3 à `t3`).
 
-### PHASE 3 — Direction d'Acteur & Poses d'Avatars (Arbitrage Strict)
+### PHASE 3 : Direction d'Acteur & Poses d'Avatars (Arbitrage Strict)
 1. **Analyse émotionnelle** : Pour chaque scène incarnée (`type: "face"` ou PiP), identifier l'action littérale et l'attitude requise.
 2. **Règle d'arbitrage** :
    - *Interdiction* de recycler aveuglément l'intégralité des poses des vidéos passées.
@@ -43,7 +43,7 @@ Consulter le guide complet dans [`VIDEO_PRODUCTION_PLAYBOOK.md`](../../VIDEO_PRO
      - Style vectoriel cel-shaded cohérent avec l'identité de marque.
      - Unicité binaire SHA-256 validée contre les poses existantes.
 
-### PHASE 4 — Conception du Storyboard & Illustrations Néo-Brutalistes (Règles d'Or)
+### PHASE 4 : Conception du Storyboard & Illustrations Néo-Brutalistes (Règles d'Or)
 1. **Consultation du registre** : Lire `registry/video_memory.json` (`used_illustrations`) pour lister les composants déjà utilisés. **Interdiction formelle de les réutiliser**.
 2. **Liberté Scénographique & Interdiction du Gabarit Unique Répétitif** :
    - **Interdiction formelle du template répétitif** : Bannissement strict du patron `<div class="card"><div class="header">TITRE + BADGE</div>...</div>` répété de scène en scène.
@@ -64,7 +64,7 @@ Consulter le guide complet dans [`VIDEO_PRODUCTION_PLAYBOOK.md`](../../VIDEO_PRO
    - Avatars : zéro badge parasite (`.face-badge` strictement masqué), pur sticker avec ombre dure `drop-shadow(8px 8px 0px #111111)`.
    - Sous-titres : affichage direct sur papier quadrillé sans cartouche blanc / pilule (zéro effet karaoké bloquant), un seul mot-clé sémantique en rouge accent (`#D9381E`).
 
-### PHASE 5 — Scaffolding & Implémentation CSS/JS
+### PHASE 5 : Scaffolding & Implémentation CSS/JS
 1. **Initialisation automatique** :
    ```bash
    python3 init_video.py --target <dossier> --cta "<MOT_CLE>" --title "<Titre>"
@@ -74,7 +74,7 @@ Consulter le guide complet dans [`VIDEO_PRODUCTION_PLAYBOOK.md`](../../VIDEO_PRO
    - Zéro code couleur hexadécimal `#hex` en dur hors `:root`.
    - Bannissement perpétuel et absolu de `#FF2A5F` et du HUD (`#agent-hud`).
 
-### PHASE 6 — Validation Pre-Flight Bloquante (< 3s) AVANT Rendu
+### PHASE 6 : Validation Pre-Flight Bloquante (< 3s) AVANT Rendu
 1. **Exécution du Gatekeeper** :
    ```bash
    python3 preflight_check.py --projet <dossier>
@@ -83,7 +83,7 @@ Consulter le guide complet dans [`VIDEO_PRODUCTION_PLAYBOOK.md`](../../VIDEO_PRO
    - Si un seul des 5 axes échoue (géométrie, typo $< 20\text{px}$, retour orphelin, carte inerte, collision registre ou HUD), corriger immédiatement.
    - **Il est formellement interdit de démarrer `render.py` avant d'avoir obtenu `5/5 axes au vert`.**
 
-### PHASE 7 — Rendu Final 30 FPS, Inspection & Clôture Registre
+### PHASE 7 : Rendu Final 30 FPS, Inspection & Clôture Registre
 1. **Rendu FFmpeg** :
    ```bash
    python3 render.py --projet <dossier>

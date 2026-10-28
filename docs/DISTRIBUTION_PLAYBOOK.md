@@ -1,10 +1,10 @@
 # PLAYBOOK OFFICIEL DE DISTRIBUTION & ALGORITHMES 9:16 (AGENT404)
 ### Guide d'Ingénierie Sociale, Encodage Master & Maximisation du Reach
 
-Date de référence : Octobre 2026  
-Studio : AGENT404 // Cyber-Mint  
+Date de référence : 28 octobre 2026  
+Studio : AGENT404 // Obsidian Flame  
 Format étalon : 1080 × 1920 pixels @ 30.00 FPS (9:16 Vertical)  
-Priorité Commerciale Stratégique : **LinkedIn (80%)** & **Instagram Reels (20% avec Recommander sur Facebook activé)**.
+Priorité Commerciale Stratégique : **LinkedIn (80%)** & **Instagram Reels (20% avec Recommander sur Facebook activé)**. Diffusion TikTok en pause.
 
 > **Méthodologie de conformité** : Chaque paramètre ci-dessous distingue formellement la **[DOCUMENTATION OFFICIELLE]** (directives des équipes d'ingénierie et brevets publiés des plateformes) du **[REVERSE-ENGINEERING]** (mesures empiriques documentées par les créateurs et agences du top 1%).
 
@@ -119,7 +119,7 @@ ffmpeg -y -f image2pipe -vcodec mjpeg -r 30 -i pipe:0 -i audio_path \
 - **Marge Gauche de Sécurité (`--safe-left`)** : **`50 px`** (absorbe les arrondis d'écrans borderless).
 
 #### Diagnostic Visuel en Direct
-Ajouter `?safe_zones=1` à l'URL locale (ex: `index.html?timeline=studio_perso/video_02/timeline.js&safe_zones=1`) pour afficher en direct les calques de sécurité et les repères de recadrage Instagram sur le canvas.
+Ajouter `?safe_zones=1` à l'URL locale (ex: `index.html?timeline=studio_perso/video_01_decouverte/timeline.js&safe_zones=1`) pour afficher en direct les calques de sécurité et les repères de recadrage Instagram sur le canvas.
 
 ---
 
@@ -152,7 +152,7 @@ Sur le profil Instagram, un Reel 9:16 apparaît sous deux formats additionnels :
 | **Hashtags & SEO** | **0 à 3 hashtags maximum**, placés en fin de post. | [DOC OFFICIELLE LinkedIn 2024-2025] LinkedIn a déprécié les hashtags au profit de l'indexation sémantique complète du texte et des compétences du profil de l'auteur. |
 | **Choix Audio** | **100% Son Studio ElevenLabs Pur** (Zéro musique externe). | [REVERSE-ENGINEERING] 80% des vidéos sur LinkedIn sont regardées **SANS LE SON**. Les sous-titres mot-à-mot AGENT404 font 100% du travail de rétention. |
 | **Pénalité Liens** | **ZÉRO LIEN DANS LE POST PRINCIPAL.** | [DOC OFFICIELLE LinkedIn Engineering] Les liens sortants divisent la portée initiale par 2. Renvoyer vers le premier commentaire ou les DM. |
-| **Appel à l'Action (CTA)** | **Demander un mot-clé B2B en commentaire** (ex: *"Commente 'WORKFLOW' pour recevoir le schéma"*). | Les commentaires qualitatifs (> 5 mots) propulsent la vidéo dans le fil de niveau 1 et 2 du réseau de vos commentateurs. |
+| **Appel à l'Action (CTA)** | **Demander le mot-clé B2B en commentaire** (mot-clé officiel : *"CLARTÉ"*). | Les commentaires qualitatifs (> 5 mots) propulsent la vidéo dans le fil de niveau 1 et 2 du réseau de vos commentateurs. |
 
 ---
 
@@ -163,7 +163,7 @@ Sur le profil Instagram, un Reel 9:16 apparaît sous deux formats additionnels :
 | **Hook Texte (Légende)** | **55 à 60 caractères** visibles dans l'onglet Reels / **~125 caractères** dans le feed. | [DOC OFFICIELLE Meta] Seule la première ligne est visible sans tap. L'accroche doit poser une question directe ou une promesse tranchée. |
 | **Hashtags & SEO** | **3 à 5 hashtags ciblés** dans la légende. | [DOC OFFICIELLE - Déclaration Adam Mosseri] *"Les hashtags n'augmentent pas la distribution, ils servent uniquement à catégoriser."* 30 tags déclenchent des filtres anti-spam. |
 | **Choix Audio** | **Audio Trending en sourdine à 1-2%** : garder la voix studio à 100% et ajouter un son viral via l'éditeur Instagram à volume minime. | [REVERSE-ENGINEERING] Permet d'indexer la vidéo sur la page dédiée du son tendance sans parasiter la voix de l'avatar. |
-| **Appel à l'Action (CTA)** | **Demander un mot-clé en commentaire pour envoi direct en DM** (ex: *"Écris 'SYSTEME' en commentaire"*). | [DOC OFFICIELLE Adam Mosseri] Le signal n°1 de distribution sur Instagram est le ratio **Sends per reach (Partages par message privé)**. L'envoi du lien en DM active la messagerie privée. |
+| **Appel à l'Action (CTA)** | **Demander le mot-clé en commentaire pour envoi direct en DM** (ex: *"Écris 'CLARTÉ' en commentaire"*). | [DOC OFFICIELLE Adam Mosseri] Le signal n°1 de distribution sur Instagram est le ratio **Sends per reach (Partages par message privé)**. L'envoi du lien en DM active la messagerie privée. |
 
 ---
 
@@ -181,7 +181,7 @@ Sur le profil Instagram, un Reel 9:16 apparaît sous deux formats additionnels :
 
 ## PARTIE 4 : La Golden Hour (Les 60 Minutes Post-Publication)
 
-Les 60 premières minutes déterminent si l'algorithme classe votre vidéo dans le palier d'abandon (< 250 vues) ou dans la distribution exponentielle.
+Les 60 premières minutes déterminent si l'algorithme classe votre vidéo dans le palier d'abandon (< 300 vues) ou dans la distribution exponentielle.
 
 ```
 [PUBLICATION]
@@ -198,7 +198,7 @@ Les 60 premières minutes déterminent si l'algorithme classe votre vidéo dans 
 - Dès la vidéo en ligne, poster le premier commentaire et l'épingler en haut du fil.
 - Poser une question binaire ou polarisante qui réduit la friction cognitive de réponse :
   - *« Vous êtes plutôt automatisation radicale ou process manuel à 100% ? Je lis tous les avis ci-dessous. »*
-  - *« Pour ceux qui veulent le schéma de la vidéo en haute résolution : commentez 'SCHEMA' ci-dessous. »*
+  - *« Pour ceux qui veulent le schéma de la vidéo en haute résolution : commentez 'CLARTÉ' ci-dessous. »*
 - *Impact [DOC OFFICIELLE]* : Les spectateurs qui ouvrent les commentaires maintiennent la vidéo en lecture continue en arrière-plan, faisant exploser le Watch Time.
 
 #### Action 2 : La Règle des "3X" sur les Premiers Commentaires (Minutes 5 à 45)
@@ -242,7 +242,7 @@ Les 60 premières minutes déterminent si l'algorithme classe votre vidéo dans 
 Pour ne plus jamais perdre de temps à rédiger des légendes et chercher des hashtags, exécutez simplement :
 
 ```bash
-python3 generate_social_pack.py --projet studio_perso/video_02
+python3 generate_social_pack.py --projet studio_perso/video_01_decouverte
 ```
 
 Ce script lit `project.json` et génère automatiquement le fichier `DISTRIBUTION_KIT.md` directement dans le dossier du projet, contenant :

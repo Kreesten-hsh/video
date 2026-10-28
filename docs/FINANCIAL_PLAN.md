@@ -1,10 +1,10 @@
 # AGENT404 : MODÈLE FINANCIER ET PLAN D'ENCAISSEMENT AU 31 DÉCEMBRE 2026
 
 Statut de gouvernance : DOCUMENT FINANCIER MAÎTRE  
-Date de référence : 21 octobre 2026 (révisé après validation marché en direct sur LinkedIn)  
+Date de référence : 28 octobre 2026  
 Propriétaire : Kreesten AGBOTON (Abomey-Calavi, Bénin)  
 Taux de conversion officiel de référence : 1 EUR = 655,957 FCFA (parité fixe zone Franc CFA)  
-Horizon d'exécution : 71 jours (du 21 octobre 2026 au 31 décembre 2026)  
+Horizon d'exécution : 64 jours (du 28 octobre 2026 au 31 décembre 2026)  
 
 ---
 
@@ -22,14 +22,14 @@ Règle de gestion stricte : seul le cash effectivement crédité sur le compte b
 
 ---
 
-## 2. Situation Comptable Réelle au 21 Octobre 2026
+## 2. Situation Comptable Réelle au 28 Octobre 2026
 
 | Poste comptable | Montant constaté | Statut d'audit |
 | :--- | :---: | :--- |
-| **Encaissements réels à date** | **0 € / 0 FCFA** | [VÉRIFIÉ] Démarrage commercial post-validation |
-| **Factures émises non encaissées** | **0 € / 0 FCFA** | [FAIT VÉRIFIÉ] Aucune créance client en cours |
-| **Nombre de prospects qualifiés prêts** | **10** | [FAIT VÉRIFIÉ] Liste ciblée dans `prospecting/prospects.csv` |
-| **Preuve de marché réelle** | **Validée** | [FAIT VÉRIFIÉ] Validation d'intérêt organique en direct sur LinkedIn |
+| **Encaissements réels à date** | **0 € / 0 FCFA** | [VÉRIFIÉ EN MACHINE] 0 € encaissés à ce jour |
+| **Factures émises non encaissées** | **0 € / 0 FCFA** | [VÉRIFIÉ EN MACHINE] Aucune créance client en cours |
+| **Nombre de prospects qualifiés prêts** | **10** | [DÉCLARÉ PAR LE FONDATEUR - NON VÉRIFIÉ EN MACHINE] |
+| **Preuve de marché réelle** | **Déclarée** | [DÉCLARÉ PAR LE FONDATEUR - NON VÉRIFIÉ EN MACHINE] Validation d'intérêt organique sur LinkedIn |
 | **Montant restant à encaisser** | **2 000 000 FCFA** | [OBJECTIF] Soit environ 3 049 € à sécuriser d'ici le 31 décembre 2026 |
 
 ---
@@ -132,7 +132,7 @@ Les calculs reposent rigoureusement sur la parité officielle (1 EUR = 655,957 F
 
 Pour encaisser les 2 000 000 FCFA (soit 3 049 €) avant le 31 décembre 2026, la démonstration mathématique prouve qu'il n'est pas nécessaire de prospecter des dizaines de clients. **Le levier Studio résout l'équation avec seulement 2 clients fidélisés :**
 
-### La Formule Directe (Option A — Recommandée) :
+### La Formule Directe (Option A : Recommandée) :
 $$\text{2 Clients Studio sur 2 mois} + \text{1 Test Découverte isolé} = 3\,150\text{ €} \ (2\,066\,265\text{ FCFA})$$
 
 - **Client 1** : Test Découverte (150 €) + Mois 1 nov (600 €) + Mois 2 déc (750 €) = **1 500 €**
@@ -141,7 +141,7 @@ $$\text{2 Clients Studio sur 2 mois} + \text{1 Test Découverte isolé} = 3\,150
 - **TOTAL NET ENCAISSÉ** : **3 150 €** (soit **2 066 265 FCFA** $\rightarrow$ **103,3 % de la North Star atteinte !**).
 
 ### Comparaison des Stratégies d'Atteinte :
-1. **Option A (Voie Royale Studio — 2 clients)** : 2 clients Studio fidélisés nov+déc + 1 test = **3 150 €** (2 066 265 FCFA). *Effort commercial minimal : closer seulement 2 décideurs sur l'abonnement mensuel.*
+1. **Option A (Voie Royale Studio : 2 clients)** : 2 clients Studio fidélisés nov+déc + 1 test = **3 150 €** (2 066 265 FCFA). *Effort commercial minimal : closer seulement 2 décideurs sur l'abonnement mensuel.*
 2. **Option B (Forte récurrence échelonnée)** : 1 client Studio 2 mois (1 500 €) + 2 clients Studio 1 mois (1 500 €) + 1 test (150 €) = **3 150 €** (2 066 265 FCFA).
 3. **Option C (Pure acquisition Découverte sans rétention)** : Vendre 21 Tests Découverte à 150 € chacun = **3 150 €** (2 066 265 FCFA). *Nécessite 21 clients distincts en 70 jours : effort d'acquisition 10x plus élevé, justifiant le focus absolu sur la conversion en Studio.*
 

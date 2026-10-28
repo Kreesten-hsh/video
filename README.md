@@ -80,8 +80,13 @@ L'ensemble de l'ingénierie logicielle, des scripts de vente et des vidéos prod
 
 ## 5. Pipeline Technique & Architecture
 
-AGENT404 est un pipeline de production vidéo vertical (1080x1920, 30 FPS, format 9:16) entièrement piloté par le code (Python, FFmpeg, Playwright/Chromium, Vanilla HTML5/CSS/JavaScript).  
-Il transforme une note vocale ou un texte en une capsule rythmée : avatar sticker découpé, sous-titres dynamiques synchronisés au mot près, animations néo-brutalistes et sound design procédural.
+AGENT404 est un pipeline de production vidéo vertical (1080x1920, 30 FPS, format 9:16) entièrement piloté par le code (Python, FFmpeg, Playwright/Chromium, Vanilla HTML5/CSS/JavaScript).
+Il transforme une note vocale ou un texte en une capsule rythmée : avatar sticker découpé, sous-titres dynamiques synchronisés au mot près, 8 blueprints universels réutilisables (`bp_*`), thème Obsidian Flame (fond beige uni #F5F2EB, encre #111111, accent orange flamme #FF4F18) et sound design procédural NumPy.
+
+Le projet intègre :
+- Deux vidéos vitrines fondatrices : `studio_perso/video_01_decouverte` (manifeste, 96 s) et `studio_perso/video_03` (entrée agnostique, 61 s).
+- Un gabarit prospect client prêt à l'emploi : `studio_clients/_template_prospect`.
+- 8 blueprints universels : `bp_hook_question`, `bp_friction_stack`, `bp_stat_shock`, `bp_versus_compare`, `bp_code_window`, `bp_grid_2x2`, `bp_logo_carousel_rtl`, `bp_cta_conversion`.
 
 Consulter [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) pour les spécifications complètes.
 
@@ -120,10 +125,10 @@ La suite valide l'intégrité temporelle des mots, la continuité des scènes, l
 python3 make_video.py studio_clients/<nom_client>/video_01
 
 # Redirection vers un dossier de sortie isolé (sans modifier le dossier projet)
-python3 make_video.py studio_perso/video_01 --sortie /tmp/sortie_isolee
+python3 make_video.py studio_perso/video_01_decouverte --sortie /tmp/sortie_isolee
 
 # Forcer la réécriture sur un projet gelé ("gele": true) ou une vidéo existante
-python3 make_video.py studio_perso/video_01 --forcer
+python3 make_video.py studio_perso/video_01_decouverte --forcer
 ```
 
 Les projets marqués `"gele": true` dans `project.json` refusent toute écriture dans leur propre dossier sans `--forcer` ou `--sortie`. Le mode `"rendu_deterministe": true` (actif par défaut pour tout nouveau projet) neutralise les transitions CSS et dérive une graine stable (CRC32) pour les bruitages afin de garantir des rendus rigoureusement reproductibles bit-à-bit.
