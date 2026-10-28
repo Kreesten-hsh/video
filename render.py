@@ -6,6 +6,7 @@ import math
 import shutil
 import subprocess
 import re
+import io
 from typing import Union
 from pathlib import Path
 
@@ -166,18 +167,30 @@ def verify_rendered_avatars(video_path: str, scenes: Union[list, str, Path] = No
         print("[Vérification] Aucune scène exploitable pour validation des avatars.")
         return True
 
+    use_cv2 = False
+    cap = None
     try:
         import cv2
         import numpy as np
-    except (ImportError, ModuleNotFoundError) as exc:
-        print(f"[Vérification] OpenCV / NumPy non disponibles ({exc}). Validation visuelle des avatars ignorée.")
-        return True
+        cap = cv2.VideoCapture(str(video_path))
+        if cap.isOpened():
+            use_cv2 = True
+    except (ImportError, ModuleNotFoundError, Exception):
+        use_cv2 = False
 
-    cap = cv2.VideoCapture(str(video_path))
-    if not cap.isOpened():
-        raise RuntimeError(f"Impossible d'ouvrir la vidéo {video_path} pour vérification des avatars.")
+    try:
+        from PIL import Image
+        import numpy as np
+    except ImportError:
+        if not use_cv2:
+            print("[Vérification] OpenCV et PIL/NumPy non disponibles. Validation visuelle des avatars ignorée.")
+            return True
 
-    fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
+    ffmpeg_bin = shutil.which("ffmpeg") or str(Path(__file__).parent.resolve() / "bin" / "ffmpeg")
+    fps = 30.0
+    if use_cv2 and cap:
+        fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
+
     failed_scenes = []
 
     for sc in scenes:
@@ -203,22 +216,44 @@ def verify_rendered_avatars(video_path: str, scenes: Union[list, str, Path] = No
         t_start = float(sc["start"])
         t_end = float(sc.get("end", t_start + 1.0))
         t_sample = min(t_start + 0.15, (t_start + t_end) / 2.0)
-        frame_idx = int(round(t_sample * fps))
 
-        cap.set(cv2.CAP_PROP_POS_FRAMES, frame_idx)
-        ret, frame_bgr = cap.read()
-        if not ret:
+        frame_bgr = None
+        if use_cv2 and cap:
+            frame_idx = int(round(t_sample * fps))
+            cap.set(cv2.CAP_PROP_POS_FRAMES, frame_idx)
+            ret, frame_bgr = cap.read()
+            if not ret:
+                frame_bgr = None
+
+        if frame_bgr is None and Path(ffmpeg_bin).exists():
+            cmd = [
+                ffmpeg_bin, "-y", "-ss", f"{t_sample:.3f}",
+                "-i", str(video_path),
+                "-frames:v", "1", "-f", "image2pipe", "-vcodec", "png", "-"
+            ]
+            res = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            if res.returncode == 0 and res.stdout:
+                img = Image.open(io.BytesIO(res.stdout)).convert("RGB")
+                frame_rgb = np.array(img)
+                frame_bgr = frame_rgb[:, :, ::-1]
+
+        if frame_bgr is None:
             failed_scenes.append((sc.get("id", "?"), t_sample, "Échec de lecture de l'image"))
             continue
 
+        # Détection d'absence :
+        # 1. Fond sombre (#0D1117 / noir) : luminance moyenne < 32 et std < 10
+        # 2. Fond beige (#F5F2EB / uni) : écart-type très faible (std < 12) et luminance élevée (> 220)
         # 1. Vérification Avatar Buste Plein Écran (y: 1200..1800, x: 250..830)
         if has_bust:
             avatar_crop = frame_bgr[1200:1800, 250:830]
             mean_lum = float(np.mean(avatar_crop))
             std_lum = float(np.std(avatar_crop))
 
-            # Fond vide (#0D1117) présente une luminance moyenne < 32 et un écart-type très faible (< 10)
-            if mean_lum < 32.0 and std_lum < 10.0:
+            is_missing_dark = (mean_lum < 32.0 and std_lum < 10.0)
+            is_missing_beige = (mean_lum > 220.0 and std_lum < 12.0)
+
+            if is_missing_dark or is_missing_beige:
                 failed_scenes.append(
                     (sc.get("id", "?"), t_sample, f"Avatar buste absent (luminance moyenne={mean_lum:.2f}, std={std_lum:.2f})")
                 )
@@ -228,7 +263,9 @@ def verify_rendered_avatars(video_path: str, scenes: Union[list, str, Path] = No
             pip_crop = frame_bgr[1200:1750, 680:1020]
             mean_lum = float(np.mean(pip_crop))
             std_lum = float(np.std(pip_crop))
-            if mean_lum < 28.0 and std_lum < 8.0:
+            is_missing_dark = (mean_lum < 28.0 and std_lum < 8.0)
+            is_missing_beige = (mean_lum > 220.0 and std_lum < 10.0)
+            if is_missing_dark or is_missing_beige:
                 failed_scenes.append(
                     (sc.get("id", "?"), t_sample, f"Avatar PiP absent (luminance moyenne={mean_lum:.2f}, std={std_lum:.2f})")
                 )
@@ -238,12 +275,15 @@ def verify_rendered_avatars(video_path: str, scenes: Union[list, str, Path] = No
             inset_crop = frame_bgr[1360:1520, 60:220]
             mean_lum = float(np.mean(inset_crop))
             std_lum = float(np.std(inset_crop))
-            if mean_lum < 20.0 and std_lum < 6.0:
+            is_missing_dark = (mean_lum < 20.0 and std_lum < 6.0)
+            is_missing_beige = (mean_lum > 220.0 and std_lum < 8.0)
+            if is_missing_dark or is_missing_beige:
                 failed_scenes.append(
                     (sc.get("id", "?"), t_sample, f"Avatar Inset absent (luminance moyenne={mean_lum:.2f}, std={std_lum:.2f})")
                 )
 
-    cap.release()
+    if use_cv2 and cap:
+        cap.release()
 
     if failed_scenes:
         details = "\n".join([f" - Scène {s_id} (t={ts:.2f}s) : {reason}" for s_id, ts, reason in failed_scenes])

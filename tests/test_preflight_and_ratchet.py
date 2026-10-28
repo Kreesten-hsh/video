@@ -7,7 +7,7 @@ Garantit qu'aucune régression architecturale ne peut être introduite :
   - Zéro chemin utilisateur absolu (~/.local ou /home/) dans les scripts
   - Détection dynamique des avatars dans verify_rendered_avatars
   - Intégrité du registre anti-répétition registry/video_memory.json
-  - Succès à 100% du Pre-Flight Gatekeeper sur video_02 (Axes 1 à 5)
+  - Succès à 100% du Pre-Flight Gatekeeper sur video_03 (Axes 1 à 5)
   - Détection infaillible des failles Axe 2 (typo), Axe 3 (anti-orphelin) et Axe 4 (cartes inertes)
   - Bon fonctionnement du générateur CLI init_video.py en environnement temporaire
 """
@@ -98,13 +98,13 @@ class TestPreflightAndRatchet(unittest.TestCase):
     def test_verify_rendered_avatars_dynamic_detection(self):
         """Vérifie que verify_rendered_avatars accepte un chemin de projet et charge dynamiquement ses scènes."""
         from render import verify_rendered_avatars
-        video2_path = REPO_ROOT / "studio_perso" / "video_02" / "video2.mp4"
-        if not video2_path.exists():
-            self.skipTest("video2.mp4 introuvable pour test de vérification dynamique.")
+        video3_path = REPO_ROOT / "studio_perso" / "video_03" / "video3.mp4"
+        if not video3_path.exists():
+            self.skipTest("video3.mp4 introuvable pour test de vérification dynamique.")
 
         # Vérification en passant le chemin du dossier projet (chargement dynamique)
-        res = verify_rendered_avatars(str(video2_path), str(REPO_ROOT / "studio_perso" / "video_02"))
-        self.assertTrue(res, "La vérification dynamique des avatars sur video_02 a échoué.")
+        res = verify_rendered_avatars(str(video3_path), str(REPO_ROOT / "studio_perso" / "video_03"))
+        self.assertTrue(res, "La vérification dynamique des avatars sur video_03 a échoué.")
 
     def test_registry_video_memory_integrity(self):
         """Vérifie la conformité et la validité du registre anti-répétition registry/video_memory.json."""
@@ -117,23 +117,23 @@ class TestPreflightAndRatchet(unittest.TestCase):
         self.assertIn("version", data)
         self.assertIn("banned_global_jargon", data)
         self.assertIn("videos", data)
-        self.assertGreaterEqual(len(data["videos"]), 2, "Le registre doit contenir au minimum video_01 et video_02.")
+        self.assertGreaterEqual(len(data["videos"]), 2, "Le registre doit contenir au minimum video_01_decouverte et video_03.")
 
-        # Vérification vidéo 1
-        v1 = next((v for v in data["videos"] if v["video_id"] == "video_01"), None)
-        self.assertIsNotNone(v1, "video_01 absente du registre")
-        self.assertEqual(v1.get("cta_keyword"), "CODE", "Le mot-clé CTA de la vidéo 1 doit être 'CODE'")
+        # Vérification vidéo 1 Découverte
+        v1 = next((v for v in data["videos"] if v["video_id"] == "video_01_decouverte"), None)
+        self.assertIsNotNone(v1, "video_01_decouverte absente du registre")
+        self.assertEqual(v1.get("cta_keyword"), "CLARTÉ", "Le mot-clé CTA de la vidéo 1 Découverte doit être 'CLARTÉ'")
 
-        # Vérification vidéo 2
-        v2 = next((v for v in data["videos"] if v["video_id"] == "video_02"), None)
-        self.assertIsNotNone(v2, "video_02 absente du registre")
-        self.assertEqual(v2.get("cta_keyword"), "DEMO", "Le mot-clé CTA de la vidéo 2 doit être 'DEMO'")
+        # Vérification vidéo 3
+        v3 = next((v for v in data["videos"] if v["video_id"] == "video_03"), None)
+        self.assertIsNotNone(v3, "video_03 absente du registre")
+        self.assertEqual(v3.get("cta_keyword"), "CLARTÉ", "Le mot-clé CTA de la vidéo 3 doit être 'CLARTÉ'")
 
-        # Non-chevauchement des illustrations entre v1 et v2
+        # Non-chevauchement des illustrations entre v1_decouverte et v3
         v1_ills = set(v1.get("used_illustrations", []))
-        v2_ills = set(v2.get("used_illustrations", []))
-        overlap = v1_ills.intersection(v2_ills)
-        self.assertEqual(overlap, set(), f"Recyclage d'illustrations détecté entre video_01 et video_02 : {overlap}")
+        v3_ills = set(v3.get("used_illustrations", []))
+        overlap = v1_ills.intersection(v3_ills)
+        self.assertEqual(overlap, set(), f"Recyclage d'illustrations détecté entre video_01_decouverte et video_03 : {overlap}")
 
     def test_preflight_check_passes_on_video03(self):
         """Exécute run_preflight_check sur video_03 et valide le succès complet à 100% sur les 5 axes."""
@@ -179,7 +179,7 @@ class TestPreflightAndRatchet(unittest.TestCase):
             # Vérification video.js (Rappel du mot-clé CTA et de l'interdiction de recyclage)
             vjs_content = (target / "video.js").read_text(encoding="utf-8")
             self.assertIn("TARIF", vjs_content)
-            self.assertIn("loom_player_dropoff", vjs_content)  # Illustration passée rappelée en commentaire
+            self.assertIn("ob_obsession_question", vjs_content)  # Illustration passée rappelée en commentaire
 
     def test_production_playbook_and_workflow_integrity(self):
         """Vérifie l'existence et la conformité intégrale du workflow produce_video.md et du playbook officiel."""
@@ -219,7 +219,7 @@ class TestPreflightAndRatchet(unittest.TestCase):
             text=True
         )
         max_bytes = 15 * 1024 * 1024
-        whitelisted = {"studio_perso/video_01/video1.mp4"}
+        whitelisted = set()
 
         oversized_files = []
         for line in tracked_output.splitlines():

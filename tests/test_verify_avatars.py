@@ -55,15 +55,13 @@ class TestVerifyRenderedAvatars(unittest.TestCase):
 
     def test_mock_two_scenes_valid_video_passes(self):
         """Vérifie qu'un projet factice de 2 scènes passe sur la vidéo maître là où l'avatar est présent."""
-        video_ref = "video1.mp4"
+        video_ref = os.path.join("studio_perso", "video_01_decouverte", "video1.mp4")
         if not os.path.exists(video_ref):
-            video_ref = os.path.join("studio_perso", "video_01", "video1.mp4")
-        if not os.path.exists(video_ref):
-            self.skipTest("Aucune vidéo video1.mp4 trouvée pour le test de conformité.")
+            self.skipTest("Aucune vidéo video1.mp4 trouvée dans video_01_decouverte pour le test de conformité.")
 
-        # Dans la vidéo n°1, la scène 1 (t=0.0) a l'avatar stop.png et est valide
+        # Dans la vidéo Découverte, la scène 1 (t=0.0) a l'avatar question.png et est valide
         mock_scenes = [
-            {"id": "sc_01", "type": "face", "start": 0.0, "end": 0.5, "data": {"avatar": "assets/avatars/stop.png"}},
+            {"id": "sc_01", "type": "face", "start": 0.0, "end": 0.5, "data": {"avatar": "assets/avatars/question.png"}},
             {"id": "sc_02", "type": "big", "start": 0.5, "end": 1.0, "data": {"text": "Suite"}},
         ]
         self.assertTrue(verify_rendered_avatars(video_ref, mock_scenes))

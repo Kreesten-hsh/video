@@ -1,0 +1,83 @@
+{
+  "manifest_version": "1.1.0",
+  "created_at": "2026-10-28T20:00:00Z",
+  "project_name": "AGENT404",
+  "project_title": "Vidéo n° 1 Découverte - Le Moteur Sans Caméra",
+  "git_branch": "feat/obsidian-flame",
+  "measured_facts": {
+    "output_mp4": {
+      "path": "video1.mp4",
+      "container": "mov,mp4,m4a,3gp,3g2,mj2",
+      "video_stream": {
+        "codec_name": "h264",
+        "width": 1080,
+        "height": 1920,
+        "aspect_ratio": "9:16",
+        "r_frame_rate": "30/1",
+        "avg_frame_rate": "30/1"
+      },
+      "audio_stream": {
+        "codec_name": "aac",
+        "sample_rate_hz": 44100,
+        "channels": 1,
+        "channel_layout": "mono"
+      }
+    },
+    "timeline_data": {
+      "words_json_sha256": "0bb05c9f467ea56633cce3d1bae69aff96135466979620f2f900f4a45342cd68",
+      "scenes_reference_sha256": "f2e2d70597b4a699633d02e4d8c69f3a86fa767d4e1ae39bacd2a12e906d58cb",
+      "words_count": 292,
+      "scenes_count": 21,
+      "first_word": "Il",
+      "last_word": "toi.",
+      "timeline_start_time": 0.0,
+      "timeline_end_time": 95.791
+    },
+    "visual_reference_frames": {
+      "frame_01_0001s.png": {
+        "timestamp": 1.0,
+        "scene_id": "scene_01",
+        "type": "ob_obsession_question",
+        "size_bytes": 314816,
+        "sha256": "3ff55c2eb7ae5cf702205e9425c760e29354b792e4a62e745a5f407a0f2290a0"
+      },
+      "frame_02_1050s.png": {
+        "timestamp": 10.5,
+        "scene_id": "scene_03",
+        "type": "ob_ninety_percent_ignore",
+        "size_bytes": 240757,
+        "sha256": "717d8b6aa9cfa09b1987e02f5a9c7bc136f3cbe1c51edc2ad314603f6fa51039"
+      },
+      "frame_03_2200s.png": {
+        "timestamp": 22.0,
+        "scene_id": "scene_06",
+        "type": "ob_sunday_timeline_hell",
+        "size_bytes": 228408,
+        "sha256": "42b2ea8672ef417a830e33a79b44658a80d25838a2dae1d1bde114ea39780498"
+      },
+      "frame_04_4700s.png": {
+        "timestamp": 47.0,
+        "scene_id": "scene_12",
+        "type": "ob_meta_live_code",
+        "size_bytes": 269158,
+        "sha256": "cc0c5446af22fd7eae61016ec43e5050e09ef56956401a6da1d4bb07152cda87"
+      },
+      "frame_05_6200s.png": {
+        "timestamp": 62.0,
+        "scene_id": "scene_16",
+        "type": "ob_formula_cascade_equation",
+        "size_bytes": 285819,
+        "sha256": "78b0384b4738f9493366ac54cba91d7b1ce6a067e0400bbc942da1f1ed24c43b"
+      }
+    }
+  },
+  "declared_specifications": {
+    "brand": "AGENT404 // OBSIDIAN-FLAME",
+    "resolution": "1080x1920",
+    "aspect_ratio": "9:16",
+    "framerate": 30,
+    "theme": "obsidian-flame",
+    "voice_narrator": "ElevenLabs Kenzy (Premium French Narrator)",
+    "renderer": "Playwright Chromium headless + FFmpeg libx264 image2pipe"
+  }
+}

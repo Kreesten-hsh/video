@@ -88,7 +88,7 @@ class TestReproducibility(unittest.TestCase):
     )
     def test_deterministic_render_six_seconds(self):
         """Vérifie que deux rendus successifs de 6 secondes avec rendu_deterministe=True sont identiques bit-à-bit."""
-        v1_dir = REPO_ROOT / "studio_perso" / "video_01"
+        v1_dir = REPO_ROOT / "studio_perso" / "video_01_decouverte"
         audio_src = v1_dir / "audio_final.wav"
         if not audio_src.exists():
             self.skipTest(f"Audio source {audio_src} non disponible.")
