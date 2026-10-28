@@ -249,7 +249,7 @@ class TestPreflightAndRatchet(unittest.TestCase):
         self.assertIn("Matrice d'Audit Rapide", pb_content)
 
     def test_tracked_files_do_not_exceed_size_threshold(self):
-        """Effet cliquet taille : aucun fichier suivi ne doit dépasser 15 Mo (sauf le Golden Master video1.mp4)."""
+        """Effet cliquet taille : aucun fichier suivi ne doit dépasser 15 Mo."""
         import subprocess
         tracked_output = subprocess.check_output(
             ["git", "ls-tree", "-r", "-l", "HEAD"],

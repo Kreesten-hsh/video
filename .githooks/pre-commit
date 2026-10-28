@@ -5,12 +5,9 @@
 MAX_SIZE_MB="${AGENT404_MAX_FILE_MB:-15}"
 MAX_BYTES=$((MAX_SIZE_MB * 1024 * 1024))
 
-# Liste blanche d'exceptions légitimes indispensables
+# Liste blanche d'exceptions légitimes (vide par défaut)
 is_whitelisted() {
     local file="$1"
-    if [ "$file" = "studio_perso/video_01/video1.mp4" ]; then
-        return 0
-    fi
     return 1
 }
 
