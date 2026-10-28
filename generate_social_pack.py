@@ -30,19 +30,52 @@ def generate_social_pack(project_dir: str) -> Path:
         data = json.load(f)
 
     title = data.get("title", "Capsule AGENT404")
-    cta = data.get("cta_keyword", "DEMO").upper()
+    cta = data.get("cta_keyword", "CLARTÉ").upper().strip()
     video_num = data.get("video_number", 1)
     scenes = data.get("scenes", [])
     ref_words = data.get("reference_words", [])
 
-    # Extraction du hook parlé depuis la première scène
-    first_words = []
+    # 1. Extraction de l'accroche depuis reference_words ou la première scène
+    hook_line = ""
     if ref_words:
         first_words = ref_words[:12]
-    first_line = " ".join(first_words) if first_words else "La plupart des agences et créateurs B2B font une erreur majeure sur leurs process..."
+        hook_line = " ".join(first_words)
+        if not hook_line.endswith((".", "?", "!")):
+            hook_line += "..."
+    elif scenes and "data" in scenes[0]:
+        data0 = scenes[0]["data"]
+        hook_line = data0.get("hero_title") or data0.get("title") or ""
+    elif scenes and "params" in scenes[0]:
+        params0 = scenes[0]["params"]
+        hook_line = params0.get("title") or params0.get("header_badge") or ""
 
-    # Définition des hashtags ciblés selon le sujet
-    hashtags_linkedin = ["#B2B", "#Productivite", "#Systeme"]
+    if not hook_line:
+        hook_line = "La plupart des professionnels B2B saturent sur leur production de contenu..."
+
+    # 2. Calcul de la durée réelle à partir de la dernière scène ou audio
+    duration_sec = 0.0
+    if scenes:
+        duration_sec = float(scenes[-1].get("end", 0.0))
+    elif (proj_path / "words.json").exists():
+        try:
+            with open(proj_path / "words.json", "r", encoding="utf-8") as wf:
+                words_data = json.load(wf)
+                if words_data:
+                    duration_sec = float(words_data[-1].get("end", 0.0))
+        except Exception:
+            pass
+
+    duration_int = round(duration_sec) if duration_sec > 0 else 60
+
+    # Note d'optimisation durée si > 60s
+    duration_warning = ""
+    if duration_int > 60:
+        duration_warning = f"""> [!NOTE]
+> Cette vidéo dure {duration_int} s, ce qui dépasse le plafond recommandé de 60 s pour les formats courts (Reels, Shorts). Elle est prioritairement optimisée pour LinkedIn.
+"""
+
+    # Hashtags ciblés
+    hashtags_linkedin = ["#B2B", "#Productivite", "#Systeme", "#VideoB2B"]
     hashtags_insta = ["#entrepreneuriat", "#productivite", "#b2b", "#systeme", "#automatisation"]
 
     content = f"""# DISTRIBUTION KIT : {title} (Vidéo #{video_num})
@@ -50,57 +83,56 @@ def generate_social_pack(project_dir: str) -> Path:
 
 ---
 
-## 1. LINKEDIN (Canal Prioritaire N° 1 — Vente B2B)
+## 1. LINKEDIN (Canal Prioritaire N° 1 : Vente B2B)
 
 ### Post LinkedIn à Copier-Coller :
 ```text
-Pourquoi 90% des professionnels saturent sur leur contenu ?
-Ce n'est pas un manque d'idées. C'est un problème de tuyauterie.
-Démonstration en 60 secondes chrono ⬇️
+{hook_line}
+Démonstration en {duration_int} secondes chrono ⬇️
 
 ---
 
 {title}
 
-La plupart des créateurs et agences continuent de perdre 3h par semaine à bricoler des tournages ou des carrousels qui ne convertissent plus.
+[À RÉDIGER PAR LE FONDATEUR : Contexte et douleur spécifique résolue]
 
-Dans cette capsule de 60s :
-1. Le vrai goulot d'étranglement qui tue votre rétention.
-2. Pourquoi le texte brut ne suffit plus pour capter les décideurs.
-3. La mécanique exacte pour convertir vos posts écrits en capsules vidéo sans toucher une caméra.
+Dans cette capsule de {duration_int}s :
+1. [À RÉDIGER PAR LE FONDATEUR : Point clé 1]
+2. [À RÉDIGER PAR LE FONDATEUR : Point clé 2]
+3. [À RÉDIGER PAR LE FONDATEUR : Point clé 3]
 
-Vous gérez votre production en interne ou vous déléguez déjà ce process ?
+[À RÉDIGER PAR LE FONDATEUR : Question engageante pour l'audience]
 
 ---
-{cta} : Écrivez "{cta}" en commentaire pour recevoir le blueprint complet en message privé.
+Commente {cta} sous ce post pour recevoir le blueprint complet en message privé.
 
 {' '.join(hashtags_linkedin)}
 ```
 
 > [!TIP]
-> **Contrôle Hook LinkedIn** : Les 3 premières lignes font moins de 140 caractères. Le spectateur mobile est obligé de cliquer sur *...voir plus* ou de lancer la vidéo.
+> **Contrôle Hook LinkedIn** : Les 3 premières lignes font moins de 140 caractères avant la pliure mobile.
 > **Règle absolue** : Aucun lien sortant dans ce post.
 
 ### Premier Commentaire LinkedIn à Épingler Immédiatement :
 ```text
-Pour ceux qui veulent explorer le schéma technique ou le process détaillé de cette vidéo : écrivez simplement "{cta}" ci-dessous et je vous partage la ressource en DM.
+Pour recevoir le schéma technique ou le process détaillé de cette vidéo : commente simplement "{cta}" ci-dessous et je t'envoie la ressource en DM.
 ```
 
 ---
 
-## 2. INSTAGRAM REELS (Canal Vitrine N° 2 — Cross-Posté sur Facebook)
-
+## 2. INSTAGRAM REELS (Canal Vitrine N° 2 : Visibilité Organique)
+{duration_warning}
 ### Légende Instagram à Copier-Coller :
 ```text
-L'erreur qui vous coûte 3h par jour sur vos process ⬇️
+{hook_line} ⬇️
 
-La plupart des créateurs et agences font la même erreur : ils ont l'expertise, mais zéro format pour la valoriser rapidement.
+[À RÉDIGER PAR LE FONDATEUR : Problème et promesse en 2 phrases]
 
-Dans ce Reel de 60 secondes :
-- Pourquoi les longs formats s'effondrent
-- Le système pour créer des capsules vidéos percutantes sans caméra
+Dans ce Reel de {duration_int} secondes :
+- [À RÉDIGER PAR LE FONDATEUR : Enseignement principal 1]
+- [À RÉDIGER PAR LE FONDATEUR : Enseignement principal 2]
 
-👉 Écris "{cta}" en commentaire pour recevoir l'accès direct en privé.
+👉 Commente {cta} en commentaire pour recevoir l'accès direct en privé.
 
 .
 .
@@ -110,16 +142,14 @@ Dans ce Reel de 60 secondes :
 
 ### Premier Commentaire Instagram à Épingler :
 ```text
-Vous êtes plutôt process manuel ou automatisation radicale ? Je réponds à tous les retours en commentaire ⬇️
+Vous gérez ce process en interne ou vous cherchez à l'automatiser ? Je réponds à tous les retours en commentaire ⬇️
 ```
 
-### Concept de Story Instagram Teaser (Minute 5) :
+### Concept de Story Instagram Teaser :
 1. Partager le Reel dans votre Story.
-2. Agrandir la vidéo et placer un sticker de sondage au milieu de l'écran :
-   - Question : *« Tu fais encore cette erreur ? »*
-   - Options : *« Oui malheureusement »* / *« Non j'ai automatisé »*
-3. Ajouter un texte au-dessus : *« La révélation à la 42e seconde change tout ⬇️ »*.
-4. Placer un sticker de lien cliquable renvoyant vers le Reel original.
+2. Agrandir la vidéo et placer un sticker de sondage au milieu de l'écran.
+3. Ajouter un texte d'accroche invitant à regarder la capsule.
+4. Placer un sticker renvoyant vers le Reel original.
 
 ---
 
@@ -129,8 +159,8 @@ Vous êtes plutôt process manuel ou automatisation radicale ? Je réponds à to
 - [ ] **Instagram** : Option `Importer avec la meilleure qualité` activée dans les paramètres.
 - [ ] **Instagram** : Couverture recadrée dans l'onglet `Grille du profil` (centré dans la zone 1:1 `Y: 420-1500px`).
 - [ ] **Instagram** : Option `Recommander sur Facebook` vérifiée active.
-- [ ] **Golden Hour** : 45 minutes devant soi pour répondre à 100% des commentaires entrants avec des phrases de plus de 5 mots et des questions de relance.
-- [ ] **Zéro Regard en Boucle** : Ne pas regarder la vidéo 50 fois depuis son propre compte.
+- [ ] **Golden Hour** : 45 minutes devant soi pour répondre à 100% des commentaires entrants avec des réponses personnalisées.
+- [ ] **Zéro Regard en Boucle** : Ne pas regarder la vidéo en boucle depuis son propre compte.
 - [ ] **Zéro Suppression Immédiate** : Si le reach démarre lentement, laisser l'algorithme analyser pendant au moins 24h.
 """
 

@@ -20,6 +20,19 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 class TestSocialPack(unittest.TestCase):
     """Test du générateur de social pack."""
 
+    def test_generate_social_pack_on_video01_decouverte(self):
+        """Vérifie la génération sur studio_perso/video_01_decouverte avec avertissement durée 96s."""
+        kit_path = generate_social_pack("studio_perso/video_01_decouverte")
+        self.assertTrue(kit_path.exists(), "DISTRIBUTION_KIT.md introuvable")
+
+        content = kit_path.read_text(encoding="utf-8")
+        self.assertIn("LINKEDIN", content)
+        self.assertIn("INSTAGRAM REELS", content)
+        self.assertIn("CLARTÉ", content)
+        self.assertIn("96", content)
+        self.assertIn("dépasse le plafond recommandé de 60 s", content)
+        self.assertIn("prioritairement optimisée pour LinkedIn", content)
+
     def test_generate_social_pack_on_video03(self):
         """Vérifie la génération sur studio_perso/video_03."""
         kit_path = generate_social_pack("studio_perso/video_03")
