@@ -346,7 +346,6 @@ def align_reference_audio(audio_source_path: Path, reference_words: list, phonet
     n_ref = len(reference_words)
     n_raw = len(raw_words)
     handle_zero_euro = special_cases.get("zero_euro_split", False)
-    handle_video_02_merges = special_cases.get("video_02_merges", False)
 
     while r_idx < n_ref and w_idx < n_raw:
         rw = reference_words[r_idx]
@@ -368,32 +367,6 @@ def align_reference_audio(audio_source_path: Path, reference_words: list, phonet
             aligned_words.append({"word": reference_words[r_idx + 1], "start": mid, "end": t_e})
             r_idx += 2
             w_idx += 1
-            continue
-
-        # 2b. Cas spécifique video_02 pour 'recoin de' (Whisper: 'recointe')
-        if handle_video_02_merges and rw == "recoin" and r_idx + 1 < n_ref and reference_words[r_idx + 1] == "de" and w_n == "recointe":
-            t_s = float(raw_words[w_idx]["start"])
-            t_e = float(raw_words[w_idx]["end"])
-            mid = round((t_s + t_e) / 2.0, 3)
-            aligned_words.append({"word": rw, "start": t_s, "end": mid})
-            aligned_words.append({"word": reference_words[r_idx + 1], "start": mid, "end": t_e})
-            r_idx += 2
-            w_idx += 1
-            continue
-
-        # 2c. Cas spécifique video_02 pour 'haut de ta landing' (Whisper: 'haute' + 'talending')
-        if handle_video_02_merges and rw == "haut" and r_idx + 3 < n_ref and reference_words[r_idx:r_idx+4] == ["haut", "de", "ta", "landing"] and w_n == "haute" and w_idx + 1 < n_raw and norm(raw_words[w_idx+1]["word"]) == "talending":
-            t0 = float(raw_words[w_idx]["start"])
-            t1 = float(raw_words[w_idx]["end"])
-            t2 = float(raw_words[w_idx+1]["start"])
-            t3 = float(raw_words[w_idx+1]["end"])
-            aligned_words.append({"word": "haut", "start": t0, "end": t1})
-            step = (t3 - t2) / 3.0
-            aligned_words.append({"word": "de", "start": t2, "end": round(t2 + step, 3)})
-            aligned_words.append({"word": "ta", "start": round(t2 + step, 3), "end": round(t2 + 2*step, 3)})
-            aligned_words.append({"word": "landing", "start": round(t2 + 2*step, 3), "end": t3})
-            r_idx += 4
-            w_idx += 2
             continue
 
         # 3. Correspondance directe ou phonétique validée

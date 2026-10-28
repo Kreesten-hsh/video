@@ -591,7 +591,7 @@ def mix_sfx(
 
     total_samples = len(audio)
 
-    # Banques historiques (video_01 / video_02)
+    # Banques procédurales historiques
     whoosh_sfx = generate_soft_whoosh(framerate, rng=rng)
     pop_sfx = generate_organic_pop(framerate)
     click_sfx = generate_micro_click(framerate, rng=rng)
