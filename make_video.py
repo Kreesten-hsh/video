@@ -79,7 +79,8 @@ def make_video(
     project_path_str: str,
     force_realign: bool = False,
     output_dir: str = None,
-    forcer: bool = False
+    forcer: bool = False,
+    preflight: bool = True
 ):
     total_start_time = time.time()
     p_dir, p_data = build_master_timeline.load_project(project_path_str)
@@ -158,7 +159,8 @@ def make_video(
         output_path=str(target_video_path),
         verify_avatars=False,  # Exécuté explicitement à l'étape 4 pour mesure séparée
         scenes=scenes,
-        rendu_deterministe=p_data.get("rendu_deterministe", True)
+        rendu_deterministe=p_data.get("rendu_deterministe", True),
+        preflight=preflight
     )
     time_render = time.time() - t0
     print(f"✓ Étape 3 terminée en {time_render:.2f}s")
@@ -198,7 +200,7 @@ def make_video(
 
 def main():
     parser = argparse.ArgumentParser(description="Orchestrateur complet de production vidéo AGENT404.")
-    parser.add_argument("projet", nargs="?", default="studio_perso/video_01", help="Chemin du dossier projet")
+    parser.add_argument("projet", help="Chemin du dossier projet (ex: studio_perso/video_01_decouverte)")
     parser.add_argument("--realigner", action="store_true", help="Force le réalignement acoustique Whisper")
     parser.add_argument("--sortie", "-s", default=None, help="Dossier de sortie dédié pour ne pas modifier le projet")
     parser.add_argument("--forcer", "-f", action="store_true", help="Force l'écrasement ou l'écriture sur un projet gelé")

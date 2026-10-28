@@ -12,7 +12,7 @@ class TestVerifyRenderedAvatars(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        # Création d'une vidéo factice noire de 1 seconde (30 fps) pour tester la détection d'absence d'avatar
+        # Création de vidéos factices (noire et beige uni) pour tester la détection d'absence d'avatar
         cls.temp_dir = tempfile.TemporaryDirectory()
         cls.black_video = os.path.join(cls.temp_dir.name, "black.mp4")
         subprocess.run(
@@ -26,6 +26,36 @@ class TestVerifyRenderedAvatars(unittest.TestCase):
             stderr=subprocess.DEVNULL,
             check=True
         )
+
+        cls.beige_video = os.path.join(cls.temp_dir.name, "beige.mp4")
+        subprocess.run(
+            [
+                "ffmpeg", "-y",
+                "-f", "lavfi", "-i", "color=c=#F5F2EB:s=1080x1920:d=1.0:r=30",
+                "-c:v", "libx264", "-pix_fmt", "yuv420p",
+                cls.beige_video
+            ],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            check=True
+        )
+
+        cls.beige_with_avatar_video = os.path.join(cls.temp_dir.name, "beige_avatar.mp4")
+        avatar_path = Path(__file__).resolve().parent.parent / "assets" / "avatars" / "question.png"
+        if avatar_path.exists():
+            subprocess.run(
+                [
+                    "ffmpeg", "-y",
+                    "-f", "lavfi", "-i", "color=c=#F5F2EB:s=1080x1920:d=1.0:r=30",
+                    "-i", str(avatar_path),
+                    "-filter_complex", "[0:v][1:v]overlay=(W-w)/2:1250",
+                    "-c:v", "libx264", "-pix_fmt", "yuv420p",
+                    cls.beige_with_avatar_video
+                ],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                check=True
+            )
 
     @classmethod
     def tearDownClass(cls):
@@ -65,6 +95,25 @@ class TestVerifyRenderedAvatars(unittest.TestCase):
             {"id": "sc_02", "type": "big", "start": 0.5, "end": 1.0, "data": {"text": "Suite"}},
         ]
         self.assertTrue(verify_rendered_avatars(video_ref, mock_scenes))
+
+    def test_synthetic_beige_detects_missing_avatar(self):
+        """Vérifie qu'un fond beige uniforme sans avatar échoue bien avec détection d'absence."""
+        mock_scenes = [
+            {"id": "sc_01", "type": "big", "start": 0.0, "end": 0.5, "data": {"text": "Titre"}},
+            {"id": "sc_02", "type": "face", "start": 0.5, "end": 1.0, "data": {"avatar": "assets/avatars/question.png"}},
+        ]
+        with self.assertRaises(AssertionError) as ctx:
+            verify_rendered_avatars(self.beige_video, mock_scenes)
+        self.assertIn("scène sc_02", str(ctx.exception).lower())
+
+    def test_synthetic_beige_with_avatar_passes(self):
+        """Vérifie qu'un fond beige avec avatar présent est validé avec succès."""
+        if not os.path.exists(self.beige_with_avatar_video):
+            self.skipTest("Vidéo synthétique avec avatar non disponible.")
+        mock_scenes = [
+            {"id": "sc_01", "type": "face", "start": 0.0, "end": 0.8, "data": {"avatar": "assets/avatars/question.png"}},
+        ]
+        self.assertTrue(verify_rendered_avatars(self.beige_with_avatar_video, mock_scenes))
 
 
 if __name__ == "__main__":

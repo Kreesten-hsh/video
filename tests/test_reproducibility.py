@@ -70,7 +70,7 @@ class TestReproducibility(unittest.TestCase):
 
             # 2. Vérification de l'exécution propre avec --sortie sans modifier le dossier projet
             p_files_before = set(os.listdir(p_dir))
-            make_video.make_video(str(p_dir), output_dir=str(out_dir))
+            make_video.make_video(str(p_dir), output_dir=str(out_dir), preflight=False)
             p_files_after = set(os.listdir(p_dir))
 
             self.assertEqual(

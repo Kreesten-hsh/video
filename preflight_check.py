@@ -28,8 +28,10 @@ from playwright.sync_api import sync_playwright
 REPO_ROOT = Path(__file__).resolve().parent
 
 
-def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_path: str = None, html_path: str = "index.html") -> dict:
+def run_preflight_check(project_dir: str, timeline_path: str = None, html_path: str = "index.html") -> dict:
     """Exécute l'ensemble des 5 contrôles pre-flight sur un projet cible."""
+    if not project_dir:
+        raise ValueError("Le paramètre 'project_dir' est obligatoire pour run_preflight_check.")
     t0 = time.time()
     proj_path = Path(project_dir)
     if not proj_path.is_absolute():
@@ -62,17 +64,6 @@ def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_pat
                 project_data = json.load(f)
         except Exception as e:
             errors.append(f"Erreur de lecture de project.json : {e}")
-
-    # Court-circuit immédiat pour les projets factices de tests unitaires
-    if project_data.get("title") == "Projet Factice Test":
-        return {
-            "success": True,
-            "errors": [],
-            "warnings": ["Projet factice test : audit preflight ignoré."],
-            "checks_passed": 5,
-            "duration_seconds": round(time.time() - t0, 3),
-            "scenes_audited": 0,
-        }
 
     # Contrôle 5.A : Registre Anti-Répétition & Jargon
     memory_path = REPO_ROOT / "registry" / "video_memory.json"
@@ -140,16 +131,6 @@ def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_pat
 
         scenes = eval_init.get("scenes", [])
         if not scenes:
-            if project_data.get("title") == "Projet Factice Test":
-                browser.close()
-                return {
-                    "success": True,
-                    "errors": [],
-                    "warnings": ["Projet factice test : aucune scène timeline, preflight ignoré."],
-                    "checks_passed": 5,
-                    "duration_seconds": round(time.time() - t0, 3),
-                    "scenes_audited": 0
-                }
             errors.append("Aucune scène (window.SCENES) disponible pour l'audit.")
             browser.close()
             return {
@@ -474,12 +455,17 @@ def run_preflight_check(project_dir: str = "studio_perso/video_02", timeline_pat
 
 def main():
     parser = argparse.ArgumentParser(description="Pre-Flight Visual Gatekeeper AGENT404.")
-    parser.add_argument("--projet", "--project", "-p", default="studio_perso/video_02", help="Dossier du projet vidéo")
+    parser.add_argument("projet", nargs="?", default=None, help="Dossier du projet vidéo")
+    parser.add_argument("--projet", "--project", "-p", dest="projet_opt", default=None, help="Dossier du projet vidéo")
     parser.add_argument("--html", default="index.html", help="Fichier HTML maître")
     args = parser.parse_args()
 
-    print(f"[Gatekeeper] Audit pre-flight sur '{args.projet}'...")
-    res = run_preflight_check(project_dir=args.projet, html_path=args.html)
+    target_projet = args.projet or args.projet_opt
+    if not target_projet:
+        parser.error("Le dossier du projet est obligatoire (ex: --projet studio_perso/video_01_decouverte).")
+
+    print(f"[Gatekeeper] Audit pre-flight sur '{target_projet}'...")
+    res = run_preflight_check(project_dir=target_projet, html_path=args.html)
 
     if res["success"]:
         print(f"✓ TOUS LES CONTRÔLES PRE-FLIGHT ONT RÉUSSI ({res['checks_passed']}/5 axes)")

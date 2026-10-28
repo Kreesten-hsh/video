@@ -219,11 +219,12 @@
   function initData() {
     // 1. Initialisation des Thèmes (Preset ou Variables personnalisées)
     if (window.PROJECT_CONFIG) {
-      if (window.PROJECT_CONFIG.theme_preset) {
-        document.documentElement.setAttribute("data-theme", window.PROJECT_CONFIG.theme_preset);
-        if (canvas) canvas.setAttribute("data-theme", window.PROJECT_CONFIG.theme_preset);
+      const themePreset = window.PROJECT_CONFIG.theme_preset || (typeof window.PROJECT_CONFIG.theme === 'string' ? window.PROJECT_CONFIG.theme : null);
+      if (themePreset) {
+        document.documentElement.setAttribute("data-theme", themePreset);
+        if (canvas) canvas.setAttribute("data-theme", themePreset);
       }
-      if (window.PROJECT_CONFIG.theme) {
+      if (window.PROJECT_CONFIG.theme && typeof window.PROJECT_CONFIG.theme === 'object' && !Array.isArray(window.PROJECT_CONFIG.theme)) {
         const root = document.documentElement;
         for (const [key, val] of Object.entries(window.PROJECT_CONFIG.theme)) {
           root.style.setProperty(`--${key}`, val);

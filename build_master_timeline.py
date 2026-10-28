@@ -569,10 +569,12 @@ def run_pipeline(
 
 def main():
     parser = argparse.ArgumentParser(description="Générateur de timeline vidéo programmatique AGENT404.")
+    parser.add_argument("projet", nargs="?", default=None, help="Chemin vers le dossier du projet ou vers project.json")
     parser.add_argument(
         "--projet", "--project", "-p",
-        default="studio_perso/video_03" if os.path.exists("studio_perso/video_03") else "studio_perso/video_01",
-        help="Chemin vers le dossier du projet ou vers project.json (défaut: studio_perso/video_03)"
+        dest="projet_opt",
+        default=None,
+        help="Chemin vers le dossier du projet ou vers project.json"
     )
     parser.add_argument(
         "--realigner",
@@ -584,8 +586,12 @@ def main():
     parser.add_argument("--voix", default=None, help="Chemin du fichier voix.wav")
     args = parser.parse_args()
 
+    target_proj = args.projet or args.projet_opt
+    if not target_proj:
+        parser.error("L'argument projet est obligatoire (ex: studio_perso/video_01_decouverte).")
+
     run_pipeline(
-        args.projet,
+        target_proj,
         force_realign=args.realigner,
         output_timeline_js=args.timeline,
         output_words_json=args.words,

@@ -10,6 +10,8 @@ import io
 from typing import Union
 from pathlib import Path
 
+REPO_ROOT = Path(__file__).resolve().parent
+
 # Résolution des dépendances locales du dépôt si nécessaire
 _local_venv_pkg = Path(__file__).resolve().parent / ".venv" / "lib" / f"python{sys.version_info.major}.{sys.version_info.minor}" / "site-packages"
 if _local_venv_pkg.is_dir() and str(_local_venv_pkg) not in sys.path:
@@ -108,19 +110,41 @@ def setup_render_page(browser, html_abs_uri: str, timeline_path: str = None, ren
             content="*, *::before, *::after { transition: none !important; animation: none !important; }"
         )
 
-    # Pré-décodage dynamique de tous les avatars référencés dans le projet et attente des polices locales
-    avatars_to_predecode = [
-        'assets/avatars/question.png', 'assets/avatars/idea.png', 'assets/avatars/laptop.png',
-        'assets/avatars/mic.png', 'assets/avatars/mini.png', 'assets/avatars/money.png',
-        'assets/avatars/pointing.png', 'assets/avatars/prof.png', 'assets/avatars/scissors.png',
-        'assets/avatars/shock.png', 'assets/avatars/skeptic.png', 'assets/avatars/stop.png',
-        'assets/pfp/pfp_agent404_pro_slate.png'
-    ]
+    # Pré-décodage dynamique de tous les avatars référencés dans les scènes et brand.json
+    avatars_to_predecode = []
+    brand_candidates = []
+    if timeline_path:
+        t_path = Path(timeline_path).parent
+        brand_candidates.extend([t_path / "brand.json", t_path.parent / "brand.json"])
+    brand_candidates.append(REPO_ROOT / "brand.json")
+
+    for bc in brand_candidates:
+        if bc.exists():
+            try:
+                with open(bc, "r", encoding="utf-8") as f:
+                    b_data = json.load(f)
+                avatars_cfg = b_data.get("avatars", {})
+                base_p = avatars_cfg.get("base_path", "assets/avatars/").rstrip("/")
+                poses = avatars_cfg.get("poses", {})
+                for p_file in poses.values():
+                    p_full = f"{base_p}/{p_file.lstrip('/')}"
+                    if p_full not in avatars_to_predecode:
+                        avatars_to_predecode.append(p_full)
+                if avatars_cfg.get("default"):
+                    def_full = f"{base_p}/{avatars_cfg['default'].lstrip('/')}"
+                    if def_full not in avatars_to_predecode:
+                        avatars_to_predecode.append(def_full)
+                break
+            except Exception:
+                pass
+
     if scenes:
         for sc in scenes:
-            av = sc.get("data", {}).get("avatar")
-            if av and av not in avatars_to_predecode:
-                avatars_to_predecode.append(av)
+            data = sc.get("data", {})
+            for key in ("avatar", "avatar_pip"):
+                val = data.get(key) or sc.get(key)
+                if val and val not in avatars_to_predecode:
+                    avatars_to_predecode.append(val)
 
     page.evaluate("""async (avatars) => {
         await document.fonts.ready;
@@ -133,6 +157,32 @@ def setup_render_page(browser, html_abs_uri: str, timeline_path: str = None, ren
     return context, page
 
 
+def extract_theme_bg_color(project_dir: Path = None) -> tuple:
+    """Lit la couleur de fond RGB du thème depuis brand.json, project.json ou défaut Obsidian Flame (#F5F2EB)."""
+    default_bg = (245, 242, 235)
+    candidates = []
+    if project_dir:
+        p = Path(project_dir)
+        candidates.extend([p / "brand.json", p.parent / "brand.json", p / "project.json"])
+    candidates.append(REPO_ROOT / "brand.json")
+
+    for cand in candidates:
+        if cand.exists():
+            try:
+                with open(cand, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                theme = data.get("theme")
+                if isinstance(theme, dict):
+                    hex_c = theme.get("bg_canvas") or theme.get("bg_dark")
+                    if hex_c and hex_c.startswith("#") and len(hex_c) == 7:
+                        return (int(hex_c[1:3], 16), int(hex_c[3:5], 16), int(hex_c[5:7], 16))
+                elif isinstance(theme, str) and theme == "cyber-mint":
+                    return (13, 17, 23)
+            except Exception:
+                pass
+    return default_bg
+
+
 def verify_rendered_avatars(video_path: str, scenes: Union[list, str, Path] = None) -> bool:
     """Vérifie automatiquement après rendu qu'aucune scène avec avatar (buste ou PiP) ne présente une zone vide.
     Charge dynamiquement les scènes depuis project.json ou timeline.js si un chemin est fourni."""
@@ -140,6 +190,7 @@ def verify_rendered_avatars(video_path: str, scenes: Union[list, str, Path] = No
         print("[Vérification] Aucune scène fournie pour validation des avatars.")
         return True
 
+    target_dir = None
     if isinstance(scenes, (str, Path)):
         p = Path(scenes)
         target_dir = p if p.is_dir() else p.parent
@@ -166,6 +217,8 @@ def verify_rendered_avatars(video_path: str, scenes: Union[list, str, Path] = No
     if not scenes:
         print("[Vérification] Aucune scène exploitable pour validation des avatars.")
         return True
+
+    theme_bg = extract_theme_bg_color(target_dir)
 
     use_cv2 = False
     cap = None
@@ -242,44 +295,51 @@ def verify_rendered_avatars(video_path: str, scenes: Union[list, str, Path] = No
             continue
 
         # Détection d'absence :
-        # 1. Fond sombre (#0D1117 / noir) : luminance moyenne < 32 et std < 10
-        # 2. Fond beige (#F5F2EB / uni) : écart-type très faible (std < 12) et luminance élevée (> 220)
+        # L'absence d'avatar se caractérise par une zone quasi-uniforme (écart-type très faible)
+        # proche de la couleur de fond du thème, d'un fond beige (#F5F2EB) ou d'un fond sombre.
+        bg_rgb_arr = np.array(theme_bg, dtype=float)
+        beige_rgb_arr = np.array([245.0, 242.0, 235.0], dtype=float)
+
         # 1. Vérification Avatar Buste Plein Écran (y: 1200..1800, x: 250..830)
         if has_bust:
             avatar_crop = frame_bgr[1200:1800, 250:830]
-            mean_lum = float(np.mean(avatar_crop))
+            avatar_crop_rgb = avatar_crop[:, :, ::-1]
             std_lum = float(np.std(avatar_crop))
+            diff_theme = float(np.mean(np.abs(avatar_crop_rgb.astype(float) - bg_rgb_arr)))
+            diff_beige = float(np.mean(np.abs(avatar_crop_rgb.astype(float) - beige_rgb_arr)))
+            mean_lum = float(np.mean(avatar_crop))
 
-            is_missing_dark = (mean_lum < 32.0 and std_lum < 10.0)
-            is_missing_beige = (mean_lum > 220.0 and std_lum < 12.0)
-
-            if is_missing_dark or is_missing_beige:
+            if std_lum < 15.0 and (diff_theme < 30.0 or diff_beige < 30.0 or mean_lum < 32.0):
                 failed_scenes.append(
-                    (sc.get("id", "?"), t_sample, f"Avatar buste absent (luminance moyenne={mean_lum:.2f}, std={std_lum:.2f})")
+                    (sc.get("id", "?"), t_sample, f"Avatar buste absent (std={std_lum:.2f}, diff_theme={diff_theme:.2f}, diff_beige={diff_beige:.2f})")
                 )
 
         # 2. Vérification Avatar Médaillon PiP (y: 1200..1750, x: 680..1020)
         if has_pip:
             pip_crop = frame_bgr[1200:1750, 680:1020]
-            mean_lum = float(np.mean(pip_crop))
+            pip_crop_rgb = pip_crop[:, :, ::-1]
             std_lum = float(np.std(pip_crop))
-            is_missing_dark = (mean_lum < 28.0 and std_lum < 8.0)
-            is_missing_beige = (mean_lum > 220.0 and std_lum < 10.0)
-            if is_missing_dark or is_missing_beige:
+            diff_theme = float(np.mean(np.abs(pip_crop_rgb.astype(float) - bg_rgb_arr)))
+            diff_beige = float(np.mean(np.abs(pip_crop_rgb.astype(float) - beige_rgb_arr)))
+            mean_lum = float(np.mean(pip_crop))
+
+            if std_lum < 12.0 and (diff_theme < 30.0 or diff_beige < 30.0 or mean_lum < 28.0):
                 failed_scenes.append(
-                    (sc.get("id", "?"), t_sample, f"Avatar PiP absent (luminance moyenne={mean_lum:.2f}, std={std_lum:.2f})")
+                    (sc.get("id", "?"), t_sample, f"Avatar PiP absent (std={std_lum:.2f}, diff_theme={diff_theme:.2f}, diff_beige={diff_beige:.2f})")
                 )
 
         # 3. Vérification Avatar Médaillon Inset (y: 1360..1520, x: 60..220)
         if is_inset and avatar:
             inset_crop = frame_bgr[1360:1520, 60:220]
-            mean_lum = float(np.mean(inset_crop))
+            inset_crop_rgb = inset_crop[:, :, ::-1]
             std_lum = float(np.std(inset_crop))
-            is_missing_dark = (mean_lum < 20.0 and std_lum < 6.0)
-            is_missing_beige = (mean_lum > 220.0 and std_lum < 8.0)
-            if is_missing_dark or is_missing_beige:
+            diff_theme = float(np.mean(np.abs(inset_crop_rgb.astype(float) - bg_rgb_arr)))
+            diff_beige = float(np.mean(np.abs(inset_crop_rgb.astype(float) - beige_rgb_arr)))
+            mean_lum = float(np.mean(inset_crop))
+
+            if std_lum < 10.0 and (diff_theme < 30.0 or diff_beige < 30.0 or mean_lum < 20.0):
                 failed_scenes.append(
-                    (sc.get("id", "?"), t_sample, f"Avatar Inset absent (luminance moyenne={mean_lum:.2f}, std={std_lum:.2f})")
+                    (sc.get("id", "?"), t_sample, f"Avatar Inset absent (std={std_lum:.2f}, diff_theme={diff_theme:.2f}, diff_beige={diff_beige:.2f})")
                 )
 
     if use_cv2 and cap:
@@ -349,7 +409,7 @@ def render_video(
                         project_path=str(p_dir)
                     )
                 except Exception as exc:
-                    print(f"[SFX] Avertissement mixage SFX : {exc}")
+                    raise RuntimeError(f"Échec critique du mixage SFX : {exc}") from exc
             audio_path = str(cand_final) if cand_final.exists() else str(cand_voix)
 
     if rendu_deterministe is None:
@@ -367,15 +427,12 @@ def render_video(
     # Contrôle de qualité pré-vol automatique (Pre-Flight Gatekeeper < 3s)
     if preflight and project_path:
         print("[Gatekeeper] Contrôle qualité pré-vol (preflight check)...")
-        try:
-            from preflight_check import run_preflight_check
-            report = run_preflight_check(project_dir=project_path, timeline_path=timeline_path, html_path=html_path)
-            if not report.get("success", False):
-                errors = "\n".join([f" - {err}" for err in report.get("errors", [])])
-                raise RuntimeError(f"Échec des contrôles pre-flight pour '{project_path}' :\n{errors}")
-            print("✓ Contrôles pre-flight validés avec succès.")
-        except ImportError:
-            pass
+        from preflight_check import run_preflight_check
+        report = run_preflight_check(project_dir=project_path, timeline_path=timeline_path, html_path=html_path)
+        if not report.get("success", False):
+            errors = "\n".join([f" - {err}" for err in report.get("errors", [])])
+            raise RuntimeError(f"Échec des contrôles pre-flight pour '{project_path}' :\n{errors}")
+        print("✓ Contrôles pre-flight validés avec succès.")
 
     if scenes is None:
         try:
@@ -395,7 +452,7 @@ def render_video(
 
     preset = preset or os.environ.get("FFMPEG_PRESET")
     if not preset:
-        preset = "veryfast" if (os.environ.get("FAST_RENDER") or "unittest" in sys.modules) else "slow"
+        preset = "veryfast" if os.environ.get("FAST_RENDER") else "slow"
 
     ffmpeg_cmd = [
         "ffmpeg", "-y",
@@ -483,12 +540,10 @@ if __name__ == "__main__":
     parser.add_argument("--fast", action="store_true", help="Active le mode rapide (force preset veryfast)")
     args = parser.parse_args()
 
+    if not args.projet and not args.timeline and not args.output:
+        parser.error("L'argument --projet est obligatoire (ex: --projet studio_perso/video_01_decouverte).")
+
     default_proj = args.projet
-    if default_proj is None and not args.output:
-        if os.path.exists("studio_perso/video_03"):
-            default_proj = "studio_perso/video_03"
-        elif os.path.exists("studio_perso/video_01"):
-            default_proj = "studio_perso/video_01"
 
     selected_preset = "veryfast" if args.fast else args.preset
 

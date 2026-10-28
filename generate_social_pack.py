@@ -142,10 +142,15 @@ Vous êtes plutôt process manuel ou automatisation radicale ? Je réponds à to
 
 def main():
     parser = argparse.ArgumentParser(description="Générateur de Social Pack AGENT404.")
-    parser.add_argument("--projet", "-p", default="studio_perso/video_02", help="Dossier du projet vidéo cible")
+    parser.add_argument("projet", nargs="?", default=None, help="Dossier du projet vidéo cible")
+    parser.add_argument("--projet", "-p", dest="projet_opt", default=None, help="Dossier du projet vidéo cible")
     args = parser.parse_args()
 
-    generate_social_pack(args.projet)
+    target_projet = args.projet or args.projet_opt
+    if not target_projet:
+        parser.error("Le dossier du projet est obligatoire (ex: studio_perso/video_01_decouverte).")
+
+    generate_social_pack(target_projet)
 
 
 if __name__ == "__main__":
