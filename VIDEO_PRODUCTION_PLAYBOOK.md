@@ -149,14 +149,16 @@ Générer l'arborescence standardisée du projet sans erreur manuelle et avec h�
    ```bash
    python3 init_video.py --target studio_perso/video_03 --cta "TARIF" --title "Maître des Prix B2B"
    ```
-2. **Fichiers générés automatiquement** :
-   * `index.html` : structuré pour le canvas 9:16, 100% exempt de `#agent-hud`.
-   * `style.css` : bloc `:root` complet de variables CSS sémantiques, zéro code `#hex` hors `:root`, zéro `#FF2A5F`.
-   * `timeline.js` : squelette de scènes et mots alignés.
-   * `video.js` : squelette du moteur d'animation rappelant en commentaire d'en-tête les illustrations passées et le jargon interdit.
-   * `project_config.json` et `project.json` : métadonnées et scènes synchronisées.
+2. **Fichiers générés automatiquement (Architecture Multi-Tenant)** :
+   * Les projets ne contiennent que leurs données (`project.json`, `brand.json`, `scenes.json`, `timeline.js`, assets). Le moteur racine sert toutes les vidéos.
+   * `project.json` : métadonnées (`format: "9:16"`, `fps: 30`, `load_project: true`), mot-clé CTA et tableau de scènes `bp_*`.
+   * `brand.json` : charte de marque (palette Obsidian Flame, typographies, poses d'avatar).
+   * `scenes.json` : définition déclarative des scènes du projet.
+   * `timeline.js` : repères temporels et scènes au format `window.SCENES`.
+   * `assets/` : dossier local pour les visuels spécifiques au projet.
 3. **Règles d'écriture du code** :
-   * N'utiliser que `var(--nom-variable)` pour toute couleur ou nuance.
+   * Les fichiers moteur racine (`index.html`, `style.css`, `video.js`) ne sont jamais dupliqués dans le projet.
+   * N'utiliser que des variables CSS sémantiques issues de `:root` (`var(--nom-variable)`).
    * Ne jamais coder de couleurs en dur dans `style.css` ni dans `video.js`.
 
 ---

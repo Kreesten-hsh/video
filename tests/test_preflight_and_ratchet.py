@@ -166,8 +166,19 @@ class TestPreflightAndRatchet(unittest.TestCase):
         self.assertEqual(report.get("checks_passed"), 5, "Les 5 axes de contrôle doivent être validés.")
 
     def test_init_video_scaffolding(self):
-        """Valide le bon fonctionnement de init_video.py dans un dossier temporaire."""
+        """Valide le bon fonctionnement de init_video.py en mode multi-tenant dans un dossier temporaire."""
         from init_video import init_video_project
+
+        KNOWN_BLUEPRINTS = {
+            "bp_hook_question",
+            "bp_friction_stack",
+            "bp_stat_shock",
+            "bp_versus_compare",
+            "bp_code_window",
+            "bp_grid_2x2",
+            "bp_logo_carousel_rtl",
+            "bp_cta_conversion",
+        }
 
         with tempfile.TemporaryDirectory() as tmpdir:
             target = Path(tmpdir) / "studio_perso" / "video_test"
@@ -176,30 +187,37 @@ class TestPreflightAndRatchet(unittest.TestCase):
             self.assertTrue(res.get("success"), "L'initialisation du projet a échoué.")
             self.assertEqual(res.get("cta_keyword"), "TARIF")
 
-            # Vérification des fichiers créés
-            for fname in ["project_config.json", "project.json", "index.html", "style.css", "timeline.js", "video.js"]:
+            # 1. Vérification des fichiers de données créés
+            for fname in ["project.json", "brand.json", "scenes.json", "timeline.js"]:
                 fpath = target / fname
-                self.assertTrue(fpath.exists(), f"Fichier {fname} manquant dans le projet généré.")
+                self.assertTrue(fpath.exists(), f"Fichier de données {fname} manquant dans le projet généré.")
 
-            # Vérification contenu index.html (Strictement sans HUD)
-            index_content = (target / "index.html").read_text(encoding="utf-8")
-            self.assertNotIn("agent-hud", index_content, "Le HUD ne doit jamais être présent dans index.html")
-            self.assertIn("video-canvas", index_content)
+            # 2. Règle multi-tenant : AUCUN fichier moteur ne doit être copié dans le projet
+            for fname in ["index.html", "style.css", "video.js"]:
+                fpath = target / fname
+                self.assertFalse(fpath.exists(), f"Le fichier moteur {fname} ne doit pas être dupliqué dans le projet.")
 
-            # Vérification style.css (:root complet et 0 hex hors :root)
-            css_content = (target / "style.css").read_text(encoding="utf-8")
-            self.assertIn(":root", css_content)
-            self.assertNotIn("#FF2A5F", css_content.upper())
-            m = re.search(r":root\s*\{([^}]+)\}", css_content)
-            self.assertIsNotNone(m)
-            body_css = css_content[m.end():]
-            hex_outside = re.findall(r"#[0-9a-fA-F]{3,8}", body_css)
-            self.assertEqual(hex_outside, [], f"Hex hors :root dans style.css généré : {hex_outside}")
+            # 3. Vérification du contenu de project.json
+            proj_data = json.loads((target / "project.json").read_text(encoding="utf-8"))
+            self.assertTrue(proj_data.get("load_project"), "load_project: true doit être présent dans project.json.")
+            self.assertEqual(proj_data.get("cta_keyword"), "TARIF")
+            self.assertEqual(proj_data.get("theme"), "obsidian-flame")
+            self.assertIn("scenes", proj_data)
+            self.assertGreaterEqual(len(proj_data["scenes"]), 1)
 
-            # Vérification video.js (Rappel du mot-clé CTA et de l'interdiction de recyclage)
-            vjs_content = (target / "video.js").read_text(encoding="utf-8")
-            self.assertIn("TARIF", vjs_content)
-            self.assertIn("ob_obsession_question", vjs_content)  # Illustration passée rappelée en commentaire
+            # 4. Toutes les scènes par défaut doivent être des bp_* connus
+            for sc in proj_data["scenes"]:
+                stype = sc.get("type", "")
+                self.assertTrue(stype.startswith("bp_"), f"La scène {sc.get('id')} doit être un blueprint bp_*, trouvé : {stype}")
+                self.assertIn(stype, KNOWN_BLUEPRINTS, f"Blueprint inconnu : {stype}")
+
+            # 5. Aucune couleur Cyber-Mint (#00F5A0, #0D1117) ni mention cyber-mint dans les fichiers générés
+            for fpath in target.glob("**/*"):
+                if fpath.is_file():
+                    content = fpath.read_text(encoding="utf-8", errors="ignore")
+                    self.assertNotIn("00F5A0", content.upper(), f"Couleur #00F5A0 trouvée dans {fpath.name}")
+                    self.assertNotIn("0D1117", content.upper(), f"Couleur #0D1117 trouvée dans {fpath.name}")
+                    self.assertNotIn("cyber-mint", content.lower(), f"Mention cyber-mint trouvée dans {fpath.name}")
 
     def test_production_playbook_and_workflow_integrity(self):
         """Vérifie l'existence et la conformité intégrale du workflow produce_video.md et du playbook officiel."""
