@@ -74,26 +74,46 @@ class TestPreflightAndRatchet(unittest.TestCase):
             self.assertNotIn("#FF2A5F", vjs_content, "Le rose #FF2A5F est formellement banni de video.js")
 
     def test_no_hardcoded_user_paths_in_codebase(self):
-        """Garantit l'absence totale de chemins absolus utilisateur (~/.local ou /home/) dans les scripts .py et .sh."""
+        """Garantit l'absence totale de chemins absolus utilisateur (~/.local ou /home/) dans les fichiers texte suivis."""
+        import subprocess
         forbidden_patterns = [r"/home/[a-zA-Z0-9_-]+", r"~/\.local"]
 
-        for ext in ("*.py", "*.sh"):
-            for file_path in REPO_ROOT.rglob(ext):
-                # Ignorer l'environnement virtuel éventuel ou cache
-                if ".venv" in file_path.parts or "__pycache__" in file_path.parts or ".git" in file_path.parts:
-                    continue
-                # Ne pas s'auto-détecter sur cette chaîne de test
-                if file_path.name == "test_preflight_and_ratchet.py":
-                    continue
+        try:
+            res = subprocess.run(
+                ["git", "ls-files"],
+                cwd=REPO_ROOT,
+                capture_output=True,
+                text=True,
+                check=True
+            )
+            tracked_files = [REPO_ROOT / f for f in res.stdout.splitlines() if f.strip()]
+        except Exception:
+            tracked_files = [p for p in REPO_ROOT.rglob("*") if p.is_file()]
 
-                content = file_path.read_text(encoding="utf-8", errors="ignore")
-                for pat in forbidden_patterns:
-                    matches = re.findall(pat, content)
-                    self.assertEqual(
-                        matches,
-                        [],
-                        f"Chemin absolu utilisateur interdit trouvé dans {file_path.relative_to(REPO_ROOT)} : {matches}"
-                    )
+        checked_extensions = {".py", ".sh", ".md", ".json", ".js", ".html", ".css"}
+
+        for file_path in tracked_files:
+            if any(part in file_path.parts for part in (".venv", "__pycache__", ".git")):
+                continue
+            if file_path.name == "test_preflight_and_ratchet.py":
+                continue
+            if file_path.suffix not in checked_extensions and ".agents" not in file_path.parts:
+                continue
+            if not file_path.exists() or file_path.is_dir():
+                continue
+
+            try:
+                content = file_path.read_text(encoding="utf-8")
+            except Exception:
+                continue
+
+            for pat in forbidden_patterns:
+                matches = re.findall(pat, content)
+                self.assertEqual(
+                    matches,
+                    [],
+                    f"Chemin absolu utilisateur interdit trouvé dans {file_path.relative_to(REPO_ROOT)} : {matches}"
+                )
 
     def test_verify_rendered_avatars_dynamic_detection(self):
         """Vérifie que verify_rendered_avatars accepte un chemin de projet et charge dynamiquement ses scènes."""

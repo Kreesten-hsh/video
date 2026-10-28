@@ -8,7 +8,7 @@ description: Protocole officiel en 7 phases pour concevoir, aligner, animer et r
 Ce workflow régit la création de toute nouvelle capsule vidéo (`studio_perso/video_XX` ou `studio_clients/<client>/video_XX`).
 Il applique la Loi de l'Effet Cliquet ($N+1 > N$) : aucune vidéo ne peut être rendue si elle n'a pas validé l'intégralité des 5 axes du Gatekeeper.
 
-Consulter le guide complet dans [`VIDEO_PRODUCTION_PLAYBOOK.md`](file:///home/hasashi/Bureau/video/VIDEO_PRODUCTION_PLAYBOOK.md).
+Consulter le guide complet dans [`VIDEO_PRODUCTION_PLAYBOOK.md`](../../VIDEO_PRODUCTION_PLAYBOOK.md).
 
 ---
 

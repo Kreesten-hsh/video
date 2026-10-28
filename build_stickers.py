@@ -175,7 +175,8 @@ def main():
             mini_sticker = apply_sticker_effect(fitted)
             mini_sticker.save(out_dir / "mini.png", "PNG")
 
-    print(f"✓ Tous les 12 stickers sont régénérés avec poches fermées nettoyées dans {out_dir}/")
+    total_stickers = len(list(out_dir.glob("*.png")))
+    print(f"✓ Tous les {total_stickers} stickers sont régénérés avec poches fermées nettoyées dans {out_dir}/")
 
 if __name__ == "__main__":
     main()
