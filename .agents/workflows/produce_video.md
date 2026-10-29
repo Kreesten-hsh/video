@@ -55,14 +55,14 @@ Consulter le guide complet dans [`VIDEO_PRODUCTION_PLAYBOOK.md`](../../VIDEO_PRO
    - Aucun texte à l'écran inférieur à $26\text{px}$ (lisibilité immédiate sur smartphone à 1.5 mètre).
    - Micro-tags résiduels tolérés à $\ge 20\text{px}$ avec `white-space: nowrap` obligatoire.
 4. **1 Idée = 1 Preuve Visuelle Physique** :
-   - Remplacer les longs posts par des squelettes UI géométriques barrés d'un tampon `.neo-stamp` rouge vif (`#D9381E`) incliné à $-6^\circ$ (ex. `"PAVÉ DE 150 LIGNES = IGNORÉ !"`).
+   - Remplacer les longs posts par des squelettes UI géométriques barrés d'un tampon `.neo-stamp` orange flamme (`background: var(--flame)`, texte blanc, bordure 4 px encre `var(--ink)`, ombre dure 8 px, rotation -6°, Montserrat 900 38 px majuscules, ex. `"PAVÉ DE 150 LIGNES = IGNORÉ !"`).
    - Utiliser des schémas physiques : cartes pastel physiques, tampons d'alerte, indicateurs de chronomètre grand format.
 5. **Rythme & Dynamisme Temporel** :
    - Durée idéale par scène : **2.0s à 3.5s** (grand maximum 4.0s). Au-delà, le décrochage de rétention est garanti.
    - Dans toute scène multi-étapes ($N \ge 2$), activation séquentielle individuelle de **chacune des $N$ cartes** aux timestamps identifiés en Phase 2 (zéro carte inerte).
 6. **Avatars Purs & Sous-titres Épurés** :
    - Avatars : zéro badge parasite (`.face-badge` strictement masqué), pur sticker avec ombre dure `drop-shadow(8px 8px 0px #111111)`.
-   - Sous-titres : affichage direct sur papier quadrillé sans cartouche blanc / pilule (zéro effet karaoké bloquant), un seul mot-clé sémantique en rouge accent (`#D9381E`).
+   - Sous-titres : affichage direct sur fond beige uni mat sans cartouche blanc / pilule (aucune grille, zéro effet karaoké bloquant), un seul mot-clé sémantique en accent orange flamme (`color: var(--flame)` via `.keyword-accent` ou `.highlight`).
 
 ### PHASE 5 : Scaffolding & Implémentation CSS/JS
 1. **Initialisation automatique** :

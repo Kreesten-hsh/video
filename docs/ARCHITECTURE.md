@@ -147,7 +147,7 @@ flowchart TD
 - **Rôle** : Interface de rendu DOM fonctionnant sans horloge asynchrone (`Date.now()`, `requestAnimationFrame` ou `setInterval` proscrits).
 - **Point d'entrée déterministe** : Fonction globale `window.setTime(t)` où $t$ est le temps absolu en secondes.
 - **Thématisation & Preset Néo-Brutaliste Obsidian Flame** :
-  - **Fond Beige Mat Uni** (`--bg-primary: #F5F2EB`) : 100% aplat sans quadrillage ni grille de points parasite.
+  - **Fond Beige Mat Uni** (`--bg-primary: #F5F2EB`) : 100% aplat sans aucune grille ni motif parasite.
   - **Encre Carbone** (`--ink: #111111`) : Bordures épaisses de 3.5px à 4px, ombres portées nettes et contrastées (`8px 8px 0px var(--ink)`).
   - **Accent Flamme** (`--flame-accent: #FF4F18`) : Coloration des mots-clés sémantiques et points focaux.
   - **Nuances Pastel** : Jaune solaire (`#FEF08A`) et Bleu acier (`#BFDBFE`) pour les badges et cartes secondaires.
