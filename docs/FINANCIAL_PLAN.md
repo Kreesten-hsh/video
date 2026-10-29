@@ -26,8 +26,8 @@ Règle de gestion stricte : seul le cash effectivement crédité sur le compte b
 
 | Poste comptable | Montant constaté | Statut d'audit |
 | :--- | :---: | :--- |
-| **Encaissements réels à date** | **0 € / 0 FCFA** | [VÉRIFIÉ EN MACHINE] 0 € encaissés à ce jour |
-| **Factures émises non encaissées** | **0 € / 0 FCFA** | [VÉRIFIÉ EN MACHINE] Aucune créance client en cours |
+| **Encaissements réels à date** | **0 € / 0 FCFA** | [DÉCLARÉ PAR LE FONDATEUR - NON VÉRIFIÉ EN MACHINE] 0 € encaissés à ce jour |
+| **Factures émises non encaissées** | **0 € / 0 FCFA** | [DÉCLARÉ PAR LE FONDATEUR - NON VÉRIFIÉ EN MACHINE] Aucune créance client en cours |
 | **Nombre de prospects qualifiés prêts** | **10** | [DÉCLARÉ PAR LE FONDATEUR - NON VÉRIFIÉ EN MACHINE] |
 | **Preuve de marché réelle** | **Déclarée** | [DÉCLARÉ PAR LE FONDATEUR - NON VÉRIFIÉ EN MACHINE] Validation d'intérêt organique sur LinkedIn |
 | **Montant restant à encaisser** | **2 000 000 FCFA** | [OBJECTIF] Soit environ 3 049 € à sécuriser d'ici le 31 décembre 2026 |
@@ -81,12 +81,11 @@ flowchart LR
 ## 5. Calendrier d'Encaissement du Forfait Studio (Effet Mois Pleins)
 
 L'Abonnement Studio (750 € par mois) est réglé d'avance à l'ouverture de chaque cycle mensuel.  
-Dans l'intervalle restant du 21 octobre au 31 décembre 2026, les encaissements se cadencent selon la date de conversion :
+Dans l'intervalle restant du 28 octobre au 31 décembre 2026, les encaissements se cadencent selon la date de conversion :
 
 | Date de conversion en Studio | Statut du premier mois | Cash collecté en 2026 par client (€) | Cash collecté en FCFA |
 | :--- | :--- | :---: | :---: |
-| Signature avant le 31 octobre | Nov (600 €) + Déc (750 €) + Test (150 €) | **1 500 €** | 983 936 FCFA |
-| Signature entre le 1er et le 10 novembre | Nov (600 €) + Déc (750 €) + Test (150 €) | **1 500 €** | 983 936 FCFA |
+| Signature avant le 10 novembre | Nov (600 €) + Déc (750 €) + Test (150 €) | **1 500 €** | 983 936 FCFA |
 | Signature mi-novembre (1,5 mois) | Acompte mi-nov (300 €) + Déc (750 €) + Test (150 €) | **1 200 €** | 787 148 FCFA |
 | Signature début décembre (1 mois) | Décembre (600 €) + Test (150 €) | **750 €** | 491 968 FCFA |
 
