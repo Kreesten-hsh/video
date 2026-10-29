@@ -135,7 +135,8 @@ def setup_render_page(browser, html_abs_uri: str, timeline_path: str = None, ren
                     if def_full not in avatars_to_predecode:
                         avatars_to_predecode.append(def_full)
                 break
-            except Exception:
+            except (OSError, json.JSONDecodeError, KeyError) as e:
+                print(f"[Avertissement] Erreur de lecture de brand.json ({brand_p}) pour pré-décodage : {e}")
                 pass
 
     if scenes:
@@ -178,7 +179,8 @@ def extract_theme_bg_color(project_dir: Path = None) -> tuple:
                         return (int(hex_c[1:3], 16), int(hex_c[3:5], 16), int(hex_c[5:7], 16))
                 elif isinstance(theme, str) and theme == "cyber-mint":
                     return (13, 17, 23)
-            except Exception:
+            except (OSError, json.JSONDecodeError, KeyError, ValueError):
+                # Configuration absente ou invalide : repli sur le candidat suivant
                 pass
     return default_bg
 
@@ -201,7 +203,8 @@ def verify_rendered_avatars(video_path: str, scenes: Union[list, str, Path] = No
             try:
                 with open(proj_json, "r", encoding="utf-8") as f:
                     loaded_scenes = json.load(f).get("scenes")
-            except Exception:
+            except (OSError, json.JSONDecodeError):
+                # project.json corrompu ou illisible : repli sur timeline.js
                 pass
         if loaded_scenes is None and timeline_js.exists():
             try:
@@ -210,7 +213,8 @@ def verify_rendered_avatars(video_path: str, scenes: Union[list, str, Path] = No
                 m = re.search(r"window\.SCENES\s*=\s*(\[.*?\]);", c, re.DOTALL)
                 if m:
                     loaded_scenes = json.loads(m.group(1))
-            except Exception:
+            except (OSError, json.JSONDecodeError):
+                # timeline.js illisible ou structure window.SCENES invalide
                 pass
         scenes = loaded_scenes or []
 
@@ -228,16 +232,22 @@ def verify_rendered_avatars(video_path: str, scenes: Union[list, str, Path] = No
         cap = cv2.VideoCapture(str(video_path))
         if cap.isOpened():
             use_cv2 = True
-    except (ImportError, ModuleNotFoundError, Exception):
+    except (ImportError, ModuleNotFoundError):
         use_cv2 = False
 
+    has_pil = False
     try:
         from PIL import Image
         import numpy as np
-    except ImportError:
-        if not use_cv2:
-            print("[Vérification] OpenCV et PIL/NumPy non disponibles. Validation visuelle des avatars ignorée.")
-            return True
+        has_pil = True
+    except (ImportError, ModuleNotFoundError):
+        has_pil = False
+
+    if not use_cv2 and not has_pil:
+        raise RuntimeError(
+            "Vérification des avatars impossible : ni OpenCV ni Pillow/NumPy ne sont disponibles. "
+            "Installez les dépendances via requirements.txt ou passez l'option --no-verify-avatars."
+        )
 
     ffmpeg_bin = shutil.which("ffmpeg") or str(Path(__file__).parent.resolve() / "bin" / "ffmpeg")
     fps = 30.0
@@ -371,7 +381,8 @@ def render_video(
     try:
         from sfx import ensure_sfx_files, mix_sfx
         ensure_sfx_files()
-    except Exception:
+    except (ImportError, OSError):
+        # Module SFX ou synthese procedurale indisponible, mixage ignore
         mix_sfx = None
 
     if project_path:
@@ -389,7 +400,8 @@ def render_video(
                         scenes = p_data.get("scenes")
                     if rendu_deterministe is None:
                         rendu_deterministe = p_data.get("rendu_deterministe", True)
-            except Exception:
+            except (OSError, json.JSONDecodeError):
+                # project.json corrompu ou illisible, conservation des valeurs par defaut
                 pass
 
         if "studio_clients" in str(p_dir):
@@ -441,7 +453,8 @@ def render_video(
             m = re.search(r"window\.SCENES\s*=\s*(\[.*?\]);", c, re.DOTALL)
             if m:
                 scenes = json.loads(m.group(1))
-        except Exception:
+        except (OSError, json.JSONDecodeError):
+            # timeline.js illisible ou structure window.SCENES invalide
             pass
 
     html_abs = Path(html_path).resolve().as_uri()

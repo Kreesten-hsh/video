@@ -115,6 +115,18 @@ class TestVerifyRenderedAvatars(unittest.TestCase):
         ]
         self.assertTrue(verify_rendered_avatars(self.beige_with_avatar_video, mock_scenes))
 
+    def test_missing_cv2_and_pil_raises_runtime_error(self):
+        """Vérifie qu'une RuntimeError explicite est levée si ni OpenCV ni PIL ne sont disponibles."""
+        import sys
+        from unittest.mock import patch
+        mock_scenes = [
+            {"id": "sc_01", "type": "face", "start": 0.0, "end": 0.5, "data": {"avatar": "assets/avatars/question.png"}},
+        ]
+        with patch.dict(sys.modules, {"cv2": None, "PIL": None, "PIL.Image": None}):
+            with self.assertRaises(RuntimeError) as ctx:
+                verify_rendered_avatars(self.black_video, mock_scenes)
+            self.assertIn("ni OpenCV ni Pillow/NumPy", str(ctx.exception))
+
 
 if __name__ == "__main__":
     unittest.main()
