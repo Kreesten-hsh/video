@@ -1,8 +1,8 @@
 # PLAYBOOK OFFICIEL DE PRODUCTION VIDÉO AGENT404
-## Guide d'Ingénierie & Protocole Standardisé en 7 Phases (Loi d'Effet Cliquet $N+1 > N$)
+## Guide d'Ingénierie & Protocole Standardisé en 8 Phases (Loi d'Effet Cliquet $N+1 > N$)
 
 Ce document constitue la **référence absolue** pour la création de toute vidéo au sein du studio (capsules personnelles dans `studio_perso/` ou capsules sur-mesure pour clients dans `studio_clients/`).
-Tout agent ou développeur intervenant sur la chaîne de production **doit exécuter les 7 phases séquentiellement sans en sauter aucune**.
+Tout agent ou développeur intervenant sur la chaîne de production **doit exécuter les 8 phases séquentiellement sans en sauter aucune**.
 
 ---
 
@@ -518,7 +518,7 @@ Chaque dossier client (`studio_clients/<client_id>/`) possède un fichier `brand
   "type": "bp_split_timeline",
   "avatar_mode": "solo",
   "params": {
-    "milestone_label": "MOIS 3 — LE POINT DE RUPTURE",
+    "milestone_label": "MOIS 3 : LE POINT DE RUPTURE",
     "progress_percent": 50,
     "left_col": {
       "header": "VIDÉO CLASSIQUE",

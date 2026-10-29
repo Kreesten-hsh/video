@@ -1,9 +1,9 @@
 ---
 name: produce-video
-description: Protocole officiel en 7 phases pour concevoir, aligner, animer et rendre une vidéo AGENT404 sans régression
+description: Protocole officiel en 8 phases pour concevoir, aligner, animer et rendre une vidéo AGENT404 sans régression
 ---
 
-# Workflow : Production Vidéo AGENT404 (Protocole Standardisé en 7 Phases)
+# Workflow : Production Vidéo AGENT404 (Protocole Standardisé en 8 Phases)
 
 Ce workflow régit la création de toute nouvelle capsule vidéo (`studio_perso/video_XX` ou `studio_clients/<client>/video_XX`).
 Il applique la Loi de l'Effet Cliquet ($N+1 > N$) : aucune vidéo ne peut être rendue si elle n'a pas validé l'intégralité des 5 axes du Gatekeeper.
@@ -12,7 +12,7 @@ Consulter le guide complet dans [`VIDEO_PRODUCTION_PLAYBOOK.md`](../../VIDEO_PRO
 
 ---
 
-## Les 7 Phases Obligatoires
+## Les 8 Phases Obligatoires
 
 ### PHASE 1 : Ingestion Agnostique, Extraction de Joyau & Audit Éditorial
 1. **Entrée Agnostique (Input Agnostic)** : Ingestion de n'importe quel matériau brut (note vocale WhatsApp 2 min, post LinkedIn écrit, documentation technique, schéma Make/n8n, cas client, ou Loom trop long).
@@ -98,3 +98,12 @@ Consulter le guide complet dans [`VIDEO_PRODUCTION_PLAYBOOK.md`](../../VIDEO_PRO
    python3 -m unittest discover -s tests -v
    graphify update .
    ```
+
+### PHASE 8 : Distribution Multi-Canaux & Golden Hour
+1. Se référer au playbook complet [`docs/DISTRIBUTION_PLAYBOOK.md`](../../docs/DISTRIBUTION_PLAYBOOK.md).
+2. Générer le pack de distribution complet :
+   ```bash
+   python3 generate_social_pack.py --projet <dossier>
+   ```
+3. Publication prioritaire LinkedIn (80 % du volume), relais Instagram Reels (20 %), TikTok en pause.
+4. Présence active pendant la Golden Hour (premières 60 minutes après publication) pour répondre aux commentaires et engager les prospects.

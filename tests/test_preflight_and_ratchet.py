@@ -227,7 +227,7 @@ class TestPreflightAndRatchet(unittest.TestCase):
 
         self.assertIn("name: produce-video", wf_content)
         self.assertIn("PHASE 1", wf_content)
-        self.assertIn("PHASE 7", wf_content)
+        self.assertIn("PHASE 8", wf_content)
         self.assertIn("init_video.py", wf_content)
         self.assertIn("preflight_check.py", wf_content)
         self.assertIn("video_memory.json", wf_content)
@@ -236,9 +236,18 @@ class TestPreflightAndRatchet(unittest.TestCase):
         self.assertTrue(playbook_path.exists(), "Fichier VIDEO_PRODUCTION_PLAYBOOK.md introuvable")
         pb_content = playbook_path.read_text(encoding="utf-8")
 
-        # Vérification des 7 phases
-        for phase_num in range(1, 8):
+        # Vérification des 8 phases
+        for phase_num in range(1, 9):
             self.assertIn(f"PHASE {phase_num}", pb_content, f"Phase {phase_num} manquante dans le playbook")
+            self.assertIn(f"PHASE {phase_num}", wf_content, f"Phase {phase_num} manquante dans le workflow")
+
+        # Vérification stricte : le nombre de titres ### PHASE égale le nombre annoncé dans l'introduction (8)
+        pb_phases = re.findall(r"^### PHASE \d+", pb_content, re.MULTILINE)
+        wf_phases = re.findall(r"^### PHASE \d+", wf_content, re.MULTILINE)
+        self.assertEqual(len(pb_phases), 8, f"Le playbook doit comporter exactement 8 titres ### PHASE (trouvé {len(pb_phases)})")
+        self.assertEqual(len(wf_phases), 8, f"Le workflow doit comporter exactement 8 titres ### PHASE (trouvé {len(wf_phases)})")
+        self.assertIn("8 phases", pb_content.lower())
+        self.assertIn("8 phases", wf_content.lower())
 
         # Vérification des piliers de gouvernance
         self.assertIn("Effet Cliquet", pb_content)
