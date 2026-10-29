@@ -7,9 +7,13 @@ la préservation déterministe et l'absence de régression acoustique.
 import unittest
 import tempfile
 import hashlib
+import shutil
+import subprocess
 from pathlib import Path
 
 import sfx
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
 
 
 class TestSfxEngine(unittest.TestCase):
@@ -114,10 +118,33 @@ class TestSfxEngine(unittest.TestCase):
                     self.assertAlmostEqual(t2 - t1, time_shift, places=5)
 
     def test_deterministic_audio_hash_baseline(self):
-        """Vérifie l'invariance absolue bit-à-bit des rendus audio de référence."""
+        """Vérifie l'invariance absolue bit-à-bit des rendus audio de référence sur clone neuf."""
+        ffmpeg_bin = shutil.which("ffmpeg") or str(REPO_ROOT / "bin" / "ffmpeg")
+        if not (shutil.which("ffmpeg") or (REPO_ROOT / "bin" / "ffmpeg").exists()):
+            self.skipTest("Binaire ffmpeg introuvable pour test audio déterministe.")
+
         with tempfile.TemporaryDirectory() as tmp_dir:
-            out_v1 = Path(tmp_dir) / "v1_audio.wav"
-            sfx.mix_sfx(project_path="studio_perso/video_01_decouverte", out_path=str(out_v1))
+            tmp = Path(tmp_dir)
+
+            # 1. video_01_decouverte
+            v1_dir = REPO_ROOT / "studio_perso" / "video_01_decouverte"
+            v1_voix = tmp / "v1_voix.wav"
+            subprocess.run([
+                ffmpeg_bin, "-y",
+                "-i", str(v1_dir / "voix_off1.mp3"),
+                "-acodec", "pcm_s16le",
+                "-ar", "44100",
+                "-ac", "1",
+                str(v1_voix)
+            ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+            out_v1 = tmp / "v1_audio.wav"
+            sfx.mix_sfx(
+                voix_path=str(v1_voix),
+                out_path=str(out_v1),
+                project_path=str(v1_dir),
+                timeline_path=str(v1_dir / "timeline.js")
+            )
             with open(out_v1, "rb") as f:
                 h1 = hashlib.sha256(f.read()).hexdigest()
             self.assertEqual(
@@ -126,8 +153,25 @@ class TestSfxEngine(unittest.TestCase):
                 "Régression acoustique détectée sur studio_perso/video_01_decouverte",
             )
 
-            out_v3 = Path(tmp_dir) / "v3_audio.wav"
-            sfx.mix_sfx(project_path="studio_perso/video_03", out_path=str(out_v3))
+            # 2. video_03
+            v3_dir = REPO_ROOT / "studio_perso" / "video_03"
+            v3_voix = tmp / "v3_voix.wav"
+            subprocess.run([
+                ffmpeg_bin, "-y",
+                "-i", str(v3_dir / "voix_off3.mp3"),
+                "-acodec", "pcm_s16le",
+                "-ar", "44100",
+                "-ac", "1",
+                str(v3_voix)
+            ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+            out_v3 = tmp / "v3_audio.wav"
+            sfx.mix_sfx(
+                voix_path=str(v3_voix),
+                out_path=str(out_v3),
+                project_path=str(v3_dir),
+                timeline_path=str(v3_dir / "timeline.js")
+            )
             with open(out_v3, "rb") as f:
                 h3 = hashlib.sha256(f.read()).hexdigest()
             self.assertEqual(

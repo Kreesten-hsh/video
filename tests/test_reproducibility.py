@@ -88,18 +88,37 @@ class TestReproducibility(unittest.TestCase):
     )
     def test_deterministic_render_six_seconds(self):
         """Vérifie que deux rendus successifs de 6 secondes avec rendu_deterministe=True sont identiques bit-à-bit."""
-        v1_dir = REPO_ROOT / "studio_perso" / "video_01_decouverte"
-        audio_src = v1_dir / "audio_final.wav"
-        if not audio_src.exists():
-            self.skipTest(f"Audio source {audio_src} non disponible.")
+        ffmpeg_bin = shutil.which("ffmpeg") or str(REPO_ROOT / "bin" / "ffmpeg")
+        if not (shutil.which("ffmpeg") or (REPO_ROOT / "bin" / "ffmpeg").exists()):
+            self.skipTest("Binaire ffmpeg introuvable pour test de rendu déterministe.")
 
+        v1_dir = REPO_ROOT / "studio_perso" / "video_01_decouverte"
         with tempfile.TemporaryDirectory() as tmp_dir:
             tmp_path = Path(tmp_dir)
+            audio_src = v1_dir / "audio_final.wav"
+            if not audio_src.exists():
+                tmp_voix = tmp_path / "voix.wav"
+                subprocess.run([
+                    ffmpeg_bin, "-y",
+                    "-i", str(v1_dir / "voix_off1.mp3"),
+                    "-acodec", "pcm_s16le",
+                    "-ar", "44100",
+                    "-ac", "1",
+                    str(tmp_voix)
+                ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                audio_src = tmp_path / "audio_final.wav"
+                sfx.mix_sfx(
+                    voix_path=str(tmp_voix),
+                    out_path=str(audio_src),
+                    project_path=str(v1_dir),
+                    timeline_path=str(v1_dir / "timeline.js")
+                )
+
             audio_6s = tmp_path / "audio_6s.wav"
 
             # 1. Troncature audio à 6s
             subprocess.run([
-                "ffmpeg", "-y", "-i", str(audio_src),
+                ffmpeg_bin, "-y", "-i", str(audio_src),
                 "-t", "6.0",
                 "-c:a", "pcm_s16le",
                 str(audio_6s)
