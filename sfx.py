@@ -642,8 +642,8 @@ def mix_sfx(
             length = end_idx - idx_start
             audio[idx_start:end_idx] += pop_sfx[:length, np.newaxis] * 32767.0
 
-        # 2. Whoosh feutré doux sur transitions big ou kinetic type ou changements de fond majeurs
-        elif sc_type in ["big", "blueprint_kinetic_type"] or bg in ["red", "diamonds", "circles"]:
+        # 2. Whoosh feutré doux sur transitions big ou kinetic type
+        elif sc_type in ["big", "blueprint_kinetic_type"]:
             end_idx = min(total_samples, idx_start + len(whoosh_sfx))
             length = end_idx - idx_start
             audio[idx_start:end_idx] += whoosh_sfx[:length, np.newaxis] * 32767.0

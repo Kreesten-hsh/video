@@ -244,12 +244,9 @@ html, body {
 body,
 #bg-layer,
 #bg-layer.bg-grid,
-#bg-layer.bg-diamonds,
 #bg-layer.bg-circles,
-#video-canvas.bg-diamonds,
 #video-canvas.bg-circles,
 .bg-grid,
-.bg-diamonds,
 .bg-circles {
   position: relative;
   width: 1080px;
