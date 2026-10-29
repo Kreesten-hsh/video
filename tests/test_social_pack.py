@@ -22,28 +22,38 @@ class TestSocialPack(unittest.TestCase):
 
     def test_generate_social_pack_on_video01_decouverte(self):
         """Vérifie la génération sur studio_perso/video_01_decouverte avec avertissement durée 96s."""
-        kit_path = generate_social_pack("studio_perso/video_01_decouverte")
-        self.assertTrue(kit_path.exists(), "DISTRIBUTION_KIT.md introuvable")
+        with tempfile.TemporaryDirectory() as tmpdir:
+            kit_path = generate_social_pack("studio_perso/video_01_decouverte", output_dir=tmpdir)
+            self.assertTrue(kit_path.exists(), "DISTRIBUTION_KIT.md introuvable")
 
-        content = kit_path.read_text(encoding="utf-8")
-        self.assertIn("LINKEDIN", content)
-        self.assertIn("INSTAGRAM REELS", content)
-        self.assertIn("CLARTÉ", content)
-        self.assertIn("96", content)
-        self.assertIn("dépasse le plafond recommandé de 60 s", content)
-        self.assertIn("prioritairement optimisée pour LinkedIn", content)
+            content = kit_path.read_text(encoding="utf-8")
+            self.assertIn("LINKEDIN", content)
+            self.assertIn("INSTAGRAM REELS", content)
+            self.assertIn("CLARTÉ", content)
+            self.assertIn("96", content)
+            self.assertIn("dépasse le plafond recommandé de 60 s", content)
+            self.assertIn("prioritairement optimisée pour LinkedIn", content)
+
+            tracked_kit = REPO_ROOT / "studio_perso" / "video_01_decouverte" / "DISTRIBUTION_KIT.md"
+            if tracked_kit.exists():
+                self.assertEqual(content, tracked_kit.read_text(encoding="utf-8"))
 
     def test_generate_social_pack_on_video03(self):
         """Vérifie la génération sur studio_perso/video_03."""
-        kit_path = generate_social_pack("studio_perso/video_03")
-        self.assertTrue(kit_path.exists(), "DISTRIBUTION_KIT.md introuvable")
+        with tempfile.TemporaryDirectory() as tmpdir:
+            kit_path = generate_social_pack("studio_perso/video_03", output_dir=tmpdir)
+            self.assertTrue(kit_path.exists(), "DISTRIBUTION_KIT.md introuvable")
 
-        content = kit_path.read_text(encoding="utf-8")
-        self.assertIn("LINKEDIN", content)
-        self.assertIn("INSTAGRAM REELS", content)
-        self.assertIn("CLARTÉ", content)
-        self.assertIn("CHECKLIST SMARTPHONE", content)
-        self.assertIn("Golden Hour", content)
+            content = kit_path.read_text(encoding="utf-8")
+            self.assertIn("LINKEDIN", content)
+            self.assertIn("INSTAGRAM REELS", content)
+            self.assertIn("CLARTÉ", content)
+            self.assertIn("CHECKLIST SMARTPHONE", content)
+            self.assertIn("Golden Hour", content)
+
+            tracked_kit = REPO_ROOT / "studio_perso" / "video_03" / "DISTRIBUTION_KIT.md"
+            if tracked_kit.exists():
+                self.assertEqual(content, tracked_kit.read_text(encoding="utf-8"))
 
     def test_generate_social_pack_temp_project(self):
         """Vérifie la génération dans un dossier temporaire arbitraire."""

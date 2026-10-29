@@ -49,7 +49,7 @@ class TestReproducibility(unittest.TestCase):
             # Configuration project.json avec gele: true
             p_data = {
                 "video_number": 1,
-                "title": "Projet Factice Test",
+                "title": "Projet de fixture",
                 "audio_path": str(wav_path),
                 "gele": True,
                 "reference_words": ["Test", "court."],

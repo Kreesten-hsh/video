@@ -12,12 +12,13 @@ Lit project.json et génère DISTRIBUTION_KIT.md dans le dossier du projet cible
 import sys
 import json
 import argparse
+from typing import Optional
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent
 
 
-def generate_social_pack(project_dir: str) -> Path:
+def generate_social_pack(project_dir: str, output_dir: Optional[str] = None) -> Path:
     proj_path = Path(project_dir)
     if not proj_path.is_absolute():
         proj_path = (REPO_ROOT / proj_path).resolve()
@@ -164,7 +165,14 @@ Vous gérez ce process en interne ou vous cherchez à l'automatiser ? Je répond
 - [ ] **Zéro Suppression Immédiate** : Si le reach démarre lentement, laisser l'algorithme analyser pendant au moins 24h.
 """
 
-    output_file = proj_path / "DISTRIBUTION_KIT.md"
+    if output_dir:
+        out_base = Path(output_dir)
+        if not out_base.is_absolute():
+            out_base = (REPO_ROOT / out_base).resolve()
+        out_base.mkdir(parents=True, exist_ok=True)
+        output_file = out_base / "DISTRIBUTION_KIT.md"
+    else:
+        output_file = proj_path / "DISTRIBUTION_KIT.md"
     output_file.write_text(content, encoding="utf-8")
     print(f"✓ Kit de distribution généré avec succès -> {output_file}")
     return output_file
