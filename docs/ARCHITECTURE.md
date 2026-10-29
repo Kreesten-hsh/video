@@ -138,10 +138,9 @@ flowchart TD
   2. *Pop organique mat (35 ms)* : Glissement sinusoïdal grave (90 Hz vers 40 Hz) avec enveloppe amortie pour les apparitions de cartes et d'avatars. Atténuation : $-22\text{ dB}$.
   3. *Micro-clics typewriter (8 ms)* : Impulsions amorties à 650 Hz injectées toutes les 120 ms pendant l'animation de la fenêtre terminal. Atténuation : $-26\text{ dB}$.
   4. *Carte impact & Slams (50 ms)* : Transitoires de choc amorties pour les tampons géants (`ZÉRO VIDÉO`, `ABANDON`, `CLARTÉ`).
-- **Normalisation Audio Automatique** : Le mixage s'assure que la piste combinée voix + SFX est systématiquement normalisée à $-14\text{ dBFS}$ (norme court-format mobile pour Instagram Reels et TikTok), sans saturation ni écrêtage.
+- **Mixage et Gain Acoustique** : Le code n'applique aucune normalisation de loudness (aucun -14 dBFS). Il applique un gain de -14 dB (amplitude 0,1995) aux banques de sons procédurales seulement (`sfx.py` lignes 599 à 600), superpose les formes d'ondes au signal vocal, puis met le PCM final à l'échelle 0,90 avec écrêtage (`sfx.py` ligne 476, `np.clip(samples * 32767.0 * 0.90, -32767.0, 32767.0)`) avant d'exporter `audio_final.wav`.
 - **Reproductibilité déterministe** : Lorsque `rendu_deterministe: true` (par défaut), une graine stable dérivée de l'identifiant du projet (`zlib.crc32`) alimente un générateur `np.random.default_rng(seed)`. Deux mixages successifs produisent des fichiers WAV identiques octet par octet (SHA-256 rigoureusement identiques). Si `rendu_deterministe: false`, le comportement historique sans graine est préservé.
 - **Sound Cues Déclaratifs** : Table déclarative `SFX_CUES` associant chaque type de scène à ses bruitages avec décalages relatifs stricts (`get_scene_cues` et `get_absolute_scene_cues`). Découplage temporel total : déplacer une scène dans le temps translate automatiquement ses cues sans altérer le moteur.
-- **Mixage** : Superpose les formes d'ondes au signal vocal, applique un clamp strict $[-32767, 32767]$ pour éviter tout écrêtage, et exporte `audio_final.wav` dans le dossier projet.
 
 ### C. Moteur Graphique et Composants Visuels : [video.js](../video.js)
 - **Rôle** : Interface de rendu DOM fonctionnant sans horloge asynchrone (`Date.now()`, `requestAnimationFrame` ou `setInterval` proscrits).
