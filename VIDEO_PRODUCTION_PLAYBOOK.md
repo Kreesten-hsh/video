@@ -16,7 +16,7 @@ Tout agent ou développeur intervenant sur la chaîne de production **doit exéc
 7. [PHASE 6 : Validation Pre-Flight Bloquante (< 3s) AVANT Rendu](#phase-6--validation-pre-flight-bloquante--3s-avant-rendu)
 8. [PHASE 7 : Rendu Final 30 FPS, Inspection Visuelle & Clôture Registre](#phase-7--rendu-final-30-fps-inspection-visuelle--cl%C3%B4ture-registre)
 9. [PHASE 8 : Distribution Ciblée (LinkedIn & Instagram) & Golden Hour](#phase-8--distribution-cibl%C3%A9e-linkedin--instagram--golden-hour)
-10. [Catalogue Officiel des 8 Blueprints Universels & Multi-Tenant Studio](#catalogue-officiel-des-8-blueprints-universels--multi-tenant-studio)
+10. [Catalogue Officiel des 9 Blueprints Universels, Multi-Tenant Studio & Pipeline References](#catalogue-officiel-des-9-blueprints-universels-multi-tenant-studio--pipeline-references)
 11. [Matrice d'Audit Rapide (Checklist de Clôture)](#matrice-daudit-rapide-checklist-de-cl%C3%B4ture)
 
 ---
@@ -253,7 +253,7 @@ Transformer le master vidéo en vues qualifiées et en leads B2B en publiant exc
 
 ---
 
-### Catalogue Officiel des 8 Blueprints Universels & Multi-Tenant Studio
+### Catalogue Officiel des 9 Blueprints Universels, Multi-Tenant Studio & Pipeline References
 
 Le studio AGENT404 dispose d'un moteur de production industrialisé "Video-as-Code" multi-tenant. Chaque vidéo client est isolée dans son propre répertoire sous `studio_clients/<client_id>/` et est pilotée **à 100% par `scene.params` dans `project.json`** (ZÉRO nouvelle ligne de JS nécessaire, temps de production divisé par 4 : $< 2\text{ h}$ par vidéo).
 
@@ -306,7 +306,7 @@ Chaque dossier client (`studio_clients/<client_id>/`) possède un fichier `brand
 
 ---
 
-#### 3. Schémas JSON des 8 Blueprints Universels (`bp_*`)
+#### 3. Schémas JSON des 9 Blueprints Universels (`bp_*`)
 
 ##### 1. `bp_hook_question` (Accroche / Obsession / Rupture)
 * **Usage** : Première scène de captation d'attention, question provocatrice ou énoncé d'un problème criant.
@@ -510,6 +510,37 @@ Chaque dossier client (`studio_clients/<client_id>/`) possède un fichier `brand
 }
 ```
 
+##### 9. `bp_split_timeline` (Split-Screen Temporel / Duel d'Évolution)
+* **Usage** : Format narratif inspiré des top-créateurs (Jun Yuh "Choosing the niche" vs "Becoming the niche"). Oppose l'évolution de deux trajectoires dans le temps (Voie classique / perdante à gauche VS Voie Agent404 / gagnante à droite) rythmées par un jalon temporel supérieur (`top-milestone-bar`). Idéal pour scander une métamorphose sur plusieurs paliers temporels (`JOUR 1`, `MOIS 1`, `MOIS 3`, `MOIS 6`).
+```json
+{
+  "id": "scene_05",
+  "type": "bp_split_timeline",
+  "avatar_mode": "solo",
+  "params": {
+    "milestone_label": "MOIS 3 — LE POINT DE RUPTURE",
+    "progress_percent": 50,
+    "left_col": {
+      "header": "VIDÉO CLASSIQUE",
+      "icon": "camera",
+      "status": "cross",
+      "action_text": "20 PRISES RATÉES, FATIGUE MENTALE, PLUS AUCUN POST",
+      "metric_label": "RÉSULTAT",
+      "metric_value": "ABANDON"
+    },
+    "right_col": {
+      "header": "AGENT404 STUDIO",
+      "icon": "rocket",
+      "status": "check",
+      "action_text": "1 VOCAL WHATSAPP = 2 VIDÉOS PAR SEMAINE SANS CAMÉRA",
+      "metric_label": "RÉSULTAT",
+      "metric_value": "24 VIDÉOS PRO"
+    },
+    "footer_stamp": "LA RÉGULARITÉ BAT LE MATÉRIEL"
+  }
+}
+```
+
 ---
 
 #### 4. Workflow Client Standardisé (Zéro JS)
@@ -535,6 +566,40 @@ Chaque dossier client (`studio_clients/<client_id>/`) possède un fichier `brand
    python3 render.py -p studio_clients/<client_id>
    ```
    *Le fichier final est automatiquement généré sous `studio_clients/<client_id>/output_final.mp4`.*
+
+---
+
+#### 5. Pipeline d'Extraction et de Clonage de Formats Viraux (`references/`)
+
+Le dossier `references/` permet d'analyser scientifiquement n'importe quelle vidéo source (Reel Instagram, TikTok, YouTube Shorts ou fichier local) et de la convertir en blueprint exploitable pour le studio.
+
+##### Arborescence
+* `references/inbox/` : Dépôt des vidéos `.mp4` ou de liens dans `urls.txt`.
+* `references/analyzed/<slug>/` :
+  * `AUTOPSIE_FORMAT.md` : Découpage scène par scène (timestamps, script parlé, mécanique visuelle, leviers `@marketing-psychology`, et transposition pour Agent404).
+  * `blueprint_template.json` : Squelette JSON prêt à l'emploi avec les scènes `bp_*` calibrées.
+* `references/CATALOGUE_FORMATS.md` : Index des formats décortiqués et classés selon les 4 piliers narratifs :
+  1. *Trajectoire / Split-Screen Temporel*
+  2. *Autopsie / Coulisses Brutes*
+  3. *Preuve Technique / Étude de Cas Chiffrée*
+  4. *Manifeste / Destruction de Mythe B2B*
+
+##### Utilisation CLI
+```bash
+# Analyse automatique d'une URL de référence :
+python3 analyze_reference.py --input "https://www.instagram.com/reel/DeDsXlHxGFy/" --name 01_jun_yuh_split_screen
+
+# Analyse d'une vidéo locale déposée dans references/inbox :
+python3 analyze_reference.py --input references/inbox/reel_source.mp4 --name format_versus
+```
+
+Le pipeline exécute automatiquement :
+1. Téléchargement ou ingestion média via `yt-dlp` ou fichier local.
+2. Transcription mot-à-mot via WhisperX avec horodatage millimétré.
+3. Détection et scoring du hook sur les 3 premières secondes (`hook.py`).
+4. Mesure du rythme des cuts et calcul du WPM (`pacing.py`).
+5. Synthèse complète sous `AUTOPSIE_FORMAT.md` et génération du squelette `blueprint_template.json` (`report.py`).
+
 
 ---
 

@@ -1,0 +1,13 @@
+# URLs de référence à analyser avec : python3 analyze_reference.py --input <url> --name <slug>
+
+# Pilier 1 : Trajectoire / Split-Screen Temporel
+https://www.instagram.com/reel/DeDsXlHxGFy/?obrf=MzRlODBiNWFlZA==&srtk=MzRlODBiNWFlZA== # slug: 01_jun_yuh_split_screen
+
+# Pilier 2 : Autopsie / Coulisses Brutes (Claude Code & Automation)
+https://www.instagram.com/reel/Dd8mtlVsPrw/?dlrf=MzRlODBiNWFlZA==&srtk=MzRlODBiNWFlZA== # slug: 02_mindura_claude_code
+
+# Pilier 3 : Preuve Technique & Double Porte (Storytelling Caption)
+https://www.instagram.com/reel/DexJ-qWiWdY/?obrf=MzRlODBiNWFlZA==&srtk=MzRlODBiNWFlZA== # slug: 03_sky_tan_storytelling_caption
+
+# Pilier 4 : Manifeste & Catalogue Défilant (20 Formats Viraux)
+https://www.instagram.com/reel/DeR5z1eTKaR/?mdxt=MzRlODBiNWFlZA==&srtk=MzRlODBiNWFlZA== # slug: 04_contentmap_listicle

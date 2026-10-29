@@ -142,6 +142,18 @@
   --safe-width: 900px;
   --safe-height: 1320px;
 
+  /* Blueprint Split Timeline Palette */
+  --split-header-red-bg: #FEE2E2;
+  --split-header-red-text: #991B1B;
+  --split-header-mint-bg: #A7F3D0;
+  --split-header-mint-text: #065F46;
+  --split-icon-red: #DC2626;
+  --split-icon-mint: #059669;
+  --split-action-bg: #F8FAFC;
+  --split-metric-muted: #9CA3AF;
+  --split-metric-red: #EF4444;
+  --split-metric-mint: #34D399;
+
   /* ==========================================================================
      THEME PRESET TOKENS (Multi-Identités Studio & Clients)
      ========================================================================== */
@@ -558,15 +570,13 @@ html[data-theme="obsidian-flame"], body[data-theme="obsidian-flame"], #video-can
 #subtitles-zone .accent {
   color: var(--flame) !important;
   background: transparent !important;
+  padding: 0 !important;
 }
 
 /* ==========================================================================
-   ZONE SOUS-TITRES MULTI-ZONES SUR FOND BEIGE (VERROUILLAGE HAUT STRICT)
+   ZONE SOUS-TITRES MULTI-ZONES SUR FOND BEIGE (MODES DYNAMIQUES PRÉSERVÉS)
    ========================================================================== */
-#subtitles-zone,
-#subtitles-zone.mode-center-slam,
-#subtitles-zone.mode-dynamic-band,
-#subtitles-zone.mode-single-line-top {
+#subtitles-zone {
   position: absolute !important;
   top: 200px !important;
   bottom: auto !important;
@@ -586,6 +596,27 @@ html[data-theme="obsidian-flame"], body[data-theme="obsidian-flame"], #video-can
   border: none !important;
   box-shadow: none !important;
   background: transparent !important;
+}
+
+/* Mode 1 : SINGLE_LINE_TOP (Par défaut en haut) */
+#subtitles-zone.mode-single-line-top {
+  top: 200px !important;
+  transform: none !important;
+  z-index: 50 !important;
+}
+
+/* Mode 2 : CENTER_SLAM (Plein Centre Y: 50%, Slam In) */
+#subtitles-zone.mode-center-slam {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 100 !important;
+}
+
+/* Mode 3 : DYNAMIC_BAND (Bande Y: 66%) */
+#subtitles-zone.mode-dynamic-band {
+  top: 66% !important;
+  transform: translateY(-50%) !important;
+  z-index: 100 !important;
 }
 
 #subtitles-zone .sub-line,
@@ -6011,8 +6042,14 @@ html[data-theme="obsidian-flame"], body[data-theme="obsidian-flame"], #video-can
 }
 
 /* ==========================================================================
-   LES 8 BLUEPRINTS UNIVERSELS DU STUDIO MULTI-TENANT (.bp-*)
+   LES BLUEPRINTS UNIVERSELS DU STUDIO MULTI-TENANT (.bp-*)
    ========================================================================== */
+#visual-stage,
+#visual-stage *,
+#scene-zone,
+#scene-zone *,
+#scene-container,
+#scene-container *,
 .bp-stage,
 .bp-stage * {
   font-family: 'Montserrat', 'Inter', sans-serif !important;
@@ -6047,7 +6084,9 @@ html[data-theme="obsidian-flame"], body[data-theme="obsidian-flame"], #video-can
 .bp-carousel-card,
 .bp-plat-big-card,
 .bp-input-mockup,
-.bp-door-card {
+.bp-door-card,
+.bp-split-card,
+.bp-split-col {
   opacity: 1 !important;
   background: var(--surface-card) !important;
   border: 4px solid var(--ink) !important;
@@ -6763,5 +6802,234 @@ html[data-theme="obsidian-flame"], body[data-theme="obsidian-flame"], #video-can
   text-transform: uppercase !important;
   line-height: 1.3 !important;
 }
+
+/* ==========================================================================
+   BLUEPRINT 9 : SPLIT-SCREEN TEMPOREL (bp_split_timeline)
+   Inspiré du format narratif "Choosing the niche" vs "Becoming the niche" (Jun Yuh)
+   ========================================================================== */
+
+.bp-stage-split-timeline {
+  width: 960px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 20px !important;
+  justify-content: center !important;
+}
+
+.top-milestone-bar {
+  width: 880px !important;
+  min-height: 90px !important;
+  background: var(--ink) !important;
+  color: var(--surface-card) !important;
+  border: 4px solid var(--ink) !important;
+  box-shadow: var(--shadow-brutal) !important;
+  border-radius: 6px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 12px 24px !important;
+  box-sizing: border-box !important;
+}
+
+.top-milestone-label {
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 34px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  color: var(--white) !important;
+  text-align: center !important;
+}
+
+.top-milestone-track {
+  width: 100% !important;
+  height: 8px !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 4px !important;
+  margin-top: 10px !important;
+  overflow: hidden !important;
+}
+
+.top-milestone-progress {
+  height: 100% !important;
+  background: var(--flame) !important;
+  border-radius: 4px !important;
+  transition: width 0.3s ease !important;
+}
+
+.bp-split-container {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 24px !important;
+  width: 900px !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+}
+
+.bp-split-col {
+  width: 430px !important;
+  height: 820px !important;
+  border: 4px solid var(--ink) !important;
+  box-shadow: var(--shadow-brutal) !important;
+  padding: 24px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  border-radius: 6px !important;
+  background: var(--surface-card) !important;
+  opacity: 1 !important;
+}
+
+.bp-split-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 12px 16px !important;
+  border: 3px solid var(--ink) !important;
+  border-radius: 4px !important;
+  box-shadow: var(--shadow-brutal-sm) !important;
+}
+
+.bp-split-header.header-red {
+  background: var(--split-header-red-bg) !important;
+  color: var(--split-header-red-text) !important;
+}
+
+.bp-split-header.header-mint {
+  background: var(--split-header-mint-bg) !important;
+  color: var(--split-header-mint-text) !important;
+}
+
+.bp-split-status-tag {
+  font-size: 24px !important;
+  font-weight: 900 !important;
+}
+
+.bp-split-title {
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 22px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+.bp-split-body {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 20px !important;
+  flex: 1 !important;
+  justify-content: center !important;
+  margin: 16px 0 !important;
+}
+
+.bp-split-icon-box {
+  width: 140px !important;
+  height: 140px !important;
+  border: 4px solid var(--ink) !important;
+  border-radius: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: var(--shadow-brutal-sm) !important;
+}
+
+.bp-split-icon-box.box-red {
+  background: var(--split-header-red-bg) !important;
+  color: var(--split-icon-red) !important;
+}
+
+.bp-split-icon-box.box-mint {
+  background: var(--split-header-mint-bg) !important;
+  color: var(--split-icon-mint) !important;
+}
+
+.bp-split-icon-box i {
+  width: 72px !important;
+  height: 72px !important;
+}
+
+.bp-split-action-card {
+  width: 100% !important;
+  min-height: 200px !important;
+  max-height: 260px !important;
+  background: var(--split-action-bg) !important;
+  border: 3px solid var(--ink) !important;
+  padding: 20px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  border-radius: 6px !important;
+}
+
+.bp-split-action-text {
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 26px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  line-height: 1.35 !important;
+  color: var(--ink) !important;
+  margin: 0 !important;
+}
+
+.bp-split-metric-badge {
+  width: 100% !important;
+  height: 105px !important;
+  background: var(--ink) !important;
+  border: 3px solid var(--ink) !important;
+  border-radius: 6px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 10px !important;
+  box-sizing: border-box !important;
+  box-shadow: var(--shadow-brutal-sm) !important;
+}
+
+.bp-split-metric-label {
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  color: var(--split-metric-muted) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
+.bp-split-metric-value {
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 32px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+}
+
+.bp-split-metric-value.value-red {
+  color: var(--split-metric-red) !important;
+}
+
+.bp-split-metric-value.value-mint {
+  color: var(--split-metric-mint) !important;
+}
+
+.bp-split-footer-stamp {
+  margin-top: 10px !important;
+  background: var(--flame) !important;
+  color: var(--white) !important;
+  border: 4px solid var(--ink) !important;
+  padding: 12px 28px !important;
+  box-shadow: var(--shadow-brutal) !important;
+  transform: rotate(-2deg) !important;
+  font-family: var(--font-heading, 'Montserrat', sans-serif) !important;
+  font-size: 24px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
 
 

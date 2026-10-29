@@ -109,6 +109,15 @@ class TestBlueprintsAndCamera(unittest.TestCase):
         self.assertIn('scene.type === "blueprint_overwhelm"', self.video_js)
         self.assertIn('scene.type === "face_to_dm_cta"', self.video_js)
 
+    def test_bp_split_timeline_registered_and_styled(self):
+        """Vérifie l'enregistrement et le style du 9e blueprint Universel bp_split_timeline."""
+        self.assertIn('bp_split_timeline: renderBpSplitTimeline', self.video_js)
+        self.assertIn('bp_split_timeline: animateBpSplitTimeline', self.video_js)
+        self.assertIn(".bp-stage-split-timeline", self.style_css)
+        self.assertIn(".top-milestone-bar", self.style_css)
+        self.assertIn(".bp-split-col", self.style_css)
+
+
 
 if __name__ == "__main__":
     unittest.main()

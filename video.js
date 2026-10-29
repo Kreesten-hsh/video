@@ -534,12 +534,18 @@
     let mode = "single_line_top";
     if (activeScene && (activeScene.caption_mode === "hidden" || activeScene.caption_mode === "ui_embedded")) {
       mode = "hidden";
+    } else if (activeScene && activeScene.caption_mode === "center_slam") {
+      mode = "center_slam";
+    } else if (activeScene && activeScene.caption_mode === "dynamic_band") {
+      mode = "dynamic_band";
     }
 
-    // Verrouillage absolu : les sous-titres restent TOUJOURS en haut (mode-single-line-top),
-    // interdisant tout écrasement ou déplacement au centre par-dessus les cartes
     if (mode === "hidden") {
       subtitlesZone.className = "mode-hidden";
+    } else if (mode === "center_slam") {
+      subtitlesZone.className = "mode-center-slam";
+    } else if (mode === "dynamic_band") {
+      subtitlesZone.className = "mode-dynamic-band";
     } else {
       subtitlesZone.className = "mode-single-line-top";
     }
@@ -1308,6 +1314,129 @@
     });
   }
 
+  /**
+   * 9e BLUEPRINT UNIVERSEL : bp_split_timeline (SPLIT-SCREEN TEMPOREL)
+   * Inspiré du format viral de Jun Yuh ("Choosing the niche vs Becoming the niche")
+   */
+  function renderBpSplitTimeline(p, sc) {
+    const milestoneLabel = p.milestone_label || "MOIS 1 — LE DUEL";
+    const progressPercent = typeof p.progress_percent === "number" ? Math.max(0, Math.min(100, p.progress_percent)) : 25;
+    const left = p.left_col || {
+      header: "TOURNAGE CLASSIQUE",
+      icon: "camera",
+      status: "cross",
+      action_text: "20 PRISES RATÉES, 4H DE MONTAGE",
+      metric_label: "RÉSULTAT",
+      metric_value: "ABANDON"
+    };
+    const right = p.right_col || {
+      header: "STUDIO AGENT404",
+      icon: "rocket",
+      status: "check",
+      action_text: "1 VOCAL WHATSAPP = 2 VIDÉOS SANS CAMÉRA",
+      metric_label: "RÉSULTAT",
+      metric_value: "24 VIDÉOS PRO"
+    };
+    const footerStamp = p.footer_stamp || "";
+
+    return `
+      <div class="bp-stage bp-stage-split-timeline" id="bp-split-stage">
+        <div class="top-milestone-bar" id="bp-split-milestone-bar">
+          <div class="top-milestone-label">${milestoneLabel}</div>
+          <div class="top-milestone-track">
+            <div class="top-milestone-progress" id="bp-split-progress" style="width: ${progressPercent}%;"></div>
+          </div>
+        </div>
+
+        <div class="bp-split-container">
+          <!-- Colonne Gauche : Voie Perdante / Classique -->
+          <div class="bp-split-col col-left" id="bp-split-col-left">
+            <div class="bp-split-header header-red">
+              <span class="bp-split-header-text">${left.header || "TOURNAGE CLASSIQUE"}</span>
+              ${left.status === "cross" ? `<span class="bp-status-cross">${getSvgIcon("cross", 32)}</span>` : ""}
+            </div>
+            <div class="bp-split-icon-box box-red">
+              ${getSvgIcon(left.icon || "camera", 64)}
+            </div>
+            <div class="bp-split-action-card">
+              <div class="bp-split-action-text">${left.action_text || ""}</div>
+            </div>
+            <div class="bp-split-metric-badge badge-dark-red">
+              <span class="bp-split-metric-label">${left.metric_label || "RÉSULTAT"}</span>
+              <span class="bp-split-metric-value value-red">${left.metric_value || "0 LEAD"}</span>
+            </div>
+          </div>
+
+          <!-- Colonne Droite : Voie Gagnante / Agent404 / Devenir sa niche -->
+          <div class="bp-split-col col-right" id="bp-split-col-right">
+            <div class="bp-split-header header-mint">
+              <span class="bp-split-header-text">${right.header || "STUDIO AGENT404"}</span>
+              ${right.status === "check" ? `<span class="bp-status-check">${getSvgIcon("check", 32)}</span>` : ""}
+            </div>
+            <div class="bp-split-icon-box box-mint">
+              ${getSvgIcon(right.icon || "rocket", 64)}
+            </div>
+            <div class="bp-split-action-card card-action-right" id="bp-split-action-right">
+              <div class="bp-split-action-text">${right.action_text || ""}</div>
+            </div>
+            <div class="bp-split-metric-badge badge-dark-mint" id="bp-split-metric-right">
+              <span class="bp-split-metric-label">${right.metric_label || "RÉSULTAT"}</span>
+              <span class="bp-split-metric-value value-mint">${right.metric_value || "24 VIDÉOS"}</span>
+            </div>
+          </div>
+        </div>
+
+        ${footerStamp ? `<div class="bp-split-footer-stamp" id="bp-split-footer-stamp">${footerStamp}</div>` : ""}
+      </div>
+    `;
+  }
+
+  function animateBpSplitTimeline(p, progress, elapsed, t, sc) {
+    const bar = document.getElementById("bp-split-milestone-bar");
+    const colLeft = document.getElementById("bp-split-col-left");
+    const colRight = document.getElementById("bp-split-col-right");
+    const stamp = document.getElementById("bp-split-footer-stamp");
+    const cardRight = document.getElementById("bp-split-action-right");
+
+    if (bar) {
+      const s = calcSpringOvershoot(elapsed);
+      bar.style.transform = `scale(${s.scale})`;
+      bar.style.opacity = "1";
+    }
+
+    if (colLeft) {
+      const s = calcSpringOvershoot(Math.max(0, elapsed - 0.05));
+      colLeft.style.transform = `scale(${s.scale})`;
+      colLeft.style.opacity = "1";
+    }
+
+    if (colRight) {
+      if (elapsed < 0.15) {
+        colRight.style.opacity = "0.2";
+        colRight.style.transform = "translateY(16px) scale(0.96)";
+      } else {
+        const s = calcSpringOvershoot(elapsed - 0.15);
+        colRight.style.opacity = "1";
+        colRight.style.transform = `translateY(0px) scale(${s.scale})`;
+      }
+    }
+
+    if (cardRight && elapsed >= 0.25) {
+      cardRight.style.opacity = "1";
+    }
+
+    if (stamp) {
+      if (elapsed >= 0.8) {
+        const s = calcSpringOvershoot(elapsed - 0.8);
+        stamp.style.opacity = "1";
+        stamp.style.transform = `rotate(-4deg) scale(${s.scale})`;
+      } else {
+        stamp.style.opacity = "0";
+        stamp.style.transform = "rotate(10deg) scale(1.6)";
+      }
+    }
+  }
+
   const BLUEPRINT_RENDERERS = {
     bp_hook_question: renderBpHookQuestion,
     bp_friction_stack: renderBpFrictionStack,
@@ -1316,7 +1445,8 @@
     bp_code_window: renderBpCodeWindow,
     bp_grid_2x2: renderBpGrid2x2,
     bp_logo_carousel_rtl: renderBpLogoCarouselRtl,
-    bp_cta_conversion: renderBpCtaConversion
+    bp_cta_conversion: renderBpCtaConversion,
+    bp_split_timeline: renderBpSplitTimeline
   };
 
   const BLUEPRINT_ANIMATORS = {
@@ -1327,7 +1457,8 @@
     bp_code_window: animateBpCodeWindow,
     bp_grid_2x2: animateBpGrid2x2,
     bp_logo_carousel_rtl: animateBpLogoCarouselRtl,
-    bp_cta_conversion: animateBpCtaConversion
+    bp_cta_conversion: animateBpCtaConversion,
+    bp_split_timeline: animateBpSplitTimeline
   };
 
   const SVG_LINKEDIN = `<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="10" fill="#0A66C2"/><path d="M14.5 19H19.5V35H14.5V19ZM17 12C15.4 12 14 13.4 14 15C14 16.6 15.4 18 17 18C18.6 18 20 16.6 20 15C20 13.4 18.6 12 17 12Z" fill="white"/><path d="M22.5 19H27.3V21.2H27.4C28.1 19.9 29.8 18.5 32.3 18.5C37.5 18.5 38.5 21.9 38.5 26.4V35H33.5V27.1C33.5 25.2 33.5 22.8 30.8 22.8C28.1 22.8 27.7 24.9 27.7 26.9V35H22.5V19Z" fill="white"/></svg>`;

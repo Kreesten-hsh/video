@@ -1,0 +1,149 @@
+{
+  "reference_slug": "01_jun_yuh_split_screen",
+  "recommended_blueprint": "bp_split_timeline",
+  "narrative_pillar": "Pilier 1 : Trajectoire / Split-Screen Temporel",
+  "estimated_duration": 48.0,
+  "scenes": [
+    {
+      "id": "scene_01",
+      "type": "bp_hook_question",
+      "start": 0.0,
+      "end": 4.0,
+      "params": {
+        "top_badge": "DUEL B2B",
+        "title": "POURQUOI 9 DIRIGEANTS SUR 10 ABANDONNENT LA VIDÉO ?",
+        "subtitle": "Voici ce qui se passe réellement sur 6 mois.",
+        "box_color": "var(--tile-yellow)",
+        "icon": "question",
+        "stamp_text": "LE TEST"
+      }
+    },
+    {
+      "id": "scene_02",
+      "type": "bp_split_timeline",
+      "start": 4.0,
+      "end": 13.0,
+      "params": {
+        "milestone_label": "JOUR 1 — LE CHOIX INITIAL",
+        "progress_percent": 15,
+        "left_col": {
+          "header": "TOURNAGE CLASSIQUE",
+          "icon": "camera",
+          "status": "cross",
+          "action_text": "ACHAT MATÉRIEL, SETUP LUMIÈRE, 20 PRISES",
+          "metric_label": "INVESTISSEMENT",
+          "metric_value": "1 500 € PERDUS"
+        },
+        "right_col": {
+          "header": "STUDIO AGENT404",
+          "icon": "rocket",
+          "status": "check",
+          "action_text": "ENVOI D'UN VOCAL OU COPIER-COLLER LINKEDIN",
+          "metric_label": "EFFORT REQUIS",
+          "metric_value": "2 MINUTES"
+        },
+        "footer_stamp": "DÉMARRAGE IMMÉDIAT"
+      }
+    },
+    {
+      "id": "scene_03",
+      "type": "bp_split_timeline",
+      "start": 13.0,
+      "end": 23.0,
+      "params": {
+        "milestone_label": "MOIS 1 — LE PREMIER BILAN",
+        "progress_percent": 35,
+        "left_col": {
+          "header": "TOURNAGE CLASSIQUE",
+          "icon": "clock",
+          "status": "cross",
+          "action_text": "1 SEULE VIDÉO PUBLIÉE, 4 HEURES DE MONTAGE",
+          "metric_label": "RÉSULTAT",
+          "metric_value": "FATIGUE MENTALE"
+        },
+        "right_col": {
+          "header": "STUDIO AGENT404",
+          "icon": "bolt",
+          "status": "check",
+          "action_text": "8 VIDÉOS LIVRÉES SANS TOUCHER UNE CAMÉRA",
+          "metric_label": "DIFFUSION",
+          "metric_value": "4 PLATEFORMES"
+        },
+        "footer_stamp": "RYTHME RÉGULIER"
+      }
+    },
+    {
+      "id": "scene_04",
+      "type": "bp_split_timeline",
+      "start": 23.0,
+      "end": 33.0,
+      "params": {
+        "milestone_label": "MOIS 3 — LE MUR LOGISTIQUE",
+        "progress_percent": 65,
+        "left_col": {
+          "header": "TOURNAGE CLASSIQUE",
+          "icon": "cross",
+          "status": "cross",
+          "action_text": "PAGE BLANCHE, MATÉRIEL QUI PREND LA POUSSIÈRE",
+          "metric_label": "PUBLICATION",
+          "metric_value": "ARRÊT TOTAL"
+        },
+        "right_col": {
+          "header": "STUDIO AGENT404",
+          "icon": "mic",
+          "status": "check",
+          "action_text": "24 VIDÉOS EN LIGNE, INGESTION DES CAS CLIENTS",
+          "metric_label": "RÉSULTAT",
+          "metric_value": "AUTORITÉ B2B"
+        },
+        "footer_stamp": "ZÉRO INTERRUPTEUR"
+      }
+    },
+    {
+      "id": "scene_05",
+      "type": "bp_split_timeline",
+      "start": 33.0,
+      "end": 40.0,
+      "params": {
+        "milestone_label": "MOIS 6 — LE VERDICT FINAL",
+        "progress_percent": 100,
+        "left_col": {
+          "header": "TOURNAGE CLASSIQUE",
+          "icon": "cross",
+          "status": "cross",
+          "action_text": "ABANDON COMPLET, INTERCHANGEABLE AVEC LES AUTRES",
+          "metric_label": "STATUS",
+          "metric_value": "ÉCHEC DU FORMAT"
+        },
+        "right_col": {
+          "header": "STUDIO AGENT404",
+          "icon": "rocket",
+          "status": "check",
+          "action_text": "RÉFÉRENCE INCONTOURNABLE, FLUX DE LEADS ENTRANT",
+          "metric_label": "STATUS",
+          "metric_value": "MONOPOLE PERSONNEL"
+        },
+        "footer_stamp": "SYSTÈME PÉRENNE"
+      }
+    },
+    {
+      "id": "scene_06",
+      "type": "bp_cta_conversion",
+      "start": 40.0,
+      "end": 48.0,
+      "params": {
+        "top_badge": "PASSER À L'ACTION",
+        "title": "Reçois ta vidéo test en 48 heures",
+        "keyword": "CLARTÉ",
+        "door_1": {
+          "title": "TEST DÉCOUVERTE",
+          "desc": "1 vidéo produite sur ton meilleur post"
+        },
+        "door_2": {
+          "title": "STUDIO MENSUEL",
+          "desc": "8 vidéos par mois sans tournage"
+        }
+      }
+    }
+  ]
+}
