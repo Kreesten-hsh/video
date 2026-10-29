@@ -4,7 +4,7 @@
   "topic": "Transformer des posts LinkedIn en vidéos haute précision",
   "theme_preset": "obsidian-flame",
   "cta_keyword": "CLARTÉ",
-  "audio_path": "voix.wav",
+  "audio_path": "voix_off3.mp3",
   "gele": false,
   "rendu_deterministe": true,
   "reference_words": [

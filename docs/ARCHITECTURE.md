@@ -127,6 +127,9 @@ flowchart TD
      - Vérifie qu'aucun mot n'est inventé ou omis.
      - Vérifie que chaque scène s'enchaîne sans trou ni chevauchement ($\Delta t \le 0{,}001\text{ s}$).
      - Vérifie la cohérence entre durée calculée et durée du fichier audio.
+  6. *Conditions de déclenchement du réalignement Whisper* :
+     - Le réalignement par Whisper est exécuté si `force_realign` est actif, ou si `words.json` est absent, ou si son contenu est invalide (capture stricte de `(OSError, json.JSONDecodeError)`), ou si la fin du dernier mot transcrit s'écarte de plus de 1,5 seconde de la durée ffprobe du fichier audio source.
+     - Sur un clone neuf intègre, l'alignement existant est réutilisé directement sans appel à Whisper, garantissant des tests reproductibles et rapides.
 
 ### B. Sound Design Procédural : [sfx.py](../sfx.py)
 - **Rôle** : Génère par synthèse mathématique pure (NumPy) des micro-bruitages feutrés calés sur le rythme des scènes, sans nécessiter de banques d'échantillons externes.

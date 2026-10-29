@@ -119,8 +119,9 @@ def get_audio_duration(audio_file_path: Path) -> float:
         except Exception:
             pass
 
+    ffprobe_bin = shutil.which("ffprobe") or str(REPO_ROOT / "bin" / "ffprobe")
     cmd = [
-        "ffprobe", "-v", "error",
+        ffprobe_bin, "-v", "error",
         "-show_entries", "format=duration",
         "-of", "default=noprint_wrappers=1:nokey=1",
         str(audio_file_path)
@@ -304,8 +305,9 @@ def align_reference_audio(audio_source_path: Path, reference_words: list, phonet
 
     if not output_voix_wav.exists() or audio_source_path.stat().st_mtime > output_voix_wav.stat().st_mtime:
         print(f"[Audio Reference] Conversion technique en PCM WAV : {output_voix_wav}...")
+        ffmpeg_bin = shutil.which("ffmpeg") or str(REPO_ROOT / "bin" / "ffmpeg")
         cmd = [
-            "ffmpeg", "-y",
+            ffmpeg_bin, "-y",
             "-i", str(audio_source_path),
             "-c:a", "pcm_s16le",
             "-ar", "44100",
@@ -459,12 +461,24 @@ def run_pipeline(
 
     # Vérification de la nécessité d'un réalignement acoustique Whisper
     should_align = False
+    words_data = None
     if force_realign:
         should_align = True
     elif not source_words_json.exists():
         should_align = True
-    elif audio_source.stat().st_mtime > source_words_json.stat().st_mtime:
-        should_align = True
+    else:
+        try:
+            with open(source_words_json, "r", encoding="utf-8") as f:
+                words_data = json.load(f)
+            if not isinstance(words_data, list) or len(words_data) == 0:
+                should_align = True
+            else:
+                last_word_end = float(words_data[-1].get("end", 0.0))
+                audio_dur = get_audio_duration(audio_source)
+                if abs(last_word_end - audio_dur) > 1.5:
+                    should_align = True
+        except (OSError, json.JSONDecodeError):
+            should_align = True
 
     if should_align:
         print(f"[Pipeline] Alignement Whisper requis pour {project_dir.name}...")
@@ -478,15 +492,15 @@ def run_pipeline(
         )
     else:
         print(f"[Pipeline] Alignement existant réutilisé ({source_words_json}).")
-        with open(source_words_json, "r", encoding="utf-8") as f:
-            words = json.load(f)
+        words = words_data if words_data is not None else json.loads(source_words_json.read_text(encoding="utf-8"))
 
         # Garantir l'existence de voix.wav si non présent
         source_voix_wav = target_voix_wav if target_voix_wav.exists() else (project_dir / "voix.wav")
         if not source_voix_wav.exists() or audio_source.stat().st_mtime > source_voix_wav.stat().st_mtime:
             print(f"[Pipeline] Génération de {target_voix_wav} depuis {audio_source.name}...")
+            ffmpeg_bin = shutil.which("ffmpeg") or str(REPO_ROOT / "bin" / "ffmpeg")
             cmd = [
-                "ffmpeg", "-y",
+                ffmpeg_bin, "-y",
                 "-i", str(audio_source),
                 "-c:a", "pcm_s16le",
                 "-ar", "44100",

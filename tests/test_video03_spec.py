@@ -38,7 +38,7 @@ class TestVideo03Spec(unittest.TestCase):
         """Vérifie l'existence et la validité des champs obligatoires de project.json."""
         self.assertEqual(self.project_data.get("video_number"), 3)
         self.assertEqual(self.project_data.get("cta_keyword"), "CLARTÉ")
-        self.assertEqual(self.project_data.get("audio_path"), "voix.wav")
+        self.assertEqual(self.project_data.get("audio_path"), "voix_off3.mp3")
         self.assertTrue(len(self.project_data.get("scenes", [])) >= 8)
         self.assertTrue(len(self.project_data.get("reference_words", [])) > 150)
 

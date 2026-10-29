@@ -274,6 +274,68 @@ class TestPreflightAndRatchet(unittest.TestCase):
             f"Fichiers volumineux non autorisés détectés dans HEAD (seuil 15 Mo) : {oversized_files}"
         )
 
+    def test_tracked_project_json_audio_path_is_tracked(self):
+        """Vérifie que pour chaque project.json suivi, audio_path désigne un fichier suivi par git et non ignoré."""
+        import subprocess
+        tracked_projects = subprocess.check_output(
+            ["git", "ls-files", "*project.json"],
+            cwd=str(REPO_ROOT),
+            text=True
+        ).splitlines()
+        self.assertTrue(len(tracked_projects) > 0, "Aucun project.json suivi trouvé")
+
+        for proj_file in tracked_projects:
+            proj_path = REPO_ROOT / proj_file
+            with open(proj_path, "r", encoding="utf-8") as f:
+                p_data = json.load(f)
+            audio_path = p_data.get("audio_path")
+            self.assertIsNotNone(audio_path, f"'audio_path' manquant dans {proj_file}")
+            target_audio = proj_path.parent / audio_path
+            rel_audio = target_audio.relative_to(REPO_ROOT)
+            res = subprocess.run(
+                ["git", "ls-files", "--error-unmatch", str(rel_audio)],
+                cwd=str(REPO_ROOT),
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+            self.assertEqual(
+                res.returncode, 0,
+                f"Le fichier audio '{rel_audio}' désigné par {proj_file} n'est pas suivi par git ou est ignoré."
+            )
+
+    def test_whisper_realign_trigger_conditions(self):
+        """Vérifie que la condition Whisper ne réaligne pas sur clone neuf valide mais réaligne si l'audio s'écarte de words.json."""
+        import build_master_timeline
+        import tempfile
+        import shutil
+
+        # Cas 1 : clone neuf valide (video_03) -> pas de réalignement requis
+        v3_dir = REPO_ROOT / "studio_perso" / "video_03"
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp = Path(tmp_dir)
+            shutil.copy(v3_dir / "project.json", tmp / "project.json")
+            shutil.copy(v3_dir / "words.json", tmp / "words.json")
+            shutil.copy(v3_dir / "voix_off3.mp3", tmp / "voix_off3.mp3")
+
+            # Mtime audio plus récent que words.json (comme après un git clone)
+            os.utime(tmp / "voix_off3.mp3", None)
+
+            words_file = tmp / "words.json"
+            audio_file = tmp / "voix_off3.mp3"
+            audio_dur = build_master_timeline.get_audio_duration(audio_file)
+            with open(words_file, "r", encoding="utf-8") as f:
+                w_data = json.load(f)
+            last_end = float(w_data[-1].get("end", 0.0))
+
+            diff_valid = abs(last_end - audio_dur)
+            self.assertLessEqual(diff_valid, 1.5, "L'écart ne doit pas dépasser 1.5s sur clone neuf valide")
+
+            # Cas 2 : audio plus long que words.json de plus de 1.5s -> réalignement requis
+            w_short = [w for w in w_data if w["end"] <= (last_end - 5.0)]
+            last_end_short = float(w_short[-1].get("end", 0.0))
+            diff_invalid = abs(last_end_short - audio_dur)
+            self.assertGreater(diff_invalid, 1.5, "L'écart doit dépasser 1.5s pour réalignement")
+
 
 if __name__ == "__main__":
     unittest.main()
