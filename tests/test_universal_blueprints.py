@@ -50,8 +50,8 @@ class TestUniversalBlueprints(unittest.TestCase):
             
         self.assertIn("function getSvgIcon(", self.video_js, "Fonction getSvgIcon manquante dans video.js")
 
-    def test_eight_blueprint_renderers_declared(self):
-        """Vérifie la présence et le dispatch des 8 renderers universels."""
+    def test_nine_blueprint_renderers_declared(self):
+        """Vérifie la présence et le dispatch des 9 renderers universels."""
         blueprints = [
             "bp_hook_question",
             "bp_friction_stack",
@@ -60,7 +60,8 @@ class TestUniversalBlueprints(unittest.TestCase):
             "bp_code_window",
             "bp_grid_2x2",
             "bp_logo_carousel_rtl",
-            "bp_cta_conversion"
+            "bp_cta_conversion",
+            "bp_split_timeline"
         ]
         
         self.assertIn("const BLUEPRINT_RENDERERS = {", self.video_js)
@@ -76,9 +77,10 @@ class TestUniversalBlueprints(unittest.TestCase):
         self.assertIn("function renderBpGrid2x2(", self.video_js)
         self.assertIn("function renderBpLogoCarouselRtl(", self.video_js)
         self.assertIn("function renderBpCtaConversion(", self.video_js)
+        self.assertIn("function renderBpSplitTimeline(", self.video_js)
 
-    def test_eight_blueprint_animators_declared(self):
-        """Vérifie la présence et le dispatch des 8 animateurs universels."""
+    def test_nine_blueprint_animators_declared(self):
+        """Vérifie la présence et le dispatch des 9 animateurs universels."""
         blueprints = [
             "bp_hook_question",
             "bp_friction_stack",
@@ -87,7 +89,8 @@ class TestUniversalBlueprints(unittest.TestCase):
             "bp_code_window",
             "bp_grid_2x2",
             "bp_logo_carousel_rtl",
-            "bp_cta_conversion"
+            "bp_cta_conversion",
+            "bp_split_timeline"
         ]
         
         self.assertIn("const BLUEPRINT_ANIMATORS = {", self.video_js)
@@ -103,6 +106,38 @@ class TestUniversalBlueprints(unittest.TestCase):
         self.assertIn("function animateBpGrid2x2(", self.video_js)
         self.assertIn("function animateBpLogoCarouselRtl(", self.video_js)
         self.assertIn("function animateBpCtaConversion(", self.video_js)
+        self.assertIn("function animateBpSplitTimeline(", self.video_js)
+
+    def test_each_blueprint_has_sfx_cues_or_documented_exemption(self):
+        """Vérifie que chaque type bp_* géré par video.js possède une entrée SFX_CUES ou une exemption documentée."""
+        import sfx
+        bp_renderers = re.findall(r"(bp_[a-z0-9_]+)\s*:\s*render", self.video_js)
+        self.assertEqual(len(bp_renderers), 9)
+        for bp in bp_renderers:
+            has_cues = bp in sfx.SFX_CUES
+            has_exemption = bp in getattr(sfx, "SFX_DYNAMIC_BLUEPRINT_EXEMPTIONS", set())
+            self.assertTrue(
+                has_cues or has_exemption,
+                f"Le blueprint '{bp}' n'a ni entrée dans SFX_CUES ni exemption documentée dans SFX_DYNAMIC_BLUEPRINT_EXEMPTIONS."
+            )
+            cues = sfx.get_scene_cues({"type": bp, "params": {}})
+            self.assertTrue(len(cues) > 0, f"get_scene_cues retourne des repères vides pour {bp}")
+
+    def test_blueprint_count_matches_across_docs_and_code(self):
+        """Vérifie que le nombre de bp_* dans video.js égale le nombre annoncé dans README, ARCHITECTURE et playbook."""
+        bp_renderers = set(re.findall(r"(bp_[a-z0-9_]+)\s*:\s*render", self.video_js))
+        count = len(bp_renderers)
+        self.assertEqual(count, 9)
+
+        readme_text = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+        arch_text = (REPO_ROOT / "docs" / "ARCHITECTURE.md").read_text(encoding="utf-8")
+        playbook_text = (REPO_ROOT / "VIDEO_PRODUCTION_PLAYBOOK.md").read_text(encoding="utf-8")
+        profile_text = (REPO_ROOT / ".agents" / "PROJECT_PROFILE.md").read_text(encoding="utf-8")
+
+        self.assertIn("9 blueprints universels", readme_text)
+        self.assertIn("Les 9 Blueprints Universels", arch_text)
+        self.assertIn("9 Blueprints Universels", playbook_text)
+        self.assertIn("9 blueprints universels", profile_text)
 
     def test_multi_tenant_brand_resolution_in_video_js(self):
         """Vérifie l'application dynamique de brand.json et la résolution d'avatars."""

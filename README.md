@@ -84,7 +84,18 @@ L'ensemble de l'ingénierie logicielle, des scripts de vente et des vidéos prod
 ## 5. Pipeline Technique & Architecture
 
 AGENT404 est un pipeline de production vidéo vertical (1080x1920, 30 FPS, format 9:16) entièrement piloté par le code (Python, FFmpeg, Playwright/Chromium, Vanilla HTML5/CSS/JavaScript).
-Il transforme une note vocale ou un texte en une capsule rythmée : avatar sticker découpé, sous-titres dynamiques synchronisés au mot près, blueprints universels réutilisables (`bp_*`), thème Obsidian Flame (fond beige uni #F5F2EB, encre #111111, accent orange flamme #FF4F18) et sound design procédural NumPy.
+Il transforme une note vocale ou un texte en une capsule rythmée : avatar sticker découpé, sous-titres dynamiques synchronisés au mot près, 9 blueprints universels réutilisables (`bp_*`), thème Obsidian Flame (fond beige uni #F5F2EB, encre #111111, accent orange flamme #FF4F18) et sound design procédural NumPy.
+
+### Les 9 blueprints universels (`bp_*`)
+1. `bp_hook_question`
+2. `bp_friction_stack`
+3. `bp_stat_shock`
+4. `bp_versus_compare`
+5. `bp_code_window`
+6. `bp_grid_2x2`
+7. `bp_logo_carousel_rtl`
+8. `bp_cta_conversion`
+9. `bp_split_timeline`
 
 ### État des branches
 - `main` : branche historique du dépôt.

@@ -376,6 +376,22 @@ SFX_CUES: dict[str, list[tuple[str, float, float]]] = {
         ("pop", 0.60, 1.0),
         ("stamp", 1.20, 1.0),
     ],
+    "bp_split_timeline": [
+        ("pop", 0.05, 1.0),
+        ("pop", 0.15, 1.0),
+        ("stamp", 0.80, 1.0),
+    ],
+}
+
+# Exemptions documentees : blueprints universels dont les reperes sonores dependent
+# de parametres dynamiques (listes d'items, cartes, portes ou offsets variables)
+# resolus a l'execution dans get_scene_cues.
+SFX_DYNAMIC_BLUEPRINT_EXEMPTIONS = {
+    "bp_friction_stack",
+    "bp_code_window",
+    "bp_grid_2x2",
+    "bp_logo_carousel_rtl",
+    "bp_cta_conversion",
 }
 
 
@@ -411,7 +427,7 @@ def get_scene_cues(sc: dict) -> list[tuple[str, float, float]]:
 
     # Scènes bp_* dynamiques
     elif sc_type == "bp_friction_stack":
-        items = params.get("items", [])
+        items = params.get("items", []) or [{"appear_at_offset": 0.0}]
         for idx, itm in enumerate(items):
             dt = float(itm.get("appear_at_offset", idx * 0.45))
             cues.append(("pop", dt, 1.0))
@@ -424,13 +440,13 @@ def get_scene_cues(sc: dict) -> list[tuple[str, float, float]]:
         cues.append(("stamp", stamp_off, 1.0))
 
     elif sc_type == "bp_grid_2x2":
-        cards = params.get("cards", [])
+        cards = params.get("cards", []) or [{"appear_at_offset": 0.0}]
         for idx, c in enumerate(cards):
             dt = float(c.get("appear_at_offset", idx * 0.35))
             cues.append(("pop", dt, 1.0))
 
     elif sc_type == "bp_logo_carousel_rtl":
-        items = params.get("items", [])
+        items = params.get("items", []) or [{"appear_at_offset": 0.0}]
         t_start = float(sc.get("start", 0.0))
         for idx, itm in enumerate(items):
             if "appear_at_offset" in itm:
@@ -453,6 +469,16 @@ def get_scene_cues(sc: dict) -> list[tuple[str, float, float]]:
         for d in doors:
             if "appear_at_offset" in d:
                 cues.append(("pop", float(d["appear_at_offset"]), 0.8))
+
+    elif sc_type == "bp_split_timeline":
+        left_off = float(params.get("left_offset", 0.05))
+        right_off = float(params.get("right_offset", 0.15))
+        stamp_off = float(params.get("stamp_offset", 0.80))
+        cues = [
+            ("pop", left_off, 1.0),
+            ("pop", right_off, 1.0),
+            ("stamp", stamp_off, 1.0),
+        ]
 
     return cues
 

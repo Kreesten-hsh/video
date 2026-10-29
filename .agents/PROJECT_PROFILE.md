@@ -16,7 +16,7 @@
   - Pastels Sémantiques : Jaune `#FEF08A`, Bleu `#BFDBFE`, Vert `#A7F3D0`
   - Surface Cartes : `#FFFFFF`
   - Zéro rose `#FF2A5F`, aucun fond sombre, aucune grille.
-- **Architecture Multi-Tenant**: Fichiers moteur (`index.html`, `style.css`, `video.js`) à la racine partagée, 8 blueprints universels (`bp_*`), projets contenant uniquement leurs données.
+- **Architecture Multi-Tenant**: Fichiers moteur (`index.html`, `style.css`, `video.js`) à la racine partagée, 9 blueprints universels (`bp_*`), projets contenant uniquement leurs données.
 - **Languages**: HTML5, Vanilla CSS, JavaScript (Deterministic frame-by-frame), Python 3.12 (Pipeline, SFX, FFmpeg)
 - **Package Manager**: pip / pure standard libraries
 - **Frameworks**: Vanilla JS (Zero React, Zero node_modules, Zero Remotion)

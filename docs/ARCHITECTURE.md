@@ -162,7 +162,7 @@ flowchart TD
 - **Chorégraphie Spatiale d'Avatar** :
   - Modes `solo`, `duo_lymphe`, `hidden`, `inset`.
   - Maintien rigoureux d'un espace de respiration $> 150\text{px}$ entre la tête de l'avatar et les cartes/titres (zéro collision).
-- **Les 8 Blueprints Universels Réutilisables (`bp_*`)** :
+- **Les 9 Blueprints Universels Réutilisables (`bp_*`)** :
   1. `bp_hook_question` : Question provocatrice avec tampon géant et avatar expressif.
   2. `bp_friction_stack` : Pile de 3 cartes de friction avec allumage séquentiel individuel.
   3. `bp_stat_shock` : Chiffre choc avec compteur progressif et barre de progression.
@@ -171,6 +171,7 @@ flowchart TD
   6. `bp_grid_2x2` : Grille de 4 piliers méthodologiques à activation cadencée.
   7. `bp_logo_carousel_rtl` : Carrousel dynamique défilant de droite à gauche.
   8. `bp_cta_conversion` : Appel à l'action final invitant à commenter le mot-clé unique.
+  9. `bp_split_timeline` : Split-screen temporel comparatif avec barre de progression de jalon, colonnes asymétriques et tampon de résultat.
 - **Composants implémentés** :
   1. `face` : Avatar sticker animé avec physique d'overshoot au démarrage, flottement sinusoïdal vertical continu ($\sin(5t) \times 10\text{px}$), inclinaison ($\sin(2.5t) \times 1.5^\circ$) et badge textuel à $-2^\circ$.
   2. `big` : Typographie d'impact grand format (56px ou 68px) avec sous-titre et animation de rebond élastique.
