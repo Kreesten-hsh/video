@@ -49,6 +49,28 @@ Ce catalogue recense et classe les formats vidéo viraux retro-ingéniérés dep
 
 ---
 
+### PILIER 5 — THE TRIPLE HOOK METHOD (INGÉNIERIE DE L'ACCROCHE)
+* **Thèse** : Un hook parfait enchaîne 3 micro-battements en 3 secondes (Contexte immédiat < 800ms $\rightarrow$ Lean / Curiosité $\rightarrow$ Contrarian Snapback).
+* **Blueprint Dédié** : `bp_hook_question` & `bp_friction_stack` (avec pattern cartouche flouté).
+* **Levier Psychologique** : Effet Zeigarnik (Boucle ouverte) & Pattern Interrupt (Rupture brutale des attentes).
+
+| Réf ID | Créateur | Concept / Titre | Durée | Hook Détecté | Dossier Analysé |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `05` | **Kallaway** | *The Triple Hook Method (Hook impossible à scroller)* | 134.2s | Déclaration Absolue / Défi Scientifique (Score : 98/100) | [`05_kallaway_triple_hook/`](analyzed/05_kallaway_triple_hook/AUTOPSIE_FORMAT.md) |
+
+---
+
+### PILIER 6 — BOUCLES DE RÉTENTION & GRAPHES RADIAUX (THE RETENTION LOOP)
+* **Thèse** : Structurer la vidéo comme un circuit fermé en 8 nœuds rythmés par une double boucle ouverte et un pattern interrupt par inversion de contraste.
+* **Blueprint Dédié** : `bp_grid_2x2` & `bp_friction_stack` (avec support d'inversion couleur et CTA Bookmark).
+* **Levier Psychologique** : Rétention Spatiale (Caméra non-linéaire sur diagramme) & Inversion de contraste.
+
+| Réf ID | Créateur | Concept / Titre | Durée | Hook Détecté | Dossier Analysé |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `06` | **Peter Visuals** | *Formula for Viral Content (8-Node Retention Loop)* | 23.5s | Pillage Autorisé / Secret Déloyal (« Steal this formula ») | [`06_peter_visuals_retention_loop/`](analyzed/06_peter_visuals_retention_loop/AUTOPSIE_FORMAT.md) |
+
+---
+
 ### Protocole pour ajouter un nouveau format :
 ```bash
 python3 analyze_reference.py --input references/inbox/<video_ou_url> --name <slug>

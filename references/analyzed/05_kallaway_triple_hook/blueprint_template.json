@@ -1,0 +1,67 @@
+{
+  "reference_slug": "05_kallaway_triple_hook",
+  "title": "The Triple Hook Method",
+  "recommended_blueprints": ["bp_hook_question", "bp_friction_stack", "bp_versus_compare", "bp_cta_conversion"],
+  "scenes": [
+    {
+      "id": "scene_01",
+      "type": "bp_hook_question",
+      "avatar_mode": "solo",
+      "params": {
+        "top_badge": "MÉTHODE SCIENTIFIQUE",
+        "box_color": "var(--tile-yellow)",
+        "icon": "bulb",
+        "title": "COMMENT ÉCRIRE UN HOOK IMPOSSIBLE À SCROLLER",
+        "subtitle": "La méthode Triple Hook pour captiver un décideur en 3 secondes.",
+        "stamp_text": "RETENTION"
+      }
+    },
+    {
+      "id": "scene_02",
+      "type": "bp_friction_stack",
+      "avatar_mode": "hidden",
+      "params": {
+        "header_badge": "LES 3 ÉTAPES DU HOOK",
+        "items": [
+          {
+            "icon": "clock",
+            "box_color": "var(--surface-card)",
+            "text": "01. Contexte immédiat (< 800ms)",
+            "right_badge": "0.8s",
+            "status": "check",
+            "appear_at_offset": 0.0
+          },
+          {
+            "icon": "bolt",
+            "box_color": "var(--tile-blue)",
+            "text": "02. Le Lean (Douleur ou Stat choc)",
+            "right_badge": "CURIOSITÉ",
+            "status": "check",
+            "appear_at_offset": 1.2
+          },
+          {
+            "icon": "rocket",
+            "box_color": "var(--tile-green)",
+            "text": "03. Contrarian Snapback (Rupture)",
+            "right_badge": "ATTENTION",
+            "status": "check",
+            "appear_at_offset": 2.4
+          }
+        ],
+        "connectors": "none"
+      }
+    },
+    {
+      "id": "scene_03",
+      "type": "bp_cta_conversion",
+      "avatar_mode": "solo",
+      "params": {
+        "variant": "simple",
+        "keyword": "HOOKS",
+        "button_label": "RECEVOIR",
+        "click_at_offset": 1.4,
+        "doors": []
+      }
+    }
+  ]
+}

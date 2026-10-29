@@ -1,0 +1,65 @@
+{
+  "reference_slug": "06_peter_visuals_retention_loop",
+  "title": "Formula for Viral Content - 8-Node Retention Loop",
+  "recommended_blueprints": ["bp_hook_question", "bp_grid_2x2", "bp_friction_stack", "bp_cta_conversion"],
+  "scenes": [
+    {
+      "id": "scene_01",
+      "type": "bp_hook_question",
+      "avatar_mode": "solo",
+      "params": {
+        "top_badge": "FORMULE VIRALE",
+        "box_color": "var(--tile-yellow)",
+        "icon": "rocket",
+        "title": "VOLE CETTE ARCHITECTURE DE VIDÉO B2B",
+        "subtitle": "La structure en 8 nœuds pour dépasser 100% de rétention.",
+        "stamp_text": "RETENTION"
+      }
+    },
+    {
+      "id": "scene_02",
+      "type": "bp_grid_2x2",
+      "avatar_mode": "hidden",
+      "params": {
+        "top_badge": "LES 4 PREMIERS NŒUDS",
+        "cards": [
+          { "icon": "camera", "title": "01. Hook (Arrêt scroll)", "color": "var(--tile-yellow)", "appear_at_offset": 0.0 },
+          { "icon": "file", "title": "02. Promise (Bénéfice clair)", "color": "var(--tile-blue)", "appear_at_offset": 0.5 },
+          { "icon": "bolt", "title": "03. Value 1 (Joyau initial)", "color": "var(--tile-green)", "appear_at_offset": 1.0 },
+          { "icon": "lock", "title": "04. Open Loop 1 (Relance)", "color": "var(--surface-card)", "appear_at_offset": 1.5 }
+        ],
+        "bottom_meter": {
+          "label": "Taux d'attention",
+          "from": 20,
+          "to": 95
+        }
+      }
+    },
+    {
+      "id": "scene_03",
+      "type": "bp_friction_stack",
+      "avatar_mode": "hidden",
+      "params": {
+        "header_badge": "LES 4 NŒUDS DE FIN",
+        "items": [
+          { "icon": "bolt", "box_color": "var(--tile-blue)", "text": "05. Value 2 (Cœur du système)", "right_badge": "VALEUR", "status": "check", "appear_at_offset": 0.0 },
+          { "icon": "cross", "box_color": "var(--surface-card)", "text": "06. Open Loop 2 (Piège mortel)", "right_badge": "ALERTE", "status": "cross", "appear_at_offset": 0.8 },
+          { "icon": "rocket", "box_color": "var(--tile-green)", "text": "07. Value 3 (Délivrance)", "right_badge": "SOLUTION", "status": "check", "appear_at_offset": 1.6 }
+        ],
+        "connectors": "none"
+      }
+    },
+    {
+      "id": "scene_04",
+      "type": "bp_cta_conversion",
+      "avatar_mode": "solo",
+      "params": {
+        "variant": "simple",
+        "keyword": "SCREENSHOT",
+        "button_label": "ENREGISTRER",
+        "click_at_offset": 1.2,
+        "doors": []
+      }
+    }
+  ]
+}
