@@ -13,6 +13,9 @@ Le studio AGENT404 produit des capsules vidéo verticales percutantes (1080x1920
 
 - **Zero-Camera & Zero-Montage** : Le client n'a besoin d'aucun matériel, aucune caméra, aucun studio et aucune compétence en montage.
 - **Multi-plateformes (1 = 4)** : **1 seule vidéo produite = 4 plateformes arrosées simultanément** (LinkedIn, TikTok, Instagram Reels, YouTube Shorts).
+- **Livrable Client vs Diffusion Studio** :
+  - *Livrable client* : 1 master MP4 unique 9:16 (1080x1920 @ 30 FPS) directement compatible avec les 4 plateformes (LinkedIn, Instagram Reels, TikTok, YouTube Shorts).
+  - *Diffusion du studio* : LinkedIn en priorité absolue (80 % du volume d'acquisition), Instagram Reels en relais (20 %), TikTok actuellement en pause.
 - **Entrée Agnostique (Input Agnostic)** : Le client envoie son matériau brut sous n'importe quel format (note vocale WhatsApp de 2 min, lien d'un post LinkedIn écrit, doc technique, schéma de workflow Make/n8n, cas client ou Loom de 10 min). Le studio extrait le joyau narratif et conçoit la capsule.
 - **Format Étalon** : Durée de référence standard à **~60 secondes** (amplitude adaptable de 45s à 90s).
 
@@ -81,12 +84,16 @@ L'ensemble de l'ingénierie logicielle, des scripts de vente et des vidéos prod
 ## 5. Pipeline Technique & Architecture
 
 AGENT404 est un pipeline de production vidéo vertical (1080x1920, 30 FPS, format 9:16) entièrement piloté par le code (Python, FFmpeg, Playwright/Chromium, Vanilla HTML5/CSS/JavaScript).
-Il transforme une note vocale ou un texte en une capsule rythmée : avatar sticker découpé, sous-titres dynamiques synchronisés au mot près, 8 blueprints universels réutilisables (`bp_*`), thème Obsidian Flame (fond beige uni #F5F2EB, encre #111111, accent orange flamme #FF4F18) et sound design procédural NumPy.
+Il transforme une note vocale ou un texte en une capsule rythmée : avatar sticker découpé, sous-titres dynamiques synchronisés au mot près, blueprints universels réutilisables (`bp_*`), thème Obsidian Flame (fond beige uni #F5F2EB, encre #111111, accent orange flamme #FF4F18) et sound design procédural NumPy.
 
-Le projet intègre :
-- Deux vidéos vitrines fondatrices : `studio_perso/video_01_decouverte` (manifeste, 96 s) et `studio_perso/video_03` (entrée agnostique, 61 s).
-- Un gabarit prospect client prêt à l'emploi : `studio_clients/_template_prospect`.
-- 8 blueprints universels : `bp_hook_question`, `bp_friction_stack`, `bp_stat_shock`, `bp_versus_compare`, `bp_code_window`, `bp_grid_2x2`, `bp_logo_carousel_rtl`, `bp_cta_conversion`.
+### État des branches
+- `main` : branche historique du dépôt.
+- `feat/obsidian-flame` : branche active de développement et de maintenance.
+
+### Liste des projets existants
+- `studio_perso/video_01_decouverte` : vidéo manifeste du fondateur (durée 95,8 s, 21 scènes, CTA CLARTÉ).
+- `studio_perso/video_03` : entrée agnostique pour créateurs B2B (durée 62,7 s, 21 scènes, CTA CLARTÉ).
+- `studio_clients/_template_prospect` : gabarit prospect universel piloté par `project.json` et `brand.json`.
 
 Consulter [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) pour les spécifications complètes.
 
@@ -94,14 +101,18 @@ Consulter [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) pour les spécifications 
 
 ## 6. Installation et Prérequis
 
-### Prérequis système
+### Prérequis d'un clone neuf
 - Linux x86_64 (ou environnement compatible)
 - Python 3.12+
-- `ffmpeg` et `ffprobe` accessibles dans le PATH
-- Navigateur Chromium (via Playwright ou Google Chrome système)
+- `ffmpeg` et `ffprobe` accessibles dans le PATH (ou dans `bin/`)
+- Navigateur Chromium (via Playwright)
+- `faster-whisper` nécessaire uniquement lors d'un réalignement acoustique forcé (`--realign`) ; sur clone neuf, les alignements `words.json` existants sont réutilisés sans Whisper.
 
-### Installation
+### Installation et activation du hook
 ```bash
+# Configuration du dossier des hooks git du projet
+git config core.hooksPath .githooks
+
 # Installation des dépendances Python
 pip install -r requirements.txt
 
@@ -113,9 +124,13 @@ playwright install chromium
 
 ## 7. Utilisation et Commandes
 
-### Exécution des tests de non-régression (Golden Master)
+### Exécution des tests de non-régression
 ```bash
+# Suite complète de tests unitaires et de spécification
 python3 -m unittest discover -s tests -v
+
+# Mode rapide (accélère l'encodage des tests de rendu)
+FAST_RENDER=1 python3 -m unittest discover -s tests -v
 ```
 La suite valide l'intégrité temporelle des mots, la continuité des scènes, la conformité de la vidéo master et la tolérance visuelle des captures de référence.
 
