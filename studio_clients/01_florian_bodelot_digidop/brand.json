@@ -1,0 +1,30 @@
+{
+  "brand_name": "DIGIDOP",
+  "theme": {
+    "bg_canvas": "#F8F9FA",
+    "surface_card": "#FFFFFF",
+    "ink": "#121417",
+    "accent_primary": "#146EF5",
+    "tile_1": "#E0EDFF",
+    "tile_2": "#00E599",
+    "tile_3": "#FFF3D6"
+  },
+  "typography": {
+    "font_heading": "Montserrat",
+    "font_body": "Inter",
+    "font_mono": "JetBrains Mono"
+  },
+  "avatars": {
+    "base_path": "assets/avatars/",
+    "default": "idea.png",
+    "poses": {
+      "question": "question.png",
+      "idea": "idea.png",
+      "pointing": "pointing.png",
+      "facepalm": "facepalm.png",
+      "laptop": "laptop.png",
+      "mic": "mic.png",
+      "money": "money.png"
+    }
+  }
+}

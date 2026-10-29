@@ -1,0 +1,30 @@
+{
+  "brand_name": "STAAK",
+  "theme": {
+    "bg_canvas": "#F5F6F8",
+    "surface_card": "#FFFFFF",
+    "ink": "#0A0F1D",
+    "accent_primary": "#7C3AED",
+    "tile_1": "#EDE9FE",
+    "tile_2": "#C7D2FE",
+    "tile_3": "#A7F3D0"
+  },
+  "typography": {
+    "font_heading": "Montserrat",
+    "font_body": "Inter",
+    "font_mono": "JetBrains Mono"
+  },
+  "avatars": {
+    "base_path": "assets/avatars/",
+    "default": "laptop.png",
+    "poses": {
+      "question": "question.png",
+      "idea": "idea.png",
+      "pointing": "pointing.png",
+      "facepalm": "facepalm.png",
+      "laptop": "laptop.png",
+      "mic": "mic.png",
+      "money": "money.png"
+    }
+  }
+}

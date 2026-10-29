@@ -1,0 +1,146 @@
+{
+  "video_number": 4,
+  "title": "Teaser 15s - Roland Vekemans (BeBranded)",
+  "audio_path": "voix.wav",
+  "theme": "claude",
+  "theme_preset": "claude",
+  "phonetic_map": {},
+  "special_cases": {},
+  "scene_end_words": [
+    "Pourtant",
+    "lumière",
+    "refuser"
+  ],
+  "reference_words": [
+    "Tu",
+    "publies",
+    "quatre",
+    "posts",
+    "écrits",
+    "par",
+    "semaine",
+    "sur",
+    "LinkedIn,",
+    "mais",
+    "tu",
+    "as",
+    "toujours",
+    "zéro",
+    "vidéo.",
+    "Pourtant",
+    "tu",
+    "as",
+    "déjà",
+    "l'expertise,",
+    "les",
+    "cas",
+    "clients",
+    "et",
+    "les",
+    "méthodes.",
+    "Mais",
+    "dès",
+    "qu'il",
+    "faut",
+    "allumer",
+    "une",
+    "caméra,",
+    "régler",
+    "la",
+    "lumière",
+    "et",
+    "monter",
+    "pendant",
+    "quatre",
+    "heures,",
+    "tu",
+    "abandonnes.",
+    "Et",
+    "tu",
+    "as",
+    "raison",
+    "de",
+    "refuser"
+  ],
+  "scenes": [
+    {
+      "id": "scene_01",
+      "type": "bp_hook_question",
+      "start": 0.0,
+      "end": 5.14,
+      "data": {
+        "avatar": "assets/avatars/idea.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "duo_lymphe",
+      "params": {
+        "top_badge": "LANDING PAGE AUDIT",
+        "box_color": "var(--tile-orange)",
+        "icon": "question",
+        "title": "TON SITE CONVERTIT À MOINS DE 1.5% ?",
+        "subtitle": "Un visiteur décide en 3 secondes s'il reste ou s'il ferme l'onglet.",
+        "stamp_text": "REBOND MASSIF",
+        "avatar": "facepalm"
+      }
+    },
+    {
+      "id": "scene_02",
+      "type": "bp_friction_stack",
+      "start": 5.14,
+      "end": 11.06,
+      "data": {
+        "avatar": "assets/avatars/idea.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "params": {
+        "header_badge": "3 ERREURS DE HERO SECTION",
+        "items": [
+          {
+            "icon": "eye",
+            "box_color": "var(--tile-yellow)",
+            "text": "TITRE FLOU EN JARGON MARKETING",
+            "right_badge": "CONFUSION",
+            "status": "cross",
+            "appear_at_offset": 0.0
+          },
+          {
+            "icon": "shield",
+            "box_color": "var(--surface-card)",
+            "text": "ZÉRO PREUVE SOCIALE VISIBLE IMMÉDIATEMENT",
+            "right_badge": "MÉFIANCE",
+            "status": "cross",
+            "appear_at_offset": 1.5
+          },
+          {
+            "icon": "bolt",
+            "box_color": "var(--tile-green)",
+            "text": "CTA PERDU SOUS LA LIGNE DE FLOTTAISON",
+            "right_badge": "0 CLIC",
+            "status": "cross",
+            "appear_at_offset": 3.0
+          }
+        ],
+        "connectors": "none"
+      }
+    },
+    {
+      "id": "scene_03",
+      "type": "bp_cta_conversion",
+      "start": 11.06,
+      "end": 15.1,
+      "data": {
+        "avatar": "assets/avatars/idea.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "duo_lymphe",
+      "params": {
+        "top_badge": "BEBRANDED SYSTEM",
+        "main_text": "CONSTRUIS UN SITE B2B QUI CONVERTIT VRAIMENT",
+        "sub_text": "Des sites Webflow rapides, Client-First et taillés pour la vente.",
+        "button_text": "VOIR LE PORTFOLIO",
+        "avatar": "idea"
+      }
+    }
+  ]
+}

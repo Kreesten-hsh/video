@@ -1,0 +1,30 @@
+{
+  "brand_name": "BREAKCOLD",
+  "theme": {
+    "bg_canvas": "#0F172A",
+    "surface_card": "#1E293B",
+    "ink": "#F8FAFC",
+    "accent_primary": "#38BDF8",
+    "tile_1": "#1E293B",
+    "tile_2": "#334155",
+    "tile_3": "#0284C7"
+  },
+  "typography": {
+    "font_heading": "Montserrat",
+    "font_body": "Inter",
+    "font_mono": "JetBrains Mono"
+  },
+  "avatars": {
+    "base_path": "assets/avatars/",
+    "default": "laptop.png",
+    "poses": {
+      "question": "question.png",
+      "idea": "idea.png",
+      "pointing": "pointing.png",
+      "facepalm": "facepalm.png",
+      "laptop": "laptop.png",
+      "mic": "mic.png",
+      "money": "money.png"
+    }
+  }
+}

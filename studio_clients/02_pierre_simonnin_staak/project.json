@@ -1,0 +1,149 @@
+{
+  "video_number": 2,
+  "title": "Teaser 15s - Pierre Simonnin (Staak (Agence IA & No-Code))",
+  "audio_path": "voix.wav",
+  "theme": "claude",
+  "theme_preset": "claude",
+  "phonetic_map": {},
+  "special_cases": {},
+  "scene_end_words": [
+    "Pourtant",
+    "lumière",
+    "refuser"
+  ],
+  "reference_words": [
+    "Tu",
+    "publies",
+    "quatre",
+    "posts",
+    "écrits",
+    "par",
+    "semaine",
+    "sur",
+    "LinkedIn,",
+    "mais",
+    "tu",
+    "as",
+    "toujours",
+    "zéro",
+    "vidéo.",
+    "Pourtant",
+    "tu",
+    "as",
+    "déjà",
+    "l'expertise,",
+    "les",
+    "cas",
+    "clients",
+    "et",
+    "les",
+    "méthodes.",
+    "Mais",
+    "dès",
+    "qu'il",
+    "faut",
+    "allumer",
+    "une",
+    "caméra,",
+    "régler",
+    "la",
+    "lumière",
+    "et",
+    "monter",
+    "pendant",
+    "quatre",
+    "heures,",
+    "tu",
+    "abandonnes.",
+    "Et",
+    "tu",
+    "as",
+    "raison",
+    "de",
+    "refuser"
+  ],
+  "scenes": [
+    {
+      "id": "scene_01",
+      "type": "bp_hook_question",
+      "start": 0.0,
+      "end": 5.14,
+      "data": {
+        "avatar": "assets/avatars/idea.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "duo_lymphe",
+      "params": {
+        "top_badge": "PERTE DE TEMPS",
+        "box_color": "var(--tile-purple)",
+        "icon": "question",
+        "title": "TON ÉQUIPE PASSE ENCORE 12H SUR EXCEL CHAQUE SEMAINE ?",
+        "subtitle": "La saisie manuelle de données détruit la marge de ton agence.",
+        "stamp_text": "COÛT CACHÉ",
+        "avatar": "facepalm"
+      }
+    },
+    {
+      "id": "scene_02",
+      "type": "bp_friction_stack",
+      "start": 5.14,
+      "end": 11.06,
+      "data": {
+        "avatar": "assets/avatars/idea.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "params": {
+        "header_badge": "3 FRICTIONS ÉLIMINÉES EN 1 WEBHOOK",
+        "items": [
+          {
+            "icon": "mail",
+            "box_color": "var(--tile-yellow)",
+            "text": "TÉLÉCHARGER LE PDF REÇU PAR MAIL",
+            "right_badge": "MANUEL",
+            "status": "cross",
+            "appear_at_offset": 0.0
+          },
+          {
+            "icon": "clock",
+            "box_color": "var(--surface-card)",
+            "text": "RECOPIER DANS AIRTABLE ET EXCEL",
+            "right_badge": "ERREURS",
+            "status": "cross",
+            "appear_at_offset": 1.5
+          },
+          {
+            "icon": "bolt",
+            "box_color": "var(--tile-green)",
+            "text": "SYNCHRO AUTOMATIQUE MAKE EN 0.4s",
+            "right_badge": "STAAK",
+            "status": "check",
+            "appear_at_offset": 3.0
+          }
+        ],
+        "connectors": "none"
+      }
+    },
+    {
+      "id": "scene_03",
+      "type": "bp_stat_shock",
+      "start": 11.06,
+      "end": 15.1,
+      "data": {
+        "avatar": "assets/avatars/idea.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "duo_lymphe",
+      "params": {
+        "top_badge": "RÉSULTAT STAAK",
+        "stat_from": 0,
+        "stat_to": 12,
+        "stat_suffix": "h",
+        "label": "ÉCONOMISÉES CHAQUE SEMAINE SANS RECRUTER",
+        "progress_bar": true,
+        "footer_stamp": "AUTOMATISE TON AGENCE",
+        "avatar": "laptop"
+      }
+    }
+  ]
+}

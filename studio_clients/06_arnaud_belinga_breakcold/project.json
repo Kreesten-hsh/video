@@ -1,0 +1,133 @@
+{
+  "video_number": 6,
+  "title": "Teaser 15s - Arnaud Belinga (Breakcold)",
+  "audio_path": "voix.wav",
+  "theme": "claude",
+  "theme_preset": "claude",
+  "phonetic_map": {},
+  "special_cases": {},
+  "scene_end_words": [
+    "Pourtant",
+    "lumière",
+    "refuser"
+  ],
+  "reference_words": [
+    "Tu",
+    "publies",
+    "quatre",
+    "posts",
+    "écrits",
+    "par",
+    "semaine",
+    "sur",
+    "LinkedIn,",
+    "mais",
+    "tu",
+    "as",
+    "toujours",
+    "zéro",
+    "vidéo.",
+    "Pourtant",
+    "tu",
+    "as",
+    "déjà",
+    "l'expertise,",
+    "les",
+    "cas",
+    "clients",
+    "et",
+    "les",
+    "méthodes.",
+    "Mais",
+    "dès",
+    "qu'il",
+    "faut",
+    "allumer",
+    "une",
+    "caméra,",
+    "régler",
+    "la",
+    "lumière",
+    "et",
+    "monter",
+    "pendant",
+    "quatre",
+    "heures,",
+    "tu",
+    "abandonnes.",
+    "Et",
+    "tu",
+    "as",
+    "raison",
+    "de",
+    "refuser"
+  ],
+  "scenes": [
+    {
+      "id": "scene_01",
+      "type": "bp_hook_question",
+      "start": 0.0,
+      "end": 5.14,
+      "data": {
+        "avatar": "assets/avatars/idea.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "duo_lymphe",
+      "params": {
+        "top_badge": "LE CRM TRADITIONNEL",
+        "box_color": "var(--tile-blue)",
+        "icon": "question",
+        "title": "TON CRM TE PREND PLUS DE TEMPS QUE VENDRE ?",
+        "subtitle": "Remplir des fiches de contact manuelles tue le moral des commerciaux.",
+        "stamp_text": "USINE À GAZ",
+        "avatar": "laptop"
+      }
+    },
+    {
+      "id": "scene_02",
+      "type": "bp_versus_compare",
+      "start": 5.14,
+      "end": 11.06,
+      "data": {
+        "avatar": "assets/avatars/idea.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "params": {
+        "top_badge": "CHANGEMENT D'ÈRE",
+        "left_title": "CRM 2010",
+        "left_items": [
+          "40 min de saisie manuelle",
+          "Champs obligatoires inutiles",
+          "Données jamais à jour"
+        ],
+        "right_title": "BREAKCOLD",
+        "right_items": [
+          "Flux social LinkedIn direct",
+          "Commentaires en 1 clic",
+          "Leads chauds détectés"
+        ],
+        "winner": "right",
+        "footer_stamp": "SOCIAL SELLING NATIF"
+      }
+    },
+    {
+      "id": "scene_03",
+      "type": "bp_cta_conversion",
+      "start": 11.06,
+      "end": 15.1,
+      "data": {
+        "avatar": "assets/avatars/idea.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "duo_lymphe",
+      "params": {
+        "top_badge": "BREAKCOLD CRM",
+        "main_text": "ENGAGE TES PROSPECTS LÀ OÙ ILS SONT",
+        "sub_text": "Le CRM social qui remplace les tâches ingrates par des relations.",
+        "button_text": "TESTER BREAKCOLD",
+        "avatar": "idea"
+      }
+    }
+  ]
+}

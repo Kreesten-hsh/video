@@ -1,0 +1,30 @@
+{
+  "brand_name": "CONTENT PATH",
+  "theme": {
+    "bg_canvas": "#F8FAFC",
+    "surface_card": "#FFFFFF",
+    "ink": "#0F172A",
+    "accent_primary": "#0EA5E9",
+    "tile_1": "#E0F2FE",
+    "tile_2": "#FEF3C7",
+    "tile_3": "#DCFCE7"
+  },
+  "typography": {
+    "font_heading": "Montserrat",
+    "font_body": "Inter",
+    "font_mono": "JetBrains Mono"
+  },
+  "avatars": {
+    "base_path": "assets/avatars/",
+    "default": "idea.png",
+    "poses": {
+      "question": "question.png",
+      "idea": "idea.png",
+      "pointing": "pointing.png",
+      "facepalm": "facepalm.png",
+      "laptop": "laptop.png",
+      "mic": "mic.png",
+      "money": "money.png"
+    }
+  }
+}

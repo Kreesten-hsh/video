@@ -1,0 +1,30 @@
+{
+  "brand_name": "SAUCE WRITING",
+  "theme": {
+    "bg_canvas": "#FBF9F5",
+    "surface_card": "#FFFFFF",
+    "ink": "#1A1A1A",
+    "accent_primary": "#E05A47",
+    "tile_1": "#FCEEEB",
+    "tile_2": "#EAE6DF",
+    "tile_3": "#D5E5DA"
+  },
+  "typography": {
+    "font_heading": "Montserrat",
+    "font_body": "Inter",
+    "font_mono": "JetBrains Mono"
+  },
+  "avatars": {
+    "base_path": "assets/avatars/",
+    "default": "idea.png",
+    "poses": {
+      "question": "question.png",
+      "idea": "idea.png",
+      "pointing": "pointing.png",
+      "facepalm": "facepalm.png",
+      "laptop": "laptop.png",
+      "mic": "mic.png",
+      "money": "money.png"
+    }
+  }
+}

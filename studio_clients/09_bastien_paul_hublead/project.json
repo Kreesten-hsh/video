@@ -1,0 +1,136 @@
+{
+  "video_number": 9,
+  "title": "Teaser 15s - Bastien Paul (Hublead)",
+  "audio_path": "voix.wav",
+  "theme": "claude",
+  "theme_preset": "claude",
+  "phonetic_map": {},
+  "special_cases": {},
+  "scene_end_words": [
+    "Pourtant",
+    "lumière",
+    "refuser"
+  ],
+  "reference_words": [
+    "Tu",
+    "publies",
+    "quatre",
+    "posts",
+    "écrits",
+    "par",
+    "semaine",
+    "sur",
+    "LinkedIn,",
+    "mais",
+    "tu",
+    "as",
+    "toujours",
+    "zéro",
+    "vidéo.",
+    "Pourtant",
+    "tu",
+    "as",
+    "déjà",
+    "l'expertise,",
+    "les",
+    "cas",
+    "clients",
+    "et",
+    "les",
+    "méthodes.",
+    "Mais",
+    "dès",
+    "qu'il",
+    "faut",
+    "allumer",
+    "une",
+    "caméra,",
+    "régler",
+    "la",
+    "lumière",
+    "et",
+    "monter",
+    "pendant",
+    "quatre",
+    "heures,",
+    "tu",
+    "abandonnes.",
+    "Et",
+    "tu",
+    "as",
+    "raison",
+    "de",
+    "refuser"
+  ],
+  "scenes": [
+    {
+      "id": "scene_01",
+      "type": "bp_hook_question",
+      "start": 0.0,
+      "end": 5.14,
+      "data": {
+        "avatar": "assets/avatars/idea.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "duo_lymphe",
+      "params": {
+        "top_badge": "PERTE DE TEMPS SALES",
+        "box_color": "var(--tile-orange)",
+        "icon": "question",
+        "title": "TES COMMERCIAUX PASSENT LEUR VIE SUR HUBSPOT ?",
+        "subtitle": "La ressaisie manuelle de leads est le pire cauchemar de tes SDR.",
+        "stamp_text": "COPIER-COLLER",
+        "avatar": "facepalm"
+      }
+    },
+    {
+      "id": "scene_02",
+      "type": "bp_versus_compare",
+      "start": 5.14,
+      "end": 11.06,
+      "data": {
+        "avatar": "assets/avatars/idea.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "params": {
+        "top_badge": "LE CONTRASTE CHOC",
+        "left_title": "SANS HUBLEAD",
+        "left_items": [
+          "15 min par contact",
+          "Erreurs de saisie",
+          "Données incomplètes"
+        ],
+        "right_title": "AVEC HUBLEAD",
+        "right_items": [
+          "1 clic depuis LinkedIn",
+          "Champs HubSpot synchro",
+          "Historique complet"
+        ],
+        "winner": "right",
+        "footer_stamp": "PRODUCTIVITÉ x3"
+      }
+    },
+    {
+      "id": "scene_03",
+      "type": "bp_stat_shock",
+      "start": 11.06,
+      "end": 15.1,
+      "data": {
+        "avatar": "assets/avatars/idea.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "duo_lymphe",
+      "params": {
+        "top_badge": "GAIN IMMÉDIAT",
+        "stat_from": 0,
+        "stat_to": 5,
+        "stat_suffix": "h",
+        "label": "PAR COMMERCIAL ÉCONOMISÉES CHAQUE SEMAINE",
+        "progress_bar": true,
+        "footer_stamp": "TESTE HUBLEAD GRATUITEMENT",
+        "avatar": "idea"
+      }
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "video_number": 11,
+  "title": "Teaser 15s - Thibaut Souyris (SalesLabs)",
+  "audio_path": "voix.wav",
+  "theme": "claude",
+  "theme_preset": "claude",
+  "phonetic_map": {},
+  "special_cases": {},
+  "scene_end_words": [
+    "Pourtant",
+    "lumière",
+    "refuser"
+  ],
+  "reference_words": [
+    "Tu",
+    "publies",
+    "quatre",
+    "posts",
+    "écrits",
+    "par",
+    "semaine",
+    "sur",
+    "LinkedIn,",
+    "mais",
+    "tu",
+    "as",
+    "toujours",
+    "zéro",
+    "vidéo.",
+    "Pourtant",
+    "tu",
+    "as",
+    "déjà",
+    "l'expertise,",
+    "les",
+    "cas",
+    "clients",
+    "et",
+    "les",
+    "méthodes.",
+    "Mais",
+    "dès",
+    "qu'il",
+    "faut",
+    "allumer",
+    "une",
+    "caméra,",
+    "régler",
+    "la",
+    "lumière",
+    "et",
+    "monter",
+    "pendant",
+    "quatre",
+    "heures,",
+    "tu",
+    "abandonnes.",
+    "Et",
+    "tu",
+    "as",
+    "raison",
+    "de",
+    "refuser"
+  ],
+  "scenes": [
+    {
+      "id": "scene_01",
+      "type": "bp_hook_question",
+      "start": 0.0,
+      "end": 5.14,
+      "data": {
+        "avatar": "assets/avatars/idea.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "duo_lymphe",
+      "params": {
+        "top_badge": "PROSPECTION TÉLÉPHONIQUE",
+        "box_color": "var(--tile-yellow)",
+        "icon": "question",
+        "title": "TU COMMENCES ENCORE TES APPELS PAR ÇA ?",
+        "subtitle": "Les formules de politesse convenues font fuir les décideurs en 3 secondes.",
+        "stamp_text": "ERREUR FATALE",
+        "avatar": "facepalm"
+      }
+    },
+    {
+      "id": "scene_02",
+      "type": "bp_versus_compare",
+      "start": 5.14,
+      "end": 11.06,
+      "data": {
+        "avatar": "assets/avatars/idea.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "hidden",
+      "params": {
+        "top_badge": "POSTURE COMMERCIALE",
+        "left_title": "APPROCHE AMATEUR",
+        "left_items": [
+          "J'espère que vous allez bien",
+          "Je me permets de vous appeler",
+          "Raccrochage immédiat"
+        ],
+        "right_title": "MÉTHODE SALESLABS",
+        "right_items": [
+          "Problème direct identifié",
+          "Question ouverte ciblée",
+          "Conversation engagée"
+        ],
+        "winner": "right",
+        "footer_stamp": "LES 10 SECONDES CLÉS"
+      }
+    },
+    {
+      "id": "scene_03",
+      "type": "bp_cta_conversion",
+      "start": 11.06,
+      "end": 15.1,
+      "data": {
+        "avatar": "assets/avatars/idea.png"
+      },
+      "caption_mode": "single_line_top",
+      "avatar_mode": "duo_lymphe",
+      "params": {
+        "top_badge": "SALESLABS ACADEMY",
+        "main_text": "MAÎTRISE LA PROSPECTION SORTANTE B2B",
+        "sub_text": "Des frameworks actionnables pour décrocher des rendez-vous qualifiés.",
+        "button_text": "REJOINDRE LE BOOTCAMP",
+        "avatar": "mic"
+      }
+    }
+  ]
+}

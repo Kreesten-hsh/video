@@ -1,0 +1,30 @@
+{
+  "brand_name": "RUBEN TAIEB",
+  "theme": {
+    "bg_canvas": "#121214",
+    "surface_card": "#18181B",
+    "ink": "#F4F4F5",
+    "accent_primary": "#8B5CF6",
+    "tile_1": "#27272A",
+    "tile_2": "#3F3F46",
+    "tile_3": "#DDD6FE"
+  },
+  "typography": {
+    "font_heading": "Montserrat",
+    "font_body": "Inter",
+    "font_mono": "JetBrains Mono"
+  },
+  "avatars": {
+    "base_path": "assets/avatars/",
+    "default": "mic.png",
+    "poses": {
+      "question": "question.png",
+      "idea": "idea.png",
+      "pointing": "pointing.png",
+      "facepalm": "facepalm.png",
+      "laptop": "laptop.png",
+      "mic": "mic.png",
+      "money": "money.png"
+    }
+  }
+}

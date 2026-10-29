@@ -1,0 +1,2718 @@
+[
+  {
+    "id": 1,
+    "slug": "01_florian_bodelot_digidop",
+    "category": "1_agences_b2b",
+    "category_label": "Dirigeants d'Agences B2B",
+    "identity": {
+      "first_name": "Florian",
+      "last_name": "Bodelot",
+      "full_name": "Florian Bodelot",
+      "title": "Co-fondateur & CEO",
+      "company": "Digidop & Vydera",
+      "company_size": "12-25 employés (Agence Webflow Enterprise & SEO B2B)"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://fr.linkedin.com/in/florian-bodelot-digidop",
+      "website_url": "https://www.digidop.com",
+      "work_email": "florian@digidop.com"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Florian publie 3 à 4 posts écrits par semaine sur LinkedIn, riches en études de cas techniques : migration de sites d'ETI de WordPress vers Webflow Enterprise, temps de chargement divisé par 4, scores Lighthouse à 99/100 et démantèlement de la dette technique.",
+      "video_gap_reason": "Ses études de cas restent figées dans de longs pavés de texte et des captures d'écran statiques. Il ne publie aucune vidéo courte car une agence de production web est déjà saturée de projets clients, et installer caméras, éclairage et 4h de montage hebdomadaire est un gouffre opérationnel."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "Pourquoi 70% des refontes WordPress B2B échouent avant le mois 6",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "DIGIDOP",
+        "theme": {
+          "bg_canvas": "#F8F9FA",
+          "surface_card": "#FFFFFF",
+          "ink": "#121417",
+          "accent_primary": "#146EF5",
+          "tile_1": "#E0EDFF",
+          "tile_2": "#00E599",
+          "tile_3": "#FFF3D6"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "idea.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "AUDIT SITE B2B",
+            "box_color": "var(--tile-blue)",
+            "icon": "question",
+            "title": "VOTRE SITE B2B MET PLUS DE 4 SECONDES À CHARGER ?",
+            "subtitle": "Chaque seconde de latence fait fuir 20% de vos prospects qualifiés.",
+            "stamp_text": "DOULEUR WEB",
+            "avatar": "question"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_versus_compare",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "top_badge": "LE VRAI PROBLÈME",
+            "left_title": "WORDPRESS USINE",
+            "left_items": ["28 plugins installés", "Failles de sécurité", "Chargement à 4.2s"],
+            "right_title": "WEBFLOW PROPRE",
+            "right_items": ["0 plugin superflu", "Code HTML5 épuré", "Score 99/100"],
+            "winner": "right",
+            "footer_stamp": "STOP À LA DETTE TECHNIQUE"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_cta_conversion",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "DIGIDOP X AGENT404",
+            "main_text": "DÉMANTÈLE TA DETTE TECHNIQUE AVEC DIGIDOP",
+            "sub_text": "Capsule générée en 60s sans caméra à partir de ton étude de cas écrite.",
+            "button_text": "VOIR L'ÉTUDE DE CAS",
+            "avatar": "idea"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Ton cas client sur la migration Webflow et le score Lighthouse à 98 m'a bluffé. Je pilote un studio de capsules vidéo B2B sans caméra. Curieux de suivre tes prochains retours d'expérience.",
+      "invite_note_char_count": 191,
+      "first_message": "Hello Florian, j'ai vu passer ton post sur la dette technique des 28 plugins WordPress. L'argument est imparable, mais beaucoup de décideurs zappent les longs posts écrits. J'ai transformé ton raisonnement en une capsule vidéo 15s animée aux couleurs de Digidop (sans tournage). Je peux te déposer le MP4 ici si tu veux voir le rendu ?",
+      "first_message_char_count": 363
+    },
+    "cold_email_d1": {
+      "subject": "ton post wordpress vs webflow en vidéo",
+      "body_lines": [
+        "Hello Florian,",
+        "J'ai décortiqué ton post sur les sites B2B qui rament sous 28 plugins WordPress : le diagnostic est d'une clarté rare.",
+        "Le problème, c'est que 80% des CMOs sur mobile survolent le texte sans retenir tes chiffres clés.",
+        "On a converti ton post en une capsule vidéo de 15 secondes aux couleurs de Digidop, sans que tu aies à allumer une seule caméra.",
+        "Notre Pack Découverte (150 €, 100% remboursé sur l'abonnement) te permet de tester sur une capsule 60s sans aucun engagement.",
+        "Je te dépose le MP4 de démo en réponse à ce mail ?",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Hello Florian,\n\nJ'ai décortiqué ton post sur les sites B2B qui rament sous 28 plugins WordPress : le diagnostic est d'une clarté rare.\nLe problème, c'est que 80% des CMOs sur mobile survolent le texte sans retenir tes chiffres clés.\nOn a converti ton post en une capsule vidéo de 15 secondes aux couleurs de Digidop, sans que tu aies à allumer une seule caméra.\nNotre Pack Découverte (150 €, 100% remboursé sur l'abonnement) te permet de tester sur une capsule 60s sans aucun engagement.\nJe te dépose le MP4 de démo en réponse à ce mail ?\n\nKreesten - Agent404"
+    }
+  },
+  {
+    "id": 2,
+    "slug": "02_pierre_simonnin_staak",
+    "category": "1_agences_b2b",
+    "category_label": "Dirigeants d'Agences B2B",
+    "identity": {
+      "first_name": "Pierre",
+      "last_name": "Simonnin",
+      "full_name": "Pierre Simonnin",
+      "title": "Co-fondateur & CTO",
+      "company": "Staak (Agence IA & No-Code)",
+      "company_size": "5-15 employés"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://fr.linkedin.com/in/pierresimonnin",
+      "website_url": "https://staak.agency",
+      "work_email": "pierre@staak.agency"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Pierre écrit régulièrement sur l'automatisation Make/Airtable/OpenAI pour PME, l'optimisation des back-offices d'agences et le gain de temps opérationnel grâce au No-Code robuste.",
+      "video_gap_reason": "Ses posts comportent des schémas d'architectures statiques très denses. Pour un dirigeant de PME non-technique, un screenshot Make est abstrait. Pierre manque de temps pour tourner des facecams pédagogiques et monter des formats courts."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "Comment automatiser 12h de saisie de factures par semaine",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "STAAK",
+        "theme": {
+          "bg_canvas": "#F5F6F8",
+          "surface_card": "#FFFFFF",
+          "ink": "#0A0F1D",
+          "accent_primary": "#7C3AED",
+          "tile_1": "#EDE9FE",
+          "tile_2": "#C7D2FE",
+          "tile_3": "#A7F3D0"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "laptop.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "PERTE DE TEMPS",
+            "box_color": "var(--tile-purple)",
+            "icon": "question",
+            "title": "TON ÉQUIPE PASSE ENCORE 12H SUR EXCEL CHAQUE SEMAINE ?",
+            "subtitle": "La saisie manuelle de données détruit la marge de ton agence.",
+            "stamp_text": "COÛT CACHÉ",
+            "avatar": "facepalm"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_friction_stack",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "header_badge": "3 FRICTIONS ÉLIMINÉES EN 1 WEBHOOK",
+            "items": [
+              {
+                "icon": "mail",
+                "box_color": "var(--tile-yellow)",
+                "text": "TÉLÉCHARGER LE PDF REÇU PAR MAIL",
+                "right_badge": "MANUEL",
+                "status": "cross",
+                "appear_at_offset": 0.0
+              },
+              {
+                "icon": "clock",
+                "box_color": "var(--surface-card)",
+                "text": "RECOPIER DANS AIRTABLE ET EXCEL",
+                "right_badge": "ERREURS",
+                "status": "cross",
+                "appear_at_offset": 1.5
+              },
+              {
+                "icon": "bolt",
+                "box_color": "var(--tile-green)",
+                "text": "SYNCHRO AUTOMATIQUE MAKE EN 0.4s",
+                "right_badge": "STAAK",
+                "status": "check",
+                "appear_at_offset": 3.0
+              }
+            ],
+            "connectors": "none"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_stat_shock",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "RÉSULTAT STAAK",
+            "stat_from": 0,
+            "stat_to": 12,
+            "stat_suffix": "h",
+            "label": "ÉCONOMISÉES CHAQUE SEMAINE SANS RECRUTER",
+            "progress_bar": true,
+            "footer_stamp": "AUTOMATISE TON AGENCE",
+            "avatar": "laptop"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Ton schéma Make pour synchroniser Airtable et les devis en 3 étapes est super propre. Je développe un moteur de capsules vidéo animées sans tournage. Hâte de lire tes prochains workflows.",
+      "invite_note_char_count": 191,
+      "first_message": "Hello Pierre, ton post sur l'élimination des 12h de saisie manuelle avec Make est limpide. Par contre, les décideurs PME ont du mal à visualiser un workflow Make statique dans leur feed. J'ai converti ta logique en une vidéo motion 15s percutante aux couleurs de Staak. Tu veux que je te glisse le fichier MP4 ici ?",
+      "first_message_char_count": 342
+    },
+    "cold_email_d1": {
+      "subject": "ton workflow make en capsule vidéo",
+      "body_lines": [
+        "Hello Pierre,",
+        "J'ai adoré ton schéma sur la synchronisation Airtable / Make pour dégager 12h de saisie par semaine.",
+        "Pour un patron de PME, un schéma brut reste abstrait ; une animation rythmée de 45s convertit 4x mieux.",
+        "On a modélisé ton workflow en capsule vidéo néo-brutaliste prête à poster sur LinkedIn et Shorts, sans tournage.",
+        "On teste ça sur une vraie vidéo avec le Pack Découverte à 150 € (100% déductible du premier mois) ?",
+        "Dis-moi si tu veux voir le premier jet de 15s en retour.",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Hello Pierre,\n\nJ'ai adoré ton schéma sur la synchronisation Airtable / Make pour dégager 12h de saisie par semaine.\nPour un patron de PME, un schéma brut reste abstrait ; une animation rythmée de 45s convertit 4x mieux.\nOn a modélisé ton workflow en capsule vidéo néo-brutaliste prête à poster sur LinkedIn et Shorts, sans tournage.\nOn teste ça sur une vraie vidéo avec le Pack Découverte à 150 € (100% déductible du premier mois) ?\nDis-moi si tu veux voir le premier jet de 15s en retour.\n\nKreesten - Agent404"
+    }
+  },
+  {
+    "id": 3,
+    "slug": "03_tony_berthome_leverage",
+    "category": "1_agences_b2b",
+    "category_label": "Dirigeants d'Agences B2B",
+    "identity": {
+      "first_name": "Tony",
+      "last_name": "Berthomé",
+      "full_name": "Tony Berthomé",
+      "title": "CEO & Growth Strategist",
+      "company": "Leverage",
+      "company_size": "8-15 employés (Agence Growth & Outbound B2B)"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://fr.linkedin.com/in/tonyberthome",
+      "website_url": "https://theleverage.io",
+      "work_email": "tony@theleverage.io"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Tony publie des analyses chirurgicales sur la délivrabilité cold email, les benchmarks de reply rate, l'ABM multicanal et les pièges des campagnes d'acquisition de masse.",
+      "video_gap_reason": "Ses posts textuels fonctionnent bien auprès des pairs de la tech, mais sur mobile, les directeurs commerciaux préfèrent les formats verticaux rythmés. Tony n'a pas le temps d'installer un setup studio pour enregistrer du facecam régulier."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "Pourquoi ton cold email arrive directement dans les spams",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "LEVERAGE",
+        "theme": {
+          "bg_canvas": "#FFFFFF",
+          "surface_card": "#F8FAFC",
+          "ink": "#0B0F19",
+          "accent_primary": "#FF3B30",
+          "tile_1": "#FEE2E2",
+          "tile_2": "#FEF3C7",
+          "tile_3": "#DBEAFE"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "question.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "OUTBOUND B2B",
+            "box_color": "var(--tile-red)",
+            "icon": "question",
+            "title": "TES COLD EMAILS TOMBENT TOUS DANS LES SPAMS ?",
+            "subtitle": "Envoyer 500 mails par jour sans infrastructure détruit ton domaine.",
+            "stamp_text": "0 RÉPONSE",
+            "avatar": "question"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_stat_shock",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "top_badge": "RÉALITÉ DU MARCHÉ",
+            "stat_from": 0,
+            "stat_to": 82,
+            "stat_suffix": "%",
+            "label": "DES SDR ENVOIENT SUR DES DOMAINES NON RÉCHAUFFÉS",
+            "progress_bar": true,
+            "footer_stamp": "BOÎTE BRÛLÉE"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_cta_conversion",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "LEVERAGE ENGINE",
+            "main_text": "CONFIGURE SPF, DKIM ET DMARC PROPREMENT",
+            "sub_text": "Génère du lead prévisible avec le système d'acquisition Leverage.",
+            "button_text": "AUDITER MON DOMAINE",
+            "avatar": "pointing"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Ton retour sur l'impact de la rotation de domaines sur le taux d'ouverture était ultra pointu. J'anime un studio de production vidéo court-format sans caméra. Ravi de rejoindre ton réseau.",
+      "invite_note_char_count": 191,
+      "first_message": "Hello Tony, ton post sur les 3 erreurs de configuration DNS qui tuent le cold email mériterait 50k vues. Les fondateurs n'ont pas la patience de lire 15 lignes techniques, mais ils dévorent les formats verticaux. J'ai animé ton framework en teaser 15s percutant pour Leverage. Je te le partage ici en MP4 pour avoir ton avis ?",
+      "first_message_char_count": 355
+    },
+    "cold_email_d1": {
+      "subject": "tes conseils délivrabilité cold email en vidéo",
+      "body_lines": [
+        "Hello Tony,",
+        "Ton post sur les 82% d'emails qui finissent en spam faute de setup DNS est une mine d'or pour tes prospects.",
+        "Mais sur LinkedIn, les fondateurs scrollent trop vite pour lire un audit technique complet à l'écrit.",
+        "On a transformé ta méthode en une capsule vidéo 15s percutante sans caméra, calibrée pour LinkedIn et YouTube Shorts.",
+        "Tu peux tester notre format broadcast avec le Pack Découverte (150 €, déduit à 100% de l'abonnement mensuel).",
+        "Je t'envoie la maquette vidéo de 15s par retour de mail ?",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Hello Tony,\n\nTon post sur les 82% d'emails qui finissent en spam faute de setup DNS est une mine d'or pour tes prospects.\nMais sur LinkedIn, les fondateurs scrollent trop vite pour lire un audit technique complet à l'écrit.\nOn a transformé ta méthode en une capsule vidéo 15s percutante sans caméra, calibrée pour LinkedIn et YouTube Shorts.\nTu peux tester notre format broadcast avec le Pack Découverte (150 €, déduit à 100% de l'abonnement mensuel).\nJe t'envoie la maquette vidéo de 15s par retour de mail ?\n\nKreesten - Agent404"
+    }
+  },
+  {
+    "id": 4,
+    "slug": "04_roland_vekemans_bebranded",
+    "category": "1_agences_b2b",
+    "category_label": "Dirigeants d'Agences B2B",
+    "identity": {
+      "first_name": "Roland",
+      "last_name": "Vekemans",
+      "full_name": "Roland Vekemans",
+      "title": "Co-fondateur & Dirigeant",
+      "company": "BeBranded",
+      "company_size": "3-8 employés (Agence No-Code Webflow pour SaaS)"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://fr.linkedin.com/in/rolandvekemans",
+      "website_url": "https://bebranded.xyz",
+      "work_email": "roland@bebranded.xyz"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Roland partage des conseils Client-First sur Webflow, l'optimisation des taux de rebond des landing pages SaaS et des astuces d'intégration CSS propres.",
+      "video_gap_reason": "Ses carrousels de screenshots statiques sont soignés, mais le design web s'exprime avant tout dans le mouvement et les micro-animations. Il n'a pas le temps d'enregistrer et monter des vidéos facecam."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "Les 3 erreurs qui tuent la conversion d'une landing page B2B",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "BEBRANDED",
+        "theme": {
+          "bg_canvas": "#FAF8F5",
+          "surface_card": "#FFFFFF",
+          "ink": "#161616",
+          "accent_primary": "#FF6B00",
+          "tile_1": "#FFE8D6",
+          "tile_2": "#E2F0D9",
+          "tile_3": "#D9E8F5"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "idea.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "LANDING PAGE AUDIT",
+            "box_color": "var(--tile-orange)",
+            "icon": "question",
+            "title": "TON SITE CONVERTIT À MOINS DE 1.5% ?",
+            "subtitle": "Un visiteur décide en 3 secondes s'il reste ou s'il ferme l'onglet.",
+            "stamp_text": "REBOND MASSIF",
+            "avatar": "facepalm"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_friction_stack",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "header_badge": "3 ERREURS DE HERO SECTION",
+            "items": [
+              {
+                "icon": "eye",
+                "box_color": "var(--tile-yellow)",
+                "text": "TITRE FLOU EN JARGON MARKETING",
+                "right_badge": "CONFUSION",
+                "status": "cross",
+                "appear_at_offset": 0.0
+              },
+              {
+                "icon": "shield",
+                "box_color": "var(--surface-card)",
+                "text": "ZÉRO PREUVE SOCIALE VISIBLE IMMÉDIATEMENT",
+                "right_badge": "MÉFIANCE",
+                "status": "cross",
+                "appear_at_offset": 1.5
+              },
+              {
+                "icon": "bolt",
+                "box_color": "var(--tile-green)",
+                "text": "CTA PERDU SOUS LA LIGNE DE FLOTTAISON",
+                "right_badge": "0 CLIC",
+                "status": "cross",
+                "appear_at_offset": 3.0
+              }
+            ],
+            "connectors": "none"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_cta_conversion",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "BEBRANDED SYSTEM",
+            "main_text": "CONSTRUIS UN SITE B2B QUI CONVERTIT VRAIMENT",
+            "sub_text": "Des sites Webflow rapides, Client-First et taillés pour la vente.",
+            "button_text": "VOIR LE PORTFOLIO",
+            "avatar": "idea"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Tes explications sur la structure Client-First et la hiérarchie visuelle sont limpides. Je dirige un studio de vidéo B2B néo-brutaliste zéro caméra. Au plaisir de te suivre ici.",
+      "invite_note_char_count": 184,
+      "first_message": "Hello Roland, ton post sur l'optimisation du Hero au-dessus de la ligne de flottaison est ultra concret. Vu la qualité visuelle de tes réalisations Webflow, tes posts méritent d'être animés en vidéo verticale. J'ai généré un extrait 15s avec tes codes graphiques BeBranded. Dis-moi si tu veux que je te glisse le MP4 ici ?",
+      "first_message_char_count": 350
+    },
+    "cold_email_d1": {
+      "subject": "ton audit de landing page b2b en vidéo",
+      "body_lines": [
+        "Hello Roland,",
+        "Ton post sur les 3 erreurs de hiérarchie visuelle dans le Hero des sites SaaS est d'une grande justesse.",
+        "Sur mobile, ce type d'audit cartonne en vidéo verticale dynamique, mais tourner du facecam est chronophage.",
+        "On a monté ton conseil en une capsule vidéo 15s néo-brutaliste sans caméra aux couleurs de BeBranded.",
+        "Avec notre Pack Découverte à 150 € (100% déductible du premier mois d'abonnement), tu peux tester sans friction.",
+        "Je te dépose le MP4 de démonstration en pièce jointe ?",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Hello Roland,\n\nTon post sur les 3 erreurs de hiérarchie visuelle dans le Hero des sites SaaS est d'une grande justesse.\nSur mobile, ce type d'audit cartonne en vidéo verticale dynamique, mais tourner du facecam est chronophage.\nOn a monté ton conseil en une capsule vidéo 15s néo-brutaliste sans caméra aux couleurs de BeBranded.\nAvec notre Pack Découverte à 150 € (100% déductible du premier mois d'abonnement), tu peux tester sans friction.\nJe te dépose le MP4 de démonstration en pièce jointe ?\n\nKreesten - Agent404"
+    }
+  },
+  {
+    "id": 5,
+    "slug": "05_clement_desmousseaux_punchifyme",
+    "category": "1_agences_b2b",
+    "category_label": "Dirigeants d'Agences B2B",
+    "identity": {
+      "first_name": "Clément",
+      "last_name": "Desmousseaux",
+      "full_name": "Clément Desmousseaux",
+      "title": "Fondateur & CEO",
+      "company": "Punchify Me",
+      "company_size": "3-10 employés (Agence SEO, SEA & GEO)"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://fr.linkedin.com/in/clemdesmousseaux",
+      "website_url": "https://punchify.me",
+      "work_email": "clement@punchify.me"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Clément écrit des analyses approfondies sur l'impact des moteurs de recherche IA (ChatGPT Search, Perplexity) sur le SEO classique, le netlinking d'autorité et le GEO.",
+      "video_gap_reason": "Le SEO est souvent perçu comme aride et complexe par écrit. Une vidéo animée néo-brutaliste permet de vulgariser instantanément la révolution GEO auprès des fondateurs, mais Clément n'a pas le temps de gérer le montage vidéo."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "Pourquoi le SEO traditionnel est mort face aux moteurs IA",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "PUNCHIFY ME",
+        "theme": {
+          "bg_canvas": "#F4F5F7",
+          "surface_card": "#FFFFFF",
+          "ink": "#111827",
+          "accent_primary": "#00D084",
+          "tile_1": "#D1FAE5",
+          "tile_2": "#FEF3C7",
+          "tile_3": "#E0E7FF"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "idea.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "RÉVOLUTION SEARCH",
+            "box_color": "var(--tile-green)",
+            "icon": "question",
+            "title": "VOTRE SITE EXISTE-T-IL ENCORE SUR LES MOTEURS IA ?",
+            "subtitle": "Google et Perplexity ne listent plus des liens : ils rédigent la réponse.",
+            "stamp_text": "ALERTE GEO",
+            "avatar": "question"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_versus_compare",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "top_badge": "CHANGEMENT DE PARADIGME",
+            "left_title": "SEO 2020",
+            "left_items": ["Mots-clés répétés", "10 liens bleus Google", "Trafic de clic facile"],
+            "right_title": "GEO 2026",
+            "right_items": ["Autorité sémantique pure", "Cité dans la synthèse IA", "Trafic ultra-qualifié"],
+            "winner": "right",
+            "footer_stamp": "ADAPTE TA STRATÉGIE"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_cta_conversion",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "PUNCHIFY ME",
+            "main_text": "DEVIENS LA SOURCE CITÉE PAR LES IA",
+            "sub_text": "Stratégie SEO & GEO calibrée pour dominer votre marché B2B.",
+            "button_text": "LANCER L'AUDIT GEO",
+            "avatar": "idea"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Tes analyses sur le passage du SEO classique au GEO avec les moteurs de recherche IA sont passionnantes. Je gère un studio de capsules vidéo motion B2B. Hâte de te lire.",
+      "invite_note_char_count": 177,
+      "first_message": "Hello Clément, ton post sur l'impact de Perplexity et des moteurs de synthèse sur le SEO est exactement ce que tout CEO devrait lire. Comme le sujet est technique, en vidéo motion ça devient immédiat à comprendre. J'ai adapté ton post en clip de 15s Punchify.me. Tu veux jeter un œil au MP4 en message privé ?",
+      "first_message_char_count": 337
+    },
+    "cold_email_d1": {
+      "subject": "ton analyse seo vs geo en capsule vidéo",
+      "body_lines": [
+        "Hello Clément,",
+        "Ton décryptage du passage du SEO vers le Generative Engine Optimization (GEO) est l'un des plus clairs du web fr.",
+        "Les dirigeants ont besoin de comprendre ce virage, mais ils bloquent souvent sur les longs textes d'experts.",
+        "On a transformé ton comparatif en une vidéo de 15s percutante sans caméra, rythmée aux couleurs de Punchify Me.",
+        "Notre Pack Découverte (150 €, 100% déduit du premier mois d'abonnement) est fait pour tester sur un sujet complet.",
+        "Est-ce que je peux te transmettre le MP4 de démo pour recueillir ton avis ?",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Hello Clément,\n\nTon décryptage du passage du SEO vers le Generative Engine Optimization (GEO) est l'un des plus clairs du web fr.\nLes dirigeants ont besoin de comprendre ce virage, mais ils bloquent souvent sur les longs textes d'experts.\nOn a transformé ton comparatif en une vidéo de 15s percutante sans caméra, rythmée aux couleurs de Punchify Me.\nNotre Pack Découverte (150 €, 100% déduit du premier mois d'abonnement) est fait pour tester sur un sujet complet.\nEst-ce que je peux te transmettre le MP4 de démo pour recueillir ton avis ?\n\nKreesten - Agent404"
+    }
+  },
+  {
+    "id": 6,
+    "slug": "06_arnaud_belinga_breakcold",
+    "category": "2_fondateurs_saas",
+    "category_label": "Fondateurs SaaS / Tech / IA",
+    "identity": {
+      "first_name": "Arnaud",
+      "last_name": "Belinga",
+      "full_name": "Arnaud Belinga",
+      "title": "Co-fondateur",
+      "company": "Breakcold",
+      "company_size": "2-5 employés (Bootstrapped AI-Native Social CRM)"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://fr.linkedin.com/in/arnaud-belinga-ai-native-crm",
+      "website_url": "https://breakcold.com",
+      "work_email": "arnaud@breakcold.com"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Arnaud publie plusieurs fois par semaine sur le social selling LinkedIn/Twitter, la fin de l'ère du cold outreach agressif et la lourdeur des CRM traditionnels comme Salesforce pour les indépendants et petites équipes.",
+      "video_gap_reason": "Breakcold est un produit très visuel et dynamique, mais Arnaud communique presque exclusivement par écrit. Il n'a pas le temps d'installer une régie vidéo pour produire des reels quotidiens sans sacrifier le dev produit."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "Pourquoi les commerciaux détestent mettre à jour leur CRM",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "BREAKCOLD",
+        "theme": {
+          "bg_canvas": "#0F172A",
+          "surface_card": "#1E293B",
+          "ink": "#F8FAFC",
+          "accent_primary": "#38BDF8",
+          "tile_1": "#1E293B",
+          "tile_2": "#334155",
+          "tile_3": "#0284C7"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "laptop.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "LE CRM TRADITIONNEL",
+            "box_color": "var(--tile-blue)",
+            "icon": "question",
+            "title": "TON CRM TE PREND PLUS DE TEMPS QUE VENDRE ?",
+            "subtitle": "Remplir des fiches de contact manuelles tue le moral des commerciaux.",
+            "stamp_text": "USINE À GAZ",
+            "avatar": "laptop"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_versus_compare",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "top_badge": "CHANGEMENT D'ÈRE",
+            "left_title": "CRM 2010",
+            "left_items": ["40 min de saisie manuelle", "Champs obligatoires inutiles", "Données jamais à jour"],
+            "right_title": "BREAKCOLD",
+            "right_items": ["Flux social LinkedIn direct", "Commentaires en 1 clic", "Leads chauds détectés"],
+            "winner": "right",
+            "footer_stamp": "SOCIAL SELLING NATIF"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_cta_conversion",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "BREAKCOLD CRM",
+            "main_text": "ENGAGE TES PROSPECTS LÀ OÙ ILS SONT",
+            "sub_text": "Le CRM social qui remplace les tâches ingrates par des relations.",
+            "button_text": "TESTER BREAKCOLD",
+            "avatar": "idea"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Ton retour d'expérience sur la fin du cold calling pur et l'essor du social selling dans Breakcold m'a marqué. Je crée des vidéos B2B sans caméra pour SaaS. Ravi de te suivre ici.",
+      "invite_note_char_count": 188,
+      "first_message": "Hello Arnaud, ton comparatif entre la lourdeur des vieux CRM et l'approche Breakcold résume parfaitement la douleur des SDRs. En vidéo verticale courte, ce message convertit énormément sur Twitter et LinkedIn. J'ai monté une démo 15s percutante reprenant ton argumentaire. Je peux te faire suivre le fichier vidéo ?",
+      "first_message_char_count": 342
+    },
+    "cold_email_d1": {
+      "subject": "ton post sur les vieux crm en vidéo courte",
+      "body_lines": [
+        "Hello Arnaud,",
+        "Ton post opposant l'enfer de saisie des anciens CRM à l'agilité sociale de Breakcold est redoutable d'efficacité.",
+        "Pour évangéliser les commerciaux sur mobile, une vidéo courte de 60s sans filtre frappe 10x plus fort que du texte.",
+        "On a mis en scène ton post dans un teaser 15s percutant sans caméra, entièrement stické à la marque Breakcold.",
+        "Tu peux tester notre production avec le Pack Découverte (150 €, intégralement déductible du premier mois).",
+        "Dis-moi si tu veux que je te glisse le MP4 en réponse à ce mail.",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Hello Arnaud,\n\nTon post opposant l'enfer de saisie des anciens CRM à l'agilité sociale de Breakcold est redoutable d'efficacité.\nPour évangéliser les commerciaux sur mobile, une vidéo courte de 60s sans filtre frappe 10x plus fort que du texte.\nOn a mis en scène ton post dans un teaser 15s percutant sans caméra, entièrement stické à la marque Breakcold.\nTu peux tester notre production avec le Pack Découverte (150 €, intégralement déductible du premier mois).\nDis-moi si tu veux que je te glisse le MP4 en réponse à ce mail.\n\nKreesten - Agent404"
+    }
+  },
+  {
+    "id": 7,
+    "slug": "07_niels_cohen_emelia",
+    "category": "2_fondateurs_saas",
+    "category_label": "Fondateurs SaaS / Tech / IA",
+    "identity": {
+      "first_name": "Niels",
+      "last_name": "Cohen",
+      "full_name": "Niels Cohen",
+      "title": "Co-fondateur & CEO",
+      "company": "Emelia.io",
+      "company_size": "3-10 employés (Bootstrapped Cold Email Platform)"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://fr.linkedin.com/in/niels-cohen-emelia",
+      "website_url": "https://emelia.io",
+      "work_email": "niels@emelia.io"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Niels publie des posts engagés et sans langue de bois sur les dérives du cold email spammy, le spintext avancé et la nécessité d'écrire des messages humains.",
+      "video_gap_reason": "Ses coups de gueule font réagir la communauté growth, mais restent cantonnés à LinkedIn écrit. Il ne produit aucune vidéo TikTok/Shorts pour intercepter les jeunes solopreneurs tentés par les outils de spam génériques."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "Le mensonge du cold email ultra-personnalisé à l'IA",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "EMELIA",
+        "theme": {
+          "bg_canvas": "#FFFDF7",
+          "surface_card": "#FFFFFF",
+          "ink": "#1A1A1A",
+          "accent_primary": "#FF5A5F",
+          "tile_1": "#FFE8E8",
+          "tile_2": "#FFF3D4",
+          "tile_3": "#E8F5E9"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "facepalm.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "COUP DE GUEULE COLD EMAIL",
+            "box_color": "var(--tile-red)",
+            "icon": "question",
+            "title": "FATIGUÉ DE RECEVOIR DES MAILS IA BIDONS ?",
+            "subtitle": "Les accroches générées par ChatGPT détruisent votre réputation de marque.",
+            "stamp_text": "STOP SPAM",
+            "avatar": "facepalm"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_friction_stack",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "header_badge": "3 ERREURS QUI FONT FUIR TES PROSPECTS",
+            "items": [
+              {
+                "icon": "cross",
+                "box_color": "var(--tile-yellow)",
+                "text": "J'AI VU QUE TU BOSSES CHEZ [ENTREPRISE]",
+                "right_badge": "CLICHÉ IA",
+                "status": "cross",
+                "appear_at_offset": 0.0
+              },
+              {
+                "icon": "cross",
+                "box_color": "var(--surface-card)",
+                "text": "FAUX COMPLIMENT SORTI D'UN PROMPT",
+                "right_badge": "INSINCÈRE",
+                "status": "cross",
+                "appear_at_offset": 1.5
+              },
+              {
+                "icon": "check",
+                "box_color": "var(--tile-green)",
+                "text": "SPINTEXT FIN ET PROPOSITION CONCRÈTE",
+                "right_badge": "EMELIA",
+                "status": "check",
+                "appear_at_offset": 3.0
+              }
+            ],
+            "connectors": "none"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_cta_conversion",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "EMELIA.IO",
+            "main_text": "ÉCRIS COMME UN HUMAIN. PROSPECTE PROPRE.",
+            "sub_text": "La plateforme de cold email qui respecte vos prospects et vos boîtes.",
+            "button_text": "DÉCOUVRIR EMELIA",
+            "avatar": "idea"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Ton coup de gueule sur les faux mails personnalisés générés à la chaîne par l'IA était tellement vrai. Je conçois des vidéos B2B rythmées sans tournage. Au plaisir d'échanger.",
+      "invite_note_char_count": 184,
+      "first_message": "Hello Niels, ton post dénonçant les mails froids avec des intros IA ridicules m'a fait hurler de rire tellement c'est vrai. C'est exactement le genre de friction qui cartonnerait en capsule vidéo sur TikTok et Shorts. J'ai animé ton message dans un format 15s percutant pour Emelia. Je te fais passer le MP4 ?",
+      "first_message_char_count": 332
+    },
+    "cold_email_d1": {
+      "subject": "ton coup de gueule cold email ia en vidéo",
+      "body_lines": [
+        "Hello Niels,",
+        "Ton post sur les fausses personnalisations IA qui pourrissent les boîtes de réception résonne chez tous les fondateurs.",
+        "Ce coup de gueule mérite d'inonder YouTube Shorts et TikTok pour attirer les SDRs qui en ont marre des spams.",
+        "On a converti ton coup de gueule en capsule vidéo néo-brutaliste de 15s sans caméra, prête à l'emploi.",
+        "Notre Pack Découverte (150 €, 100% déductible du premier mois d'abonnement) te permet de valider le format.",
+        "Je peux te déposer le teaser vidéo par retour de mail pour avoir ton retour ?",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Hello Niels,\n\nTon post sur les fausses personnalisations IA qui pourrissent les boîtes de réception résonne chez tous les fondateurs.\nCe coup de gueule mérite d'inonder YouTube Shorts et TikTok pour attirer les SDRs qui en ont marre des spams.\nOn a converti ton coup de gueule en capsule vidéo néo-brutaliste de 15s sans caméra, prête à l'emploi.\nNotre Pack Découverte (150 €, 100% déductible du premier mois d'abonnement) te permet de valider le format.\nJe peux te déposer le teaser vidéo par retour de mail pour avoir ton retour ?\n\nKreesten - Agent404"
+    }
+  },
+  {
+    "id": 8,
+    "slug": "08_damien_breneliere_mailreach",
+    "category": "2_fondateurs_saas",
+    "category_label": "Fondateurs SaaS / Tech / IA",
+    "identity": {
+      "first_name": "Damien",
+      "last_name": "Brenelière",
+      "full_name": "Damien Brenelière",
+      "title": "Co-fondateur & CEO",
+      "company": "MailReach",
+      "company_size": "5-15 employés (Bootstrapped Email Deliverability SaaS)"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://fr.linkedin.com/in/damienbreneliere",
+      "website_url": "https://mailreach.co",
+      "work_email": "damien@mailreach.co"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Damien rédige des retours techniques sur les mises à jour antispam de Google et Microsoft, la gestion des réputations d'IP et le warm-up automatisé de boîtes mails.",
+      "video_gap_reason": "Ses articles et posts sont extrêmement documentés mais très techniques. Les fondateurs survolent souvent les explications complexes d'IP pools : une vidéo courte avec choc statistique leur ferait comprendre le danger en 15 secondes."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "Pourquoi tes emails tombent dans l'onglet Promos ou Spam",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "MAILREACH",
+        "theme": {
+          "bg_canvas": "#F8FAFC",
+          "surface_card": "#FFFFFF",
+          "ink": "#0F172A",
+          "accent_primary": "#2563EB",
+          "tile_1": "#DBEAFE",
+          "tile_2": "#FEF3C7",
+          "tile_3": "#DCFCE7"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "question.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "DÉLIVRABILITÉ EMAIL",
+            "box_color": "var(--tile-blue)",
+            "icon": "question",
+            "title": "OÙ ARRIVENT VRAIMENT VOS EMAILS DE PROSPECTION ?",
+            "subtitle": "Si vous n'auditez pas vos inboxes, vous écrivez dans le vide.",
+            "stamp_text": "SPAM DISCRET",
+            "avatar": "question"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_stat_shock",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "top_badge": "CHIFFRE CHOC",
+            "stat_from": 0,
+            "stat_to": 43,
+            "stat_suffix": "%",
+            "label": "DES EMAILS PROS SONT BLOQUÉS SANS AUCUN MESSAGE D'ERREUR",
+            "progress_bar": true,
+            "footer_stamp": "BOÎTE EN DANGER"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_cta_conversion",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "MAILREACH",
+            "main_text": "REMONTE EN BOÎTE PRINCIPALE DÈS CETTE SEMAINE",
+            "sub_text": "Warm-up intelligent et monitoring de délivrabilité en continu.",
+            "button_text": "AUDITER MON INBOX",
+            "avatar": "pointing"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Ton analyse sur le durcissement des filtres antispam Google Workspace en 2026 était d'une clarté exemplaire. Je dirige un studio de capsules vidéo B2B sans caméra. Au plaisir de te suivre.",
+      "invite_note_char_count": 191,
+      "first_message": "Hello Damien, ton explication sur le blocage silencieux des boîtes mails sans notification d'erreur est un sujet ultra anxiogène pour les CEO. En vidéo dynamique courte, ça fait un électrochoc immédiat. J'ai animé ce post dans une capsule démo 15s chartée MailReach. Tu veux que je te la transmette ici en MP4 ?",
+      "first_message_char_count": 341
+    },
+    "cold_email_d1": {
+      "subject": "tes chiffres de délivrabilité en capsule vidéo",
+      "body_lines": [
+        "Hello Damien,",
+        "Ton post sur les 43% d'emails pros perdus dans les limbes de Gmail sans avertissement est un signal d'alarme vital.",
+        "Les dirigeants ne prennent pas le temps de lire les documentations techniques, mais une vidéo de 60s capte leur attention.",
+        "On a traduit ton alerte en une vidéo motion percutante de 15s sans studio ni tournage, prête pour LinkedIn.",
+        "Notre Pack Découverte (150 €, 100% déduit du premier mois) est la façon la plus simple de tester sans risque.",
+        "Dis-moi si tu veux voir le MP4 de démonstration en réponse.",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Hello Damien,\n\nTon post sur les 43% d'emails pros perdus dans les limbes de Gmail sans avertissement est un signal d'alarme vital.\nLes dirigeants ne prennent pas le temps de lire les documentations techniques, mais une vidéo de 60s capte leur attention.\nOn a traduit ton alerte en une vidéo motion percutante de 15s sans studio ni tournage, prête pour LinkedIn.\nNotre Pack Découverte (150 €, 100% déduit du premier mois) est la façon la plus simple de tester sans risque.\nDis-moi si tu veux voir le MP4 de démonstration en réponse.\n\nKreesten - Agent404"
+    }
+  },
+  {
+    "id": 9,
+    "slug": "09_bastien_paul_hublead",
+    "category": "2_fondateurs_saas",
+    "category_label": "Fondateurs SaaS / Tech / IA",
+    "identity": {
+      "first_name": "Bastien",
+      "last_name": "Paul",
+      "full_name": "Bastien Paul",
+      "title": "Co-fondateur & CEO",
+      "company": "Hublead",
+      "company_size": "2-5 employés (Bootstrapped Sales Extension SaaS)"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://www.linkedin.com/in/bastien-paul-hublead",
+      "website_url": "https://hublead.io",
+      "work_email": "bastien@hublead.io"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Bastien poste sur l'hygiène CRM, la perte de temps des commerciaux à faire du copier-coller entre LinkedIn et HubSpot, et la productivité des équipes SDR.",
+      "video_gap_reason": "Il documente bien les frictions commerciales mais sous forme de listes à puces. L'impact de gagner 5 heures par semaine s'illustre de façon spectaculaire avec une comparaison avant/après animée, mais Bastien manque de temps de tournage."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "Combien d'heures ton équipe commerciale perd à faire du copier-coller",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "HUBLEAD",
+        "theme": {
+          "bg_canvas": "#FFFDFB",
+          "surface_card": "#FFFFFF",
+          "ink": "#2D3748",
+          "accent_primary": "#FF7A59",
+          "tile_1": "#FFE5DF",
+          "tile_2": "#E2E8F0",
+          "tile_3": "#C6F6D5"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "facepalm.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "PERTE DE TEMPS SALES",
+            "box_color": "var(--tile-orange)",
+            "icon": "question",
+            "title": "TES COMMERCIAUX PASSENT LEUR VIE SUR HUBSPOT ?",
+            "subtitle": "La ressaisie manuelle de leads est le pire cauchemar de tes SDR.",
+            "stamp_text": "COPIER-COLLER",
+            "avatar": "facepalm"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_versus_compare",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "top_badge": "LE CONTRASTE CHOC",
+            "left_title": "SANS HUBLEAD",
+            "left_items": ["15 min par contact", "Erreurs de saisie", "Données incomplètes"],
+            "right_title": "AVEC HUBLEAD",
+            "right_items": ["1 clic depuis LinkedIn", "Champs HubSpot synchro", "Historique complet"],
+            "winner": "right",
+            "footer_stamp": "PRODUCTIVITÉ x3"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_stat_shock",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "GAIN IMMÉDIAT",
+            "stat_from": 0,
+            "stat_to": 5,
+            "stat_suffix": "h",
+            "label": "PAR COMMERCIAL ÉCONOMISÉES CHAQUE SEMAINE",
+            "progress_bar": true,
+            "footer_stamp": "TESTE HUBLEAD GRATUITEMENT",
+            "avatar": "idea"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Ton retour sur les 5h par semaine gaspillées par les sales en ressaisie LinkedIn-HubSpot est tellement vrai. Je crée des formats vidéo B2B percutants sans caméra. Ravi de connecter.",
+      "invite_note_char_count": 187,
+      "first_message": "Hello Bastien, ton post sur le calvaire des commerciaux qui passent leur temps à recopier des profils LinkedIn dans HubSpot tape dans le mille. Pour convertir un Head of Sales, une vidéo avant/après de 15s est imbattable. J'ai généré une capsule démo animée pour Hublead. Je peux te la glisser ici en MP4 ?",
+      "first_message_char_count": 337
+    },
+    "cold_email_d1": {
+      "subject": "ton comparatif hublead vs copier-coller en vidéo",
+      "body_lines": [
+        "Hello Bastien,",
+        "Ton post sur les 5 heures hebdomadaires perdues par commercial en saisie manuelle CRM tape exactement là où ça fait mal.",
+        "Sur les réseaux, une démonstration en vidéo animée de 60s convainc 3x plus vite un Head of Sales qu'un post textuel.",
+        "On a décliné ton post en un teaser vidéo 15s percutant sans caméra, respectant scrupuleusement la charte Hublead.",
+        "Tu peux évaluer notre studio grâce au Pack Découverte à 150 € (entièrement déductible de l'abonnement mensuel).",
+        "Tu veux que je te transmette le fichier MP4 par retour de mail ?",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Hello Bastien,\n\nTon post sur les 5 heures hebdomadaires perdues par commercial en saisie manuelle CRM tape exactement là où ça fait mal.\nSur les réseaux, une démonstration en vidéo animée de 60s convainc 3x plus vite un Head of Sales qu'un post textuel.\nOn a décliné ton post en un teaser vidéo 15s percutant sans caméra, respectant scrupuleusement la charte Hublead.\nTu peux évaluer notre studio grâce au Pack Découverte à 150 € (entièrement déductible de l'abonnement mensuel).\nTu veux que je te transmette le fichier MP4 par retour de mail ?\n\nKreesten - Agent404"
+    }
+  },
+  {
+    "id": 10,
+    "slug": "10_robin_bonduelle_claap",
+    "category": "2_fondateurs_saas",
+    "category_label": "Fondateurs SaaS / Tech / IA",
+    "identity": {
+      "first_name": "Robin",
+      "last_name": "Bonduelle",
+      "full_name": "Robin Bonduelle",
+      "title": "Co-fondateur & CEO",
+      "company": "Claap",
+      "company_size": "15-30 employés (B2B SaaS Seed/Series A)"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://fr.linkedin.com/in/robin-bonduelle-6812a626",
+      "website_url": "https://claap.io",
+      "work_email": "robin@claap.io"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Robin écrit sur l'épuisement causé par les réunions synchrones, la puissance du feedback asynchrone et l'analyse automatique des sales calls par IA pour fermer plus de deals.",
+      "video_gap_reason": "Paradoxe total : Claap est une plateforme de vidéo asynchrone, mais le profil personnel de Robin ne publie pratiquement que du texte pur. Il manque d'un pipeline de production de capsules courtes pour incarner sa marque personnelle sans empiéter sur son rôle de CEO."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "La réunion de 30 minutes qui aurait pu être un mémo de 2 minutes",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "CLAAP",
+        "theme": {
+          "bg_canvas": "#F7F7F8",
+          "surface_card": "#FFFFFF",
+          "ink": "#19191B",
+          "accent_primary": "#5E6AD2",
+          "tile_1": "#E8EAFE",
+          "tile_2": "#FEE2E2",
+          "tile_3": "#D1FAE5"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "facepalm.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "ZOOM FATIGUE",
+            "box_color": "var(--tile-purple)",
+            "icon": "question",
+            "title": "ENCORE UNE RÉUNION DE 30 MIN DANS TON CALENDRIER ?",
+            "subtitle": "La plupart des réunions synchrones bloquent l'élan de ton équipe.",
+            "stamp_text": "STOP RÉUNIONS",
+            "avatar": "facepalm"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_friction_stack",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "header_badge": "LE VRAI COÛT DE LA SYNCHRONICITÉ",
+            "items": [
+              {
+                "icon": "clock",
+                "box_color": "var(--tile-yellow)",
+                "text": "5 PERSONNES BLOQUÉES EN MÊME TEMPS",
+                "right_badge": "2.5H HOMME",
+                "status": "cross",
+                "appear_at_offset": 0.0
+              },
+              {
+                "icon": "cross",
+                "box_color": "var(--surface-card)",
+                "text": "AUCUNE DÉCISION ÉCRITE RETENUE",
+                "right_badge": "OUBLI",
+                "status": "cross",
+                "appear_at_offset": 1.5
+              },
+              {
+                "icon": "bolt",
+                "box_color": "var(--tile-green)",
+                "text": "UN MÉMO VIDÉO ASYNCHRONE DE 2 MIN",
+                "right_badge": "CLAAP",
+                "status": "check",
+                "appear_at_offset": 3.0
+              }
+            ],
+            "connectors": "none"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_cta_conversion",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "CLAAP.IO",
+            "main_text": "PASSE AU TRAVAIL ASYNCHRONE INTELLIGENT",
+            "sub_text": "Alignez vos équipes et coachez vos commerciaux sans réunions superflues.",
+            "button_text": "DÉCOUVRIR CLAAP",
+            "avatar": "idea"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Tes retours sur la transition vers le travail asynchrone et la fin des réunions synchrones stériles sont brillants. Je développe un studio vidéo B2B sans caméra. Ravi de te suivre.",
+      "invite_note_char_count": 184,
+      "first_message": "Hello Robin, ton post sur le coût caché des réunions de 30 minutes sans ordre du jour est une claque de bon sens. Pour évangéliser les managers pressés, une capsule vidéo incisive de 15s a un impact décuplé. J'ai prototypé ce message en vidéo motion aux couleurs de Claap. Tu veux jeter un œil au MP4 ici ?",
+      "first_message_char_count": 335
+    },
+    "cold_email_d1": {
+      "subject": "ton post sur les réunions inutiles en vidéo",
+      "body_lines": [
+        "Hello Robin,",
+        "Ton post chiffrant le coût astronomique des réunions synchrones de 30 minutes touche un point névralgique chez tous les CEO.",
+        "Ce format d'argumentaire s'adapte à merveille au format vidéo court vertical pour frapper les décideurs sur LinkedIn et Shorts.",
+        "On a modélisé ta réflexion en un teaser vidéo 15s néo-brutaliste sans tournage, prêt à être diffusé.",
+        "Notre Pack Découverte (150 €, 100% déduit du premier mois d'abonnement) permet de tester sur une capsule 60s sans engagement.",
+        "Je peux te glisser la démo MP4 en réponse à ce message ?",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Hello Robin,\n\nTon post chiffrant le coût astronomique des réunions synchrones de 30 minutes touche un point névralgique chez tous les CEO.\nCe format d'argumentaire s'adapte à merveille au format vidéo court vertical pour frapper les décideurs sur LinkedIn et Shorts.\nOn a modélisé ta réflexion en un teaser vidéo 15s néo-brutaliste sans tournage, prêt à être diffusé.\nNotre Pack Découverte (150 €, 100% déduit du premier mois d'abonnement) permet de tester sur une capsule 60s sans engagement.\nJe peux te glisser la démo MP4 en réponse à ce message ?\n\nKreesten - Agent404"
+    }
+  },
+  {
+    "id": 11,
+    "slug": "11_thibaut_souyris_saleslabs",
+    "category": "3_consultants_b2b",
+    "category_label": "Consultants / Cabinets d'expertise B2B",
+    "identity": {
+      "first_name": "Thibaut",
+      "last_name": "Souyris",
+      "full_name": "Thibaut Souyris",
+      "title": "Fondateur & CEO",
+      "company": "SalesLabs",
+      "company_size": "2-8 employés (Cabinet de Formation & Coaching B2B Sales)"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://www.linkedin.com/in/thibautsouyris/",
+      "website_url": "https://saleslabs.io",
+      "work_email": "thibaut@saleslabs.io"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Thibaut partage des techniques pointues de prospection commerciale B2B, d'objection handling au téléphone et de cadences de cold emailing structurées.",
+      "video_gap_reason": "Ses conseils sont d'une utilité immédiate pour les commerciaux, mais ils restent confinés à des publications écrites. Alors que la nouvelle génération de commerciaux consomme l'essentiel de sa formation sur Shorts et TikTok, Thibaut n'a pas le temps de s'astreindre à tourner et monter des vidéos."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "Pourquoi la phrase 'J'espère que vous allez bien' flingue votre cold call",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "SALESLABS",
+        "theme": {
+          "bg_canvas": "#0D1117",
+          "surface_card": "#161B22",
+          "ink": "#F0F6FC",
+          "accent_primary": "#F59E0B",
+          "tile_1": "#1F2937",
+          "tile_2": "#374151",
+          "tile_3": "#FEF3C7"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "mic.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "PROSPECTION TÉLÉPHONIQUE",
+            "box_color": "var(--tile-yellow)",
+            "icon": "question",
+            "title": "TU COMMENCES ENCORE TES APPELS PAR ÇA ?",
+            "subtitle": "Les formules de politesse convenues font fuir les décideurs en 3 secondes.",
+            "stamp_text": "ERREUR FATALE",
+            "avatar": "facepalm"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_versus_compare",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "top_badge": "POSTURE COMMERCIALE",
+            "left_title": "APPROCHE AMATEUR",
+            "left_items": ["J'espère que vous allez bien", "Je me permets de vous appeler", "Raccrochage immédiat"],
+            "right_title": "MÉTHODE SALESLABS",
+            "right_items": ["Problème direct identifié", "Question ouverte ciblée", "Conversation engagée"],
+            "winner": "right",
+            "footer_stamp": "LES 10 SECONDES CLÉS"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_cta_conversion",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "SALESLABS ACADEMY",
+            "main_text": "MAÎTRISE LA PROSPECTION SORTANTE B2B",
+            "sub_text": "Des frameworks actionnables pour décrocher des rendez-vous qualifiés.",
+            "button_text": "REJOINDRE LE BOOTCAMP",
+            "avatar": "mic"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Ton framework pour débloquer l'objection 'envoyez-moi un email' est un cas d'école. Je pilote un studio de capsules vidéo motion B2B sans caméra. Très heureux de suivre tes partages.",
+      "invite_note_char_count": 188,
+      "first_message": "Hello Thibaut, ton post sur les 10 premières secondes d'un cold call est une pépite pour tout commercial. En vidéo rythmée avec sous-titres dynamiques, ce conseil ferait des cartons d'engagement auprès des directeurs commerciaux. J'ai créé un aperçu vidéo 15s basé sur ta méthode. Est-ce que je peux te l'envoyer en MP4 ?",
+      "first_message_char_count": 344
+    },
+    "cold_email_d1": {
+      "subject": "tes frameworks cold calling en capsule vidéo",
+      "body_lines": [
+        "Hello Thibaut,",
+        "Ton post décortiquant l'erreur des formules de politesse en début de cold call est un modèle de pédagogie commerciale.",
+        "Les équipes sales consomment aujourd'hui leurs techniques en micro-vidéos sur mobile plutôt que dans de longs articles.",
+        "On a traduit ton framework en une capsule vidéo 15s sans caméra, chartée aux couleurs de SalesLabs.",
+        "Notre Pack Découverte (150 €, 100% déductible du premier mois) te permet de valider le format en conditions réelles.",
+        "Tu es d'accord pour que je te partage la démo vidéo en retour de ce mail ?",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Hello Thibaut,\n\nTon post décortiquant l'erreur des formules de politesse en début de cold call est un modèle de pédagogie commerciale.\nLes équipes sales consomment aujourd'hui leurs techniques en micro-vidéos sur mobile plutôt que dans de longs articles.\nOn a traduit ton framework en une capsule vidéo 15s sans caméra, chartée aux couleurs de SalesLabs.\nNotre Pack Découverte (150 €, 100% déductible du premier mois) te permet de valider le format en conditions réelles.\nTu es d'accord pour que je te partage la démo vidéo en retour de ce mail ?\n\nKreesten - Agent404"
+    }
+  },
+  {
+    "id": 12,
+    "slug": "12_yannick_kpodar_hubble",
+    "category": "3_consultants_b2b",
+    "category_label": "Consultants / Cabinets d'expertise B2B",
+    "identity": {
+      "first_name": "Yannick",
+      "last_name": "Kpodar",
+      "full_name": "Yannick Kpodar",
+      "title": "Executive Advisor & Fondateur",
+      "company": "Hubble Advisory / Aventra",
+      "company_size": "1-5 employés (Conseil Stratégique GTM SaaS 10M$-100M$ ARR)"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://fr.linkedin.com/in/yannickkpodar",
+      "website_url": "https://yannickkpodar.com",
+      "work_email": "yannick@yannickkpodar.com"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Yannick publie des réflexions d'un niveau stratégique rare sur l'efficacité du capital, les écueils de croissance au-delà de 10M$ d'ARR et le recrutement de cadres dirigeants.",
+      "video_gap_reason": "Ses manifestes écrits sont très complets mais réservés aux initiés capables de lire 2 000 mots sur LinkedIn. Pour toucher des fondateurs de licornes et des fonds de capital-risque débordés, une vidéo animée sobre et épurée asseoit une autorité immédiate sans demander une seule heure de tournage."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "Le piège de la croissance à tout prix au-delà de 10M$ d'ARR",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "HUBBLE ADVISORY",
+        "theme": {
+          "bg_canvas": "#111827",
+          "surface_card": "#1F2937",
+          "ink": "#F9FAFB",
+          "accent_primary": "#E11D48",
+          "tile_1": "#1F2937",
+          "tile_2": "#374151",
+          "tile_3": "#FFE4E6"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "idea.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "EXECUTIVE ADVISORY",
+            "box_color": "var(--tile-red)",
+            "icon": "question",
+            "title": "VOTRE SAAS BRÛLE DU CASH SANS GÉNÉRER DE LEVIER ?",
+            "subtitle": "Multiplier les recrutements sans moteur GTM prévisible mène au mur.",
+            "stamp_text": "ALERTE ARR",
+            "avatar": "idea"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_stat_shock",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "top_badge": "CHIFFRE SECTORIEL",
+            "stat_from": 0,
+            "stat_to": 67,
+            "stat_suffix": "%",
+            "label": "DES SAAS SERIES B MANQUENT LEUR PLAN FAUTE DE REVOPS ALIGNÉS",
+            "progress_bar": true,
+            "footer_stamp": "CAPITAL EFFICIENCY"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_cta_conversion",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "HUBBLE ADVISORY",
+            "main_text": "BÂTISSEZ UNE TRAJECTOIRE RÉSILIENTE JUSQU'À 100M$",
+            "sub_text": "Conseil exécutif pour fondateurs et conseils d'administration B2B.",
+            "button_text": "ÉCHANGER AVEC YANNICK",
+            "avatar": "pointing"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Ton retour d'expérience sur l'illusion de recruter un VP Sales avant d'avoir un playbook validé est limpide. Je dirige un studio de capsules vidéo motion B2B. Au plaisir d'échanger.",
+      "invite_note_char_count": 186,
+      "first_message": "Hello Yannick, ton post sur les erreurs de scaling entre 10M$ et 50M$ d'ARR est du niveau des meilleurs mémos de fonds US. Pour capter les CEO débordés, ce type d'insight gagne énormément à être packagé en vidéo motion de 15s. J'ai préparé une capsule démo basée sur ton post. Tu veux que je te la montre en MP4 ?",
+      "first_message_char_count": 340
+    },
+    "cold_email_d1": {
+      "subject": "tes thèses de scaling b2b en vidéo de synthèse",
+      "body_lines": [
+        "Hello Yannick,",
+        "Ton analyse sur le piège des recrutements précipités de VP Sales au palier de 10M$ d'ARR est d'une grande lucidité.",
+        "Les dirigeants de scale-ups n'ont plus le temps de lire de longs mémos, mais ils absorbent des capsules vidéo de 60s.",
+        "On a synthétisé ta thèse dans une vidéo courte néo-brutaliste de 15s sans caméra, au positionnement très épuré.",
+        "Notre Pack Découverte (150 €, 100% remboursé sur l'abonnement mensuel) est conçu pour tester sans friction.",
+        "Puis-je te transmettre le fichier MP4 de démo par retour de mail ?",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Hello Yannick,\n\nTon analyse sur le piège des recrutements précipités de VP Sales au palier de 10M$ d'ARR est d'une grande lucidité.\nLes dirigeants de scale-ups n'ont plus le temps de lire de longs mémos, mais ils absorbent des capsules vidéo de 60s.\nOn a synthétisé ta thèse dans une vidéo courte néo-brutaliste de 15s sans caméra, au positionnement très épuré.\nNotre Pack Découverte (150 €, 100% remboursé sur l'abonnement mensuel) est conçu pour tester sans friction.\nPuis-je te transmettre le fichier MP4 de démo par retour de mail ?\n\nKreesten - Agent404"
+    }
+  },
+  {
+    "id": 13,
+    "slug": "13_enzo_colucci_conseil",
+    "category": "3_consultants_b2b",
+    "category_label": "Consultants / Cabinets d'expertise B2B",
+    "identity": {
+      "first_name": "Enzo",
+      "last_name": "Colucci",
+      "full_name": "Enzo Colucci",
+      "title": "Coach Commercial B2B & Fondateur",
+      "company": "Enzo Colucci Conseil",
+      "company_size": "1-3 employés (Coaching Commercial High-Ticket & Closing)"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://fr.linkedin.com/in/enzo-colucci",
+      "website_url": "https://enzocolucci.com",
+      "work_email": "enzo@enzocolucci.com"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Enzo publie avec un franc-parler légendaire ('Et au pire quoi ?') sur la dédramatisation de la vente, le traitement des objections de prix et le courage commercial.",
+      "video_gap_reason": "Son style parlé est ultra-dynamique, mais il publie principalement du texte brut et quelques vidéos improvisées facecam sans habillage ni sous-titrage professionnel. Ses conseils méritent des capsules néo-brutalistes avec stickers et sound design pour cartonner auprès des jeunes commerciaux."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "L'objection 'Vous êtes trop cher' n'existe pas",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "ENZO COLUCCI",
+        "theme": {
+          "bg_canvas": "#FFFDF5",
+          "surface_card": "#FFFFFF",
+          "ink": "#18181B",
+          "accent_primary": "#EAB308",
+          "tile_1": "#FEF9C3",
+          "tile_2": "#FEF08A",
+          "tile_3": "#DCFCE7"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "pointing.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "CLOSING B2B",
+            "box_color": "var(--tile-yellow)",
+            "icon": "question",
+            "title": "TON PROSPECT TE SORT ENCORE QUE C'EST TROP CHER ?",
+            "subtitle": "Le problème n'est jamais le prix. C'est la valeur perçue.",
+            "stamp_text": "FAUSSE OBJECTION",
+            "avatar": "question"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_friction_stack",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "header_badge": "CE QU'IL VEUT VRAIMENT DIRE",
+            "items": [
+              {
+                "icon": "cross",
+                "box_color": "var(--tile-yellow)",
+                "text": "IL N'A PAS COMPRIS TON RETOUR SUR INVESTISSEMENT",
+                "right_badge": "VALEUR FLOU",
+                "status": "cross",
+                "appear_at_offset": 0.0
+              },
+              {
+                "icon": "cross",
+                "box_color": "var(--surface-card)",
+                "text": "IL A PEUR DE SE PLANTER AVEC SA HIÉRARCHIE",
+                "right_badge": "PEUR DU RISQUE",
+                "status": "cross",
+                "appear_at_offset": 1.5
+              },
+              {
+                "icon": "check",
+                "box_color": "var(--tile-green)",
+                "text": "RÉPONDRE PAR LE RISQUE DU STATU QUO",
+                "right_badge": "CLOSING",
+                "status": "check",
+                "appear_at_offset": 3.0
+              }
+            ],
+            "connectors": "none"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_cta_conversion",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "ET AU PIRE QUOI ?!",
+            "main_text": "ASSUME TES TARIFS SANS JAMAIS TREMBLER",
+            "sub_text": "Coaching de vente pragmatique pour commerciaux et fondateurs.",
+            "button_text": "BOOSTER SES VENTES",
+            "avatar": "pointing"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Ton approche 'Et au pire quoi' sur la relance client sans trembler est rafraîchissante et ultra efficace. Je produis des vidéos courtes B2B sans caméra. Ravi de rejoindre ton réseau.",
+      "invite_note_char_count": 187,
+      "first_message": "Hello Enzo, ton post sur l'objection 'c'est trop cher' et la posture à tenir face aux acheteurs est du pain bénit pour les commerciaux. Ton style punchy mériterait des capsules vidéo dynamiques à la chaîne pour dominer TikTok et Shorts. J'ai animé ce post en teaser 15s sans caméra. Dis-moi si tu veux que je te glisse le MP4 ici ?",
+      "first_message_char_count": 353
+    },
+    "cold_email_d1": {
+      "subject": "ton conseil sur l'objection prix en vidéo",
+      "body_lines": [
+        "Hello Enzo,",
+        "Ton post sur la vraie signification du 'c'est trop cher' chez un prospect est un régal de bon sens commercial.",
+        "Ton ton percutant gagne une force de frappe monumentale lorsqu'il est incarné dans une capsule vidéo animée courte.",
+        "On a transformé ton raisonnement en une vidéo de 15 secondes dynamique sans caméra, avec sous-titrage mot-à-mot.",
+        "Tu peux valider notre rendu avec le Pack Découverte (150 €, 100% déduit de l'abonnement de 8 vidéos par mois).",
+        "Est-ce que je peux te déposer le premier extrait vidéo en réponse ?",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Hello Enzo,\n\nTon post sur la vraie signification du 'c'est trop cher' chez un prospect est un régal de bon sens commercial.\nTon ton percutant gagne une force de frappe monumentale lorsqu'il est incarné dans une capsule vidéo animée courte.\nOn a transformé ton raisonnement en une vidéo de 15 secondes dynamique sans caméra, avec sous-titrage mot-à-mot.\nTu peux valider notre rendu avec le Pack Découverte (150 €, 100% déduit de l'abonnement de 8 vidéos par mois).\nEst-ce que je peux te déposer le premier extrait vidéo en réponse ?\n\nKreesten - Agent404"
+    }
+  },
+  {
+    "id": 14,
+    "slug": "14_sylvain_tillon_lebahut",
+    "category": "3_consultants_b2b",
+    "category_label": "Consultants / Cabinets d'expertise B2B",
+    "identity": {
+      "first_name": "Sylvain",
+      "last_name": "Tillon",
+      "full_name": "Sylvain Tillon",
+      "title": "Fondateur & Dirigeant",
+      "company": "Le Bahut / Sydo",
+      "company_size": "10-25 employés (Conseil en Pédagogie & Formation B2B)"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://fr.linkedin.com/in/sylvaintillon",
+      "website_url": "https://lebahut.com",
+      "work_email": "sylvain@lebahut.com"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Sylvain partage quotidiennement ses anecdotes d'entrepreneur, l'inefficacité des formations d'entreprise magistrales et l'importance de concevoir des formats d'apprentissage vivants.",
+      "video_gap_reason": "Pionnier historique de la vidéo pédagogique avec 'Dessine-moi l'éco', Sylvain connaît la valeur du visuel, mais n'a plus le temps d'animer à la main des vidéos sur-mesure. Il s'exprime donc à 100% à l'écrit."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "Pourquoi 90% des formations d'entreprise sont oubliées en 48h",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "LE BAHUT",
+        "theme": {
+          "bg_canvas": "#F8FAFC",
+          "surface_card": "#FFFFFF",
+          "ink": "#1E293B",
+          "accent_primary": "#0284C7",
+          "tile_1": "#E0F2FE",
+          "tile_2": "#FEF3C7",
+          "tile_3": "#D1FAE5"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "idea.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "PÉDAGOGIE PROFESSIONNELLE",
+            "box_color": "var(--tile-blue)",
+            "icon": "question",
+            "title": "POURQUOI VOS COLLABORATEURS OUBLIENT TOUT EN 48H ?",
+            "subtitle": "Les formations magistrales de 4 heures en salle ne fonctionnent plus.",
+            "stamp_text": "COURBE DE L'OUBLI",
+            "avatar": "question"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_stat_shock",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "top_badge": "RÉALITÉ NEUROSCIENCE",
+            "stat_from": 0,
+            "stat_to": 90,
+            "stat_suffix": "%",
+            "label": "DU CONTENU TRANSMIS SUR POWERPOINT DISPARAÎT EN 2 JOURS",
+            "progress_bar": true,
+            "footer_stamp": "REFONDEZ VOS MODULES"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_cta_conversion",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "LE BAHUT",
+            "main_text": "PASSEZ AU MICRO-LEARNING QUI MARQUE LES ESPRITS",
+            "sub_text": "Formez vos Digital Learning Managers aux formats d'impact.",
+            "button_text": "DÉCOUVRIR LE BAHUT",
+            "avatar": "idea"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Ton retour d'expérience sur la gamification utile et la lutte contre les formations d'entreprise soporifiques était top. Je développe des vidéos courtes B2B sans studio. Au plaisir de te lire.",
+      "invite_note_char_count": 194,
+      "first_message": "Hello Sylvain, ton post sur la courbe de l'oubli et l'inefficacité des sessions de formation PowerPoint de 4 heures est criant de vérité. Connaissant ton attachement à la pédagogie visuelle, j'ai voulu transposer ton texte dans une capsule vidéo animée de 15s sans caméra. Je serais curieux d'avoir ton œil critique d'expert sur le MP4 ?",
+      "first_message_char_count": 355
+    },
+    "cold_email_d1": {
+      "subject": "ton analyse de la formation b2b en vidéo",
+      "body_lines": [
+        "Hello Sylvain,",
+        "Ton post sur les 90% de contenu de formation oubliés dès le lendemain est un plaidoyer formidable pour le micro-learning.",
+        "Pour convaincre les DRH et dirigeants, ce type de message percute infiniment plus fort sous forme de capsule animée de 60s.",
+        "On a compilé ton argumentation dans un teaser vidéo 15s néo-brutaliste sans caméra, dynamique et direct.",
+        "Notre Pack Découverte (150 €, remboursé à 100% sur le premier mois) permet de tester sur un cas concret sans risque.",
+        "Dis-moi si tu es d'accord pour que je te glisse le fichier MP4 en réponse.",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Hello Sylvain,\n\nTon post sur les 90% de contenu de formation oubliés dès le lendemain est un plaidoyer formidable pour le micro-learning.\nPour convaincre les DRH et dirigeants, ce type de message percute infiniment plus fort sous forme de capsule animée de 60s.\nOn a compilé ton argumentation dans un teaser vidéo 15s néo-brutaliste sans caméra, dynamique et direct.\nNotre Pack Découverte (150 €, remboursé à 100% sur le premier mois) permet de tester sur un cas concret sans risque.\nDis-moi si tu es d'accord pour que je te glisse le fichier MP4 en réponse.\n\nKreesten - Agent404"
+    }
+  },
+  {
+    "id": 15,
+    "slug": "15_jean_baptiste_gouin_talenco",
+    "category": "3_consultants_b2b",
+    "category_label": "Consultants / Cabinets d'expertise B2B",
+    "identity": {
+      "first_name": "Jean-Baptiste",
+      "last_name": "Gouin",
+      "full_name": "Jean-Baptiste Gouin",
+      "title": "Co-fondateur & CEO",
+      "company": "TalenCo",
+      "company_size": "15-35 employés (Cabinet de Conseil en Transformation & OKR)"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://fr.linkedin.com/in/jean-baptiste-gouin-talenco",
+      "website_url": "https://talenco.com",
+      "work_email": "jean-baptiste.gouin@talenco.com"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Jean-Baptiste écrit sur l'alignement stratégique des comités de direction, le pilotage de la performance via la méthode OKR et la fin des silos organisationnels.",
+      "video_gap_reason": "Ses réflexions sont d'un grand intérêt pour les DRH et directeurs généraux, mais les concepts OKR restent perçus comme abstraits par écrit. Une vidéo motion dynamique permettrait d'évangéliser les Comex sans nécessiter d'interviews vidéo facecam."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "Pourquoi vos objectifs annuels sont déjà morts au mois de mars",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "TALENCO",
+        "theme": {
+          "bg_canvas": "#FAFAFA",
+          "surface_card": "#FFFFFF",
+          "ink": "#171717",
+          "accent_primary": "#0284C7",
+          "tile_1": "#E0F2FE",
+          "tile_2": "#FEE2E2",
+          "tile_3": "#DCFCE7"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "idea.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "MÉTHODE OKR",
+            "box_color": "var(--tile-blue)",
+            "icon": "question",
+            "title": "VOS OBJECTIFS ANNUELS SONT DÉJÀ MORTS EN MARS ?",
+            "subtitle": "Fixer des objectifs une fois par an dans un tableur ne pilote rien.",
+            "stamp_text": "DÉCONNEXION",
+            "avatar": "question"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_versus_compare",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "top_badge": "TRANSFORMATION MANAGÉRIALE",
+            "left_title": "OBJECTIFS CLASSIQUES",
+            "left_items": ["Feuille Excel oubliée", "Silos entre départements", "Bilan stérile en fin d'année"],
+            "right_title": "MÉTHODE OKR",
+            "right_items": ["Cycles de 90 jours vivants", "Transparence totale des priorités", "Résultats mesurables"],
+            "winner": "right",
+            "footer_stamp": "ALIGNEMENT EXÉCUTIF"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_cta_conversion",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "TALENCO CONSEIL",
+            "main_text": "CONNECTEZ LA STRATÉGIE AU QUOTIDIEN DE VOS ÉQUIPES",
+            "sub_text": "Pionnier du déploiement des OKR auprès des ETI et grands groupes.",
+            "button_text": "DÉCOUVRIR TALENCO",
+            "avatar": "idea"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Vos partages sur les pièges fréquents lors du déploiement des OKR en ETI sont d'une grande précision. Je dirige un studio de capsules vidéo motion B2B. Ravi de suivre vos publications.",
+      "invite_note_char_count": 188,
+      "first_message": "Bonjour Jean-Baptiste, votre post sur la déconnexion entre la stratégie des Comex et l'exécution opérationnelle résume la douleur de nombreux dirigeants. Les concepts d'alignement OKR gagnent énormément en clarté avec une vidéo animée rythmée. J'ai modélisé votre raisonnement dans un clip démo de 15s. Puis-je vous le transmettre ici en MP4 ?",
+      "first_message_char_count": 363
+    },
+    "cold_email_d1": {
+      "subject": "votre analyse sur les okr en capsule vidéo",
+      "body_lines": [
+        "Bonjour Jean-Baptiste,",
+        "Votre publication sur l'abandon précoce des objectifs annuels en entreprise pointe avec justesse la rigidité des méthodes traditionnelles.",
+        "Pour sensibiliser les dirigeants et DRH souvent débordés, une capsule vidéo de 60 secondes offre une clarté immédiate.",
+        "Nous avons adapté votre réflexion dans un format vidéo court de 15s sans caméra, aux standards graphiques de TalenCo.",
+        "Notre Pack Découverte (150 €, 100% déductible du premier mois) vous permet de juger sur pièce sans engagement.",
+        "Seriez-vous d'accord pour que je vous transmette ce premier aperçu vidéo en retour de mail ?",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Bonjour Jean-Baptiste,\n\nVotre publication sur l'abandon précoce des objectifs annuels en entreprise pointe avec justesse la rigidité des méthodes traditionnelles.\nPour sensibiliser les dirigeants et DRH souvent débordés, une capsule vidéo de 60 secondes offre une clarté immédiate.\nNous avons adapté votre réflexion dans un format vidéo court de 15s sans caméra, aux standards graphiques de TalenCo.\nNotre Pack Découverte (150 €, 100% déductible du premier mois) vous permet de juger sur pièce sans engagement.\nSeriez-vous d'accord pour que je vous transmette ce premier aperçu vidéo en retour de mail ?\n\nKreesten - Agent404"
+    }
+  },
+  {
+    "id": 16,
+    "slug": "16_kevin_moenne_loccoz_cheatsheet",
+    "category": "4_experts_marketing_sales",
+    "category_label": "Experts Sales / Ghostwriting / Marketing B2B",
+    "identity": {
+      "first_name": "Kévin",
+      "last_name": "Moënne-Loccoz",
+      "full_name": "Kévin Moënne-Loccoz",
+      "title": "Créateur & Consultant Growth",
+      "company": "The Cheat Sheet Guy",
+      "company_size": "1-3 employés (Média & Consulting Growth/Product)"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://www.linkedin.com/in/kevin-mlz/",
+      "website_url": "https://thecheatsheetguy.com",
+      "work_email": "kevin@thecheatsheetguy.com"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Kévin publie des carrousels denses et des fiches mémos ultra-visuelles sur la prospection commerciale, les tactiques d'acquisition B2B et les meilleurs outils SaaS.",
+      "video_gap_reason": "Ses fiches statiques génèrent un engagement exceptionnel en 'enregistrer le post', mais il n'a aucune déclinaison vidéo dynamique. Une capsule de 45-60s animant ses cheat sheets ferait exploser son audience sur TikTok et Shorts sans qu'il ait besoin d'enregistrer facecam."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "La Cheat Sheet ultime pour ne plus jamais manquer de leads",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "THE CHEAT SHEET GUY",
+        "theme": {
+          "bg_canvas": "#FFFDF5",
+          "surface_card": "#FFFFFF",
+          "ink": "#1E293B",
+          "accent_primary": "#F59E0B",
+          "tile_1": "#FEF3C7",
+          "tile_2": "#EDE9FE",
+          "tile_3": "#DBEAFE"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "idea.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "CHEAT SHEET PROSPECTION",
+            "box_color": "var(--tile-yellow)",
+            "icon": "question",
+            "title": "BESOIN DE 50 LEADS B2B CHAUDS CETTE SEMAINE ?",
+            "subtitle": "Voici le système en 3 étapes pour prospecter sans payer de publicité.",
+            "stamp_text": "LEADS GRATUITS",
+            "avatar": "idea"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_friction_stack",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "header_badge": "LE PIPELINE EN 3 ÉTAPES",
+            "items": [
+              {
+                "icon": "eye",
+                "box_color": "var(--tile-yellow)",
+                "text": "1. DÉTECTER LES SIGNAUX D'ACHAT LINKEDIN",
+                "right_badge": "INTENTION",
+                "status": "check",
+                "appear_at_offset": 0.0
+              },
+              {
+                "icon": "mail",
+                "box_color": "var(--surface-card)",
+                "text": "2. ENRICHIR L'EMAIL PROFESSIONNEL VÉRIFIÉ",
+                "right_badge": "DATA VERIFIED",
+                "status": "check",
+                "appear_at_offset": 1.5
+              },
+              {
+                "icon": "bolt",
+                "box_color": "var(--tile-purple)",
+                "text": "3. ENVOYER UN TEASER VIDÉO SUR-MESURE",
+                "right_badge": "38% RÉPONSES",
+                "status": "check",
+                "appear_at_offset": 3.0
+              }
+            ],
+            "connectors": "none"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_stat_shock",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "RÉSULTAT SEMAINE",
+            "stat_from": 0,
+            "stat_to": 50,
+            "stat_suffix": "+",
+            "label": "LEADS ULTRA-QUALIFIÉS CONTACTÉS EN MOINS DE 2H",
+            "progress_bar": true,
+            "footer_stamp": "SAUVEGARDE CETTE FICHE",
+            "avatar": "pointing"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Tes cheat sheets sur les stacks de prospection B2B sont parmi les meilleures du réseau. Je gère un studio de capsules vidéo motion sans caméra. Curieux de voir tes prochains partages.",
+      "invite_note_char_count": 188,
+      "first_message": "Hello Kévin, tes fiches cheat sheets cartonnent en carrousel statique, mais sur mobile, une animation néo-brutaliste de 15s ferait exploser tes sauvegardes sur LinkedIn et Shorts. J'ai pris l'une de tes fiches et je l'ai animée sans caméra avec tes codes graphiques. Je peux te faire passer le MP4 ici pour avoir ton avis d'expert ?",
+      "first_message_char_count": 352
+    },
+    "cold_email_d1": {
+      "subject": "tes cheat sheets b2b animées en vidéo",
+      "body_lines": [
+        "Hello Kévin,",
+        "Tes cheat sheets sur les stacks d'outreach font un carton mérité sur LinkedIn grâce à leur densité d'information.",
+        "Le format vidéo court permettrait de donner une seconde vie explosive à chacune de tes fiches sur YouTube Shorts et Reels.",
+        "On a modélisé l'un de tes frameworks dans une capsule vidéo animée de 15s sans aucune contrainte de tournage.",
+        "Notre Pack Découverte (150 €, déductible à 100% de l'abonnement de 8 vidéos) est le moyen idéal de tester.",
+        "Dis-moi si tu veux recevoir le MP4 de démo par retour de mail.",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Hello Kévin,\n\nTes cheat sheets sur les stacks d'outreach font un carton mérité sur LinkedIn grâce à leur densité d'information.\nLe format vidéo court permettrait de donner une seconde vie explosive à chacune de tes fiches sur YouTube Shorts et Reels.\nOn a modélisé l'un de tes frameworks dans une capsule vidéo animée de 15s sans aucune contrainte de tournage.\nNotre Pack Découverte (150 €, déductible à 100% de l'abonnement de 8 vidéos) est le moyen idéal de tester.\nDis-moi si tu veux recevoir le MP4 de démo par retour de mail.\n\nKreesten - Agent404"
+    }
+  },
+  {
+    "id": 17,
+    "slug": "17_valentin_decker_saucewriting",
+    "category": "4_experts_marketing_sales",
+    "category_label": "Experts Sales / Ghostwriting / Marketing B2B",
+    "identity": {
+      "first_name": "Valentin",
+      "last_name": "Decker",
+      "full_name": "Valentin Decker",
+      "title": "Fondateur & Formateur",
+      "company": "Sauce Writing",
+      "company_size": "1-5 employés (École d'Écriture & Ghostwriting B2B)"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://www.linkedin.com/in/valentindecker/",
+      "website_url": "https://saucewriting.com",
+      "work_email": "valentin@saucewriting.com"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Valentin publie sur la rigueur d'écriture, l'art d'extraire des idées profondes et le rejet des formats creux de vanity metrics.",
+      "video_gap_reason": "Farouche défenseur de l'écrit, Valentin refuse la futilité des tournages vidéo facecam et les filtres superficiels. Pourtant, une vidéo néo-brutaliste qui magnifie le texte mot-à-mot sans caméra respecte totalement son éthique d'artisan de l'écrit."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "Pourquoi vous devriez écrire pour penser, pas pour plaire à l'algorithme",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "SAUCE WRITING",
+        "theme": {
+          "bg_canvas": "#FBF9F5",
+          "surface_card": "#FFFFFF",
+          "ink": "#1A1A1A",
+          "accent_primary": "#E05A47",
+          "tile_1": "#FCEEEB",
+          "tile_2": "#EAE6DF",
+          "tile_3": "#D5E5DA"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "idea.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "ÉCRITURE & CLARTÉ",
+            "box_color": "var(--tile-orange)",
+            "icon": "question",
+            "title": "TU ÉCRIS POUR PENSER OU POUR RAMASSER DES LIKES ?",
+            "subtitle": "Flatter l'algorithme avec du contenu réchauffé détruit ta crédibilité.",
+            "stamp_text": "PROFONDEUR",
+            "avatar": "question"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_versus_compare",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "top_badge": "LE VRAI DILEMME",
+            "left_title": "VANITY POSTS",
+            "left_items": ["Phrases courtes vides", "Conseils génériques copiés", "Oublié 10 min après"],
+            "right_title": "ÉCRITURE D'IMPACT",
+            "right_items": ["Thèse originale étayée", "Style singulier reconnaissable", "Autorité qui dure des années"],
+            "winner": "right",
+            "footer_stamp": "SOIS INOUBLIABLE"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_cta_conversion",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "SAUCE WRITING",
+            "main_text": "FAIS DE L'ÉCRITURE TON AVANTAGE CONCURRENTIEL",
+            "sub_text": "L'école qui aide les créateurs et dirigeants à trouver leur voix.",
+            "button_text": "REJOINDRE SAUCE WRITING",
+            "avatar": "idea"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Tes essais sur l'écriture comme outil de clarté mentale m'ont beaucoup inspiré pour structurer mon propre travail. Je développe des vidéos B2B sans tournage. Hâte de te suivre.",
+      "invite_note_char_count": 180,
+      "first_message": "Hello Valentin, ton post sur le fait d'écrire pour clarifier sa pensée plutôt que pour flatter l'algorithme était d'une justesse absolue. Pour diffuser cette vision sans trahir la beauté du texte, j'ai adapté ton post en capsule vidéo animée néo-brutaliste de 15s (zéro caméra). Tu veux que je te la montre en MP4 ?",
+      "first_message_char_count": 344
+    },
+    "cold_email_d1": {
+      "subject": "tes textes sur la clarté d'écriture en vidéo",
+      "body_lines": [
+        "Hello Valentin,",
+        "Ton texte sur l'écriture comme prolongement de la pensée plutôt que simple outil marketing a touché juste.",
+        "Beaucoup de gens qui ont besoin de cette rigueur consomment désormais du format court sur mobile sans ouvrir un article long.",
+        "On a mis en scène ton raisonnement dans une capsule vidéo de 15s sans tournage, épurée et fidèle à l'esprit Sauce Writing.",
+        "Avec notre Pack Découverte à 150 € (100% déductible du premier mois d'abonnement), tu peux évaluer l'impact sans risque.",
+        "Je peux te transmettre le MP4 de démonstration par retour de mail ?",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Hello Valentin,\n\nTon texte sur l'écriture comme prolongement de la pensée plutôt que simple outil marketing a touché juste.\nBeaucoup de gens qui ont besoin de cette rigueur consomment désormais du format court sur mobile sans ouvrir un article long.\nOn a mis en scène ton raisonnement dans une capsule vidéo de 15s sans tournage, épurée et fidèle à l'esprit Sauce Writing.\nAvec notre Pack Découverte à 150 € (100% déductible du premier mois d'abonnement), tu peux évaluer l'impact sans risque.\nJe peux te transmettre le MP4 de démonstration par retour de mail ?\n\nKreesten - Agent404"
+    }
+  },
+  {
+    "id": 18,
+    "slug": "18_pierre_herubel_contentpath",
+    "category": "4_experts_marketing_sales",
+    "category_label": "Experts Sales / Ghostwriting / Marketing B2B",
+    "identity": {
+      "first_name": "Pierre",
+      "last_name": "Herubel",
+      "full_name": "Pierre Herubel",
+      "title": "Fondateur & Fractional CMO",
+      "company": "Content Path",
+      "company_size": "1-5 employés (Stratégie & Frameworks Marketing B2B)"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://www.linkedin.com/in/pierre-herubel-540b3949/",
+      "website_url": "https://contentpath.io",
+      "work_email": "pierre@contentpath.io"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Pierre est le maître des infographies de marketing B2B : il partage des schémas d'acquisition en entonnoir, des cartographies de canaux et des grilles de positionnement.",
+      "video_gap_reason": "Ses diagrammes 2D sont des modèles du genre, mais ils restent statiques. En les animant dans des vidéos verticales avec sound design procédural, ses frameworks se transformeraient en véritables pépites virales sur Shorts et TikTok sans nécessiter de tournage."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "Les 3 couches d'un système d'acquisition de contenu B2B",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "CONTENT PATH",
+        "theme": {
+          "bg_canvas": "#F8FAFC",
+          "surface_card": "#FFFFFF",
+          "ink": "#0F172A",
+          "accent_primary": "#0EA5E9",
+          "tile_1": "#E0F2FE",
+          "tile_2": "#FEF3C7",
+          "tile_3": "#DCFCE7"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "idea.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "B2B CONTENT ENGINE",
+            "box_color": "var(--tile-blue)",
+            "icon": "question",
+            "title": "VOTRE STRATÉGIE DE CONTENU GÉNÈRE-T-ELLE DU PIPELINE ?",
+            "subtitle": "Publier pour être vu ne sert à rien si vous n'avez pas de passerelle vers la vente.",
+            "stamp_text": "LEADS B2B",
+            "avatar": "question"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_friction_stack",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "header_badge": "LES 3 COUCHES DU SYSTÈME",
+            "items": [
+              {
+                "icon": "eye",
+                "box_color": "var(--tile-yellow)",
+                "text": "TOP OF FUNNEL : ATTENTION & INTÉGÉRATION DES CODES",
+                "right_badge": "NOTORIÉTÉ",
+                "status": "check",
+                "appear_at_offset": 0.0
+              },
+              {
+                "icon": "shield",
+                "box_color": "var(--surface-card)",
+                "text": "MID FUNNEL : ÉTUDES DE CAS ET PREUVES DE RÉSULTATS",
+                "right_badge": "CONFIANCE",
+                "status": "check",
+                "appear_at_offset": 1.5
+              },
+              {
+                "icon": "bolt",
+                "box_color": "var(--tile-blue)",
+                "text": "BOTTOM FUNNEL : OFFRE D'ENTRÉE AUDIT SANS FRICTION",
+                "right_badge": "CONVERSION",
+                "status": "check",
+                "appear_at_offset": 3.0
+              }
+            ],
+            "connectors": "none"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_cta_conversion",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "CONTENT PATH",
+            "main_text": "STRUCTUREZ UN MOTEUR DE CONTENU PRÉDICTIBLE",
+            "sub_text": "Frameworks et architecture GTM pour SaaS et agences B2B.",
+            "button_text": "TÉLÉCHARGER LE FRAMEWORK",
+            "avatar": "idea"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Tes infographies sur les tunnels de contenu B2B sont de véritables chefs-d'œuvre de clarté. Je dirige un studio de capsules vidéo motion B2B sans caméra. Ravi de rejoindre ton réseau.",
+      "invite_note_char_count": 191,
+      "first_message": "Hello Pierre, tes diagrammes de contenu B2B sont la référence absolue sur LinkedIn. Mais sur mobile, une animation étape par étape de 15s capte 5x plus d'attention et se partage en masse sur Shorts. J'ai pris l'un de tes frameworks et je l'ai animé en néo-brutalisme. Tu serais curieux de voir le rendu MP4 en direct ?",
+      "first_message_char_count": 344
+    },
+    "cold_email_d1": {
+      "subject": "tes diagrammes b2b animés en vidéo verticale",
+      "body_lines": [
+        "Hello Pierre,",
+        "Tes schémas sur l'alignement entre création de contenu et pipeline de vente B2B font référence sur tout LinkedIn.",
+        "En animant tes infographies en vidéo verticale dynamique, tu pourrais conquérir YouTube Shorts sans tourner une seconde.",
+        "On a converti l'un de tes frameworks clés en une capsule vidéo 15s sans caméra, parfaitement fidèle à ta charte visuelle.",
+        "Notre Pack Découverte (150 €, 100% déductible du premier mois) te permet de valider le format sans aucun engagement.",
+        "Puis-je t'envoyer l'extrait MP4 en réponse à ce mail ?",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Hello Pierre,\n\nTes schémas sur l'alignement entre création de contenu et pipeline de vente B2B font référence sur tout LinkedIn.\nEn animant tes infographies en vidéo verticale dynamique, tu pourrais conquérir YouTube Shorts sans tourner une seconde.\nOn a converti l'un de tes frameworks clés en une capsule vidéo 15s sans caméra, parfaitement fidèle à ta charte visuelle.\nNotre Pack Découverte (150 €, 100% déductible du premier mois) te permet de valider le format sans aucun engagement.\nPuis-je t'envoyer l'extrait MP4 en réponse à ce mail ?\n\nKreesten - Agent404"
+    }
+  },
+  {
+    "id": 19,
+    "slug": "19_ruben_taieb_ghostwriting",
+    "category": "4_experts_marketing_sales",
+    "category_label": "Experts Sales / Ghostwriting / Marketing B2B",
+    "identity": {
+      "first_name": "Ruben",
+      "last_name": "Taïeb",
+      "full_name": "Ruben Taïeb",
+      "title": "Ghostwriter de Dirigeants & CEO",
+      "company": "Ruben Taieb Consulting",
+      "company_size": "1-3 employés (Ghostwriting & Personal Branding Exécutif)"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://www.linkedin.com/in/rubentaieb/",
+      "website_url": "https://rubentaieb.com",
+      "work_email": "ruben@rubentaieb.com"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Ruben aide des dirigeants à prendre la parole sans filtre sur LinkedIn, raconte les coulisses du ghostwriting et dénonce la banalité des contenus générés par IA.",
+      "video_gap_reason": "Ses clients CEO lui demandent fréquemment de les aider à produire de la vidéo, mais ils refusent les contraintes de tournage. Ruben lui-même communique uniquement par texte. S'associer à un format zéro caméra lui permettrait de doubler la valeur apportée à ses clients sans effort de production."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "Pourquoi un dirigeant ne devrait jamais déléguer sa voix à une IA",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "RUBEN TAIEB",
+        "theme": {
+          "bg_canvas": "#121214",
+          "surface_card": "#18181B",
+          "ink": "#F4F4F5",
+          "accent_primary": "#8B5CF6",
+          "tile_1": "#27272A",
+          "tile_2": "#3F3F46",
+          "tile_3": "#DDD6FE"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "mic.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "PERSONAL BRANDING CEO",
+            "box_color": "var(--tile-purple)",
+            "icon": "question",
+            "title": "TES POSTS LINKEDIN RESSEMBLENT À CEUX DE TOUT LE MONDE ?",
+            "subtitle": "Un dirigeant sans aspérité ni voix singulière devient invisible.",
+            "stamp_text": "VOIX UNIQUE",
+            "avatar": "question"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_versus_compare",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "top_badge": "LE CONTRASTE D'AUTORITÉ",
+            "left_title": "POST IA CLICHÉ",
+            "left_items": ["Vocabulaire de robot", "Zéro anecdote vécue", "Aucune émotion suscitée"],
+            "right_title": "VOIX INCARNÉE",
+            "right_items": ["Erreurs et leçons réelles", "Prises de position fortes", "Confiance des acheteurs"],
+            "winner": "right",
+            "footer_stamp": "INCALCULABLE VALEUR"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_cta_conversion",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "GHOSTWRITING EXÉCUTIF",
+            "main_text": "FAIS DE TA VISION LE MOTEUR DE TON ENTREPRISE",
+            "sub_text": "Accompagnement d'écriture pour fondateurs et dirigeants exigeants.",
+            "button_text": "PARLER À RUBEN",
+            "avatar": "mic"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Tes conseils sur la façon d'extraire la voix authentique d'un CEO plutôt que de régurgiter des banalités sont tops. Je produis des vidéos B2B sans caméra. Hâte de te suivre.",
+      "invite_note_char_count": 184,
+      "first_message": "Hello Ruben, ton post sur la différence entre un contenu jetable écrit par ChatGPT et une vraie voix de dirigeant tape dans le mille. Tes clients CEOs cherchent souvent à faire de la vidéo sans y passer 3h de tournage. J'ai prototypé ton post en vidéo motion 15s sans caméra. Tu veux que je te dépose le MP4 ici ?",
+      "first_message_char_count": 344
+    },
+    "cold_email_d1": {
+      "subject": "tes textes de ghostwriting incarnés en vidéo",
+      "body_lines": [
+        "Hello Ruben,",
+        "Ton post sur l'importance de préserver la singularité d'un dirigeant face au déferlement de posts IA génériques est exemplaire.",
+        "Aujourd'hui, les CEOs veulent rayonner en vidéo mais refusent les tournages lourds et les avatars robotiques.",
+        "On a matérialisé ton argument dans une capsule vidéo animée de 15s sans caméra, prête à être diffusée.",
+        "Notre Pack Découverte (150 €, 100% déductible du premier mois) est idéal pour tester ce levier sur tes propres contenus.",
+        "Dis-moi si tu veux recevoir le teaser MP4 par retour de mail.",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Hello Ruben,\n\nTon post sur l'importance de préserver la singularité d'un dirigeant face au déferlement de posts IA génériques est exemplaire.\nAujourd'hui, les CEOs veulent rayonner en vidéo mais refusent les tournages lourds et les avatars robotiques.\nOn a matérialisé ton argument dans une capsule vidéo animée de 15s sans caméra, prête à être diffusée.\nNotre Pack Découverte (150 €, 100% déductible du premier mois) est idéal pour tester ce levier sur tes propres contenus.\nDis-moi si tu veux recevoir le teaser MP4 par retour de mail.\n\nKreesten - Agent404"
+    }
+  },
+  {
+    "id": 20,
+    "slug": "20_alexis_minchella_tribuinde",
+    "category": "4_experts_marketing_sales",
+    "category_label": "Experts Sales / Ghostwriting / Marketing B2B",
+    "identity": {
+      "first_name": "Alexis",
+      "last_name": "Minchella",
+      "full_name": "Alexis Minchella",
+      "title": "Copywriter B2B, Auteur & Créateur",
+      "company": "Tribu Indé",
+      "company_size": "1-3 employés (Conseil & Média Freelances / Solopreneurs B2B)"
+    },
+    "contact_channels": {
+      "linkedin_url": "https://www.linkedin.com/in/copywriter-b2b/",
+      "website_url": "https://tribuinde.com",
+      "work_email": "alexis@tribuinde.com"
+    },
+    "content_diagnostic": {
+      "written_content_summary": "Alexis partage des analyses pointues sur la sortie du modèle au TJM, le packaging d'offres de services à haute valeur ajoutée et la psychologie des clients B2B.",
+      "video_gap_reason": "Alexis excelle dans l'audio (podcast Tribu Indé) et l'écrit, mais sur le format court vertical vidéo, il est quasi absent. Animer ses meilleurs concepts en micro-vidéos percutantes lui permettrait de capter une audience immense sur Instagram et TikTok sans passer une minute en montage."
+    },
+    "visual_trojan_horse": {
+      "teaser_topic": "Pourquoi vendre son temps à l'heure est le pire modèle économique",
+      "duration_seconds": 15,
+      "brand_preset": {
+        "brand_name": "TRIBU INDE",
+        "theme": {
+          "bg_canvas": "#FFFDF8",
+          "surface_card": "#FFFFFF",
+          "ink": "#1C1917",
+          "accent_primary": "#F97316",
+          "tile_1": "#FFEDD5",
+          "tile_2": "#FEF3C7",
+          "tile_3": "#D1FAE5"
+        },
+        "typography": {
+          "font_heading": "Montserrat",
+          "font_body": "Inter",
+          "font_mono": "JetBrains Mono"
+        },
+        "avatars": {
+          "base_path": "assets/avatars/",
+          "default": "money.png",
+          "poses": {
+            "question": "question.png",
+            "idea": "idea.png",
+            "pointing": "pointing.png",
+            "facepalm": "facepalm.png",
+            "laptop": "laptop.png",
+            "mic": "mic.png",
+            "money": "money.png"
+          }
+        }
+      },
+      "scenes": [
+        {
+          "id": "scene_01",
+          "type": "bp_hook_question",
+          "start": 0.0,
+          "end": 5.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "BUSINESS DE SERVICES",
+            "box_color": "var(--tile-orange)",
+            "icon": "question",
+            "title": "TU FACTURES ENCORE TON TEMPS À LA JOURNÉE ?",
+            "subtitle": "Le taux journalier (TJM) crée un plafond de verre infranchissable.",
+            "stamp_text": "PIÈGE DU TEMPS",
+            "avatar": "question"
+          }
+        },
+        {
+          "id": "scene_02",
+          "type": "bp_versus_compare",
+          "start": 5.0,
+          "end": 10.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "hidden",
+          "params": {
+            "top_badge": "DEUX MODÈLES OPPOSÉS",
+            "left_title": "FACTURATION AU TJM",
+            "left_items": ["Revenus plafonnés à 20j/mois", "Négociations au rabais", "Zéro scalabilité"],
+            "right_title": "OFFRE PRODUCTISÉE",
+            "right_items": ["Prix fixé sur la valeur client", "Process industrialisé", "Revenus décorrelés du temps"],
+            "winner": "right",
+            "footer_stamp": "LIBÈRE TON TEMPS"
+          }
+        },
+        {
+          "id": "scene_03",
+          "type": "bp_cta_conversion",
+          "start": 10.0,
+          "end": 15.0,
+          "caption_mode": "single_line_top",
+          "avatar_mode": "duo_lymphe",
+          "params": {
+            "top_badge": "TRIBU INDÉ",
+            "main_text": "CONSTRUIS UNE ACTIVITÉ SOLOPRENEUR RENTABLE ET PÉRENNE",
+            "sub_text": "Méthodes et retours d'expérience pour indépendants ambitieux.",
+            "button_text": "ÉCOUTER LE PODCAST",
+            "avatar": "money"
+          }
+        }
+      ]
+    },
+    "linkedin_dm": {
+      "invite_note": "Tes analyses sur la productisation des services et la sortie du piège du TJM ont changé ma façon de voir le business. Je fais de la vidéo B2B sans caméra. Ravi de te suivre ici.",
+      "invite_note_char_count": 187,
+      "first_message": "Hello Alexis, ton post sur le plafond de verre du TJM et la nécessité de packager ses compétences en offre forfaitaire est une bible. En vidéo courte rythmée avec sous-titres, ce format ferait un carton d'audience pour Tribu Indé. J'ai adapté ton post en clip de 15s sans caméra. Je peux te faire passer le MP4 ici ?",
+      "first_message_char_count": 347
+    },
+    "cold_email_d1": {
+      "subject": "ton analyse du tjm vs offre packagée en vidéo",
+      "body_lines": [
+        "Hello Alexis,",
+        "Ton post décortiquant le piège du taux journalier moyen (TJM) pour les experts de services frappe avec une lucidité totale.",
+        "Les indépendants et consultants sur mobile ont besoin de ce déclic, et la vidéo courte est le meilleur canal pour l'imprimer.",
+        "On a mis en scène ton raisonnement dans une capsule vidéo néo-brutaliste de 15s sans caméra, très soignée visuellement.",
+        "Avec notre Pack Découverte à 150 € (100% remboursé sur l'abonnement), tu peux expérimenter la formule en toute simplicité.",
+        "Tu serais partant pour que je te glisse le fichier MP4 en retour de mail ?",
+        "",
+        "Kreesten - Agent404"
+      ],
+      "full_body": "Hello Alexis,\n\nTon post décortiquant le piège du taux journalier moyen (TJM) pour les experts de services frappe avec une lucidité totale.\nLes indépendants et consultants sur mobile ont besoin de ce déclic, et la vidéo courte est le meilleur canal pour l'imprimer.\nOn a mis en scène ton raisonnement dans une capsule vidéo néo-brutaliste de 15s sans caméra, très soignée visuellement.\nAvec notre Pack Découverte à 150 € (100% remboursé sur l'abonnement), tu peux expérimenter la formule en toute simplicité.\nTu serais partant pour que je te glisse le fichier MP4 en retour de mail ?\n\nKreesten - Agent404"
+    }
+  }
+]
