@@ -33,8 +33,9 @@ TEMPLATE_DIR = REPO_ROOT / "studio_clients" / "_template_prospect"
 def load_prospects() -> list:
     """Charge le fichier source des 20 prospects qualifiés."""
     if not PROSPECTS_JSON_PATH.exists():
-        print(f"[Erreur] Fichier de prospects introuvable : {PROSPECTS_JSON_PATH}")
-        sys.exit(1)
+        print(f"[Information] Fichier de prospection introuvable : {PROSPECTS_JSON_PATH}")
+        print("Les données de prospection privées ne sont pas suivies dans le dépôt public.")
+        sys.exit(0)
     try:
         with open(PROSPECTS_JSON_PATH, "r", encoding="utf-8") as f:
             return json.load(f)
@@ -46,7 +47,7 @@ def load_prospects() -> list:
 def list_prospects(prospects: list):
     """Affiche la liste récapitulative des prospects disponibles."""
     print("=" * 88)
-    print("AGENT404 — TOP 20 PROSPECTS B2B ULTRA-QUALIFIÉS (OUTBOUND INTELLIGENCE)")
+    print("AGENT404 : TOP 20 PROSPECTS B2B ULTRA-QUALIFIÉS (OUTBOUND INTELLIGENCE)")
     print("=" * 88)
     for p in prospects:
         pid = f"#{p['id']:02d}"
