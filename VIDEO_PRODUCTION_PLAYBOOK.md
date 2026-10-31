@@ -30,7 +30,7 @@ Tout agent ou développeur intervenant sur la chaîne de production **doit exéc
    - `#FF2A5F` (rose banni) : interdit sur 100% du projet.
    - `#agent-hud` : bandeau supérieur HUD définitivement banni.
    - Jargon technique d'ingénierie dans les scripts (Python, FFmpeg, Whisper, JavaScript, etc.).
-   - Prix chiffrés et symboles monétaires dans les scripts et sous-titres publics (150 €, 200 €, 750 €, etc.).
+   - Prix chiffrés et symboles monétaires dans les scripts et sous-titres publics (150 €, 200 €, 450 €, 750 €, etc.).
 
 ---
 
@@ -48,7 +48,7 @@ Opérer en **Entrée Agnostique (Input Agnostic)** : recevoir n'importe quel mat
      ["whisper", "faster-whisper", "ffmpeg", "playwright", "chromium", "codebase", "python", "javascript"]
      ```
    * Vérifier que ni le script parlé, ni les sous-titres, ni les overlays textuels ne contiennent ces termes.
-   * Vérifier qu'aucun chiffre tarifaire (150, 200, 750, euro, €) ne figure dans le script (les tarifs sont strictement réservés aux DM et contrats).
+   * Vérifier qu'aucun chiffre tarifaire (150, 200, 450, 750, euro, €) ne figure dans le script (les tarifs sont strictement réservés aux DM et contrats).
 4. **Définition du mot-clé CTA** : Confirmer le mot-clé unique pour l'appel à l'action final (ex. `"DEMO"`, `"CODE"`, `"TARIF"`, `"AUDIT"`). Il doit être unique et différer des vidéos précédentes.
 
 ---

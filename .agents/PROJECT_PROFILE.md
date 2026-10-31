@@ -3,11 +3,15 @@
 
 ## 1. Stack, Architecture & Business Model
 - **Type**: Programmatic Video Generator (1080x1920 @ 30 FPS, Vertical 9:16 pour LinkedIn / TikTok / Reels / Shorts)
-- **Positionnement**: Studio vidéo B2B « Zero-Camera, Zero-Studio & Zero-Montage ». Résout la corvée du tournage pour les professionnels B2B qui écrivent déjà sur LinkedIn.
-- **Arrosage Multi-Plateformes**: 1 master vidéo produit = 4 plateformes arrosées (LinkedIn, TikTok, Instagram Reels, YouTube Shorts). Diffusion studio : LinkedIn en priorité (80%), Instagram Reels (20%), TikTok en pause.
-- **Entrée Agnostique (Input Agnostic)**: Ingestion de note vocale WhatsApp 2 min, post LinkedIn, doc technique, schéma Make/n8n, cas client. Extraction de la pépite/joyau vers format étalon ~60s (45s à 90s).
-- **Grille Tarifaire**: Ancre 200 € / vidéo | Test Découverte 150 € (1 vidéo, 48 h ouvrées, 100% déductible sous 7j) | Studio 750 €/mois (8 vidéos, 2/semaine, livraison par lot sous 72 h ouvrées). Zéro prix chiffré (150, 200, 750) dans les vidéos publiques.
-- **Cibles Qualifiées**: (1) Agences B2B & Studios productisés, (2) Formateurs & Créateurs Tech, (3) Consultants & Solopreneurs actifs (critère éliminatoire : 3 à 5 posts écrits/semaine sur LinkedIn, 0 vidéo).
+- **Positionnement (Verrouillé 30 Jours)**: Production de vidéos courtes pour le personal branding des experts B2B sur LinkedIn. Transformation des publications LinkedIn et notes vocales des fondateurs d'agences B2B et consultants en vidéos animées professionnelles, sans tournage ni montage (« 8 vidéos par mois. Votre expertise, notre production. »).
+- **Modèle Économique**: Studio de production vidéo spécialisé vendu comme un service récurrent clé en main. Le personal branding est le bénéfice commercial ; la production vidéo est le service vendu ; AGENT404 est l'infrastructure interne.
+- **Trois Styles de Production (1 seul service)**:
+  1. **Mascotte** : Contenu pédagogique, dynamique et accessible (avatar sticker incarné).
+  2. **Éditorial** : Personal branding sobre, expertise et autorité (`avatar_mode: hidden`, typographie cinétique et cartes).
+  3. **Démonstration** : Workflows, logiciels, systèmes et études de cas (`bp_code_window`, `bp_versus_compare`, `bp_friction_stack`).
+- **Grille Tarifaire (Tarifs Expérimentaux)**: Ancre 200 € / vidéo | **Pilote (Test Découverte) 150 €** (1 vidéo, 48h-72h ouvrées, 100 % déductible sous 7j) | **Starter 450 €/mois** (4 vidéos, 1/semaine) | **Growth (Abonnement Studio) 750 €/mois** (8 vidéos, 2/semaine). Zéro prix chiffré (150, 200, 450, 750) dans les vidéos publiques.
+- **Cibles Qualifiées (Filtre Exigeant 5 Critères)**: (1) Fondateurs de petites agences B2B (automatisation, dev web, CRM, no-code, marketing spécialisé) et (2) Consultants B2B indépendants. Critères cumulatifs : vendre réellement un service/accompagnement, activité commerciale identifiable, contenu/expertise suffisants, usage actif de LinkedIn (3-5 posts/semaine), absence de production vidéo régulière satisfaisante.
+- **Arrosage Multi-Plateformes**: 1 master vidéo produit = 4 plateformes alimentées (LinkedIn 80%, Instagram Reels 20%, YouTube Shorts, TikTok).
 - **Identity & Branding**: `AGENT404` : Esthétique Architecte Système Néo-Brutaliste Obsidian Flame
 - **Palette Officielle (Obsidian Flame)**:
   - Fond Lin Chaud : `#F5F2EB` (Aplat uni sans grille)
@@ -26,29 +30,14 @@
 
 ## 2. Resource Affinity (Auto-Routed)
 - **Direction Artistique & Production Vidéo**:
-  - `hypit`: Direction artistique, déconstruction de vidéos de référence virales, découpage SVML, ancrage sémantique mot-à-mot, A/B testing de hooks.
   - `studio-script`: Scriptwriter vidéo formats courts (Shorts, TikTok, Reels, 30 à 60s), 22 formules de hooks scorées, funnels, making-of, recherche virale et passe humanize.
   - `watch`: Téléchargement et inspection vidéo via yt-dlp, extraction d'images par ffmpeg et transcription WhisperX.
   - `short-form-video`: Règles de rétention, pacing, hooks 0 à 3s, pattern interrupts, safe-zones 9:16 (TikTok / Reels / Shorts).
-  - `caption-animation`: Découpage et synchronisation des sous-titres mot-à-mot, surbrillance et contrastes Néo-brutalistes.
   - `animate`: Philosophie d'animation rigoureuse (Emil Kowalski), courbes et timings stricts, physics spring overshoot, zéro approximation.
-  - `lower-thirds`: Badges de statut, tags d'avatar et tiers inférieurs positionnés sans collision visuelle.
-  - `countdown-video`: Compteurs chiffrés, métriques dynamiques incrémentales et timers sans dérive temporelle.
 - **Acquisition & Distribution Sociale**:
-  - **Instagram & Reels Agent** (`ig-*`):
-    - `ig-reel`: Scripting Reels, hooks sur 26 formules, timing et beat sheet sans temps mort (`beats.py`, `hookscore.py`).
-    - `ig-caption`: Linter de légende Instagram, simulation de la boîte des 125 caractères avant clic, cap officiel des 5 hashtags (`caption.py`).
-    - `ig-human`: Nettoyage local du jargon IA et tics de langage Instagram (`humanize.py`, `detect.py`).
-    - `ig-viral`: Détection et classement des outliers viraux dans la niche (`swipe.py`).
-    - `ig-dm` & `ig-reply`: Funnel et automatisation de la conversion privée sur mot-clé CTA (« CLARTÉ »).
-    - `ig-carousel`, `ig-story`, `ig-profile`, `ig-plan`, `ig-audit`.
-  - **LinkedIn Agent** (`li-*`):
-    - `li-post`: Rédaction de posts d'autorité sur 21 formules de hooks viraux.
-    - `li-dm`: Notes d'invitations chirurgicales (< 200 caractères) et 2 relances respectueuses.
-    - `li-comment`: Comment-marketing de haute valeur pour engager les cibles B2B avant démarchage.
-    - `li-profile`: Audit et optimisation du profil sur 100 points pour convertir les visiteurs.
-    - `li-human`, `li-reply`, `li-plan`, `li-carousel`, `li-repurpose`, `li-inbox`, `li-audit`.
-  - **Psychologie de Vente**: `marketing-psychology` (Foot-in-the-door, ancrage, réciprocité).
+  - **LinkedIn Agent** (`li-*`): `li-post`, `li-dm`, `li-comment`, `li-profile`, `li-human`, `li-reply`, `li-plan`, `li-carousel`, `li-repurpose`, `li-inbox`, `li-audit`.
+  - **Instagram & Reels Agent** (`ig-*`): `ig-reel`, `ig-caption`, `ig-human`, `ig-viral`, `ig-dm`, `ig-reply`, `ig-carousel`, `ig-story`, `ig-profile`, `ig-plan`, `ig-audit`.
+  - **Psychologie de Vente & Stratégie**: `marketing-psychology`, `marketing-ideas`.
 - **UI & Engineering Skills**: `frontend-ui-engineering`, `antislop-ui`, `taste-skill`, `ui-ux-pro-max`, `frontend-a11y`
 - **Minimalisme & Efficience**: `ponytail` (Zéro framework lourd, solution la plus concise, standard library prioritaire)
 - **Backend & Audio Skills**: `python-patterns`, `python-testing`, `codebase-design`, `performance-optimization`

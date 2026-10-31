@@ -3,8 +3,9 @@
 
 Portée : Tous projets vidéo (`studio_perso/` et `studio_clients/`)  
 Gouvernance : Kreesten AGBOTON  
-Positionnement : Studio vidéo court-format néo-brutaliste « Zero-Camera, Zero-Studio & Zero-Montage ». Résout la corvée du tournage pour les professionnels B2B qui écrivent déjà sur LinkedIn.  
-Ciblage : (1) Agences B2B & Studios productisés, (2) Formateurs & Créateurs Tech, (3) Consultants & Solopreneurs actifs (critère éliminatoire : 3 à 5 posts écrits/semaine, 0 vidéo). Exclusion des inactifs, freelances sans budget et licornes internalisées.
+Positionnement : Production de vidéos courtes pour le personal branding des experts B2B sur LinkedIn. Transformation des publications LinkedIn et notes vocales des fondateurs d'agences B2B et consultants en vidéos animées professionnelles, sans tournage ni montage (« 8 vidéos par mois. Votre expertise, notre production. »).  
+Ciblage (Filtre Exigeant 5 Critères) : (1) Fondateurs de petites agences B2B (automatisation, développement web, CRM, no-code, marketing spécialisé) et (2) Consultants B2B indépendants. Critères cumulatifs : vendre réellement un service ou accompagnement, activité commerciale identifiable, contenu et expertise suffisants, utilisation active de LinkedIn (3 à 5 posts/semaine), absence de production vidéo régulière satisfaisante.  
+Styles de Production (1 seul service) : Mascotte (pédagogique et accessible), Éditorial (personal branding sobre et autorité), Démonstration (workflows, systèmes et études de cas).
 
 ---
 
@@ -18,7 +19,7 @@ Toute capsule vidéo applique obligatoirement les 5 concepts suivants :
    Chaque argument est séquencé en étapes visuelles vérifiables : 1 proposition = 1 scène avec simulation concrète de l'objet métier. Règle « 1 Mot Prononcé = 1 Action Visuelle » : toute énumération s'anime au centième de seconde exact où le mot est prononcé.
 3. **Définir explicitement ce qu'on refuse (Non-objectifs & Zéro Recyclage)**  
    - **Zéro jargon technique** : Proscription de Python, FFmpeg, Whisper, codebase dans les scripts et sous-titres.
-   - **Zéro prix dans les vidéos** : Aucun montant (150 €, 200 €, 750 €) ni symbole tarifaire dans les vidéos publiques.
+   - **Zéro prix dans les vidéos** : Aucun montant (150 €, 200 €, 450 €, 750 €) ni symbole tarifaire dans les vidéos publiques.
    - **Zéro HUD** : Le bandeau supérieur (`#agent-hud`) est banni définitivement.
    - **Zéro rouge/rose (#FF2A5F)** : Zéro `bg: "alert"` et zéro `bg: "mint"`. Rendu exclusif sur la palette Obsidian Flame.
    - **Zéro inter-recyclage** : Interdiction totale de réutiliser un composant, une carte, un texte d'écran ou un terminal d'une vidéo antérieure (ex. carte `00:21.466 ms`, spectre `vocal1.m4a`, barre `COMPILATION FFmpeg` de la Vidéo 1 bannis des vidéos ultérieures).

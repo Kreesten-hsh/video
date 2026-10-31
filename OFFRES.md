@@ -1,92 +1,113 @@
-# AGENT404 : GRILLE DES OFFRES COMMERCIALES ACTIVES
+# AGENT404 : GRILLE DES OFFRES COMMERCIALES & STRATÉGIE 30 JOURS
 
-Date de référence : 28 octobre 2026  
+Date de référence : 28 octobre 2026 (Mise à jour stratégique : 30 octobre 2026)  
 Propriétaire : Kreesten AGBOTON (Abomey-Calavi, Bénin)  
-Positionnement : Studio de production vidéo court-format néo-brutaliste **« Zero-Camera, Zero-Studio & Zero-Montage »**.  
-Promesse : Dominer son marché B2B avec des vidéos verticales percutantes (1080x1920 @ 30 FPS) sans matériel, sans tournage et sans compétences de montage. **1 seule vidéo produite = 4 plateformes arrosées simultanément** (LinkedIn, TikTok, Instagram Reels, YouTube Shorts).
+Modèle économique : Studio de production vidéo spécialisé B2B, vendu comme un service productisé et récurrent.  
+Statut : **Stratégie verrouillée pour 30 jours (aucun repositionnement, aucun développement majeur avant les premières ventes).**
 
 ---
 
-## 1. Les 3 Cibles Précises & Critère de Qualification
+## 1. Positionnement Officiel Retenu
 
-### Le Critère Absolu de Qualification (Règle Éliminatoire)
-> **« Ils créent DÉJÀ du contenu écrit régulier sur LinkedIn (3 à 5 posts par semaine), mais ils n'ont AUCUNE vidéo (ou des vidéos face-caméra amateurs mal fichues). »**
+> **AGENT404**  
+> **Production de vidéos courtes pour le personal branding des experts B2B sur LinkedIn.**  
+> Nous transformons les publications LinkedIn et les notes vocales des fondateurs d'agences B2B et consultants en vidéos animées professionnelles, sans tournage ni montage.  
+> **8 vidéos par mois. Votre expertise, notre production.**
 
-| Segment | Profil type & Domaines | Leur VRAI problème douloureux (Painkiller) | Bénéfice AGENT404 | Verdict opérationnel |
-| :--- | :--- | :--- | :--- | :--- |
-| **Cible 1 : Agences B2B & Studios Productisés** | Webflow, Bubble, Automatisation Make/n8n/IA, SEO, Cold Email, Ghostwriting (ex: Digidop, Noqode) | Leurs études de cas écrites sont riches mais leurs prospects ne lisent plus les longs PDF. Tourner des vidéos leur prendrait 4h par semaine. | Conversion d'un cas client ou workflow en une capsule 60s percutante sans caméra. | **CIBLE N° 1** (Comptes solvables, forte culture produit). |
-| **Cible 2 : Formateurs & Infopreneurs Tech** | Dév, IA, No-Code, Finance, Cyber, Copywriting (ex: Ottho, Contournement, créateurs solos) | Les concepts techniques sont abstraits. Les carrousels textuels plafonnent. | Vulgarisation visuelle néo-brutaliste qui génère du lead vers les formations. | **CIBLE N° 2** (Compréhension immédiate de la valeur). |
-| **Cible 3 : Consultants & Solopreneurs Actifs** | Recrutement tech, CRM, Cybersécurité, Finance d'entreprise | Écrivent 5 posts par semaine avec une forte autorité mais 0 présence vidéo par manque de temps. | 2 vidéos par semaine pour dominer leur niche en envoyant juste un vocal de 2 min. | **CIBLE N° 3** (Cycle de décision ultra-court en direct avec le dirigeant). |
-| **À ÉCARTER (Exclusion stricte)** | Freelances débutants sans budget, créateurs IA sans produit, grandes licornes (équipes vidéo internes) | Les freelances n'ont pas le budget ; les licornes ont déjà un studio motion design interne. | Aucune offre | **PERTE DE TEMPS.** |
-
----
-
-## 2. Entrée Agnostique & Extraction de Joyau
-
-Le client n'a pas besoin de fournir un script vidéo calibré. Le studio AGENT404 opère selon le principe d'**Entrée Agnostique (Input Agnostic)** :
-- **Matériaux bruts acceptés** :
-  - Une note vocale WhatsApp de 2 minutes
-  - Un post LinkedIn écrit existant
-  - Une documentation technique ou un script brut
-  - Un schéma de workflow technique (Make, n8n, architecture, code)
-  - Une étude de cas client ou une vidéo existante trop longue (ex. Loom de 10 min).
-- **Le cœur de valeur d'AGENT404** :  
-  Extraire le **joyau narratif** et la pépite cachée dans ce matériau brut, structurer un copywriting de rétention et générer la capsule vidéo finale prête à diffuser.
+### Distinction Fondamentale
+- **Le bénéfice commercial** : Le personal branding du dirigeant ou consultant (développer sa réputation, rendre son expertise visible et identifiable auprès de ses prospects).
+- **Le service vendu** : La production vidéo clé en main (sélection des idées, structuration du script, animation, contrôle qualité, livraison prête à publier).
+- **L'infrastructure interne** : Le moteur AGENT404 reste privé. Le client achète un résultat régulier et fiable, pas l'accès au code ni à un outil SaaS.
 
 ---
 
-## 3. Durée du Format : Référence Étalon ~60s
+## 2. Cible Prioritaire (ICP) & Filtre de Qualification Exigeant
 
-- **Standard de rétention maximale** : Le format **60 secondes** constitue la référence étalon du studio (densité optimale d'attention sur les fils d'actualité mobiles).
-- **Amplitude dynamique** : La durée s'adapte à la nature du message client, typiquement entre **45 secondes et 90 secondes**.
+Nous ciblons un seul profil comportemental décliné en **deux catégories prospectées séparément** :
+1. **Catégorie A : Fondateurs de petites agences B2B** (2 à 15 collaborateurs : automatisation Make/n8n/IA, développement web, Webflow, CRM, no-code, marketing spécialisé).
+2. **Catégorie B : Consultants B2B indépendants** (qui vendent une expertise ou un accompagnement à forte valeur).
+
+### Le Filtre de Qualification Exigeant (Critères Cumulatifs)
+Publier 3 à 5 fois par semaine sur LinkedIn sans vidéo est un signal initial, mais **ne suffit pas** à qualifier un prospect. Le prospect doit impérativement :
+1. **Vendre réellement un service ou un accompagnement B2B** ;
+2. **Avoir une activité commerciale identifiable** (offre claire, clients réels, structure active) ;
+3. **Disposer de suffisamment de contenu et d'expertise** (publications écrites, méthodes, études de cas ou notes vocales exploitables) ;
+4. **Utiliser LinkedIn pour développer son activité commerciale** ;
+5. **Ne pas avoir déjà une production vidéo régulière satisfaisante** (ni équipe vidéo interne).
+
+### Exclusions Strictes (Non-Objectifs)
+- Freelances débutants sans activité commerciale établie ni budget.
+- Créateurs de contenu IA ou généralistes sans offre B2B.
+- Grandes entreprises et licornes disposant d'équipes vidéo internes.
+- *Note sur la marque blanche* : Les agences marketing comme revendeurs en marque blanche ne sont pas ciblées au démarrage (option réservée à une phase ultérieure après validation des premières ventes directes).
 
 ---
 
-## 4. Grille Tarifaire : Ancrage Psychologique & Offres Actives
+## 3. La Valeur Livrée & Les 3 Styles de Production
 
-L'architecture tarifaire repose sur l'effet d'ancrage psychologique haute valeur et le mécanisme *foot-in-the-door* :
+### A. Les 4 Bénéfices Concrets Vendus
+Nous ne vendons pas de simples fichiers MP4 et nous ne promettons jamais un nombre artificiel de vues, de prospects ou de ventes (nous contrôlons la qualité et la régularité du livrable, pas l'algorithme ni le closing du client) :
+
+| Bénéfice | Valeur opérationnelle pour le client |
+| :--- | :--- |
+| **1. Gain de temps** | Aucun tournage à préparer, aucune lumière à régler, aucun montage à réaliser. |
+| **2. Réutilisation de l'expertise** | Ses publications écrites, études de cas et notes vocales deviennent de nouveaux actifs vidéo. |
+| **3. Régularité** | Alimentation constante de sa présence sociale avec un rythme vidéo tenu dans la durée. |
+| **4. Présence multicanale** | 1 vidéo master verticale (1080x1920 @ 30 FPS, 9:16) diffusable sur LinkedIn, Instagram Reels, TikTok et YouTube Shorts. |
+
+### B. Les 3 Styles de Production Disponibles
+Ce ne sont pas trois offres commerciales distinctes, mais **trois façons de produire le même service** dans AGENT404 pour respecter la personnalité et le positionnement du client :
+
+| Style | Utilisation & Cas d'usage | Mise en œuvre dans AGENT404 |
+| :--- | :--- | :--- |
+| **1. Mascotte** | Contenu pédagogique, dynamique et accessible. | Avatar illustré en signature visuelle (`duo_lymphe` / `solo`) + cartes animées. |
+| **2. Éditorial** | Personal branding sobre, expertise et autorité pure. | Typographie cinétique, cartes néo-brutalistes et arguments visuels (`avatar_mode: hidden`). |
+| **3. Démonstration** | Workflows, logiciels, systèmes et études de cas techniques. | Schémas de flux, fenêtres de code/terminal (`bp_code_window`), comparatifs Avant/Après (`bp_versus_compare`). |
+
+---
+
+## 4. Grille Tarifaire (Tarifs Expérimentaux à Valider sur 30 Jours)
+
+Ces tarifs constituent des hypothèses commerciales de test, appelées à être validées par les ventes réelles et les coûts de production constatés.  
+*Règle absolue : Zéro prix affiché ou prononcé dans les vidéos publiques (150 €, 200 €, 450 €, 750 € sont strictement réservés aux échanges privés et propositions commerciales).*
 
 ### Ancre Haute de Référence (Hors Abonnement)
-- **Tarif unitaire** : **200 € par vidéo** ($8 \times 200\text{ €} = 1\,600\text{ €/m}$).
-- Établit la valeur perçue du travail sur-mesure (copywriting, design système, synthèse vocale studio, synchronisation mot-à-mot, sound design procédural).
+- **Tarif unitaire de référence** : **200 € par vidéo** (établit la valeur unitaire d'une production sur-mesure).
 
-### Offre 1 : Test Découverte
-*Pour valider la puissance du format sans risque avant l'abonnement*
+### Vue Synthétique des 3 Offres Actives
 
-- **Tarif** : **150 €** (environ **98 394 FCFA** au taux fixe 1 EUR = 655,957 FCFA).
-- **Format** : **1 vidéo verticale de niveau broadcast** (1080x1920 @ 30 FPS, format 9:16, durée étalon ~60s).
-- **Délai garanti** : **48 h ouvrées**.
-- **Clause d'Ancrage / Foot-in-the-door (Non négociable)** :  
-  Les **150 € sont 100 % DÉDUITS** du premier mois d'Abonnement Studio si le client souscrit dans les **7 jours** suivant la livraison du Test Découverte (le mois 1 d'Abonnement passe ainsi de 750 € à **600 €**).
-- **Contenu inclus** :
-  - Extraction du narratif à partir du matériau brut envoyé (vocal, post, schéma).
-  - Avatar sticker incarné détouré avec animation néo-brutaliste.
-  - Voix off studio haute fidélité (ElevenLabs).
-  - Sous-titres dynamiques mot-à-mot (karaoke / pop-in).
-  - Sound design procédural (NumPy SFX).
-  - 1 passe de retouche incluse.
-  - Fichier MP4 master optimisé pour diffusion multi-plateformes (LinkedIn, TikTok, Reels, Shorts).
+| Offre | Prix de test | Équivalent FCFA (1 EUR = 655,957 FCFA) | Contenu | Rôle dans le parcours client |
+| :--- | :--- | :--- | :--- | :--- |
+| **Pilote (Test Découverte)** | **150 €** | ~98 394 FCFA | **1 vidéo** (45s à 60s) | Valider la qualité et le processus sans risque. |
+| **Starter** | **450 €/mois** | ~295 181 FCFA/mois | **4 vidéos / mois** (1/semaine) | Première formule récurrente accessible après le pilote. |
+| **Growth (Abonnement Studio)** | **750 €/mois** | ~491 968 FCFA/mois | **8 vidéos / mois** (2/semaine) | Offre principale à terme pour une présence intensive. |
 
-### Offre 2 : Abonnement Studio Mensuel
-*Le moteur de visibilité continue pour dominer son marché B2B*
+### Détail des Formules
 
-- **Tarif** : **750 € par mois** (environ **491 968 FCFA par mois**).  
-  *Premier mois à **600 €** (393 574 FCFA) en cas de déduction immédiate du Test Découverte.*
-- **Format** : **8 vidéos verticales par mois** (cadence régulière de **2 vidéos livrées chaque semaine**).
-- **Contraste psychologique immédiat** :  
-  Revient à **93,75 € la vidéo** en Studio vs 200 € à l'unité (plus de **53 % d'économie perçue**).
-- **Contenu inclus** :
-  - Ingestion continue de vos notes vocales, posts ou schémas au fil du mois.
-  - Découpage et scénarisation de 8 capsules narratives complètes.
-  - Bibliothèque d'avatars et chartes graphiques client dédiées.
-  - Priorité absolue dans le pipeline de production (livraison par lot sous 72 h ouvrées).
-  - Sound design broadcast complet sur chaque capsule.
-  - 1 passe de retouche par vidéo.
+#### 1. Offre Pilote (Test Découverte) - 150 €
+- **Livrable** : 1 vidéo verticale complète (1080x1920 @ 30 FPS, durée étalon 45s à 60s) produite à partir d'une publication LinkedIn, d'une étude de cas ou d'une note vocale du client.
+- **Inclus** : Sélection de l'angle, structuration du script, adaptation aux couleurs du client, choix du style (Mascotte, Éditorial ou Démonstration), voix off (ou voix réelle du client), sous-titres synchronisés au mot près, sound design procédural et 1 révision incluse.
+- **Délai de livraison** : **48 h à 72 h ouvrées**.
+- **Passerelle d'abonnement** : Les **150 € sont 100 % déductibles** du premier mois si le client souscrit à une offre mensuelle (Starter ou Growth) dans les **7 jours** suivant la livraison du pilote.
+
+#### 2. Offre Starter - 450 € / mois
+- **Livrable** : **4 vidéos verticales par mois** (cadence de **1 vidéo par semaine**).
+- **Pertinence** : Permet aux consultants et fondateurs d'agences de s'engager sur un rythme régulier hebdomadaire sans devoir absorber immédiatement un budget de 750 €/mois. *(Note : l'impact de ce palier sur le taux de conversion reste une hypothèse commerciale à mesurer sur le terrain).*
+
+#### 3. Offre Growth (Abonnement Studio) - 750 € / mois
+- **Livrable** : **8 vidéos verticales par mois** (cadence de **2 vidéos par semaine**, livraison par lot sous 72 h ouvrées).
+- **Pertinence** : Revient à **93,75 € par vidéo** (contre 200 € à l'unité), conçu pour les dirigeants et consultants souhaitant occuper le terrain chaque semaine sur LinkedIn et les plateformes verticales.
 
 ---
 
-## 5. Conditions de Règlement
+## 5. Conditions de Règlement & Discipline Opérationnelle (30 Jours)
 
-- **Test Découverte (150 €)** : 100 % à la commande avant démarrage de la production.
-- **Abonnement Studio (750 €/m)** : Paiement d'avance à l'ouverture de chaque période mensuelle.
-- **Moyens de paiement acceptés** : Paiement Stripe ou virement bancaire SEPA d'avance vers compte professionnel.
+- **Conditions de règlement** : 100 % d'avance à la commande (Pilote) ou à l'ouverture de chaque période mensuelle (Starter / Growth), par paiement Stripe ou virement bancaire SEPA.
+- **Règles d'exécution verrouillées sur 30 jours** :
+  1. Aucun nouveau positionnement.
+  2. Aucun développement majeur du moteur.
+  3. Aucune nouvelle identité visuelle.
+  4. Conservation des deux vidéos de référence (`video_01_decouverte` et `video_03`) comme démonstrations.
+  5. Cohérence stricte du profil LinkedIn avec cette offre.
+  6. Prospection séparée des deux catégories (Fondateurs d'agences B2B vs Consultants B2B).
+  7. Mesure rigoureuse des conversations, propositions, paiements et réachats.

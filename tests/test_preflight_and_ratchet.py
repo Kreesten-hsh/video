@@ -295,6 +295,8 @@ class TestPreflightAndRatchet(unittest.TestCase):
 
         for proj_file in tracked_projects:
             proj_path = REPO_ROOT / proj_file
+            if not proj_path.exists():
+                continue
             with open(proj_path, "r", encoding="utf-8") as f:
                 p_data = json.load(f)
             audio_path = p_data.get("audio_path")

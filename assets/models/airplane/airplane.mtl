@@ -1,0 +1,41 @@
+# Material library for 3D Airplane
+
+newmtl Fuselage_White
+Ka 0.2 0.2 0.2
+Kd 0.92 0.92 0.94
+Ks 0.4 0.4 0.4
+Ns 50.0
+d 1.0
+illum 2
+
+newmtl Wing_Navy
+Ka 0.1 0.15 0.25
+Kd 0.15 0.25 0.45
+Ks 0.5 0.5 0.5
+Ns 60.0
+d 1.0
+illum 2
+
+newmtl Trim_Orange
+Ka 0.3 0.1 0.0
+Kd 0.95 0.40 0.08
+Ks 0.6 0.6 0.6
+Ns 40.0
+d 1.0
+illum 2
+
+newmtl Engine_Chrome
+Ka 0.2 0.2 0.2
+Kd 0.30 0.30 0.32
+Ks 0.9 0.9 0.9
+Ns 90.0
+d 1.0
+illum 2
+
+newmtl Cockpit_Glass
+Ka 0.1 0.2 0.3
+Kd 0.25 0.55 0.85
+Ks 0.95 0.95 0.95
+Ns 120.0
+d 0.65
+illum 4

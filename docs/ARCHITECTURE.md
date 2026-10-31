@@ -1,10 +1,10 @@
 # AGENT404 : SPÉCIFICATIONS TECHNIQUES DE L'ARCHITECTURE DU MOTEUR
 
 Statut de gouvernance : DOCUMENTATION TECHNIQUE DE RÉFÉRENCE  
-Date de référence : 28 octobre 2026  
+Date de référence : 28 octobre 2026 (Mise à jour stratégique : 30 octobre 2026)  
 Type de système : Moteur vidéo programmatique déterministe (1080x1920 @ 30 FPS, vertical 9:16)  
-Positionnement stratégique : Studio de production vidéo court-format néo-brutaliste **« Zero-Camera, Zero-Studio & Zero-Montage »**.  
-Mission : Résoudre définitivement la corvée du tournage vidéo pour les professionnels B2B qui écrivent déjà sur LinkedIn. Transformer n'importe quel matériau brut en une capsule vidéo chirurgicale (~60s) avec avatar incarné, voix studio et sous-titres karaoké au mot près, diffusée simultanément sur 4 plateformes (LinkedIn, TikTok, Instagram Reels, YouTube Shorts).
+Positionnement stratégique : Production de vidéos courtes pour le personal branding des experts B2B sur LinkedIn (« 8 vidéos par mois. Votre expertise, notre production. »).  
+Mission : Transformer les publications LinkedIn et les notes vocales des fondateurs d'agences B2B et consultants en vidéos animées professionnelles (styles Mascotte, Éditorial ou Démonstration), sans tournage ni montage, diffusables sur 4 plateformes (LinkedIn, TikTok, Instagram Reels, YouTube Shorts).
 
 ---
 
@@ -28,7 +28,7 @@ L'ensemble de l'architecture logicielle est rigoureusement aligné sur 5 concept
    - **Refus des frameworks lourds** : Aucun runtime React, Node.js, Next.js ou Remotion dans le moteur de rendu.
    - **Refus du non-déterminisme** : Proscription de toute animation CSS temps réel ou interpolation asynchrone (`Date.now()`, `requestAnimationFrame`).
    - **Refus du HUD** : Suppression définitive et irrévocable de tout bandeau HUD (`#agent-hud`) dans le DOM.
-   - **Refus du jargon technique et des prix dans les vidéos** : Aucun terme technique d'ingénierie (Python, FFmpeg, Whisper) ni montant commercial (150 €, 200 €, 750 €) n'apparaît dans les scripts, sous-titres ou éléments visuels publics.
+   - **Refus du jargon technique et des prix dans les vidéos** : Aucun terme technique d'ingénierie (Python, FFmpeg, Whisper) ni montant commercial (150 €, 200 €, 450 €, 750 €) n'apparaît dans les scripts, sous-titres ou éléments visuels publics.
 4. **Concept 4 : Remplacer « ça ne marche pas » par un constat précis mesuré**  
    *« Identifie l'écart entre le résultat attendu et le résultat obtenu. »*  
    - Les écarts sont systématiquement quantifiés par des sondes techniques :

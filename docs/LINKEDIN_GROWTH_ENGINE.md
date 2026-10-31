@@ -1,185 +1,149 @@
 # ENGINE D'ACQUISITION LINKEDIN AGENT404 (90 JOURS)
-### Guide Opérationnel, Stratégie de Contenu Funnel & Protocoles de Conversion Inbound
+### Guide Opérationnel, Personal Branding & Protocoles de Prospection B2B
 
-**Date de référence** : 29 octobre 2026  
+**Date de référence** : 28 octobre 2026 (Mise à jour stratégique : 30 octobre 2026)  
 **Fondateur** : Kreesten AGBOTON  
-**Studio** : AGENT404 (« Zero-Camera, Zero-Studio & Zero-Montage »)  
+**Studio** : AGENT404 - Production de vidéos courtes pour le personal branding des experts B2B sur LinkedIn  
 **URL Profil** : `www.linkedin.com/in/kreesten-agboton`  
 **Canal Maître** : LinkedIn (80 % du volume d'acquisition du studio)
 
 ---
 
-## 1. VISION & ARCHITECTURE DU SYSTÈME
+## 1. VISION & ARCHITECTURE DU SYSTÈME (VERROUILLÉE 30 JOURS)
 
-Ce document formalise l'intégralité du moteur d'acquisition B2B d'AGENT404. Il combine :
-1. L'optimisation complète de l'infrastructure de profil (score 90+/100).
-2. La matrice de contenu hebdomadaire en 5 publications (Framework 90 jours Top/Middle/Bottom of Funnel inspiré de Denis Panjuta).
-3. Le protocole de conversion inbound et de traitement des messages privés (« CLARTÉ »).
-4. La routine quotidienne d'engagement actif (20 minutes par jour).
+Ce document formalise le moteur d'acquisition B2B d'AGENT404 autour d'une règle stricte : **vendre la transformation de l'expertise écrite ou vocale des dirigeants B2B en vidéos animées régulières, sans tournage ni montage**.
+
+Il combine :
+1. L'alignement du profil LinkedIn du fondateur avec le positionnement retenu.
+2. Le ciblage séparé des deux catégories prioritaires (Fondateurs d'agences B2B et Consultants B2B indépendants) avec un filtre de qualification exigeant.
+3. La présentation des 3 styles de production (**Mascotte**, **Éditorial**, **Démonstration**).
+4. L'entonnoir commercial progressif : **Pilote (150 €)** $\rightarrow$ **Starter (450 €/mois, 4 vidéos)** $\rightarrow$ **Growth (750 €/mois, 8 vidéos)**.
 
 ```mermaid
 flowchart TD
-    subgraph Sourcing ["1. Acquisition & Trafic (Pilier 3)"]
-        A["10 Connexions ciblées / jour (ICP)"] --> Feed["Fil d'actualité ciblé"]
-        B["5 Commentaires d'autorité / jour"] --> Feed
+    subgraph Sourcing ["1. Qualification & Prospection Directe"]
+        A["Catégorie A : Fondateurs d'agences B2B"] --> Filtre["Filtre 5 critères (Offre réelle, contenu, actif LinkedIn)"]
+        B["Catégorie B : Consultants B2B indépendants"] --> Filtre
     end
 
-    subgraph Content ["2. Matrice de Contenu 5x/Semaine (Pilier 2)"]
-        C["Lundi / Mardi : TOFU (Stories, Opinions)"] --> Impressions["Portée & Notoriété"]
-        D["Mercredi / Jeudi : MOFU (Processus, Schémas)"] --> Authority["Crédibilité Technique"]
-        E["Vendredi : BOFU (Vidéo Démo, Cas Client)"] --> CTA["Commentaire 'CLARTÉ'"]
+    subgraph Styles ["2. Trois Styles de Production (1 seul service)"]
+        Filtre --> S1["Mascotte (Pédagogique & Accessible)"]
+        Filtre --> S2["Éditorial (Sobre & Autorité)"]
+        Filtre --> S3["Démonstration (Workflows & Études de cas)"]
     end
 
-    subgraph Conversion ["3. Machine de Conversion (Pilier 1 & Inbound)"]
-        CTA --> ReplyPub["Réponse publique sous 5 min (li-reply)"]
-        ReplyPub --> DMLivraison["Envoi DM + Carrousel PDF (li-dm)"]
-        DMLivraison --> Triage{"Triage de la réponse (li-inbox)"}
-        Triage -->|Lead qualifié| Test48h["Test Découverte 150 € (Livré en 48h)"]
-        Triage -->|Builder / Tech| RelationPeer["Réseau de pairs & Autorité"]
-        Triage -->|Silencieux| Relance["Suivi J+4 puis J+10"]
-        Test48h --> Upsell["Abonnement Studio (8 vidéos/mois pour 750 €)"]
+    subgraph Conversion ["3. Parcours d'Achat Progressif"]
+        S1 & S2 & S3 --> Pilote["Offre Pilote : 150 € (1 vidéo)"]
+        Pilote -->|Besoin hebdomadaire| Starter["Starter : 450 €/mois (4 vidéos)"]
+        Pilote -->|Besoin intensif| Growth["Growth : 750 €/mois (8 vidéos)"]
     end
 ```
 
 ---
 
-## 2. PILIER 1 : INFRASTRUCTURE DU PROFIL & DE LA PAGE ENTREPRISE
+## 2. PILIER 1 : INFRASTRUCTURE DU PROFIL LINKEDIN & POSITIONNEMENT
 
-### A. Profil Personnel (Kreesten AGBOTON)
+### A. Positionnement Officiel d'AGENT404
+> **AGENT404**  
+> **Production de vidéos courtes pour le personal branding des experts B2B sur LinkedIn.**  
+> Nous transformons les publications LinkedIn et les notes vocales des fondateurs d'agences B2B et consultants en vidéos animées professionnelles, sans tournage ni montage.  
+> **8 vidéos par mois. Votre expertise, notre production.**
+
+### B. Profil Personnel (Kreesten AGBOTON)
+
+Le profil doit faire comprendre en quelques secondes : qui nous aidons, quel problème nous résolvons, ce que nous produisons et à quoi ressemble le résultat.
 
 | Élément | Spécification déployée | Règle d'autorité |
 | :--- | :--- | :--- |
 | **Photo de profil** | Portrait studio détouré sur fond jaune `#F5D34F` ([`kreesten_cutout_tight.png`](../profil_linkedin/kreesten_cutout_tight.png)). | Contraste immédiat dans le fil d'actualité mobile. |
 | **Bannière (1584×396)** | Charte jaune studio `#F5D34F` et ardoise, photo bras croisés, badge DM direct ([`assets/linkedin_banner_1584x396.png`](../assets/linkedin_banner_1584x396.png)). | Promesse claire visible en 2 secondes. |
-| **Titre (Headline)** | `8 vidéos 60s par mois pour fondateurs d’agences et consultants B2B \| Moteur sans caméra : générées depuis vos posts écrits ou notes vocales \| Écrivez directement en DM pour voir le rendu` | Formulé en résultat client, zéro cliché « J'aide les X ». |
-| **Infos (About)** | Format direct "vous", safe-area mobile respectée, contraste tournage vs moteur vidéo, appel direct en DM et email (`agent404studio@gmail.com`). | Zéro tiret cadratin, zéro mot creux robotique. |
-| **Bouton Personnalisé Premium** | Nom : `Contactez-nous` / URL : `https://www.linkedin.com/in/kreesten-agboton` / Visibilité : `Activé`. | Redirige tout le trafic vers la messagerie privée. |
+| **Titre (Headline)** | `J'aide les fondateurs d'agences B2B et consultants à transformer leurs contenus LinkedIn en vidéos animées, sans tournage ni montage.` | Positionnement limpide et direct, centré sur le service livré. |
+| **Infos (About)** | Explique la transformation des publications LinkedIn et notes vocales en vidéos animées selon 3 styles (Mascotte, Éditorial, Démonstration), sans promettre de vues irréalistes. | Zéro tiret cadratin, zéro jargon technique inutile. |
+| **Bouton Personnalisé** | Nom : `Contactez-nous` / URL : `https://www.linkedin.com/in/kreesten-agboton` / Visibilité : `Activé`. | Redirige le trafic qualifié vers la messagerie privée. |
 
-### B. Section Sélection (Featured) : La Trinité Visuelle
-
-La section Sélection est harmonisée en 3 volets avec halo radial jaune `#F5D34F` :
+### C. Section Sélection (Featured) : Preuves Visuelles
 
 1. **Carte Gauche (Média)** : [`featured_card_1_fr.png`](../profil_linkedin/featured_card_1_fr.png) (1200×675 px)
-   - *Titre* : `Studio AGENT404 : 8 vidéos B2B par mois sans caméra ni tournage`
+   - *Titre* : `Studio AGENT404 : Vos publications LinkedIn et notes vocales en vidéos animées`
    - *Description* :
      ```text
-     Studio de production vidéo court-format pour agences et consultants B2B.
+     Production de vidéos courtes pour le personal branding des fondateurs d'agences B2B et consultants sur LinkedIn.
 
-     À partir de vos posts écrits ou d'un vocal de 2 minutes :
-     • 8 vidéos de 60 secondes livrées chaque mois (2 par semaine).
-     • Avatar cel-shaded incarné, voix studio et motion design au mot près.
-     • 1 idée diffusée sur LinkedIn, YouTube Shorts, Reels et TikTok.
+     À partir de vos publications écrites ou de vos notes vocales :
+     • Sélection des idées et structuration du script.
+     • 3 styles adaptés à votre identité : Mascotte, Éditorial ou Démonstration.
+     • Vidéos prêtes à publier sur LinkedIn, YouTube Shorts, Reels et TikTok.
 
-     Zéro caméra, zéro studio, zéro temps perdu au montage.
-
-     Écrivez-moi directement en message privé pour échanger.
+     Votre expertise, notre production. Sans tournage ni montage.
      ```
 
 2. **Carte Centrale (Post Carrousel)** : [`carrousel_mecanisme_agent404.pdf`](../profil_linkedin/carousel/carrousel_mecanisme_agent404.pdf) (1600×900 px, 5 slides)
-   - *Rôle* : Présentation didactique de l'Entrée Agnostique, du découpage 60s et des 4 canaux actifs.
+   - *Rôle* : Présentation claire du processus de transformation d'un post ou vocal en vidéo animée.
 
 3. **Carte Droite (Média)** : [`featured_card_2_fr.png`](../profil_linkedin/featured_card_2_fr.png) (1200×675 px)
-   - *Titre* : `Test Découverte 48h : Votre 1re vidéo 60s livrée depuis un post ou un vocal`
+   - *Titre* : `Vidéo Pilote : Testez la transformation d'un de vos contenus B2B`
    - *Description* :
      ```text
-     Validez la puissance du format sur votre marque sans engagement.
+     Testez notre production sur l'une de vos publications LinkedIn ou notes vocales avant tout abonnement.
 
      Le fonctionnement :
-     1. Envoyez-moi un post écrit récent ou une note vocale de 2 minutes.
-     2. Notre moteur extrait l'argument fort et calibre le script 60 secondes.
-     3. Recevez votre vidéo verticale de calibre broadcast livrée sous 48h.
+     1. Vous nous transmettez un post écrit, une étude de cas ou une note vocale.
+     2. Nous structurons le script et produisons une vidéo verticale de 45 à 60 secondes.
+     3. Vous validez le rendu et décidez ensuite du rythme (4 ou 8 vidéos par mois).
 
-     Avatar incarné, sous-titres dynamiques et sound design inclus.
-
-     Pour lancer votre test : envoyez un DM ou écrivez à agent404studio@gmail.com.
+     Pour lancer un pilote : écrivez-moi en message privé ou à agent404studio@gmail.com.
      ```
 
-### C. Page Entreprise (AGENT404)
+---
 
-- **Slogan officiel (< 120 caractères)** :
-  `De la complexité technique à la clarté vidéo en 60 secondes. Sans caméra ni montage.`
-- **Description officielle (Section Infos)** :
+## 3. PILIER 2 : LIGNE ÉDITORIALE DU FONDATEUR (DEMONSTRATION DU SAVOIR-FAIRE)
+
+Les publications de Kreesten AGBOTON ne doivent **jamais** transformer le profil en un compte qui republie les dernières nouveautés IA. Chaque post doit démontrer le savoir-faire du studio :
+
+| Jour | Format | Angle éditorial | Objectif |
+| :--- | :---: | :--- | :--- |
+| **Lundi** | Post texte / Avant-Après | **Transformation d'un post écrit en script vidéo** : montrer comment on extrait l'idée directrice d'un texte B2B dense. | Prouver la compétence éditoriale et narrative. |
+| **Mardi** | Extrait vidéo / Image | **Présentation des 3 styles (Mascotte, Éditorial, Démonstration)** : montrer comment on adapte le visuel au positionnement du client. | Rassurer les profils sobres comme les profils pédagogiques. |
+| **Mercredi** | Carrousel / Processus | **Les coulisses du studio** : comment une note vocale de 2 minutes devient une vidéo rythmée sans que le client n'allume une caméra. | Mettre en avant le gain de temps et la simplicité. |
+| **Jeudi** | Étude de cas / Analyse | **Réutilisation de l'expertise B2B** : pourquoi une bonne idée écrite mérite un second cycle de vie en vidéo sur 4 plateformes. | Éduquer sur la régularité et la présence multicanale. |
+| **Vendredi** | Vidéo MP4 native | **Démonstration complète (`video_01_decouverte` / `video_03` / réalisations)** : preuve directe de la qualité d'animation et du son. | Générer des conversations privées vers l'offre Pilote. |
+
+---
+
+## 4. PILIER 3 : PROSPECTION DIRECTE & QUALIFICATION EXIGEANTE
+
+### A. Les 2 Catégories Ciblées Séparément
+1. **Fondateurs de petites agences B2B** (automatisation, développement web, CRM, no-code, marketing spécialisé).
+2. **Consultants B2B indépendants** (qui vendent une expertise ou un accompagnement).
+
+### B. La Grille de Qualification Obligatoire (5 Critères)
+Avant d'ajouter un prospect ou de lui écrire, vérifier qu'il coche ces 5 points :
+1. Il vend réellement un service ou un accompagnement B2B.
+2. Il a une activité commerciale identifiable.
+3. Il dispose de suffisamment de contenu et d'expertise (posts écrits, études de cas, méthodes).
+4. Il utilise LinkedIn pour développer son activité (3 à 5 publications par semaine).
+5. Il n'a pas déjà une production vidéo régulière satisfaisante.
+
+### C. Approche de Contact Directe et Sobre
+- **Règle** : Ne pas fabriquer gratuitement une vidéo personnalisée pour chaque inconnu. Utiliser nos 2 vidéos de démonstration existantes ([`video1.mp4`](../studio_perso/video_01_decouverte/video1.mp4) et [`video3.mp4`](../studio_perso/video_03/video3.mp4)) comme preuves du savoir-faire.
+- **Trame de prise de contact** :
   ```text
-  AGENT404 transforme les posts écrits, notes vocales et schémas des entreprises tech et agences en vidéos verticales de 60 secondes, sans caméra ni tournage.
+  Bonjour [Prénom],
 
-  Chaque capsule réunit script haute rétention, avatar cel-shaded, motion design et mixage studio. Nous livrons 8 vidéos prêtes à poster par mois, optimisées pour LinkedIn, YouTube Shorts, Reels et TikTok, et intégrons nos pipelines de génération vidéo pour vos équipes.
+  J'ai lu votre publication sur [sujet précis ou étude de cas]. L'explication sur [point précis] est très claire.
+
+  Avec AGENT404, nous aidons les fondateurs d'agences B2B et les consultants à transformer leurs publications LinkedIn et notes vocales en courtes vidéos animées (style éditorial, démonstration ou mascotte), sans tournage ni montage.
+
+  Nous proposons une vidéo pilote à 150 € pour tester le format sur l'un de vos contenus existants, avant d'envisager un rythme régulier (4 ou 8 vidéos par mois).
+
+  Est-ce un format que vous avez déjà envisagé pour décliner vos publications écrites en vidéo ?
   ```
 
 ---
 
-## 3. PILIER 2 : LA MATRICE DE CONTENU HEBDOMADAIRE (5 POSTS / SEMAINE)
-
-Le rythme de publication repose sur l'alternance rigoureuse des 3 étapes du tunnel de vente :
-
-| Jour | Étape Funnel | Format | Objectif psychologique | Thématiques types AGENT404 |
-| :--- | :---: | :---: | :--- | :--- |
-| **Lundi** | **TOFU** | Post texte aéré | Identification & Vulnérabilité | Les dimanches perdus sur Premiere Pro ; bafouiller 20 prises face caméra ; le coût caché du tournage pour un dirigeant. |
-| **Mardi** | **TOFU** | Post texte ou image | Polarisation & Opinion tranchée | Pourquoi les faux clones IA (visages artificiels) détruisent la confiance des prospects ; le retour en force de l'incarnation néo-brutaliste. |
-| **Mercredi** | **MOFU** | Carrousel PDF ou Schéma | Démonstration du Processus | Anatomie d'une capsule de 60s ; comment une note vocale WhatsApp de 2 min est traduite en timeline programmatique synchronisée au millième. |
-| **Jeudi** | **MOFU** | Post éducatif / Guide | Valeur actionnable pour l'ICP | Comment recycler une étude de cas Webflow ou un flux Make/n8n en capsule vidéo courte pour doubler ses demandes entrantes. |
-| **Vendredi** | **BOFU** | Vidéo MP4 native | Démonstration réelle & Vente | Diffusion d'une vidéo produite par le moteur (ex: Vidéo Manifeste ou cas client) avec appel à commenter « CLARTÉ » pour tester en 48h. |
-| **Samedi / Dim** | **OFF** | Repos | Préservation de l'algorithme | Zéro publication. L'algorithme continue de faire tourner les publications de jeudi et vendredi. |
-
----
-
-## 4. PILIER 3 : LA ROUTINE QUOTIDIENNE DE 20 MINUTES
-
-Pour que l'algorithme LinkedIn pousse vos publications auprès des bonnes personnes, appliquez ce protocole quotidien (idéalement entre 8h00 et 8h30, ou entre 12h00 et 12h30) :
-
-1. **Ajouter 10 profils qualifiés par jour** :
-   - Cibler exclusivement : Fondateurs d'agences Webflow, agences SEO, studios d'automatisation (Make/n8n/IA), consultants tech/finance qui publient déjà chaque semaine à l'écrit.
-   - Envoyer la note d'invitation courte (< 200 caractères) sans pitch ni lien.
-2. **Commenter 5 publications d'autorité par jour (`li-comment`)** :
-   - Identifier 5 créateurs ou dirigeants influents que votre ICP suit déjà.
-   - Laisser un commentaire constructif de 3 à 4 phrases apportant un éclairage d'ingénierie ou de méthode. Votre titre de profil apparaîtra directement sous les yeux des prospects.
-3. **Le Protocole de la Golden Hour (Post-Publication)** :
-   - Dès la publication mise en ligne, poster et épingler immédiatement le premier commentaire contenant la double porte.
-   - Pendant les 45 premières minutes, répondre à 100 % des commentaires reçus avec des phrases de plus de 5 mots et une relance ouverte.
-
----
-
-## 5. PILIER 4 : LE PROTOCOLE DE CONVERSION INBOUND (« CLARTÉ »)
-
-### A. Réponse publique sous le commentaire (`li-reply`)
-Répondre publiquement à chaque personne qui commente « CLARTÉ » pour doubler le nombre de commentaires et valider la réactivité du studio :
-- `C'est envoyé dans tes messages privés [Prénom].`
-- `Bien reçu [Prénom], je viens de te glisser le document en DM.`
-- `Je t'ai partagé le schéma en message privé [Prénom].`
-
-### B. Message privé de livraison du Blueprint (`li-dm`)
-Joindre le fichier PDF [`carrousel_mecanisme_agent404.pdf`](../profil_linkedin/carousel/carrousel_mecanisme_agent404.pdf) et envoyer :
-
-```text
-Hello [Prénom],
-
-Voici le document complet sur le fonctionnement d'AGENT404, avec le schéma du pipeline sans caméra.
-
-Je l'ai conçu avec deux angles :
-1. Pour disséquer la mécanique technique et voir comment le code assemble l'audio, l'avatar et le rendu final.
-2. Pour voir concrètement comment transformer un post écrit ou un vocal en vidéo 60 secondes prête à diffuser.
-
-Qu'est-ce qui t'a le plus intrigué dans la vidéo ?
-```
-
-### C. Triage et qualification des réponses (`li-inbox`)
-
-* **Cas 1 : Le contact est un Lead qualifié**  
-  *Exemple : « Je manque de temps pour tourner », « Comment ça marche pour moi ? »*  
-  *Réponse* : Proposer le Test Découverte 48h sans engagement sur un de ses posts récents ou une note vocale de 2 min. (Tarif de 150 € communiqué uniquement s'il demande le prix, avec la clause de déduction intégrale du 1er mois d'abonnement).
-
-* **Cas 2 : Le contact est un Builder / Pair technique**  
-  *Exemple : « C'est quoi la stack ? », « C'est codé en Python ? »*  
-  *Réponse* : Échange d'autorité confraternel sur Whisper, le DOM sans framework lourd et FFmpeg image par image.
-
-* **Cas 3 : Absence de réponse**  
-  - *Relance à J+4* : Apporter une nouvelle valeur (ex: découpe d'une structure de rétention 60s).  
-  - *Clôture à J+10* : Message de fermeture de boucle propre, sans pression.
-
----
-
-## 6. RÈGLES DE GOUVERNANCE ÉDITORIALE (ANTI-SLOP STRICT)
+## 5. RÈGLES DE GOUVERNANCE ÉDITORIALE (ANTI-SLOP STRICT)
 
 1. **Zéro tiret cadratin** : Les tirets cadratins sont formellement proscrits dans tous les textes, légendes et messages privés.
-2. **Zéro prix public** : Aucun tarif (150 €, 750 €) ne doit figurer publiquement sur la bannière, le titre ou les posts. Les tarifs sont réservés aux échanges privés.
-3. **Zéro mot creux d'IA** : Bannir strictement *delve*, *leverage*, *tapestry*, *écosystème*, *passionné*, *révolutionnaire*, *synergie*.
-4. **Appel à l'action direct** : Privilégier les DM LinkedIn et l'email `agent404studio@gmail.com`. Aucun mot-clé d'automatisation artificielle de type « Commentez DÉMO ».
+2. **Zéro prix dans les vidéos publiques** : Aucun tarif (150 €, 200 €, 450 €, 750 €) ne doit figurer dans les vidéos publiques.
+3. **Zéro promesse commerciale non maîtrisée** : Ne jamais promettre un nombre de vues, de prospects ou de ventes. Promettre uniquement le gain de temps, la réutilisation de l'expertise, la régularité et la présence multicanale.
+4. **Zéro jargon IA creux** : Bannir *delve*, *leverage*, *tapestry*, *écosystème*, *passionné*, *révolutionnaire*, *synergie*.

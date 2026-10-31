@@ -2,8 +2,8 @@
 AGENT404 : Test de cohérence globale de la documentation et gouvernance.
 Vérifie :
   1. Validité absolue de tous les liens relatifs entre fichiers .md de la racine et docs/
-  2. Absence totale des motifs interdits : 250 € / 500 € / Pilote / Cyber-Mint / 00F5A0 / 0D1117 / video_02 / tirets cadratin (— / –)
-  3. Concordance des offres réelles (150 €, 750 €, 200 €) et des dates (28 octobre 2026).
+  2. Absence totale des motifs interdits : 250 € / 500 € / Cyber-Mint / 00F5A0 / 0D1117 / video_02 / tirets cadratin (— / –)
+  3. Concordance des offres réelles (Pilote 150 €, Starter 450 €, Growth 750 €, Ancre 200 €) et des dates.
 """
 
 import re
@@ -65,7 +65,6 @@ class TestDocsConsistency(unittest.TestCase):
         forbidden_patterns = [
             (r"(?<![0-9]\s)(?<![0-9])250\s*€", "tarif obsolète 250 €"),
             (r"(?<![0-9]\s)(?<![0-9])500\s*€", "tarif obsolète 500 €"),
-            (r"\bPilote\b", "nom d'ancienne offre 'Pilote'"),
             (r"Cyber-Mint", "palette abandonnée 'Cyber-Mint'"),
             (r"00F5A0", "code hexadécimal abandonné #00F5A0"),
             (r"0D1117", "code hexadécimal abandonné #0D1117"),
@@ -93,10 +92,11 @@ class TestDocsConsistency(unittest.TestCase):
         arch_text = (REPO_ROOT / "docs" / "ARCHITECTURE.md").read_text(encoding="utf-8")
         fin_text = (REPO_ROOT / "docs" / "FINANCIAL_PLAN.md").read_text(encoding="utf-8")
 
-        # Offres obligatoires
-        for doc_name, text in [("OFFRES.md", offres_text), ("README.md", readme_text)]:
-            self.assertIn("150 €", text, f"Test Découverte 150 € manquant dans {doc_name}")
-            self.assertIn("750 €", text, f"Abonnement Studio 750 € manquant dans {doc_name}")
+        # Offres obligatoires (Pilote 150 €, Starter 450 €, Growth 750 €, Ancre 200 €)
+        for doc_name, text in [("OFFRES.md", offres_text), ("README.md", readme_text), ("FINANCIAL_PLAN.md", fin_text)]:
+            self.assertIn("150 €", text, f"Offre Pilote 150 € manquante dans {doc_name}")
+            self.assertIn("450 €", text, f"Offre Starter 450 € manquante dans {doc_name}")
+            self.assertIn("750 €", text, f"Offre Growth 750 € manquante dans {doc_name}")
             self.assertIn("200 €", text, f"Ancre 200 € manquante dans {doc_name}")
 
         # Date 28 octobre 2026 sur les documents directeurs
